@@ -19,6 +19,16 @@ class TabsView extends GetView<TabsController> {
           style: TextStyle(fontSize: 20),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+          fixedColor: Colors.green,
+          currentIndex: 0,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "首页"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "首页"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "首页"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "首页"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "首页")
+          ]),
     );
   }
 }

@@ -4,11 +4,11 @@ part of 'app_pages.dart';
 abstract class Routes {
   Routes._();
   static const TABS = _Paths.TABS;
-  static const HOME = _Paths.HOME;
-  static const CATEGORY = _Paths.CATEGORY;
-  static const SERVICE = _Paths.SERVICE;
-  static const CART = _Paths.CART;
-  static const ME = _Paths.ME;
+  // static const HOME = _Paths.HOME;
+  // static const CATEGORY = _Paths.CATEGORY;
+  // static const SERVICE = _Paths.SERVICE;
+  // static const CART = _Paths.CART;
+  // static const ME = _Paths.ME;
   static const SEARCH = _Paths.SEARCH;
   static const SETTING = _Paths.SETTING;
   static const PROFILE = _Paths.PROFILE;
@@ -18,11 +18,11 @@ abstract class Routes {
 abstract class _Paths {
   _Paths._();
   static const TABS = '/tabs';
-  static const HOME = '/home';
-  static const CATEGORY = '/category';
-  static const SERVICE = '/service';
-  static const CART = '/cart';
-  static const ME = '/me';
+  // static const HOME = '/home';
+  // static const CATEGORY = '/category';
+  // static const SERVICE = '/service';
+  // static const CART = '/cart';
+  // static const ME = '/me';
   static const SEARCH = '/search';
   static const SETTING = '/setting';
   static const PROFILE = '/profile';
