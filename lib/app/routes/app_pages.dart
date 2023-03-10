@@ -1,3 +1,4 @@
+import 'package:doxiaomimall/app/modules/home/views/home_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/cart/bindings/cart_binding.dart';
@@ -30,6 +31,11 @@ class AppPages {
     GetPage(
       name: _Paths.TABS,
       page: () => const TabsView(),
+      binding: TabsBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOME,
+      page: () => const HomeView(),
       binding: TabsBinding(),
     ),
     GetPage(
