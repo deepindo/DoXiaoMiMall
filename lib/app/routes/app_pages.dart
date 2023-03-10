@@ -1,20 +1,12 @@
-import 'package:doxiaomimall/app/modules/home/views/home_view.dart';
 import 'package:get/get.dart';
-
-import '../modules/login/bindings/login_binding.dart';
-import '../modules/login/views/login_view.dart';
 import '../modules/tabs/bindings/tabs_binding.dart';
 import '../modules/tabs/views/tabs_view.dart';
-import '../modules/category/views/category_view.dart';
-import '../modules/service/views/service_view.dart';
-import '../modules/cart/views/cart_view.dart';
-import '../modules/me/views/me_view.dart';
-
+import '../modules/login/bindings/login_binding.dart';
+import '../modules/login/views/login_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/search/bindings/search_binding.dart';
 import '../modules/search/views/search_view.dart';
-
 import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 

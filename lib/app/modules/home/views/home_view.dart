@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
+import '../../../services/keepAliveWrapper.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -9,16 +8,89 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('HomeView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'HomeView is working',
-          style: TextStyle(fontSize: 20),
+        appBar: AppBar(
+          title: const Text('HomeView'),
+          centerTitle: true,
         ),
-      ),
-    );
+        body: KeepAliveWrapper(
+            child: ListView(
+          children: const [
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("111111"),
+            ),
+            ListTile(
+              title: Text("144441"),
+            ),
+          ],
+        )));
   }
 }
