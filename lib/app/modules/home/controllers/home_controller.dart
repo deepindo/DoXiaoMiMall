@@ -1,12 +1,17 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../models/banner_model.dart';
+import '../../../models/category_model.dart';
 
 class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
   RxBool flag = false.obs;
   RxDouble ratio = 0.0.obs;
-  RxList bannerList = [].obs;
+  RxList<BannerItemModel> bannerList = <BannerItemModel>[].obs;
+  RxList<CategoryItemModel> categoryList = <CategoryItemModel>[].obs;
 
   @override
   void onInit() {
@@ -14,6 +19,7 @@ class HomeController extends GetxController {
 
     _addScrollListener();
     _requestBannerData();
+    _requestCategoryData();
   }
 
   @override
@@ -60,8 +66,17 @@ class HomeController extends GetxController {
 
   void _requestBannerData() async {
     var response = await Dio().get("https://xiaomi.itying.com/api/focus/");
-    print(response);
-    bannerList.value = response.data["result"];
+    // print(response);
+    // bannerList.value = response.data["result"];
+    bannerList.value = BannerModel.fromJson(response.data).result!;
+    update();
+  }
+
+  void _requestCategoryData() async {
+    var response = await Dio().get("https://xiaomi.itying.com/api/bestCate/");
+    // print(response);
+    // bannerList.value = response.data["result"];
+    categoryList.value = CategoryModel.fromJson(response.data).result!;
     update();
   }
 }
