@@ -2,6 +2,7 @@ import 'package:doxiaomimall/app/services/app_screenAdapter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../../../services/app_fontIcons.dart';
 import '../../../services/app_keepAliveWrapper.dart';
 import '../controllers/home_controller.dart';
@@ -120,6 +121,9 @@ class HomeView extends GetView<HomeController> {
           _bannerSwiperArea(),
           _bannerImageArea(),
           _menuSwiperArea(),
+          _sigleBannerArea(),
+          _bestGoodsArea(),
+          _goodsListView(),
         ]));
   }
 
@@ -164,10 +168,10 @@ class HomeView extends GetView<HomeController> {
 
   //菜单滚动区
   Widget _menuSwiperArea() {
-    return Container(
+    return SizedBox(
       // color: Colors.orange,
       width: DoScreenAdapter.w(375),
-      height: DoScreenAdapter.h(170),
+      height: DoScreenAdapter.h(160),
       child: Obx(
         () => Swiper(
           pagination: SwiperPagination(
@@ -176,7 +180,7 @@ class HomeView extends GetView<HomeController> {
                   builder: (BuildContext context, SwiperPluginConfig config) {
                 return ConstrainedBox(
                   constraints: BoxConstraints.expand(
-                      height: DoScreenAdapter.h(10)), //隔底部的间距
+                      height: DoScreenAdapter.h(15)), //隔底部的间距
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -184,7 +188,7 @@ class HomeView extends GetView<HomeController> {
                           alignment: Alignment.center,
                           child: const RectSwiperPaginationBuilder(
                             color: Colors.black12,
-                            activeColor: Colors.green,
+                            activeColor: Colors.black54,
                           ).build(context, config),
                         ),
                       )
@@ -200,10 +204,11 @@ class HomeView extends GetView<HomeController> {
               itemCount: 10, //代表一屏最多显示几个
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 5,
-                  crossAxisSpacing: DoScreenAdapter.w(18), //水平间距
+                  crossAxisSpacing: DoScreenAdapter.w(25), //水平间距
                   mainAxisSpacing: DoScreenAdapter.h(5), //垂直间距
                   childAspectRatio:
-                      0.6 //！！！！这个非常重要，默认是1，也就是item整体是宽高比1：1，感觉优先级比较高，下面单独设置的图片container的宽高都不生效
+                      0.6 //！！！！这个非常重要，默认是1，也就是item整体是宽高比1：1，感觉优先级比较高，
+                  //下面单独设置的图片container的宽高都不生效, 这个值调高一些，就会出现bottom overflowed by 26 PIXELS的报错
                   ),
               itemBuilder: (context, i) {
                 String picURL =
@@ -237,6 +242,292 @@ class HomeView extends GetView<HomeController> {
           },
         ),
       ),
+    );
+  }
+
+  //单一banner区域
+  Widget _sigleBannerArea() {
+    return Padding(
+      padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+      child: Container(
+        height: DoScreenAdapter.h(120),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(DoScreenAdapter.w(10)),
+            image: const DecorationImage(
+              image: AssetImage("assets/images/xiaomiBanner.png"),
+              fit: BoxFit.cover,
+            )),
+      ),
+    );
+  }
+
+  //热销臻选区域
+  Widget _bestGoodsArea() {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const [
+              Text(
+                "热销臻选",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "更多手机推荐 ＞",
+                style: TextStyle(
+                    fontSize: 14,
+                    // fontWeight: FontWeight.bold,
+                    color: Colors.black38),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          color: Colors.white,
+          height: DoScreenAdapter.h(200),
+          padding: EdgeInsets.fromLTRB(DoScreenAdapter.w(10), 0,
+              DoScreenAdapter.w(10), DoScreenAdapter.w(10)),
+          child: Row(
+            children: [
+              //左侧
+              Expanded(
+                flex: 1,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(DoScreenAdapter.w(30)),
+                    color: const Color.fromRGBO(248, 248, 248, 1),
+                  ),
+                  child: Obx(
+                    () => Swiper(
+                      autoplay: true,
+                      loop: true,
+                      itemCount: controller.bestBannerList.length,
+                      pagination: SwiperPagination(
+                          margin: const EdgeInsets.all(0.0),
+                          builder: SwiperCustomPagination(builder:
+                              (BuildContext context,
+                                  SwiperPluginConfig config) {
+                            return ConstrainedBox(
+                              constraints: BoxConstraints.expand(
+                                  height: DoScreenAdapter.h(15)), //隔底部的间距
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: const RectSwiperPaginationBuilder(
+                                        color: Colors.black12,
+                                        activeColor: Colors.green,
+                                      ).build(context, config),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          })),
+                      itemBuilder: (context, index) {
+                        String picURL =
+                            "https://xiaomi.itying.com/${controller.bestBannerList[index].pic}";
+                        return Image.network(
+                          picURL.replaceAll("\\", "/"),
+                          fit: BoxFit.fill,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: DoScreenAdapter.w(10),
+              ),
+              //右侧
+              Expanded(
+                flex: 1,
+                child: Obx(
+                  () => Column(
+                    children:
+                        controller.hotGoodsList.asMap().entries.map((entries) {
+                      var element = entries.value;
+                      String picURL =
+                          "https://xiaomi.itying.com/${element.pic}";
+                      return Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(0, 0, 0,
+                                entries.key == 2 ? 0 : DoScreenAdapter.h(5)),
+                            padding: EdgeInsets.fromLTRB(
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(0),
+                                DoScreenAdapter.w(0),
+                                DoScreenAdapter.h(0)),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(DoScreenAdapter.w(5)),
+                              color: const Color.fromRGBO(248, 248, 248, 1),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${element.title}",
+                                        style: const TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: DoScreenAdapter.h(5),
+                                      ),
+                                      Text("${element.subTitle}",
+                                          style: const TextStyle(
+                                            fontSize: 10,
+                                          )),
+                                      SizedBox(
+                                        height: DoScreenAdapter.h(5),
+                                      ),
+                                      Text("¥${element.price}",
+                                          style: const TextStyle(
+                                              fontSize: 10,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.bold)),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Image.network(
+                                    picURL.replaceAll("\\", "/"),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ));
+                    }).toList(),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  //瀑布流列表
+  Widget _goodsListView() {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const [
+              Text(
+                "省心优惠",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "全部优惠 ＞",
+                style: TextStyle(
+                    fontSize: 14,
+                    // fontWeight: FontWeight.bold,
+                    color: Colors.black38),
+              ),
+            ],
+          ),
+        ),
+        Obx(() => Container(
+              color: const Color.fromRGBO(242, 242, 242, 1),
+              child: MasonryGridView.count(
+                padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                crossAxisCount: 2,
+                mainAxisSpacing: DoScreenAdapter.w(10), //垂直间距
+                crossAxisSpacing: DoScreenAdapter.h(10), //水平间距
+                itemCount: controller.goodsList.length,
+                shrinkWrap: true, //收缩，让子元素自适应宽度
+                physics:
+                    const NeverScrollableScrollPhysics(), //禁止自身滚动，让外面的listView滚动
+                itemBuilder: (context, index) {
+                  String picURL =
+                      "https://xiaomi.itying.com/${controller.goodsList[index].sPic}";
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(DoScreenAdapter.w(5)),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          // decoration: BoxDecoration(
+                          // borderRadius: BorderRadius.,
+                          // image: DecorationImage(
+                          //     image: NetworkImage(
+                          //         picURL.replaceAll("\\", "/")))),
+                          padding: EdgeInsets.all(DoScreenAdapter.w(5)),
+                          child: Image.network(
+                            picURL.replaceAll("\\", "/"),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(
+                              DoScreenAdapter.w(10),
+                              DoScreenAdapter.h(0),
+                              DoScreenAdapter.w(10),
+                              DoScreenAdapter.h(5)),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "${controller.goodsList[index].title}",
+                            style: TextStyle(
+                                fontSize: DoScreenAdapter.fs(14),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: DoScreenAdapter.w(10)),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "${controller.goodsList[index].subTitle}",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.black26,
+                              fontSize: DoScreenAdapter.fs(12),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(
+                              DoScreenAdapter.w(10),
+                              DoScreenAdapter.h(15),
+                              DoScreenAdapter.w(10),
+                              DoScreenAdapter.h(10)),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "¥${controller.goodsList[index].price}",
+                            style: TextStyle(
+                                fontSize: DoScreenAdapter.fs(14),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            )),
+      ],
     );
   }
 }

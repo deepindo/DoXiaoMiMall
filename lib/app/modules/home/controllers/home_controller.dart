@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../models/banner_model.dart';
 import '../../../models/category_model.dart';
+import '../../../models/goods_model.dart';
 
 class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
@@ -12,6 +11,9 @@ class HomeController extends GetxController {
   RxDouble ratio = 0.0.obs;
   RxList<BannerItemModel> bannerList = <BannerItemModel>[].obs;
   RxList<CategoryItemModel> categoryList = <CategoryItemModel>[].obs;
+  RxList<BannerItemModel> bestBannerList = <BannerItemModel>[].obs;
+  RxList<GoodsItemModel> hotGoodsList = <GoodsItemModel>[].obs;
+  RxList<GoodsItemModel> goodsList = <GoodsItemModel>[].obs;
 
   @override
   void onInit() {
@@ -20,6 +22,9 @@ class HomeController extends GetxController {
     _addScrollListener();
     _requestBannerData();
     _requestCategoryData();
+    _requestBestBannerData();
+    _requestHotGoodsData();
+    _requestGoodsData();
   }
 
   @override
@@ -44,22 +49,14 @@ class HomeController extends GetxController {
       //应该是渐变的，不是直接一下变的
       if (scrollController.position.pixels > criticalValue &&
           flag.value == false) {
-        // print("pixels > 10----${flag.value}");
-        // if (flag.value == false) {
         flag.value = true;
-        // print("pixels-true");
-        // update();
-        // }
       }
 
       if (scrollController.position.pixels < criticalValue &&
           flag.value == true) {
-        // print("pixels < 10----${flag.value}");
-        // if (flag.value == true) {
         flag.value = false;
-        // print("pixels-------false");
-        // }
       }
+
       update();
     });
   }
@@ -75,8 +72,31 @@ class HomeController extends GetxController {
   void _requestCategoryData() async {
     var response = await Dio().get("https://xiaomi.itying.com/api/bestCate/");
     // print(response);
-    // bannerList.value = response.data["result"];
     categoryList.value = CategoryModel.fromJson(response.data).result!;
+    update();
+  }
+
+  void _requestBestBannerData() async {
+    var response =
+        await Dio().get("https://xiaomi.itying.com/api/focus?position=2");
+    // print(response);
+    // bannerList.value = response.data["result"];
+    bestBannerList.value = BannerModel.fromJson(response.data).result!;
+    update();
+  }
+
+  void _requestHotGoodsData() async {
+    var response = await Dio()
+        .get("https://xiaomi.itying.com/api/plist?is_hot=1&pageSize=3");
+    print(response);
+    hotGoodsList.value = GoodsModel.fromJson(response.data).result!;
+    update();
+  }
+
+  void _requestGoodsData() async {
+    var response = await Dio().get("https://xiaomi.itying.com/api/plist/");
+    // print(response);
+    goodsList.value = GoodsModel.fromJson(response.data).result!;
     update();
   }
 }
