@@ -459,7 +459,7 @@ class HomeView extends GetView<HomeController> {
                     const NeverScrollableScrollPhysics(), //禁止自身滚动，让外面的listView滚动
                 itemBuilder: (context, index) {
                   String picURL =
-                      "https://xiaomi.itying.com/${controller.goodsList[index].sPic}";
+                      "https://xiaomi.itying.com/${controller.goodsList[index].pic}";
                   return Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(DoScreenAdapter.w(5)),
