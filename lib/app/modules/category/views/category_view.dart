@@ -11,16 +11,7 @@ class CategoryView extends GetView<CategoryController> {
     return Scaffold(
       appBar: _customAppBar(),
       body: Row(
-        children: [
-          Container(
-            color: Colors.cyan,
-            width: DoScreenAdapter.w(100),
-          ),
-          Expanded(
-              child: Container(
-            color: Colors.orange,
-          ))
-        ],
+        children: [_leftListView(), _rightGridView()],
       ),
     );
   }
@@ -74,5 +65,70 @@ class CategoryView extends GetView<CategoryController> {
         ),
       ),
     );
+  }
+
+  Widget _leftListView() {
+    return Container(
+      // color: Colors.cyan,
+      width: DoScreenAdapter.w(90),
+      child: ListView.builder(
+        itemCount: 20,
+        itemBuilder: (context, index) {
+          return Obx(
+            () => InkWell(
+              onTap: () {
+                // controller.currentIndex.value = index;
+                controller.changeIndex(index);
+              },
+              child: SizedBox(
+                height: DoScreenAdapter.h(50),
+                child: Stack(
+                  alignment: Alignment.centerLeft,
+                  children: [
+                    Container(
+                      width: DoScreenAdapter.w(5),
+                      height: DoScreenAdapter.h(10),
+                      color: controller.selectIndex.value == index
+                          ? Colors.orange
+                          : Colors.white,
+                    ),
+                    Center(child: Text("${index}")),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _rightGridView() {
+    return Expanded(
+        child: Container(
+      // color: Colors.orange,
+      child: GridView.builder(
+        itemCount: 40,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            mainAxisSpacing: DoScreenAdapter.w(10),
+            crossAxisSpacing: DoScreenAdapter.w(0),
+            childAspectRatio: 0.6),
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                child: Image.network(
+                  "https://www.itying.com/images/b_focus01.png",
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Text("data"),
+            ],
+          );
+        },
+      ),
+    ));
   }
 }
