@@ -13,7 +13,7 @@ void main() {
   runApp(
     ScreenUtilInit(
         //填入设计稿中设备的屏幕尺寸,单位dp
-        designSize: const Size(1080, 2400),
+        designSize: const Size(375, 667),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
