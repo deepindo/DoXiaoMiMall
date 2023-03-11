@@ -20,6 +20,8 @@ class TabsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    // pageController.jumpTo(1);
+    // setCurrentIndex(1);
   }
 
   @override

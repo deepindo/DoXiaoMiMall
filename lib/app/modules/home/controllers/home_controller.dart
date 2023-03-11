@@ -88,7 +88,7 @@ class HomeController extends GetxController {
   void _requestHotGoodsData() async {
     var response = await Dio()
         .get("https://xiaomi.itying.com/api/plist?is_hot=1&pageSize=3");
-    print(response);
+    // print(response);
     hotGoodsList.value = GoodsModel.fromJson(response.data).result!;
     update();
   }
