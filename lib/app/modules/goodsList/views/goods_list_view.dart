@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../controllers/goods_list_controller.dart';
 import '../../../services/app_screenAdapter.dart';
-import '../../../services/app_fontIcons.dart';
 import '../../../services/app_network.dart';
 
 class GoodsListView extends GetView<GoodsListController> {
@@ -12,7 +11,9 @@ class GoodsListView extends GetView<GoodsListController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: controller.scaffoldGlobalKey,
       appBar: _customAppBar(),
+      endDrawer: const Drawer(),
       body: Stack(
         children: [_listView(), _listHeader()],
         // children: [const Center(child: Text("没有更多数据了")), _listHeader()],
@@ -27,6 +28,7 @@ class GoodsListView extends GetView<GoodsListController> {
       centerTitle: true,
       backgroundColor: Colors.white,
       elevation: 0,
+      actions: const [Text("")], //写这个单纯是为了让endDrawer消失，但实际功能还存在，通过globalKey来调用
       title: InkWell(
         onTap: () {
           Get.offAndToNamed("/search");
@@ -66,6 +68,7 @@ class GoodsListView extends GetView<GoodsListController> {
     );
   }
 
+  /// 加载动画控件--临时用
   Widget _loadMoreDataIndicator() {
     return controller.isHaveData.value
         ? const Center(
@@ -81,92 +84,133 @@ class GoodsListView extends GetView<GoodsListController> {
       top: 0,
       // right: 0,
       width: DoScreenAdapter.sw(),
-      child: Container(
-        height: DoScreenAdapter.h(40),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border(
-                bottom: BorderSide(
-                    width: DoScreenAdapter.h(0.5), color: Colors.black12))),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly, //
-          crossAxisAlignment: CrossAxisAlignment.center, //垂直方向
-          children: [
-            Expanded(
-                flex: 1,
-                child: InkWell(
-                  onTap: () {
-                    // print("object");
-                  },
-                  child: const Text(
-                    "综合",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, color: Colors.orange),
-                  ),
-                )),
-            Expanded(
-                flex: 1,
-                child: InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    "销量",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                )),
-            Expanded(
-                flex: 1,
-                child: InkWell(
-                  onTap: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        "价格",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 14,
+      child: Obx(
+        () => Container(
+          height: DoScreenAdapter.h(40),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                  bottom: BorderSide(
+                      width: DoScreenAdapter.h(0.5), color: Colors.black12))),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly, //
+            // crossAxisAlignment: CrossAxisAlignment.center, //垂直方向
+            children: controller.headerMapList.map((element) {
+              return Expanded(
+                  flex: 1,
+                  child: InkWell(
+                    onTap: () {
+                      controller.changeHeaderId(element["id"]);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "${element["title"]}",
+                          // textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: controller.selectHeaderId.value ==
+                                      element["id"]
+                                  ? Colors.orange
+                                  : Colors.black54),
                         ),
-                      ),
-                      Icon(Icons.arrow_drop_down_outlined),
-                    ],
-                  ),
-                )),
-            Expanded(
-                flex: 1,
-                child: InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    "新品优先",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
+                        _showIcon(element["id"]),
+                      ],
                     ),
-                  ),
-                )),
-            // Container(
-            //   width: DoScreenAdapter.w(1),
-            //   height: DoScreenAdapter.h(10),
-            //   color: Colors.black12,
-            // ),
-            Expanded(
-                flex: 1,
-                child: InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    "筛选",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                )),
-          ],
+                  ));
+            }).toList(),
+            // [
+            //   Expanded(
+            //       flex: 1,
+            //       child: InkWell(
+            //         onTap: () {
+            //           // print("object");
+            //         },
+            //         child: const Text(
+            //           "综合",
+            //           textAlign: TextAlign.center,
+            //           style: TextStyle(fontSize: 14, color: Colors.orange),
+            //         ),
+            //       )),
+            //   Expanded(
+            //       flex: 1,
+            //       child: InkWell(
+            //         onTap: () {},
+            //         child: const Text(
+            //           "销量",
+            //           textAlign: TextAlign.center,
+            //           style: TextStyle(
+            //             fontSize: 14,
+            //           ),
+            //         ),
+            //       )),
+            //   Expanded(
+            //       flex: 1,
+            //       child: InkWell(
+            //         onTap: () {},
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           children: const [
+            //             Text(
+            //               "价格",
+            //               textAlign: TextAlign.center,
+            //               style: TextStyle(
+            //                 fontSize: 14,
+            //               ),
+            //             ),
+            //             Icon(Icons.arrow_drop_down_outlined),
+            //           ],
+            //         ),
+            //       )),
+            //   Expanded(
+            //       flex: 1,
+            //       child: InkWell(
+            //         onTap: () {},
+            //         child: const Text(
+            //           "新品优先",
+            //           textAlign: TextAlign.center,
+            //           style: TextStyle(
+            //             fontSize: 14,
+            //           ),
+            //         ),
+            //       )),
+            //   Expanded(
+            //       flex: 1,
+            //       child: InkWell(
+            //         onTap: () {
+            //           ///打开scaffold上面的endDrawer
+            //           controller.scaffoldGlobalKey.currentState!.openEndDrawer();
+            //         },
+            //         child: const Text(
+            //           "筛选",
+            //           textAlign: TextAlign.center,
+            //           style: TextStyle(
+            //             fontSize: 14,
+            //           ),
+            //         ),
+            //       )),
+            // ],
+          ),
         ),
       ),
     );
+  }
+
+  Widget _showIcon(int id) {
+    if (id == 1 ||
+        id == 2 ||
+        controller.currentHeaderSort.value == 1 ||
+        controller.currentHeaderSort.value == -1) {
+      return controller.headerMapList[id]["sort"] == -1
+          ? const Icon(Icons.arrow_drop_up)
+          : const Icon(Icons.arrow_drop_down);
+    } else {
+      return const SizedBox(
+        width: 0,
+      );
+    }
   }
 
   /// 列表页

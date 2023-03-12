@@ -4,22 +4,36 @@ import '../../../models/goods_model.dart';
 import '../../../services/app_network.dart';
 
 class GoodsListController extends GetxController {
-  RxInt selectButtonIndex = 0.obs;
-  // RxInt page = 1.obs;
+  ScrollController scrollController = ScrollController();
+
+  ///分页相关
   int page = 1;
   int pageSize = 10;
-
   bool flag = true;
   RxBool isHaveData = true.obs;
 
   ///接收参数
   String? cid = Get.arguments["cid"];
   String? searchWords = Get.arguments["searchWords"];
+
+  ///根据不同参数拼接的不同的路径
   String fullPath = "";
 
+  ///商品列表
   RxList<GoodsItemModel> goodsList = <GoodsItemModel>[].obs;
 
-  ScrollController scrollController = ScrollController();
+  ///二级菜单相关
+  GlobalKey<ScaffoldState> scaffoldGlobalKey = GlobalKey<ScaffoldState>();
+  List headerMapList = [
+    {"id": 0, "title": "综合", "fields": "all", "sort": -1},
+    {"id": 1, "title": "销量", "fields": "salecount", "sort": -1},
+    {"id": 2, "title": "价格", "fields": "price", "sort": -1},
+    {"id": 3, "title": "新品优先"},
+    {"id": 4, "title": "筛选"},
+  ];
+  RxInt selectHeaderId = 0.obs;
+  RxInt currentHeaderSort = 0.obs;
+  String sortFields = "";
 
   @override
   void onInit() {
@@ -39,10 +53,32 @@ class GoodsListController extends GetxController {
     super.onClose();
   }
 
-  // void _changeSelectButtonIndex(int index) {
-  //   selectButtonIndex.value = index;
-  //   update();
-  // }
+  void changeHeaderId(int id) {
+    selectHeaderId.value = id;
+    if (id == 4) {
+      scaffoldGlobalKey.currentState!.openEndDrawer();
+    } else if (id == 3) {
+      ///暂不处理，没有接口
+    } else {
+      ///根据点击的拼接排序字段
+      sortFields =
+          "${headerMapList[id]["fields"]}_${headerMapList[id]["sort"]}";
+
+      ///通过乘以-1，来切换排序字段也是可以的
+      headerMapList[id]["sort"] = headerMapList[id]["sort"] * -1;
+      currentHeaderSort.value = headerMapList[id]["sort"];
+
+      ///各变量重置
+      page = 1;
+      isHaveData.value = true;
+      goodsList.value = [];
+      scrollController.jumpTo(0);
+
+      /// 重新请求
+      _requestGoodsListData();
+    }
+    update();
+  }
 
   void _addScrollControllerListener() {
     scrollController.addListener(() {
@@ -64,12 +100,13 @@ class GoodsListController extends GetxController {
       ///cid与search字段没有做兼容，不能完整拼在一起，得分开传
       /// String fullPath = "api/plist?pageSize=${pageSize}&page=${page}&cid=${cid}&search=${searchWords}";
       if (cid != null) {
-        fullPath = "api/plist?pageSize=${pageSize}&page=${page}&cid=${cid}";
+        fullPath =
+            "api/plist?pageSize=${pageSize}&page=${page}&cid=${cid}&sort=${sortFields}";
       }
 
       if (searchWords != null) {
         fullPath =
-            "api/plist?pageSize=${pageSize}&page=${page}&search=${searchWords}";
+            "api/plist?pageSize=${pageSize}&page=${page}&search=${searchWords}&sort=${sortFields}";
       }
 
       print("fullPath---${fullPath}");
