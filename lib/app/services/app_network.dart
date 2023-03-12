@@ -8,6 +8,7 @@ const String goodsPath = "api/plist/";
 const String hotGoodsPath = "api/plist?is_hot=1&pageSize=3";
 const String mainCategoryPath = "api/pcate/";
 const String secondCategoryPath = "api/pcate?pid=";
+const String goodsListPath = "api/plist?page=";
 
 class DoNetwork {
   //根据网络环境来判断基URL是啥

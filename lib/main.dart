@@ -21,6 +21,9 @@ void main() {
             title: "Application",
             initialRoute: AppPages.INITIAL,
             getPages: AppPages.routes,
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(primarySwatch: Colors.cyan),
+            defaultTransition: Transition.rightToLeft,
           );
         }),
   );

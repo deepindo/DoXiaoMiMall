@@ -128,18 +128,25 @@ class CategoryView extends GetView<CategoryController> {
             crossAxisSpacing: DoScreenAdapter.w(0),
             childAspectRatio: 0.6),
         itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(DoScreenAdapter.w(10)),
-                child: Image.network(
-                  DoNetwork.replacePictureURL(
-                      controller.rightCategoryList[index].pic!),
-                  fit: BoxFit.cover,
+          return InkWell(
+            onTap: () {
+              Get.toNamed("/goods-list", arguments: {
+                "cid": controller.rightCategoryList[index].sId,
+              });
+            },
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                  child: Image.network(
+                    DoNetwork.replacePictureURL(
+                        controller.rightCategoryList[index].pic!),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              Text("${controller.rightCategoryList[index].title}"),
-            ],
+                Text("${controller.rightCategoryList[index].title}"),
+              ],
+            ),
           );
         },
       ),
