@@ -6,7 +6,13 @@ class GoodsListController extends GetxController {
   RxInt selectButtonIndex = 0.obs;
   RxInt page = 1.obs;
   int pageSize = 10;
+
+  ///接收参数
+  String? cid = Get.arguments["cid"];
+  String? keywords = Get.arguments["keywords"];
+
   RxList<GoodsItemModel> goodsList = <GoodsItemModel>[].obs;
+
   @override
   void onInit() {
     super.onInit();

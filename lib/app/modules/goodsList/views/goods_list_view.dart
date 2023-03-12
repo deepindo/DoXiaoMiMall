@@ -24,19 +24,11 @@ class GoodsListView extends GetView<GoodsListController> {
   AppBar _customAppBar() {
     return AppBar(
       centerTitle: true,
-      backgroundColor: Colors.white, //Colors.transparent=白色透明度为0
+      backgroundColor: Colors.white,
       elevation: 0,
-      actions: [
-        IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              DoFontIcons.message,
-              color: Colors.black87,
-            )),
-      ],
       title: InkWell(
         onTap: () {
-          Get.toNamed("/search");
+          Get.offAndToNamed("/search");
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -48,26 +40,21 @@ class GoodsListView extends GetView<GoodsListController> {
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  const Icon(
-                    Icons.search,
-                    color: Colors.black26,
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: DoScreenAdapter.w(5),
-                  ),
-                  Text(
-                    "搜索",
-                    style: TextStyle(
-                      fontSize: DoScreenAdapter.fs(14),
-                      color: Colors.black45,
-                    ),
-                  ),
-                ],
+              const Icon(
+                Icons.search,
+                color: Colors.black26,
+                size: 20,
+              ),
+              SizedBox(
+                width: DoScreenAdapter.w(5),
+              ),
+              Text(
+                controller.keywords != null ? "${controller.keywords}" : "",
+                style: TextStyle(
+                  fontSize: DoScreenAdapter.fs(14),
+                  color: Colors.black45,
+                ),
               ),
             ],
           ),

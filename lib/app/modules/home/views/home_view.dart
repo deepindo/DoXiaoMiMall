@@ -67,7 +67,6 @@ class HomeView extends GetView<HomeController> {
                 Get.toNamed("/search");
               },
               child: AnimatedContainer(
-                // curve: Curves.easeIn,
                 duration: const Duration(milliseconds: 500),
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 width: DoScreenAdapter.w(200 + controller.ratio.value * 50),
@@ -99,17 +98,16 @@ class HomeView extends GetView<HomeController> {
                         ),
                       ],
                     ),
-                    const Icon(
-                      DoFontIcons.scan,
-                      color: Colors.black26,
-                      size: 20,
+                    InkWell(
+                      onTap: () {
+                        print("scan");
+                      },
+                      child: const Icon(
+                        DoFontIcons.scan,
+                        color: Colors.black26,
+                        size: 20,
+                      ),
                     ),
-                    // IconButton(
-                    //     onPressed: () {},
-                    //     icon: Icon(
-                    //       DoFontIcons.scan,
-                    //       color: Colors.black26,
-                    //     )),
                   ],
                 ),
               ),

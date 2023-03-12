@@ -45,26 +45,21 @@ class CategoryView extends GetView<CategoryController> {
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  const Icon(
-                    Icons.search,
-                    color: Colors.black26,
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: DoScreenAdapter.w(5),
-                  ),
-                  Text(
-                    "搜索",
-                    style: TextStyle(
-                      fontSize: DoScreenAdapter.fs(14),
-                      color: Colors.black45,
-                    ),
-                  ),
-                ],
+              const Icon(
+                Icons.search,
+                color: Colors.black26,
+                size: 20,
+              ),
+              SizedBox(
+                width: DoScreenAdapter.w(5),
+              ),
+              Text(
+                "搜索",
+                style: TextStyle(
+                  fontSize: DoScreenAdapter.fs(14),
+                  color: Colors.black45,
+                ),
               ),
             ],
           ),

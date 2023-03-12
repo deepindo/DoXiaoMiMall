@@ -35,19 +35,26 @@ class SearchView extends GetView<SearchController> {
               contentPadding: const EdgeInsets.all(0),
               prefixIcon: const Icon(
                 Icons.search,
-                // color: Colors.black54,
+                color: Colors.black26,
+                size: 20,
               ),
-              // prefixText: "xxxx",
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide.none),
             ),
+            onChanged: (value) {
+              controller.keywords = value;
+            },
+            //监听键盘上的回车事件
+            onSubmitted: (value) {
+              Get.offAndToNamed("/goods-list", arguments: {"keywords": value});
+            },
           )),
       actions: [
         TextButton(
             onPressed: () {
-              Get.offAndToNamed("/goods-list");
-              // Get.offAllNamed("/goods-list");
+              Get.offAndToNamed("/goods-list",
+                  arguments: {"keywords": controller.keywords});
             },
             child: const Text(
               "搜索",
