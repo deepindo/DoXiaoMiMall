@@ -1,6 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:dio/dio.dart';
 import '../../../models/banner_model.dart';
 import '../../../models/category_model.dart';
 import '../../../models/goods_model.dart';

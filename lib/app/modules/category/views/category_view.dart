@@ -67,64 +67,78 @@ class CategoryView extends GetView<CategoryController> {
     );
   }
 
+  //左侧分类列表
   Widget _leftListView() {
-    return Container(
-      // color: Colors.cyan,
+    return SizedBox(
       width: DoScreenAdapter.w(90),
-      child: ListView.builder(
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return Obx(
-            () => InkWell(
-              onTap: () {
-                // controller.currentIndex.value = index;
-                controller.changeIndex(index);
-              },
-              child: SizedBox(
-                height: DoScreenAdapter.h(50),
-                child: Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    Container(
-                      width: DoScreenAdapter.w(5),
-                      height: DoScreenAdapter.h(10),
-                      color: controller.selectIndex.value == index
-                          ? Colors.orange
-                          : Colors.white,
-                    ),
-                    Center(child: Text("${index}")),
-                  ],
+      child: Obx(
+        () => ListView.builder(
+          itemCount: controller.leftCategoryList.length,
+          itemBuilder: (context, index) {
+            return Obx(
+              () => InkWell(
+                onTap: () {
+                  controller.changeIndex(
+                      index, controller.leftCategoryList[index].sId);
+                },
+                child: Container(
+                  color: controller.selectIndex.value == index
+                      ? const Color.fromRGBO(248, 248, 248, 1)
+                      : Colors.white,
+                  height: DoScreenAdapter.h(50),
+                  child: Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      Container(
+                        width: DoScreenAdapter.w(4),
+                        height: DoScreenAdapter.h(18),
+                        color: controller.selectIndex.value == index
+                            ? Colors.orange
+                            : Colors.white,
+                      ),
+                      Center(
+                          child: Text(
+                        "${controller.leftCategoryList[index].title}",
+                        style: TextStyle(
+                            fontWeight: controller.selectIndex.value == index
+                                ? FontWeight.bold
+                                : FontWeight.normal),
+                      )),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
 
+  //右侧分类列表
   Widget _rightGridView() {
     return Expanded(
-        child: Container(
-      // color: Colors.orange,
-      child: GridView.builder(
-        itemCount: 40,
+        child: Obx(
+      () => GridView.builder(
+        itemCount: controller.rightCategoryList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
             mainAxisSpacing: DoScreenAdapter.w(10),
             crossAxisSpacing: DoScreenAdapter.w(0),
             childAspectRatio: 0.6),
         itemBuilder: (context, index) {
+          String picURL =
+              "https://xiaomi.itying.com/${controller.rightCategoryList[index].pic}";
           return Column(
             children: [
               Container(
                 padding: EdgeInsets.all(DoScreenAdapter.w(10)),
                 child: Image.network(
-                  "https://www.itying.com/images/b_focus01.png",
+                  picURL.replaceAll("\\", "/"),
                   fit: BoxFit.cover,
                 ),
               ),
-              Text("data"),
+              Text("${controller.rightCategoryList[index].title}"),
             ],
           );
         },
