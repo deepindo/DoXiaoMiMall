@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/goodsContent/bindings/goods_content_binding.dart';
+import '../modules/goodsContent/views/goods_content_view.dart';
 import '../modules/goodsList/bindings/goods_list_binding.dart';
 import '../modules/goodsList/views/goods_list_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -55,6 +57,8 @@ class AppPages {
       name: _Paths.SEARCH,
       page: () => const SearchView(),
       binding: SearchBinding(),
+      transition: Transition.fadeIn, //进入搜索页面的动画特殊定义
+      transitionDuration: const Duration(milliseconds: 100),
     ),
     GetPage(
       name: _Paths.SETTING,
@@ -75,6 +79,11 @@ class AppPages {
       name: _Paths.GOODS_LIST,
       page: () => const GoodsListView(),
       binding: GoodsListBinding(),
+    ),
+    GetPage(
+      name: _Paths.GOODS_CONTENT,
+      page: () => const GoodsContentView(),
+      binding: GoodsContentBinding(),
     ),
   ];
 }

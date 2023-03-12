@@ -31,38 +31,43 @@ class CategoryView extends GetView<CategoryController> {
               color: Colors.black87,
             )),
       ],
-      title: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        width: DoScreenAdapter.w(300),
-        height: DoScreenAdapter.h(26),
-        decoration: BoxDecoration(
-          color: const Color.fromRGBO(246, 246, 246, 1),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                const Icon(
-                  Icons.search,
-                  color: Colors.black26,
-                  size: 20,
-                ),
-                SizedBox(
-                  width: DoScreenAdapter.w(5),
-                ),
-                Text(
-                  "搜索",
-                  style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(14),
-                    color: Colors.black45,
+      title: InkWell(
+        onTap: () {
+          Get.toNamed("/search");
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          width: DoScreenAdapter.w(300),
+          height: DoScreenAdapter.h(26),
+          decoration: BoxDecoration(
+            color: const Color.fromRGBO(246, 246, 246, 1),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Icon(
+                    Icons.search,
+                    color: Colors.black26,
+                    size: 20,
                   ),
-                ),
-              ],
-            ),
-          ],
+                  SizedBox(
+                    width: DoScreenAdapter.w(5),
+                  ),
+                  Text(
+                    "搜索",
+                    style: TextStyle(
+                      fontSize: DoScreenAdapter.fs(14),
+                      color: Colors.black45,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

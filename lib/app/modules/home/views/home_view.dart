@@ -62,51 +62,56 @@ class HomeView extends GetView<HomeController> {
                         controller.flag.value ? Colors.black87 : Colors.white,
                   )),
             ],
-            title: AnimatedContainer(
-              // curve: Curves.easeIn,
-              duration: const Duration(milliseconds: 500),
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              width: DoScreenAdapter.w(200 + controller.ratio.value * 50),
-              height: DoScreenAdapter.h(26),
-              decoration: BoxDecoration(
-                color: const Color.fromRGBO(246, 246, 246, 1),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.search,
-                        color: Colors.black26,
-                        size: 20,
-                      ),
-                      SizedBox(
-                        width: DoScreenAdapter.w(5),
-                      ),
-                      Text(
-                        "搜索",
-                        style: TextStyle(
-                          fontSize: DoScreenAdapter.fs(14),
-                          color: Colors.black45,
+            title: InkWell(
+              onTap: () {
+                Get.toNamed("/search");
+              },
+              child: AnimatedContainer(
+                // curve: Curves.easeIn,
+                duration: const Duration(milliseconds: 500),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                width: DoScreenAdapter.w(200 + controller.ratio.value * 50),
+                height: DoScreenAdapter.h(26),
+                decoration: BoxDecoration(
+                  color: const Color.fromRGBO(246, 246, 246, 1),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.search,
+                          color: Colors.black26,
+                          size: 20,
                         ),
-                      ),
-                    ],
-                  ),
-                  const Icon(
-                    DoFontIcons.scan,
-                    color: Colors.black26,
-                    size: 20,
-                  ),
-                  // IconButton(
-                  //     onPressed: () {},
-                  //     icon: Icon(
-                  //       DoFontIcons.scan,
-                  //       color: Colors.black26,
-                  //     )),
-                ],
+                        SizedBox(
+                          width: DoScreenAdapter.w(5),
+                        ),
+                        Text(
+                          "搜索",
+                          style: TextStyle(
+                            fontSize: DoScreenAdapter.fs(14),
+                            color: Colors.black45,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Icon(
+                      DoFontIcons.scan,
+                      color: Colors.black26,
+                      size: 20,
+                    ),
+                    // IconButton(
+                    //     onPressed: () {},
+                    //     icon: Icon(
+                    //       DoFontIcons.scan,
+                    //       color: Colors.black26,
+                    //     )),
+                  ],
+                ),
               ),
             ),
           ),
@@ -479,81 +484,87 @@ class HomeView extends GetView<HomeController> {
                 physics:
                     const NeverScrollableScrollPhysics(), //禁止自身滚动，让外面的listView滚动
                 itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(DoScreenAdapter.w(5)),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          //这个是为了测试设置图片上左，上右的圆角而设置的，暂时不能完美实现，如下注释
-                          // height: DoScreenAdapter.h(40),
-                          padding: EdgeInsets.all(DoScreenAdapter.w(5)),
-                          // decoration: BoxDecoration(
-                          //如果要如下设置上左，上右的圆角，必须要有container的height，
-                          //但是这样，就不能让图片自适应了，或者计算，或者网络直接返回图片的高
-                          // borderRadius: BorderRadius.only(
-                          //     topLeft:
-                          //         Radius.circular(DoScreenAdapter.w(5)),
-                          //     topRight:
-                          //         Radius.circular(DoScreenAdapter.w(5))),
-                          // image: DecorationImage(
-                          //     image: NetworkImage(
-                          //         DoNetwork.replacePictureURL(
-                          //             controller.goodsList[index].pic!)),
-                          //     fit: BoxFit.cover),
-                          // ),
-                          ///若有特殊圆角需求，可以用上面的DecorationImage，但是各条件要满足，否则直接用child自适应
-                          child: Image.network(
-                            DoNetwork.replacePictureURL(
-                                controller.goodsList[index].pic!),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(
-                              DoScreenAdapter.w(10),
-                              DoScreenAdapter.h(0),
-                              DoScreenAdapter.w(10),
-                              DoScreenAdapter.h(5)),
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "${controller.goodsList[index].title}",
-                            style: TextStyle(
-                                fontSize: DoScreenAdapter.fs(14),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: DoScreenAdapter.w(10)),
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "${controller.goodsList[index].subTitle}",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Colors.black26,
-                              fontSize: DoScreenAdapter.fs(12),
+                  return InkWell(
+                    onTap: () {
+                      Get.toNamed("/goods-content");
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(DoScreenAdapter.w(5)),
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            //这个是为了测试设置图片上左，上右的圆角而设置的，暂时不能完美实现，如下注释
+                            // height: DoScreenAdapter.h(40),
+                            padding: EdgeInsets.all(DoScreenAdapter.w(5)),
+                            // decoration: BoxDecoration(
+                            //如果要如下设置上左，上右的圆角，必须要有container的height，
+                            //但是这样，就不能让图片自适应了，或者计算，或者网络直接返回图片的高
+                            // borderRadius: BorderRadius.only(
+                            //     topLeft:
+                            //         Radius.circular(DoScreenAdapter.w(5)),
+                            //     topRight:
+                            //         Radius.circular(DoScreenAdapter.w(5))),
+                            // image: DecorationImage(
+                            //     image: NetworkImage(
+                            //         DoNetwork.replacePictureURL(
+                            //             controller.goodsList[index].pic!)),
+                            //     fit: BoxFit.cover),
+                            // ),
+                            ///若有特殊圆角需求，可以用上面的DecorationImage，但是各条件要满足，否则直接用child自适应
+                            child: Image.network(
+                              DoNetwork.replacePictureURL(
+                                  controller.goodsList[index].pic!),
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(
-                              DoScreenAdapter.w(10),
-                              DoScreenAdapter.h(15),
-                              DoScreenAdapter.w(10),
-                              DoScreenAdapter.h(10)),
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "¥${controller.goodsList[index].price}",
-                            style: TextStyle(
-                                fontSize: DoScreenAdapter.fs(14),
-                                fontWeight: FontWeight.bold),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(0),
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(5)),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "${controller.goodsList[index].title}",
+                              style: TextStyle(
+                                  fontSize: DoScreenAdapter.fs(14),
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        ),
-                      ],
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: DoScreenAdapter.w(10)),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "${controller.goodsList[index].subTitle}",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black26,
+                                fontSize: DoScreenAdapter.fs(12),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(15),
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(10)),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "¥${controller.goodsList[index].price}",
+                              style: TextStyle(
+                                  fontSize: DoScreenAdapter.fs(14),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
