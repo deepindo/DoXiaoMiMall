@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:dio/dio.dart';
 import '../../../models/category_model.dart';
+import '../../../services/app_network.dart';
 
 class CategoryController extends GetxController {
   RxInt selectIndex = 0.obs;
@@ -30,19 +30,17 @@ class CategoryController extends GetxController {
   }
 
   void _requestLeftCategoryData() async {
-    var response = await Dio().get("https://xiaomi.itying.com/api/pcate/");
-    // print(response);
-    leftCategoryList.value = CategoryModel.fromJson(response.data).result!;
-    // _requestRightCategoryData(categoryList[selectIndex.value].sId!);
+    // print("_requestLeftCategoryData");
+    var data = await DoNetwork().get(mainCategoryPath);
+    leftCategoryList.value = CategoryModel.fromJson(data).result!;
     _requestRightCategoryData(leftCategoryList[0].sId!); //这是首次初始化，也可以直接指定为0
     update();
   }
 
   void _requestRightCategoryData(String id) async {
-    var response =
-        await Dio().get("https://xiaomi.itying.com/api/pcate?pid=$id");
-    // print(response);
-    rightCategoryList.value = CategoryModel.fromJson(response.data).result!;
+    // print("_requestRightCategoryData");
+    var data = await DoNetwork().get(secondCategoryPath + id);
+    rightCategoryList.value = CategoryModel.fromJson(data).result!;
     update();
   }
 }

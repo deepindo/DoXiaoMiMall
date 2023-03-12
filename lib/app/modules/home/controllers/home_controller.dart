@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dio/dio.dart';
 import '../../../models/banner_model.dart';
 import '../../../models/category_model.dart';
 import '../../../models/goods_model.dart';
+import '../../../services/app_network.dart';
 
 class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
@@ -37,6 +37,7 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
+  ///滚动监听
   void _addScrollListener() {
     scrollController.addListener(() {
       // print(scrollController.position.pixels);
@@ -61,42 +62,43 @@ class HomeController extends GetxController {
     });
   }
 
+  ///请求顶部banner数据
   void _requestBannerData() async {
-    var response = await Dio().get("https://xiaomi.itying.com/api/focus/");
-    // print(response);
-    // bannerList.value = response.data["result"];
-    bannerList.value = BannerModel.fromJson(response.data).result!;
+    // print("_requestBannerData");
+    var data = await DoNetwork().get(bannerPath);
+    bannerList.value = BannerModel.fromJson(data).result!;
     update();
   }
 
+  ///请求热销分类数据
   void _requestCategoryData() async {
-    var response = await Dio().get("https://xiaomi.itying.com/api/bestCate/");
-    // print(response);
-    categoryList.value = CategoryModel.fromJson(response.data).result!;
+    // print("_requestCategoryData");
+    var data = await DoNetwork().get(bestCategoryPath);
+    categoryList.value = CategoryModel.fromJson(data).result!;
     update();
   }
 
+  ///请求热销banner数据
   void _requestBestBannerData() async {
-    var response =
-        await Dio().get("https://xiaomi.itying.com/api/focus?position=2");
-    // print(response);
-    // bannerList.value = response.data["result"];
-    bestBannerList.value = BannerModel.fromJson(response.data).result!;
+    // print("_requestBestBannerData");
+    var data = await DoNetwork().get(bestBannerPath);
+    bestBannerList.value = BannerModel.fromJson(data).result!;
     update();
   }
 
+  ///请求热销商品数据
   void _requestHotGoodsData() async {
-    var response = await Dio()
-        .get("https://xiaomi.itying.com/api/plist?is_hot=1&pageSize=3");
-    // print(response);
-    hotGoodsList.value = GoodsModel.fromJson(response.data).result!;
+    // print("_requestHotGoodsData");
+    var data = await DoNetwork().get(hotGoodsPath);
+    hotGoodsList.value = GoodsModel.fromJson(data).result!;
     update();
   }
 
+  ///请求瀑布流商品数据
   void _requestGoodsData() async {
-    var response = await Dio().get("https://xiaomi.itying.com/api/plist/");
-    // print(response);
-    goodsList.value = GoodsModel.fromJson(response.data).result!;
+    // print("_requestGoodsData");
+    var data = await DoNetwork().get(goodsPath);
+    goodsList.value = GoodsModel.fromJson(data).result!;
     update();
   }
 }

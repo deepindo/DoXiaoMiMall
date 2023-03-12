@@ -5,6 +5,7 @@ import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../../../services/app_fontIcons.dart';
 import '../../../services/app_keepAliveWrapper.dart';
+import '../../../services/app_network.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -23,7 +24,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  //自定义的appBar
+  ///自定义的appBar
   Widget _customAppBar() {
     return Positioned(
         left: 0,
@@ -110,7 +111,7 @@ class HomeView extends GetView<HomeController> {
         ));
   }
 
-  //listView的内容区域
+  ///listView的内容区域
   Widget _contentListView() {
     return Positioned(
         top: -DoScreenAdapter.h(44),
@@ -127,7 +128,7 @@ class HomeView extends GetView<HomeController> {
         ]));
   }
 
-  //顶部banner
+  ///顶部banner
   Widget _bannerSwiperArea() {
     return SizedBox(
       width: DoScreenAdapter.w(375),
@@ -137,15 +138,10 @@ class HomeView extends GetView<HomeController> {
           autoplay: true,
           loop: true,
           itemCount: controller.bannerList.length,
-          // duration: 3000,
           pagination: const SwiperPagination(builder: SwiperPagination.rect),
-          // pagination: const RectSwiperPaginationBuilder(),
           itemBuilder: (context, index) {
-            String picURL =
-                "https://xiaomi.itying.com/${controller.bannerList[index].pic}";
             return Image.network(
-              picURL.replaceAll("\\", "/"),
-              // "https://www.itying.com/images/focus/focus02.png",
+              DoNetwork.replacePictureURL(controller.bannerList[index].pic!),
               fit: BoxFit.fill,
             );
           },
@@ -154,7 +150,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  //固定banner图片
+  ///固定banner图片
   Widget _bannerImageArea() {
     return SizedBox(
       width: DoScreenAdapter.sw(),
@@ -166,7 +162,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  //菜单滚动区
+  ///菜单滚动区
   Widget _menuSwiperArea() {
     return SizedBox(
       // color: Colors.orange,
@@ -180,7 +176,7 @@ class HomeView extends GetView<HomeController> {
                   builder: (BuildContext context, SwiperPluginConfig config) {
                 return ConstrainedBox(
                   constraints: BoxConstraints.expand(
-                      height: DoScreenAdapter.h(15)), //隔底部的间距
+                      height: DoScreenAdapter.h(15)), //底部的间距
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -211,8 +207,6 @@ class HomeView extends GetView<HomeController> {
                   //下面单独设置的图片container的宽高都不生效, 这个值调高一些，就会出现bottom overflowed by 26 PIXELS的报错
                   ),
               itemBuilder: (context, i) {
-                String picURL =
-                    "https://xiaomi.itying.com/${controller.categoryList[i + 10 * index].pic}";
                 return Column(
                   children: [
                     Container(
@@ -224,7 +218,8 @@ class HomeView extends GetView<HomeController> {
                       // height: DoScreenAdapter.h(60),
                       child: Image.network(
                         // color: Colors.green,
-                        picURL.replaceAll("\\", "/"),
+                        DoNetwork.replacePictureURL(
+                            controller.categoryList[i + 10 * index].pic!),
                         fit: BoxFit.fitHeight,
                       ),
                     ),
@@ -245,7 +240,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  //单一banner区域
+  ///单一banner区域
   Widget _sigleBannerArea() {
     return Padding(
       padding: EdgeInsets.all(DoScreenAdapter.w(10)),
@@ -261,7 +256,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  //热销臻选区域
+  ///热销臻选区域
   Widget _bestGoodsArea() {
     return Column(
       children: [
@@ -329,10 +324,9 @@ class HomeView extends GetView<HomeController> {
                             );
                           })),
                       itemBuilder: (context, index) {
-                        String picURL =
-                            "https://xiaomi.itying.com/${controller.bestBannerList[index].pic}";
                         return Image.network(
-                          picURL.replaceAll("\\", "/"),
+                          DoNetwork.replacePictureURL(
+                              controller.bestBannerList[index].pic!),
                           fit: BoxFit.fill,
                         );
                       },
@@ -351,8 +345,6 @@ class HomeView extends GetView<HomeController> {
                     children:
                         controller.hotGoodsList.asMap().entries.map((entries) {
                       var element = entries.value;
-                      String picURL =
-                          "https://xiaomi.itying.com/${element.pic}";
                       return Expanded(
                           flex: 1,
                           child: Container(
@@ -404,7 +396,7 @@ class HomeView extends GetView<HomeController> {
                                 Expanded(
                                   flex: 2,
                                   child: Image.network(
-                                    picURL.replaceAll("\\", "/"),
+                                    DoNetwork.replacePictureURL(element.pic!),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -422,7 +414,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  //瀑布流列表
+  ///瀑布流列表
   Widget _goodsListView() {
     return Column(
       children: [
@@ -458,8 +450,6 @@ class HomeView extends GetView<HomeController> {
                 physics:
                     const NeverScrollableScrollPhysics(), //禁止自身滚动，让外面的listView滚动
                 itemBuilder: (context, index) {
-                  String picURL =
-                      "https://xiaomi.itying.com/${controller.goodsList[index].pic}";
                   return Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(DoScreenAdapter.w(5)),
@@ -468,14 +458,27 @@ class HomeView extends GetView<HomeController> {
                     child: Column(
                       children: [
                         Container(
+                          //这个是为了测试设置图片上左，上右的圆角而设置的，暂时不能完美实现，如下注释
+                          // height: DoScreenAdapter.h(40),
+                          padding: EdgeInsets.all(DoScreenAdapter.w(5)),
                           // decoration: BoxDecoration(
-                          // borderRadius: BorderRadius.,
+                          //如果要如下设置上左，上右的圆角，必须要有container的height，
+                          //但是这样，就不能让图片自适应了，或者计算，或者网络直接返回图片的高
+                          // borderRadius: BorderRadius.only(
+                          //     topLeft:
+                          //         Radius.circular(DoScreenAdapter.w(5)),
+                          //     topRight:
+                          //         Radius.circular(DoScreenAdapter.w(5))),
                           // image: DecorationImage(
                           //     image: NetworkImage(
-                          //         picURL.replaceAll("\\", "/")))),
-                          padding: EdgeInsets.all(DoScreenAdapter.w(5)),
+                          //         DoNetwork.replacePictureURL(
+                          //             controller.goodsList[index].pic!)),
+                          //     fit: BoxFit.cover),
+                          // ),
+                          ///若有特殊圆角需求，可以用上面的DecorationImage，但是各条件要满足，否则直接用child自适应
                           child: Image.network(
-                            picURL.replaceAll("\\", "/"),
+                            DoNetwork.replacePictureURL(
+                                controller.goodsList[index].pic!),
                             fit: BoxFit.cover,
                           ),
                         ),

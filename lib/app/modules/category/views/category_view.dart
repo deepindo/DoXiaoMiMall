@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/category_controller.dart';
-import 'package:doxiaomimall/app/services/app_screenAdapter.dart';
+import '../../../services/app_screenAdapter.dart';
 import '../../../services/app_fontIcons.dart';
+import '../../../services/app_network.dart';
 
 class CategoryView extends GetView<CategoryController> {
   const CategoryView({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class CategoryView extends GetView<CategoryController> {
     );
   }
 
-  //自定义的appBar
+  ///自定义的appBar
   AppBar _customAppBar() {
     return AppBar(
       centerTitle: true,
@@ -67,7 +68,7 @@ class CategoryView extends GetView<CategoryController> {
     );
   }
 
-  //左侧分类列表
+  ///左侧分类列表
   Widget _leftListView() {
     return SizedBox(
       width: DoScreenAdapter.w(90),
@@ -115,7 +116,7 @@ class CategoryView extends GetView<CategoryController> {
     );
   }
 
-  //右侧分类列表
+  ///右侧分类列表
   Widget _rightGridView() {
     return Expanded(
         child: Obx(
@@ -127,14 +128,13 @@ class CategoryView extends GetView<CategoryController> {
             crossAxisSpacing: DoScreenAdapter.w(0),
             childAspectRatio: 0.6),
         itemBuilder: (context, index) {
-          String picURL =
-              "https://xiaomi.itying.com/${controller.rightCategoryList[index].pic}";
           return Column(
             children: [
               Container(
                 padding: EdgeInsets.all(DoScreenAdapter.w(10)),
                 child: Image.network(
-                  picURL.replaceAll("\\", "/"),
+                  DoNetwork.replacePictureURL(
+                      controller.rightCategoryList[index].pic!),
                   fit: BoxFit.cover,
                 ),
               ),
