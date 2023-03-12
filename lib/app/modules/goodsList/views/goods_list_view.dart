@@ -76,7 +76,6 @@ class GoodsListView extends GetView<GoodsListController> {
       top: 0,
       right: 0,
       child: Container(
-        // width: DoScreenAdapter.sw(),//可以不设置
         height: DoScreenAdapter.h(40),
         decoration: BoxDecoration(
             color: Colors.white,
@@ -84,69 +83,85 @@ class GoodsListView extends GetView<GoodsListController> {
                 bottom: BorderSide(
                     width: DoScreenAdapter.h(0.5), color: Colors.black12))),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center, //不起作用
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly, //
+          crossAxisAlignment: CrossAxisAlignment.center, //垂直方向
           children: [
-            const Expanded(
-                flex: 1,
-                child: Text(
-                  "综合",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.orange),
-                )),
-            const Expanded(
-                flex: 1,
-                child: Text(
-                  "销量",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.orange),
-                )),
-            Expanded(
-                flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      "价格",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.orange),
-                    ),
-                    Icon(Icons.arrow_drop_down_outlined),
-                  ],
-                )),
-            const Expanded(
-                flex: 1,
-                child: Text(
-                  "新品优先",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.orange),
-                )),
+            InkWell(
+              onTap: () {},
+              child: const Expanded(
+                  flex: 1,
+                  child: Text(
+                    "综合",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.orange),
+                  )),
+            ),
+            InkWell(
+              onTap: () {},
+              child: const Expanded(
+                  flex: 1,
+                  child: Text(
+                    "销量",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.orange),
+                  )),
+            ),
+            InkWell(
+              onTap: () {},
+              child: Expanded(
+                  flex: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        "价格",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.orange),
+                      ),
+                      Icon(Icons.arrow_drop_down_outlined),
+                    ],
+                  )),
+            ),
+            InkWell(
+              onTap: () {},
+              child: const Expanded(
+                  flex: 1,
+                  child: Text(
+                    "新品优先",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.orange),
+                  )),
+            ),
             Container(
               width: DoScreenAdapter.w(1),
               height: DoScreenAdapter.h(10),
               color: Colors.black12,
             ),
-            const Expanded(
-                flex: 1,
-                child: Text(
-                  "筛选",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.orange),
-                )),
+            InkWell(
+              onTap: () {},
+              child: const Expanded(
+                  flex: 1,
+                  child: Text(
+                    "筛选",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.orange),
+                  )),
+            ),
           ],
         ),
       ),

@@ -15,12 +15,14 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return KeepAliveWrapper(
       child: Scaffold(
+          // backgroundColor: const Color.fromRGBO(248, 248, 248, 1),
+          backgroundColor: Colors.white,
           body: Stack(
-        children: [
-          _contentListView(),
-          _customAppBar(),
-        ],
-      )),
+            children: [
+              _contentListView(),
+              _customAppBar(),
+            ],
+          )),
     );
   }
 
@@ -130,7 +132,8 @@ class HomeView extends GetView<HomeController> {
 
   ///顶部banner
   Widget _bannerSwiperArea() {
-    return SizedBox(
+    return Container(
+      color: Colors.white,
       width: DoScreenAdapter.w(375),
       height: DoScreenAdapter.h(200),
       child: Obx(
@@ -138,7 +141,29 @@ class HomeView extends GetView<HomeController> {
           autoplay: true,
           loop: true,
           itemCount: controller.bannerList.length,
-          pagination: const SwiperPagination(builder: SwiperPagination.rect),
+          // pagination: const SwiperPagination(builder: SwiperPagination.rect),
+          pagination: SwiperPagination(
+              margin: const EdgeInsets.all(0.0),
+              builder: SwiperCustomPagination(
+                  builder: (BuildContext context, SwiperPluginConfig config) {
+                return ConstrainedBox(
+                  constraints: BoxConstraints.expand(
+                      height: DoScreenAdapter.h(15)), //隔底部的间距
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: const RectSwiperPaginationBuilder(
+                            color: Colors.black12,
+                            activeColor: Colors.white,
+                          ).build(context, config),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              })),
           itemBuilder: (context, index) {
             return Image.network(
               DoNetwork.replacePictureURL(controller.bannerList[index].pic!),
@@ -164,8 +189,8 @@ class HomeView extends GetView<HomeController> {
 
   ///菜单滚动区
   Widget _menuSwiperArea() {
-    return SizedBox(
-      // color: Colors.orange,
+    return Container(
+      color: Colors.white,
       width: DoScreenAdapter.w(375),
       height: DoScreenAdapter.h(160),
       child: Obx(
@@ -242,11 +267,13 @@ class HomeView extends GetView<HomeController> {
 
   ///单一banner区域
   Widget _sigleBannerArea() {
-    return Padding(
+    return Container(
+      color: Colors.white,
       padding: EdgeInsets.all(DoScreenAdapter.w(10)),
       child: Container(
         height: DoScreenAdapter.h(120),
         decoration: BoxDecoration(
+            // color: Colors.orange,
             borderRadius: BorderRadius.circular(DoScreenAdapter.w(10)),
             image: const DecorationImage(
               image: AssetImage("assets/images/xiaomiBanner.png"),
@@ -261,6 +288,7 @@ class HomeView extends GetView<HomeController> {
     return Column(
       children: [
         Container(
+          color: Colors.white,
           padding: EdgeInsets.all(DoScreenAdapter.w(10)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -315,7 +343,7 @@ class HomeView extends GetView<HomeController> {
                                       alignment: Alignment.center,
                                       child: const RectSwiperPaginationBuilder(
                                         color: Colors.black12,
-                                        activeColor: Colors.green,
+                                        activeColor: Colors.white,
                                       ).build(context, config),
                                     ),
                                   )
@@ -419,6 +447,7 @@ class HomeView extends GetView<HomeController> {
     return Column(
       children: [
         Container(
+          color: Colors.white,
           padding: EdgeInsets.all(DoScreenAdapter.w(10)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -439,7 +468,7 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
         Obx(() => Container(
-              color: const Color.fromRGBO(242, 242, 242, 1),
+              color: const Color.fromRGBO(248, 248, 248, 1),
               child: MasonryGridView.count(
                 padding: EdgeInsets.all(DoScreenAdapter.w(10)),
                 crossAxisCount: 2,

@@ -3,6 +3,7 @@ import '../../../models/goods_model.dart';
 import '../../../services/app_network.dart';
 
 class GoodsListController extends GetxController {
+  RxInt selectButtonIndex = 0.obs;
   RxInt page = 1.obs;
   int pageSize = 10;
   RxList<GoodsItemModel> goodsList = <GoodsItemModel>[].obs;
@@ -21,6 +22,11 @@ class GoodsListController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void _changeSelectButtonIndex(int index) {
+    selectButtonIndex.value = index;
+    update();
   }
 
   ///请求商品列表数据

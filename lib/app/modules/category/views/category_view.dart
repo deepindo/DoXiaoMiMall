@@ -73,44 +73,52 @@ class CategoryView extends GetView<CategoryController> {
     return SizedBox(
       width: DoScreenAdapter.w(90),
       child: Obx(
-        () => ListView.builder(
-          itemCount: controller.leftCategoryList.length,
-          itemBuilder: (context, index) {
-            return Obx(
-              () => InkWell(
-                onTap: () {
-                  controller.changeIndex(
-                      index, controller.leftCategoryList[index].sId);
-                },
-                child: Container(
-                  color: controller.selectIndex.value == index
-                      ? const Color.fromRGBO(248, 248, 248, 1)
-                      : Colors.white,
-                  height: DoScreenAdapter.h(50),
-                  child: Stack(
-                    alignment: Alignment.centerLeft,
-                    children: [
-                      Container(
-                        width: DoScreenAdapter.w(4),
-                        height: DoScreenAdapter.h(18),
-                        color: controller.selectIndex.value == index
-                            ? Colors.orange
-                            : Colors.white,
-                      ),
-                      Center(
+        () => Container(
+          color: Colors.white,
+          child: ListView.builder(
+            itemCount: controller.leftCategoryList.length,
+            itemBuilder: (context, index) {
+              return Obx(
+                () => InkWell(
+                  onTap: () {
+                    controller.changeIndex(
+                        index, controller.leftCategoryList[index].sId);
+                  },
+                  child: Container(
+                    // color:
+                    // Colors.white, //若是为了设置背景色，也可以在listView外面再包一层container来设置
+                    color: controller.selectIndex.value == index
+                        ? const Color.fromRGBO(248, 248, 248, 1)
+                        : Colors.white,
+                    height: DoScreenAdapter.h(50),
+                    child: Stack(
+                      alignment: Alignment.centerLeft,
+                      children: [
+                        Container(
+                          width: DoScreenAdapter.w(4),
+                          height: DoScreenAdapter.h(18),
+                          color: controller.selectIndex.value == index
+                              ? Colors.orange
+                              : Colors.white,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: DoScreenAdapter.w(20)),
                           child: Text(
-                        "${controller.leftCategoryList[index].title}",
-                        style: TextStyle(
-                            fontWeight: controller.selectIndex.value == index
-                                ? FontWeight.bold
-                                : FontWeight.normal),
-                      )),
-                    ],
+                            "${controller.leftCategoryList[index].title}",
+                            style: TextStyle(
+                                fontWeight:
+                                    controller.selectIndex.value == index
+                                        ? FontWeight.bold
+                                        : FontWeight.normal),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
@@ -120,35 +128,38 @@ class CategoryView extends GetView<CategoryController> {
   Widget _rightGridView() {
     return Expanded(
         child: Obx(
-      () => GridView.builder(
-        itemCount: controller.rightCategoryList.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            mainAxisSpacing: DoScreenAdapter.w(10),
-            crossAxisSpacing: DoScreenAdapter.w(0),
-            childAspectRatio: 0.6),
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              Get.toNamed("/goods-list", arguments: {
-                "cid": controller.rightCategoryList[index].sId,
-              });
-            },
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(DoScreenAdapter.w(10)),
-                  child: Image.network(
-                    DoNetwork.replacePictureURL(
-                        controller.rightCategoryList[index].pic!),
-                    fit: BoxFit.cover,
+      () => Container(
+        color: Colors.white,
+        child: GridView.builder(
+          itemCount: controller.rightCategoryList.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisSpacing: DoScreenAdapter.w(10),
+              crossAxisSpacing: DoScreenAdapter.w(0),
+              childAspectRatio: 0.8),
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {
+                Get.toNamed("/goods-list", arguments: {
+                  "cid": controller.rightCategoryList[index].sId,
+                });
+              },
+              child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                    child: Image.network(
+                      DoNetwork.replacePictureURL(
+                          controller.rightCategoryList[index].pic!),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                Text("${controller.rightCategoryList[index].title}"),
-              ],
-            ),
-          );
-        },
+                  Text("${controller.rightCategoryList[index].title}"),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     ));
   }
