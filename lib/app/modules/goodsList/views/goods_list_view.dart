@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+// import 'package:pull_to_refresh/pull_to_refresh.dart';
+
 import '../controllers/goods_list_controller.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../../../services/app_fontIcons.dart';
@@ -91,36 +93,39 @@ class GoodsListView extends GetView<GoodsListController> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly, //
           crossAxisAlignment: CrossAxisAlignment.center, //垂直方向
           children: [
-            InkWell(
-              onTap: () {},
-              child: const Expanded(
-                  flex: 1,
-                  child: Text(
+            Expanded(
+                flex: 1,
+                child: InkWell(
+                  onTap: () {
+                    // print("object");
+                  },
+                  child: const Text(
                     "综合",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 14,
-                        fontWeight: FontWeight.bold,
+                        // fontWeight: FontWeight.bold,
                         color: Colors.orange),
-                  )),
-            ),
-            InkWell(
-              onTap: () {},
-              child: const Expanded(
-                  flex: 1,
-                  child: Text(
+                  ),
+                )),
+            Expanded(
+                flex: 1,
+                child: InkWell(
+                  onTap: () {},
+                  child: const Text(
                     "销量",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.orange),
-                  )),
-            ),
-            InkWell(
-              onTap: () {},
-              child: Expanded(
-                  flex: 1,
+                      fontSize: 14,
+                      // fontWeight: FontWeight.bold,
+                      // color: Colors.orange
+                    ),
+                  ),
+                )),
+            Expanded(
+                flex: 1,
+                child: InkWell(
+                  onTap: () {},
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
@@ -128,45 +133,48 @@ class GoodsListView extends GetView<GoodsListController> {
                         "价格",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.orange),
+                          fontSize: 14,
+                          // fontWeight: FontWeight.bold,
+                          // color: Colors.orange
+                        ),
                       ),
                       Icon(Icons.arrow_drop_down_outlined),
                     ],
-                  )),
-            ),
-            InkWell(
-              onTap: () {},
-              child: const Expanded(
-                  flex: 1,
-                  child: Text(
+                  ),
+                )),
+            Expanded(
+                flex: 1,
+                child: InkWell(
+                  onTap: () {},
+                  child: const Text(
                     "新品优先",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.orange),
-                  )),
-            ),
+                      fontSize: 14,
+                      // fontWeight: FontWeight.bold,
+                      // color: Colors.orange
+                    ),
+                  ),
+                )),
             Container(
               width: DoScreenAdapter.w(1),
               height: DoScreenAdapter.h(10),
               color: Colors.black12,
             ),
-            InkWell(
-              onTap: () {},
-              child: const Expanded(
-                  flex: 1,
-                  child: Text(
+            Expanded(
+                flex: 1,
+                child: InkWell(
+                  onTap: () {},
+                  child: const Text(
                     "筛选",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.orange),
-                  )),
-            ),
+                      fontSize: 14,
+                      // fontWeight: FontWeight.bold,
+                      // color: Colors.orange
+                    ),
+                  ),
+                )),
           ],
         ),
       ),

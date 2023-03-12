@@ -22,7 +22,7 @@ void main() {
             initialRoute: AppPages.INITIAL,
             getPages: AppPages.routes,
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(primarySwatch: Colors.cyan),
+            theme: ThemeData(primarySwatch: Colors.grey),
             defaultTransition: Transition.rightToLeft,
           );
         }),
