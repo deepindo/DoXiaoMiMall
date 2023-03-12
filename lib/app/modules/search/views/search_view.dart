@@ -43,18 +43,19 @@ class SearchView extends GetView<SearchController> {
                   borderSide: BorderSide.none),
             ),
             onChanged: (value) {
-              controller.keywords = value;
+              controller.searchWords = value;
             },
             //监听键盘上的回车事件
             onSubmitted: (value) {
-              Get.offAndToNamed("/goods-list", arguments: {"keywords": value});
+              Get.offAndToNamed("/goods-list",
+                  arguments: {"searchWords": value});
             },
           )),
       actions: [
         TextButton(
             onPressed: () {
               Get.offAndToNamed("/goods-list",
-                  arguments: {"keywords": controller.keywords});
+                  arguments: {"searchWords": controller.searchWords});
             },
             child: const Text(
               "搜索",
