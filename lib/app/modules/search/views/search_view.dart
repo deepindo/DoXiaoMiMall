@@ -270,6 +270,14 @@ class SearchView extends GetView<SearchController> {
           ),
           content: const Text("确定要删除该搜索记录么？"),
           actions: [
+            // CupertinoDialogAction(
+            //   child: const Text("CupertinoDialogAction"),
+            //   onPressed: () {
+            //     print("");
+            //   },
+            //   // isDefaultAction: true,//加粗了点
+            //   // isDestructiveAction: true,//红色
+            // ),
             TextButton(
               onPressed: () {
                 controller.deleteSearchHistoryOf(title);
