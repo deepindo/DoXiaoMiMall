@@ -101,10 +101,6 @@ class SearchView extends GetView<SearchController> {
     );
   }
 
-  void _show() {
-// showDialog(context: , builder: builder)
-  }
-
   ///搜索历史头部
   Widget _searchHistoryHeader() {
     return Obx(
@@ -116,32 +112,9 @@ class SearchView extends GetView<SearchController> {
                 color: Colors.black54,
               ),
               func: () {
-                print("----------清空搜索历史");
-                controller.removeAllSearchHistory();
+                _showRemoveAllSearchAlertDialog();
               },
             )
-          // Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       const Text(
-          //         "搜索历史",
-          //         style: TextStyle(
-          //             color: Colors.black54,
-          //             fontSize: 14,
-          //             fontWeight: FontWeight.bold),
-          //       ),
-          //       IconButton(
-          //           onPressed: () {
-          //             //TODO:///1111
-          //             print("----------清空搜索历史");
-          //             controller.removeAllSearchHistory();
-          //           },
-          //           icon: const Icon(
-          //             Icons.delete_forever,
-          //             color: Colors.black54,
-          //           )),
-          //     ],
-          //   )
           : const SizedBox(
               width: 0,
               height: 0,
@@ -174,22 +147,6 @@ class SearchView extends GetView<SearchController> {
         print("没有接口，刷新不做了");
       },
     );
-    // Row(
-    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //   children: [
-    //     const Text(
-    //       "猜你想搜",
-    //       style: TextStyle(
-    //           color: Colors.black54, fontSize: 14, fontWeight: FontWeight.bold),
-    //     ),
-    //     IconButton(
-    //         onPressed: () {},
-    //         icon: const Icon(
-    //           Icons.refresh,
-    //           color: Colors.black54,
-    //         )),
-    //   ],
-    // );
   }
 
   ///猜你想搜
@@ -271,6 +228,67 @@ class SearchView extends GetView<SearchController> {
         ));
   }
 
+  ///----事件----
+  ///清空搜索历史弹框
+  void _showRemoveAllSearchAlertDialog() async {
+    await showCupertinoDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text(
+            "温馨提示",
+          ),
+          content: const Text("确定要清空搜索历史么？"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                controller.removeAllSearchHistory();
+                Get.back();
+              },
+              child: const Text("确定",
+                  style: TextStyle(fontSize: 14, color: Colors.orange)),
+            ),
+            TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text("取消"))
+          ],
+        );
+      },
+    );
+  }
+
+  ///删除某个历史搜索记录弹框
+  void _showDeleteSearchAlertDialog(String title) async {
+    await showCupertinoDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text(
+            "温馨提示",
+          ),
+          content: const Text("确定要删除该搜索记录么？"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                controller.deleteSearchHistoryOf(title);
+                Get.back();
+              },
+              child: const Text("确定",
+                  style: TextStyle(fontSize: 14, color: Colors.orange)),
+            ),
+            TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text("取消"))
+          ],
+        );
+      },
+    );
+  }
+
   ///----封装区域----
   /// 头部区域
   Widget _commonSearchHeader(
@@ -289,18 +307,17 @@ class SearchView extends GetView<SearchController> {
   }
 
   ///抽取了一个搜索字段组件
-  Widget _commonSearchWidget(
-      {required String title,
-      // required bool isNeedDelete,//需要设置false的多，所以如下了
-      bool isNeedDelete = false,
-      Function()? longPressFunc,
-      Function()? tapFunc}) {
+  Widget _commonSearchWidget({
+    required String title,
+    // required bool isNeedDelete,//需要设置false的多，所以如下了
+    bool isNeedDelete = false,
+    // Function()? longPressFunc,
+    // Function()? tapFunc
+  }) {
     return GestureDetector(
       onLongPress: () {
         if (isNeedDelete) {
-          // TODO:!!!
-          print("弹框,确认执行");
-          controller.deleteSearchHistoryOf(title);
+          _showDeleteSearchAlertDialog(title);
         }
       },
       onTap: () {
