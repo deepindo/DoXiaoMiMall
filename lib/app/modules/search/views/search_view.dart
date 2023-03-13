@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../controllers/search_controller.dart';
+import '../../../services/app_searchService.dart';
 
 class SearchView extends GetView<SearchController> {
   const SearchView({Key? key}) : super(key: key);
@@ -21,11 +23,13 @@ class SearchView extends GetView<SearchController> {
       backgroundColor: Colors.white, //Colors.transparent=白色透明度为0
       elevation: 0,
       title: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          width: DoScreenAdapter.w(300),
+          alignment: Alignment.centerLeft,
+          // padding: const EdgeInsets.symmetric(horizontal: 10),
+          width: DoScreenAdapter.w(250), //最长也不知道多少生效
           height: DoScreenAdapter.h(26),
           decoration: BoxDecoration(
             color: const Color.fromRGBO(246, 246, 246, 1),
+            // color: Colors.orange,
             borderRadius: BorderRadius.circular(30),
           ),
           child: TextField(
@@ -33,11 +37,15 @@ class SearchView extends GetView<SearchController> {
             style: const TextStyle(fontSize: 14, color: Colors.black54),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(0),
+              // hintText: "手机",
+              // prefixText: "手机", //有接口的话可以做成活的
               prefixIcon: const Icon(
                 Icons.search,
                 color: Colors.black26,
                 size: 20,
               ),
+              prefixIconConstraints:
+                  BoxConstraints(minWidth: DoScreenAdapter.w(40)),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide.none),
@@ -47,6 +55,11 @@ class SearchView extends GetView<SearchController> {
             },
             //监听键盘上的回车事件
             onSubmitted: (value) {
+              if (value.isEmpty) {
+                ///后面可以加个toast提示
+                return;
+              }
+              DoSearchService.saveSearchHistory(value);
               Get.offAndToNamed("/goods-list",
                   arguments: {"searchWords": value});
             },
@@ -54,12 +67,17 @@ class SearchView extends GetView<SearchController> {
       actions: [
         TextButton(
             onPressed: () {
+              if (controller.searchWords!.isEmpty) {
+                ///后面可以加个toast提示
+                return;
+              }
+              DoSearchService.saveSearchHistory(controller.searchWords!);
               Get.offAndToNamed("/goods-list",
                   arguments: {"searchWords": controller.searchWords});
             },
             child: const Text(
               "搜索",
-              style: TextStyle(fontSize: 14, color: Colors.black54),
+              style: TextStyle(fontSize: 14, color: Colors.black87),
             )),
       ],
     );
@@ -71,44 +89,10 @@ class SearchView extends GetView<SearchController> {
     return ListView(
       padding: EdgeInsets.all(DoScreenAdapter.w(10)),
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              "搜索历史",
-              style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
-            ),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.delete_forever,
-                  color: Colors.black54,
-                )),
-          ],
-        ),
+        _searchHistoryHeader(),
         _searchHistoryWrapView(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              "猜你想搜",
-              style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
-            ),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.refresh,
-                  color: Colors.black54,
-                )),
-          ],
-        ),
-        _maybeWrapView(),
+        _suggestSearchHeader(),
+        _suggestSearchWrapView(),
         SizedBox(
           height: DoScreenAdapter.h(20),
         ),
@@ -117,187 +101,112 @@ class SearchView extends GetView<SearchController> {
     );
   }
 
-  ///搜素历史
-  Widget _searchHistoryWrapView() {
-    return Wrap(
-      spacing: DoScreenAdapter.w(10),
-      // runSpacing: DoScreenAdapter.w(3),
-      children: [
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
-          // margin: EdgeInsets.all(DoScreenAdapter.w(10)),
-          padding: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5)),
-          child: const Text(
-            "手机",
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-      ],
+  void _show() {
+// showDialog(context: , builder: builder)
+  }
+
+  ///搜索历史头部
+  Widget _searchHistoryHeader() {
+    return Obx(
+      () => controller.searchHistoryList.isNotEmpty
+          ? _commonSearchHeader(
+              title: "搜索历史",
+              icon: const Icon(
+                Icons.delete_forever,
+                color: Colors.black54,
+              ),
+              func: () {
+                print("----------清空搜索历史");
+                controller.removeAllSearchHistory();
+              },
+            )
+          // Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       const Text(
+          //         "搜索历史",
+          //         style: TextStyle(
+          //             color: Colors.black54,
+          //             fontSize: 14,
+          //             fontWeight: FontWeight.bold),
+          //       ),
+          //       IconButton(
+          //           onPressed: () {
+          //             //TODO:///1111
+          //             print("----------清空搜索历史");
+          //             controller.removeAllSearchHistory();
+          //           },
+          //           icon: const Icon(
+          //             Icons.delete_forever,
+          //             color: Colors.black54,
+          //           )),
+          //     ],
+          //   )
+          : const SizedBox(
+              width: 0,
+              height: 0,
+            ),
     );
   }
 
+  ///搜素历史
+  Widget _searchHistoryWrapView() {
+    return Obx(
+      () => Wrap(
+        spacing: DoScreenAdapter.w(10), //水平
+        runSpacing: DoScreenAdapter.w(10), //垂直
+        children: controller.searchHistoryList.map((element) {
+          return _commonSearchWidget(title: element, isNeedDelete: true);
+        }).toList(),
+      ),
+    );
+  }
+
+  ///猜你想搜头部
+  Widget _suggestSearchHeader() {
+    return _commonSearchHeader(
+      title: "猜你想搜",
+      icon: const Icon(
+        Icons.refresh,
+        color: Colors.black54,
+      ),
+      func: () {
+        print("没有接口，刷新不做了");
+      },
+    );
+    // Row(
+    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //   children: [
+    //     const Text(
+    //       "猜你想搜",
+    //       style: TextStyle(
+    //           color: Colors.black54, fontSize: 14, fontWeight: FontWeight.bold),
+    //     ),
+    //     IconButton(
+    //         onPressed: () {},
+    //         icon: const Icon(
+    //           Icons.refresh,
+    //           color: Colors.black54,
+    //         )),
+    //   ],
+    // );
+  }
+
   ///猜你想搜
-  Widget _maybeWrapView() {
+  Widget _suggestSearchWrapView() {
     return Wrap(
       spacing: DoScreenAdapter.w(10), //水平
       runSpacing: DoScreenAdapter.w(10), //垂直
       children: [
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
-          // margin: EdgeInsets.all(DoScreenAdapter.w(10)),
-          padding: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5)),
-          child: const Text(
-            "手机",
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
-          // margin: EdgeInsets.all(DoScreenAdapter.w(10)),
-          padding: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5)),
-          child: const Text(
-            "MAC",
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
-          // margin: EdgeInsets.all(DoScreenAdapter.w(10)),
-          padding: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5)),
-          child: const Text(
-            "MAC",
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
-          // margin: EdgeInsets.all(DoScreenAdapter.w(10)),
-          padding: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5)),
-          child: const Text(
-            "MAC",
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
-          // margin: EdgeInsets.all(DoScreenAdapter.w(10)),
-          padding: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5)),
-          child: const Text(
-            "MAC",
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
-          // margin: EdgeInsets.all(DoScreenAdapter.w(10)),
-          padding: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5)),
-          child: const Text(
-            "MAC",
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
-          // margin: EdgeInsets.all(DoScreenAdapter.w(10)),
-          padding: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5)),
-          child: const Text(
-            "MACeeeeeee",
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
-          // margin: EdgeInsets.all(DoScreenAdapter.w(10)),
-          padding: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5)),
-          child: const Text(
-            "MACxxxxxx",
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
-          // margin: EdgeInsets.all(DoScreenAdapter.w(10)),
-          padding: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5)),
-          child: const Text(
-            "MACaaagg g",
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
-          // margin: EdgeInsets.all(DoScreenAdapter.w(10)),
-          padding: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(5)),
-          child: const Text(
-            "MAC11313",
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
+        _commonSearchWidget(title: "手机保护壳"),
+        _commonSearchWidget(title: "红米"),
+        _commonSearchWidget(title: "电视"),
+        _commonSearchWidget(title: "小米平板5"),
+        _commonSearchWidget(title: "洗衣机"),
+        _commonSearchWidget(title: "耳机"),
+        _commonSearchWidget(title: "冰箱"),
+        _commonSearchWidget(title: "笔记本"),
+        _commonSearchWidget(title: "空调"),
       ],
     );
   }
@@ -313,6 +222,9 @@ class SearchView extends GetView<SearchController> {
               width: double.infinity,
               height: DoScreenAdapter.h(40),
               decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10)),
                   image: DecorationImage(
                       image: AssetImage("assets/images/hot_search.png"),
                       fit: BoxFit.cover)),
@@ -357,5 +269,56 @@ class SearchView extends GetView<SearchController> {
             ),
           ],
         ));
+  }
+
+  ///----封装区域----
+  /// 头部区域
+  Widget _commonSearchHeader(
+      {required String title, required Icon icon, Function()? func}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+              color: Colors.black54, fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+        IconButton(onPressed: func, icon: icon),
+      ],
+    );
+  }
+
+  ///抽取了一个搜索字段组件
+  Widget _commonSearchWidget(
+      {required String title,
+      // required bool isNeedDelete,//需要设置false的多，所以如下了
+      bool isNeedDelete = false,
+      Function()? longPressFunc,
+      Function()? tapFunc}) {
+    return GestureDetector(
+      onLongPress: () {
+        if (isNeedDelete) {
+          // TODO:!!!
+          print("弹框,确认执行");
+          controller.deleteSearchHistoryOf(title);
+        }
+      },
+      onTap: () {
+        controller.searchWords = title;
+        DoSearchService.saveSearchHistory(title);
+        Get.offAndToNamed("/goods-list", arguments: {"searchWords": title});
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
+        padding: EdgeInsets.fromLTRB(DoScreenAdapter.w(10),
+            DoScreenAdapter.h(5), DoScreenAdapter.w(10), DoScreenAdapter.h(5)),
+        child: Text(
+          title,
+          style: const TextStyle(fontSize: 12),
+        ),
+      ),
+    );
   }
 }

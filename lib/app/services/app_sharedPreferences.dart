@@ -25,14 +25,15 @@ class DoSharedPreferences {
     }
   }
 
-  ///移除
+  ///移除某个key的所有数据
   static removeData(String key) async {
     var sp = await SharedPreferences.getInstance();
     sp.remove(key);
   }
 
-  ///清空
-  static clearData(String key) async {
+  ///清空所有本地数据
+  ///慎用！！！
+  static clearData() async {
     var sp = await SharedPreferences.getInstance();
     sp.clear();
   }
