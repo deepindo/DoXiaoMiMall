@@ -139,24 +139,33 @@ class GoodsContentView extends GetView<GoodsContentController> {
       left: 0,
       right: 0,
       bottom: 0,
-      // height: (DoScreenAdapter.h(64) + DoScreenAdapter.bh()),
-      child: SizedBox(
+      child: Container(
+        //外层适应适配大的
+        height: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+        color: Colors.white,
         // height: (DoScreenAdapter.h(64) + DoScreenAdapter.bh()),
-        height: DoScreenAdapter.h(64),
         child: Container(
-          padding: EdgeInsets.fromLTRB(
-            DoScreenAdapter.w(10),
-            DoScreenAdapter.h(10),
-            DoScreenAdapter.w(10),
-            DoScreenAdapter.bh() + DoScreenAdapter.h(10),
+          //内层实际显示小的
+          height: DoScreenAdapter.h(49),
+          margin: EdgeInsets.fromLTRB(
+            DoScreenAdapter.w(0),
+            DoScreenAdapter.h(0),
+            DoScreenAdapter.w(0),
+            DoScreenAdapter.h(34) + DoScreenAdapter.h(0),
           ),
           color: Colors.white,
           child: Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.center,//不生效
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                // padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: EdgeInsets.fromLTRB(
+                  DoScreenAdapter.w(8),
+                  DoScreenAdapter.h(10),
+                  DoScreenAdapter.w(8),
+                  DoScreenAdapter.h(10),
+                ),
                 child: Column(
                   children: [
                     const Icon(
@@ -168,13 +177,19 @@ class GoodsContentView extends GetView<GoodsContentController> {
                       "客服",
                       style: TextStyle(
                           fontSize: DoScreenAdapter.fs(12),
-                          color: Colors.black54),
+                          color: Colors.black87),
                     )
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                // padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: EdgeInsets.fromLTRB(
+                  DoScreenAdapter.w(8),
+                  DoScreenAdapter.h(10),
+                  DoScreenAdapter.w(8),
+                  DoScreenAdapter.h(10),
+                ),
                 child: Column(
                   children: [
                     const Icon(
@@ -186,13 +201,19 @@ class GoodsContentView extends GetView<GoodsContentController> {
                       "收藏",
                       style: TextStyle(
                           fontSize: DoScreenAdapter.fs(12),
-                          color: Colors.black54),
+                          color: Colors.black87),
                     )
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                // padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: EdgeInsets.fromLTRB(
+                  DoScreenAdapter.w(8),
+                  DoScreenAdapter.h(10),
+                  DoScreenAdapter.w(8),
+                  DoScreenAdapter.h(10),
+                ),
                 child: Column(
                   children: [
                     const Icon(
@@ -204,7 +225,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                       "购物车",
                       style: TextStyle(
                           fontSize: DoScreenAdapter.fs(12),
-                          color: Colors.black54),
+                          color: Colors.black87),
                     )
                   ],
                 ),
@@ -213,10 +234,10 @@ class GoodsContentView extends GetView<GoodsContentController> {
                   flex: 1,
                   child: Container(
                     margin: EdgeInsets.fromLTRB(
+                      DoScreenAdapter.w(8),
+                      DoScreenAdapter.h(10),
                       DoScreenAdapter.w(0),
-                      DoScreenAdapter.h(0),
-                      DoScreenAdapter.w(0),
-                      DoScreenAdapter.h(20),
+                      DoScreenAdapter.h(10),
                     ),
                     decoration: const BoxDecoration(
                         color: Colors.orange,
@@ -236,9 +257,9 @@ class GoodsContentView extends GetView<GoodsContentController> {
                   child: Container(
                     margin: EdgeInsets.fromLTRB(
                       DoScreenAdapter.w(0),
-                      DoScreenAdapter.h(0),
-                      DoScreenAdapter.w(0),
-                      DoScreenAdapter.h(20),
+                      DoScreenAdapter.h(10),
+                      DoScreenAdapter.w(10),
+                      DoScreenAdapter.h(10),
                     ),
                     decoration: const BoxDecoration(
                         color: Colors.red,

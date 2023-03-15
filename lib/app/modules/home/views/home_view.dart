@@ -55,7 +55,9 @@ class HomeView extends GetView<HomeController> {
                         controller.flag.value ? Colors.black87 : Colors.white,
                   )),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed("/goods-content");
+                  },
                   icon: Icon(
                     DoFontIcons.message,
                     color:
