@@ -5,14 +5,14 @@ import '../controllers/goods_content_controller.dart';
 
 class GoodsContentDetailsView extends GetView {
   @override
-  final GoodsContentController controller = GoodsContentController();
+  final GoodsContentController controller = Get.find();
 
   GoodsContentDetailsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      key: controller.gk2,
+      key: controller.gk1,
       color: Colors.purple,
       width: double.infinity,
       height: DoScreenAdapter.h(1000),

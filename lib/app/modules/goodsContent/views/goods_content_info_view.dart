@@ -5,14 +5,14 @@ import '../controllers/goods_content_controller.dart';
 
 class GoodsContentInfoView extends GetView {
   @override
-  final GoodsContentController controller = GoodsContentController();
+  final GoodsContentController controller = Get.find();
 
   GoodsContentInfoView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      key: controller.gk1,
+      key: controller.gk0,
       color: Colors.white,
       width: double.infinity,
       // height: DoScreenAdapter.h(1000),
@@ -368,56 +368,254 @@ class GoodsContentInfoView extends GetView {
     );
   }
 
+  ///----封装区域----
+
+  ///抽取了一个选择字段组件
+  Widget _commonSelectWidget({
+    required String title,
+    // required bool isNeedDelete,//需要设置false的多，所以如下了
+    bool isNeedDelete = false,
+    // Function()? longPressFunc,
+    // Function()? tapFunc
+  }) {
+    return GestureDetector(
+      onLongPress: () {
+        if (isNeedDelete) {
+          // _showDeleteSearchAlertDialog(title);
+        }
+      },
+      onTap: () {
+        // controller.searchWords = title;
+        // DoSearchService.saveSearchHistory(title);
+        // Get.offAndToNamed("/goods-list", arguments: {"searchWords": title});
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
+        padding: EdgeInsets.fromLTRB(DoScreenAdapter.w(10),
+            DoScreenAdapter.h(5), DoScreenAdapter.w(10), DoScreenAdapter.h(5)),
+        child: Text(
+          title,
+          style: const TextStyle(fontSize: 12),
+        ),
+      ),
+    );
+  }
+
   ///已选
   Widget _selectedSection() {
-    return Container(
-      // alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-      height: DoScreenAdapter.h(56),
-      child: Row(
-        children: [
-          const Text(
-            "已选",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-          ),
-          SizedBox(
-            width: DoScreenAdapter.w(20),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    "Redmi Note 12 Pro 6GB+128GB 子夜黑x1",
-                    style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+    return InkWell(
+      onTap: () {
+        Get.bottomSheet(Container(
+            width: DoScreenAdapter.sw(),
+            height: DoScreenAdapter.h(500), //最高就那么多
+            decoration: BoxDecoration(
+              color: Colors.cyan,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(DoScreenAdapter.w(10)),
+                topRight: Radius.circular(DoScreenAdapter.w(10)),
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  child: Row(
+                    children: [
+                      Container(
+                          width: DoScreenAdapter.w(100),
+                          height: DoScreenAdapter.w(100),
+                          child: Image.network(
+                            "https://www.itying.com/images/b_focus01.png",
+                            fit: BoxFit.cover,
+                          )),
+                      SizedBox(width: DoScreenAdapter.w(10)),
+                      Column(
+                        children: [
+                          Text("1299"),
+                          Text("xxxx"),
+                        ],
+                      )
+                    ],
                   ),
-                ],
-              ),
-              SizedBox(
-                height: DoScreenAdapter.h(5),
-              ),
-              Row(
-                children: [
-                  Text(
-                    "可选增值服务",
-                    style: TextStyle(
-                        fontSize: DoScreenAdapter.fs(12), color: Colors.orange),
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: DoScreenAdapter.h(100),
+                  bottom: DoScreenAdapter.h(100),
+                  child: ListView(
+                    padding: EdgeInsets.fromLTRB(
+                      DoScreenAdapter.w(10),
+                      DoScreenAdapter.h(10),
+                      DoScreenAdapter.w(10),
+                      DoScreenAdapter.h(10),
+                    ),
+                    children: [
+                      SizedBox(height: DoScreenAdapter.h(10)),
+                      Text(
+                        "版本",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: DoScreenAdapter.fs(12)),
+                      ),
+                      SizedBox(height: DoScreenAdapter.h(10)),
+                      Wrap(
+                        spacing: DoScreenAdapter.h(10),
+                        runSpacing: DoScreenAdapter.w(10),
+                        children: [
+                          _commonSelectWidget(title: "6GB+128GB"),
+                          _commonSelectWidget(title: "8GB+128GB"),
+                        ],
+                      ),
+                      SizedBox(height: DoScreenAdapter.h(10)),
+                      Text(
+                        "颜色",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: DoScreenAdapter.fs(12)),
+                      ),
+                      SizedBox(height: DoScreenAdapter.h(10)),
+                      Wrap(
+                        spacing: DoScreenAdapter.h(10),
+                        runSpacing: DoScreenAdapter.w(10),
+                        children: [
+                          _commonSelectWidget(title: "清凉薄荷"),
+                          _commonSelectWidget(title: "冰峰黑提"),
+                          _commonSelectWidget(title: "晴光白雪"),
+                          _commonSelectWidget(title: "樱花蜜粉"),
+                          _commonSelectWidget(title: "清凉薄荷"),
+                          _commonSelectWidget(title: "冰峰黑提"),
+                          _commonSelectWidget(title: "晴光白雪"),
+                          _commonSelectWidget(title: "樱花蜜粉"),
+                          _commonSelectWidget(title: "清凉薄荷"),
+                          _commonSelectWidget(title: "冰峰黑提"),
+                          _commonSelectWidget(title: "晴光白雪"),
+                          _commonSelectWidget(title: "樱花蜜粉"),
+                          _commonSelectWidget(title: "清凉薄荷"),
+                          _commonSelectWidget(title: "冰峰黑提"),
+                          _commonSelectWidget(title: "晴光白雪"),
+                          _commonSelectWidget(title: "樱花蜜粉"),
+                          _commonSelectWidget(title: "清凉薄荷"),
+                          _commonSelectWidget(title: "冰峰黑提"),
+                          _commonSelectWidget(title: "晴光白雪"),
+                          _commonSelectWidget(title: "樱花蜜粉")
+                        ],
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ],
-          ),
-          const Expanded(
-            child: SizedBox(),
-          ),
-          const Icon(
-            Icons.keyboard_arrow_right_outlined,
-            color: Colors.black38,
-            size: 20,
-          ),
-        ],
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  height: DoScreenAdapter.h(80),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(
+                            DoScreenAdapter.w(0),
+                            DoScreenAdapter.h(10),
+                            DoScreenAdapter.w(10),
+                            DoScreenAdapter.h(10),
+                          ),
+                          decoration: const BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(20),
+                                  bottomRight: Radius.circular(20))),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "立即购买",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: DoScreenAdapter.fs(13)),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(
+                              DoScreenAdapter.w(8),
+                              DoScreenAdapter.h(10),
+                              DoScreenAdapter.w(0),
+                              DoScreenAdapter.h(10),
+                            ),
+                            decoration: const BoxDecoration(
+                                color: Colors.orange,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    bottomLeft: Radius.circular(20))),
+                            alignment: Alignment.center,
+                            child: Text(
+                              "加入购物车",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: DoScreenAdapter.fs(13)),
+                            ),
+                          )),
+                    ],
+                  ),
+                ),
+              ],
+            )));
+      },
+      child: Container(
+        // alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
+        height: DoScreenAdapter.h(56),
+        child: Row(
+          children: [
+            const Text(
+              "已选",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+            ),
+            SizedBox(
+              width: DoScreenAdapter.w(20),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "Redmi Note 12 Pro 6GB+128GB 子夜黑x1",
+                      style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: DoScreenAdapter.h(5),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "可选增值服务",
+                      style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(12),
+                          color: Colors.orange),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const Expanded(
+              child: SizedBox(),
+            ),
+            const Icon(
+              Icons.keyboard_arrow_right_outlined,
+              color: Colors.black38,
+              size: 20,
+            ),
+          ],
+        ),
       ),
     );
   }

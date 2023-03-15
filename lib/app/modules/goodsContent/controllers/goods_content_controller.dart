@@ -5,9 +5,9 @@ class GoodsContentController extends GetxController {
   final ScrollController scrollController = ScrollController();
   RxDouble opacity = 0.0.obs;
   RxBool showTabs = false.obs; //默认不显示tabs
-  GlobalKey gk1 = GlobalKey(); //商品页
-  GlobalKey gk2 = GlobalKey(); //详情页
-  GlobalKey gk3 = GlobalKey(); //推荐页
+  GlobalKey gk0 = GlobalKey(); //商品页
+  GlobalKey gk1 = GlobalKey(); //详情页
+  GlobalKey gk2 = GlobalKey(); //推荐页
 
   RxInt selectedTabsIndex = 0.obs; //默认三个
   List tabsList = [

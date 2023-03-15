@@ -58,9 +58,20 @@ class GoodsContentView extends GetView<GoodsContentController> {
                           child: InkWell(
                         onTap: () {
                           controller.changeTabsSelectedIndex(e["id"]);
-                          Scrollable.ensureVisible(
-                              controller.gk1.currentContext as BuildContext,
-                              duration: const Duration(milliseconds: 100));
+
+                          if (e["id"] == 0) {
+                            Scrollable.ensureVisible(
+                                controller.gk0.currentContext as BuildContext,
+                                duration: const Duration(milliseconds: 100));
+                          } else if (e["id"] == 1) {
+                            Scrollable.ensureVisible(
+                                controller.gk1.currentContext as BuildContext,
+                                duration: const Duration(milliseconds: 100));
+                          } else if (e["id"] == 2) {
+                            Scrollable.ensureVisible(
+                                controller.gk2.currentContext as BuildContext,
+                                duration: const Duration(milliseconds: 100));
+                          }
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -296,7 +307,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
       context: Get.context!,
       position: RelativeRect.fromLTRB(
         DoScreenAdapter.sw(),
-        DoScreenAdapter.h(64 + 24), //24是适配刘海屏的
+        DoScreenAdapter.h(64 + 24 - 16), //24是适配刘海屏的,10是为了微调的
         DoScreenAdapter.w(20),
         DoScreenAdapter.h(0),
       ),

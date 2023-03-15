@@ -5,14 +5,14 @@ import '../controllers/goods_content_controller.dart';
 
 class GoodsContentRecommendView extends GetView {
   @override
-  final GoodsContentController controller = GoodsContentController();
+  final GoodsContentController controller = Get.find();
 
   GoodsContentRecommendView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      key: controller.gk3,
+      key: controller.gk2,
       color: Colors.cyan,
       width: double.infinity,
       height: DoScreenAdapter.h(1000),
