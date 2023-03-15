@@ -125,7 +125,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
     return SingleChildScrollView(
       controller: controller.scrollController,
       child: Column(
-        children: const [
+        children: [
           GoodsContentInfoView(),
           GoodsContentDetailsView(),
           GoodsContentRecommendView(),

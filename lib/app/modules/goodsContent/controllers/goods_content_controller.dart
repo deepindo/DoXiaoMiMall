@@ -22,6 +22,19 @@ class GoodsContentController extends GetxController {
     {"id": 2, "title": "安装须知"},
   ];
 
+  List<Map> paramteterList = [
+    {"id": 0, "title": "CPU", "sub_title": "天玑8100", "icon": ""},
+    {"id": 1, "title": "三摄像头", "sub_title": "6400万像素", "icon": ""},
+    {"id": 2, "title": "超大屏", "sub_title": "6.6英寸", "icon": ""},
+    {"id": 3, "title": "屏幕分辨率", "sub_title": "2460x1080", "icon": ""},
+    {"id": 4, "title": "极速畅玩", "sub_title": "最高12GB", "icon": ""},
+    {"id": 5, "title": "存储容量", "sub_title": "最高512GB", "icon": ""},
+    {"id": 6, "title": "普通厚度", "sub_title": "8.87mm", "icon": ""},
+    {"id": 7, "title": "超长待机", "sub_title": "5080mAh", "icon": ""},
+    {"id": 8, "title": "运营商类型", "sub_title": "5G全网通", "icon": ""},
+    {"id": 9, "title": "网络模式", "sub_title": "双卡双待", "icon": ""},
+  ];
+
   @override
   void onInit() {
     super.onInit();
