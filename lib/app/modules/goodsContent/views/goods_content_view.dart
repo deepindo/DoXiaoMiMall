@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:get/get_connect/http/src/utils/utils.dart';
-import '../controllers/goods_content_controller.dart';
-import '../views/goods_info_view.dart';
-import '../views/goods_details_view.dart';
-import '../views/goods_recommend_view.dart';
 import '../../../services/app_screenAdapter.dart';
+import '../controllers/goods_content_controller.dart';
+import '../views/goods_content_info_view.dart';
+import '../views/goods_content_details_view.dart';
+import '../views/goods_content_recommend_view.dart';
 
 class GoodsContentView extends GetView<GoodsContentController> {
   const GoodsContentView({Key? key}) : super(key: key);
@@ -126,9 +126,9 @@ class GoodsContentView extends GetView<GoodsContentController> {
       controller: controller.scrollController,
       child: Column(
         children: const [
-          GoodsInfoView(),
-          GoodsDetailsView(),
-          GoodsRecommendView(),
+          GoodsContentInfoView(),
+          GoodsContentDetailsView(),
+          GoodsContentRecommendView(),
         ],
       ),
     );
@@ -153,7 +153,16 @@ class GoodsContentView extends GetView<GoodsContentController> {
             DoScreenAdapter.w(0),
             DoScreenAdapter.h(34) + DoScreenAdapter.h(0),
           ),
-          color: Colors.white,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                //顶部边线
+                top: BorderSide(
+                  width: DoScreenAdapter.h(0.5),
+                  color: Colors.black12,
+                ),
+              )),
+
           child: Row(
             // crossAxisAlignment: CrossAxisAlignment.center,//不生效
             // mainAxisAlignment: MainAxisAlignment.center,
@@ -287,7 +296,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
       context: Get.context!,
       position: RelativeRect.fromLTRB(
         DoScreenAdapter.sw(),
-        DoScreenAdapter.h(70),
+        DoScreenAdapter.h(64 + 24), //24是适配刘海屏的
         DoScreenAdapter.w(20),
         DoScreenAdapter.h(0),
       ),

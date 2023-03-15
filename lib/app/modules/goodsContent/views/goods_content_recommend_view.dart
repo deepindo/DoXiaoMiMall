@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../services/app_screenAdapter.dart';
 
-class GoodsDetailsView extends GetView {
-  const GoodsDetailsView({Key? key}) : super(key: key);
+class GoodsContentRecommendView extends GetView {
+  const GoodsContentRecommendView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.purple,
+      color: Colors.cyan,
       width: double.infinity,
       height: DoScreenAdapter.h(1000),
-      child: Text("详情"),
+      child: Text("推荐"),
     );
   }
 }
