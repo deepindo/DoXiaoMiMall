@@ -80,12 +80,12 @@ class GoodsContentInfoView extends GetView {
             children: [
               Text("¥",
                   style: TextStyle(
-                      color: Colors.orange,
+                      color: Colors.red,
                       fontWeight: FontWeight.bold,
                       fontSize: DoScreenAdapter.fs(14))),
               Text("1599",
                   style: TextStyle(
-                      color: Colors.orange,
+                      color: Colors.red,
                       fontWeight: FontWeight.w900,
                       fontSize: DoScreenAdapter.fs(22))),
               SizedBox(
@@ -411,7 +411,7 @@ class GoodsContentInfoView extends GetView {
             width: DoScreenAdapter.sw(),
             height: DoScreenAdapter.h(500), //最高就那么多
             decoration: BoxDecoration(
-              color: Colors.cyan,
+              color: Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(DoScreenAdapter.w(10)),
                 topRight: Radius.circular(DoScreenAdapter.w(10)),
@@ -423,30 +423,43 @@ class GoodsContentInfoView extends GetView {
                   left: 0,
                   right: 0,
                   top: 0,
-                  child: Row(
-                    children: [
-                      Container(
-                          width: DoScreenAdapter.w(100),
-                          height: DoScreenAdapter.w(100),
-                          child: Image.network(
-                            "https://www.itying.com/images/b_focus01.png",
-                            fit: BoxFit.cover,
-                          )),
-                      SizedBox(width: DoScreenAdapter.w(10)),
-                      Column(
-                        children: [
-                          Text("1299"),
-                          Text("xxxx"),
-                        ],
-                      )
-                    ],
+                  child: Container(
+                    padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                    child: Row(
+                      children: [
+                        Container(
+                            width: DoScreenAdapter.w(80),
+                            height: DoScreenAdapter.w(80),
+                            child: Image.network(
+                              "https://www.itying.com/images/b_focus01.png",
+                              fit: BoxFit.cover,
+                            )),
+                        SizedBox(width: DoScreenAdapter.w(10)),
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("¥1599",
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: DoScreenAdapter.fs(16))),
+                            SizedBox(height: DoScreenAdapter.h(10)),
+                            Text("Redmi Note 12 Pro",
+                                maxLines: 2,
+                                style: TextStyle(
+                                    fontSize: DoScreenAdapter.fs(12))),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 Positioned(
                   left: 0,
                   right: 0,
-                  top: DoScreenAdapter.h(100),
-                  bottom: DoScreenAdapter.h(100),
+                  top: DoScreenAdapter.h(80),
+                  bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
                   child: ListView(
                     padding: EdgeInsets.fromLTRB(
                       DoScreenAdapter.w(10),
@@ -512,55 +525,78 @@ class GoodsContentInfoView extends GetView {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  height: DoScreenAdapter.h(80),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          margin: EdgeInsets.fromLTRB(
-                            DoScreenAdapter.w(0),
-                            DoScreenAdapter.h(10),
-                            DoScreenAdapter.w(10),
-                            DoScreenAdapter.h(10),
-                          ),
-                          decoration: const BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(20),
-                                  bottomRight: Radius.circular(20))),
-                          alignment: Alignment.center,
-                          child: Text(
-                            "立即购买",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: DoScreenAdapter.fs(13)),
-                          ),
-                        ),
+                  // height: DoScreenAdapter.h(80),
+                  child: Container(
+                    // color: Colors.purple,
+                    height: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    child: Container(
+                      //内层实际显示小的
+                      height: DoScreenAdapter.h(49),
+                      margin: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(0),
+                        DoScreenAdapter.h(0),
+                        DoScreenAdapter.w(0),
+                        DoScreenAdapter.h(34) + DoScreenAdapter.h(0),
                       ),
-                      Expanded(
-                          flex: 1,
-                          child: Container(
-                            margin: EdgeInsets.fromLTRB(
-                              DoScreenAdapter.w(8),
-                              DoScreenAdapter.h(10),
-                              DoScreenAdapter.w(0),
-                              DoScreenAdapter.h(10),
+                      decoration: BoxDecoration(
+                          // color: Colors.white,
+                          border: Border(
+                        //顶部边线
+                        top: BorderSide(
+                          width: DoScreenAdapter.h(0.5),
+                          color: Colors.black12,
+                        ),
+                      )),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                margin: EdgeInsets.fromLTRB(
+                                  DoScreenAdapter.w(8),
+                                  DoScreenAdapter.h(10),
+                                  DoScreenAdapter.w(0),
+                                  DoScreenAdapter.h(10),
+                                ),
+                                decoration: const BoxDecoration(
+                                    color: Colors.orange,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        bottomLeft: Radius.circular(20))),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "加入购物车",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: DoScreenAdapter.fs(13)),
+                                ),
+                              )),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(
+                                DoScreenAdapter.w(0),
+                                DoScreenAdapter.h(10),
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(10),
+                              ),
+                              decoration: const BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(20),
+                                      bottomRight: Radius.circular(20))),
+                              alignment: Alignment.center,
+                              child: Text(
+                                "立即购买",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: DoScreenAdapter.fs(13)),
+                              ),
                             ),
-                            decoration: const BoxDecoration(
-                                color: Colors.orange,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    bottomLeft: Radius.circular(20))),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "加入购物车",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: DoScreenAdapter.fs(13)),
-                            ),
-                          )),
-                    ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
