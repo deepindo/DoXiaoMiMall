@@ -33,13 +33,13 @@ class GoodsContentInfoView extends GetView {
           Container(
             width: double.infinity,
             height: DoScreenAdapter.h(10),
-            color: Colors.black12,
+            color: const Color.fromARGB(31, 175, 175, 175),
           ),
           _stagesSection(),
           Container(
             width: double.infinity,
             height: DoScreenAdapter.h(10),
-            color: Colors.black12,
+            color: const Color.fromARGB(31, 175, 175, 175),
           ),
           _selectedSection(),
           _postToSection(),
@@ -78,34 +78,53 @@ class GoodsContentInfoView extends GetView {
         children: [
           Row(
             children: [
-              Text("¥"),
-              Text("1599"),
+              Text("¥",
+                  style: TextStyle(
+                      color: Colors.orange,
+                      fontWeight: FontWeight.bold,
+                      fontSize: DoScreenAdapter.fs(14))),
+              Text("1599",
+                  style: TextStyle(
+                      color: Colors.orange,
+                      fontWeight: FontWeight.w900,
+                      fontSize: DoScreenAdapter.fs(22))),
               SizedBox(
                 width: DoScreenAdapter.w(10),
               ),
-              Text("¥"),
-              Text("1599"),
+              Text("¥",
+                  style: TextStyle(
+                      fontSize: DoScreenAdapter.fs(14), color: Colors.black38)),
+              Text("1999",
+                  style: TextStyle(
+                      decoration: TextDecoration.lineThrough,
+                      decorationStyle: TextDecorationStyle.solid,
+                      decorationColor: Colors.black38,
+                      fontSize: DoScreenAdapter.fs(14),
+                      color: Colors.black38)),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Redmi Note 12 Pro"),
+              Text("Redmi Note 12 Pro",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: DoScreenAdapter.fs(16))),
               IconButton(
-                  onPressed: () {}, icon: Icon(Icons.file_upload_outlined))
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.file_upload_outlined,
+                    size: 20,
+                    color: Colors.black38,
+                  ))
             ],
           ),
           Align(
             alignment: Alignment.centerLeft,
-            child: Text("xxxxxxxxxxxxxxxxxxxxxxxxxxx",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: DoScreenAdapter.fs(12))),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
             child: Text(
-                "1. 商品商品商品商品商品商品商品商品商品商品商品商品商品商品\n2. 第二行第二行第二行第二行第二行第二行第二行第二行第二行第二行第二行第二行第二行第二行\n3. 第三行第三行第三行第三行第三行第三行第三行第三行第三行第三行第三行第三行第三行第三行"),
+                "红米Note 12 Pro是Redmi于2022年10月27日发布的手机产品，于2022年10月31日正式上市。红米Note 12 Pro采用6.67英寸全面屏；高度约为162.9毫米，宽度约为76毫米，厚度约为7.9毫米，重量约为187克；配有子夜黑、时光蓝、镜瓷白、浅梦星河四款颜色。红米Note 12 Pro搭载联发科天玑1080八核处理器；",
+                style: TextStyle(
+                    color: Colors.black87, fontSize: DoScreenAdapter.fs(12))),
           ),
         ],
       ),
@@ -240,7 +259,11 @@ class GoodsContentInfoView extends GetView {
           const Expanded(
             child: SizedBox(),
           ),
-          const Icon(Icons.keyboard_arrow_right_outlined),
+          const Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: Colors.black38,
+            size: 20,
+          ),
         ],
       ),
     );
@@ -279,14 +302,18 @@ class GoodsContentInfoView extends GetView {
               ),
               Text(
                 "信用换新至低0元购新机",
-                style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
+                style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
               ),
             ],
           ),
           const Expanded(
             child: SizedBox(),
           ),
-          const Icon(Icons.keyboard_arrow_right_outlined),
+          const Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: Colors.black38,
+            size: 20,
+          ),
         ],
       ),
     );
@@ -310,25 +337,32 @@ class GoodsContentInfoView extends GetView {
   Widget _stagesSection() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-      height: DoScreenAdapter.h(40),
+      height: DoScreenAdapter.h(46),
       child: Row(
         children: [
           const Text(
             "分期",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
           ),
           SizedBox(
             width: DoScreenAdapter.w(20),
           ),
           Row(
             children: [
-              Text("低至69.3元x24期"),
+              Text(
+                "低至69.3元x24期",
+                style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+              ),
             ],
           ),
-          Expanded(
+          const Expanded(
             child: SizedBox(),
           ),
-          Icon(Icons.keyboard_arrow_right_outlined),
+          const Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: Colors.black38,
+            size: 20,
+          ),
         ],
       ),
     );
@@ -339,35 +373,50 @@ class GoodsContentInfoView extends GetView {
     return Container(
       // alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-      height: DoScreenAdapter.h(60),
+      height: DoScreenAdapter.h(56),
       child: Row(
         children: [
           const Text(
             "已选",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
           ),
           SizedBox(
             width: DoScreenAdapter.w(20),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 children: [
-                  Text("Redmi Note 12 Pro 6GB+128GB 子夜黑x1"),
+                  Text(
+                    "Redmi Note 12 Pro 6GB+128GB 子夜黑x1",
+                    style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                  ),
                 ],
+              ),
+              SizedBox(
+                height: DoScreenAdapter.h(5),
               ),
               Row(
                 children: [
-                  Text("可选增值服务"),
+                  Text(
+                    "可选增值服务",
+                    style: TextStyle(
+                        fontSize: DoScreenAdapter.fs(12), color: Colors.orange),
+                  ),
                 ],
               ),
             ],
           ),
-          Expanded(
+          const Expanded(
             child: SizedBox(),
           ),
-          Icon(Icons.keyboard_arrow_right_outlined),
+          const Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: Colors.black38,
+            size: 20,
+          ),
         ],
       ),
     );
@@ -376,40 +425,71 @@ class GoodsContentInfoView extends GetView {
   ///送至
   Widget _postToSection() {
     return Container(
+      // color: Colors.cyan,
       padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-      height: DoScreenAdapter.h(60),
+      height: DoScreenAdapter.h(56),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
             "送至",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
           ),
           SizedBox(
             width: DoScreenAdapter.w(20),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 children: [
-                  Icon(Icons.location_on_outlined),
-                  Text("上海市 闵行区"),
-                  Text("有现货"),
+                  const Icon(
+                    Icons.location_on_outlined,
+                    size: 18,
+                  ),
+                  Text(
+                    "上海市 闵行区",
+                    style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                  ),
+                  SizedBox(
+                    width: DoScreenAdapter.w(10),
+                  ),
+                  Text(
+                    "有现货",
+                    style: TextStyle(
+                        fontSize: DoScreenAdapter.fs(12), color: Colors.orange),
+                  ),
                 ],
+              ),
+              SizedBox(
+                height: DoScreenAdapter.h(5),
               ),
               Row(
                 children: [
-                  Text("今天23点前付款，预计3月17日送达"),
-                  Icon(Icons.help_outline_outlined),
+                  Text(
+                    "今天23点前付款，预计3月17日送达",
+                    style: TextStyle(
+                        fontSize: DoScreenAdapter.fs(12),
+                        color: Colors.black38),
+                  ),
+                  SizedBox(
+                    width: DoScreenAdapter.w(5),
+                  ),
+                  const Icon(Icons.help_outline_outlined,
+                      size: 18, color: Colors.black38),
                 ],
               ),
             ],
           ),
-          Expanded(
+          const Expanded(
             child: SizedBox(),
           ),
-          Icon(Icons.keyboard_arrow_right_outlined),
+          const Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: Colors.black38,
+            size: 20,
+          ),
         ],
       ),
     );
@@ -418,26 +498,30 @@ class GoodsContentInfoView extends GetView {
   ///门店
   Widget _shopSection() {
     return Container(
-      color: Colors.cyan,
+      // color: Colors.orange,
       padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-      height: DoScreenAdapter.h(80),
+      height: DoScreenAdapter.h(60),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
             "门店",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
           ),
           SizedBox(
             width: DoScreenAdapter.w(20),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("小米之家浙江杭州xxxx店",
                   style: TextStyle(
                       // color: Colors.orange,
                       fontSize: DoScreenAdapter.fs(12))),
+              SizedBox(
+                height: DoScreenAdapter.h(5),
+              ),
               Row(
                 children: [
                   Container(
@@ -446,7 +530,8 @@ class GoodsContentInfoView extends GetView {
                         borderRadius:
                             BorderRadius.circular(DoScreenAdapter.w(2))),
                     padding:
-                        EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(2)),
+                        // EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(2)),
+                        EdgeInsets.all(DoScreenAdapter.w(2)),
                     child: Text(
                       "到店自取",
                       style: TextStyle(
@@ -463,7 +548,8 @@ class GoodsContentInfoView extends GetView {
                         borderRadius:
                             BorderRadius.circular(DoScreenAdapter.w(2))),
                     padding:
-                        EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(2)),
+                        // EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(2)),
+                        EdgeInsets.all(DoScreenAdapter.w(2)),
                     child: Text(
                       "门店闪送",
                       style: TextStyle(
@@ -477,8 +563,11 @@ class GoodsContentInfoView extends GetView {
                   Text("距离1.5km",
                       style: TextStyle(
                           color: Colors.orange,
-                          fontSize: DoScreenAdapter.fs(10))),
+                          fontSize: DoScreenAdapter.fs(12))),
                 ],
+              ),
+              SizedBox(
+                height: DoScreenAdapter.h(5),
               ),
               Text("10:00-22:00",
                   style: TextStyle(
@@ -486,12 +575,20 @@ class GoodsContentInfoView extends GetView {
                       fontSize: DoScreenAdapter.fs(12))),
             ],
           ),
-          Expanded(
+          const Expanded(
             child: SizedBox(),
           ),
-          Text("库存紧张"),
-          Icon(Icons.keyboard_arrow_right_outlined),
-          Divider(),
+          Text(
+            "库存紧张",
+            style: TextStyle(
+                fontSize: DoScreenAdapter.fs(12), color: Colors.orange),
+          ),
+          const Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: Colors.black38,
+            size: 20,
+          ),
+          // Divider(),
         ],
       ),
     );
@@ -500,21 +597,29 @@ class GoodsContentInfoView extends GetView {
   ///服务
   Widget _serviceSection() {
     return Container(
+      // color: Colors.orange,
       padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-      height: DoScreenAdapter.h(40),
+      height: DoScreenAdapter.h(46),
       child: Row(
         children: [
           const Text(
             "服务",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
           ),
           SizedBox(
             width: DoScreenAdapter.w(20),
           ),
           Expanded(
-            child: Image.asset("assets/images/xiaomiMenu.png"),
+            child: Image.asset(
+              "assets/images/xiaomiMenu.png",
+              fit: BoxFit.fitWidth,
+            ),
           ),
-          const Icon(Icons.keyboard_arrow_right_outlined),
+          const Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: Colors.black38,
+            size: 20,
+          ),
           const Divider(),
         ],
       ),
