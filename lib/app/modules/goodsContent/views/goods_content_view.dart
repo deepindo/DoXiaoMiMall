@@ -173,7 +173,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                   DoScreenAdapter.w(8),
                   DoScreenAdapter.h(10),
                   DoScreenAdapter.w(8),
-                  DoScreenAdapter.h(10),
+                  DoScreenAdapter.h(5),
                 ),
                 child: Column(
                   children: [
@@ -197,7 +197,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                   DoScreenAdapter.w(8),
                   DoScreenAdapter.h(10),
                   DoScreenAdapter.w(8),
-                  DoScreenAdapter.h(10),
+                  DoScreenAdapter.h(5),
                 ),
                 child: Column(
                   children: [
@@ -221,7 +221,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                   DoScreenAdapter.w(8),
                   DoScreenAdapter.h(10),
                   DoScreenAdapter.w(8),
-                  DoScreenAdapter.h(10),
+                  DoScreenAdapter.h(5),
                 ),
                 child: Column(
                   children: [
