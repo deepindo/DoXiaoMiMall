@@ -48,13 +48,11 @@ class HomeController extends GetxController {
       ratio.value = delta > 1 ? 1 : (delta < 0 ? 0 : delta);
 
       //应该是渐变的，不是直接一下变的
-      if (scrollController.position.pixels > criticalValue &&
-          flag.value == false) {
+      if (scrollPixels > criticalValue && flag.value == false) {
         flag.value = true;
       }
 
-      if (scrollController.position.pixels < criticalValue &&
-          flag.value == true) {
+      if (scrollPixels < criticalValue && flag.value == true) {
         flag.value = false;
       }
 
