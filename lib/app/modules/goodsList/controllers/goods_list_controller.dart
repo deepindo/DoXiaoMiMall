@@ -101,15 +101,15 @@ class GoodsListController extends GetxController {
       /// String fullPath = "api/plist?pageSize=${pageSize}&page=${page}&cid=${cid}&search=${searchWords}";
       if (cid != null) {
         fullPath =
-            "api/plist?pageSize=${pageSize}&page=${page}&cid=${cid}&sort=${sortFields}";
+            "api/plist?pageSize=$pageSize&page=$page&cid=$cid&sort=$sortFields";
       }
 
       if (searchWords != null) {
         fullPath =
-            "api/plist?pageSize=${pageSize}&page=${page}&search=${searchWords}&sort=${sortFields}";
+            "api/plist?pageSize=$pageSize&page=$page&search=$searchWords&sort=$sortFields";
       }
 
-      print("fullPath---${fullPath}");
+      print("fullPath---$fullPath");
 
       var data = await DoNetwork().get(fullPath);
       // goodsList.value = GoodsModel.fromJson(data).result!;

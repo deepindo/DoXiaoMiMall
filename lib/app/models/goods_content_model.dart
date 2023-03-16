@@ -113,17 +113,22 @@ class Attr {
   String? cate;
   List<String>? list;
 
-  Attr({this.cate, this.list});
+  ///增加的属性，为了组单选
+  String? selectedStr;
+
+  Attr({this.cate, this.list, this.selectedStr});
 
   Attr.fromJson(Map<String, dynamic> json) {
     cate = json['cate'];
     list = json['list'].cast<String>();
+    selectedStr = list!.isNotEmpty ? list![0] : "";
   }
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['cate'] = cate;
     data['list'] = list;
+    data['selectedStr'] = selectedStr;
     return data;
   }
 }

@@ -55,9 +55,7 @@ class HomeView extends GetView<HomeController> {
                         controller.flag.value ? Colors.black87 : Colors.white,
                   )),
               IconButton(
-                  onPressed: () {
-                    Get.toNamed("/goods-content");
-                  },
+                  onPressed: () {},
                   icon: Icon(
                     DoFontIcons.message,
                     color:
@@ -486,7 +484,8 @@ class HomeView extends GetView<HomeController> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Get.toNamed("/goods-content");
+                      Get.toNamed("/goods-content",
+                          arguments: {"cid": controller.goodsList[index].sId});
                     },
                     child: Container(
                       decoration: BoxDecoration(

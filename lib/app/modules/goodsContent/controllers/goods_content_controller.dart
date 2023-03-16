@@ -1,5 +1,8 @@
+import 'package:doxiaomimall/app/models/goods_model.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import '../../../services/app_network.dart';
+import '../../../models/goods_content_model.dart';
 
 class GoodsContentController extends GetxController {
   final ScrollController scrollController = ScrollController();
@@ -35,10 +38,14 @@ class GoodsContentController extends GetxController {
     {"id": 9, "title": "网络模式", "sub_title": "双卡双待", "icon": ""},
   ];
 
+  var cid = Get.arguments["cid"];
+  var model = GoodsContentInfoModel().obs;
+
   @override
   void onInit() {
     super.onInit();
     _addScrollListener();
+    _requestGoodsContentData();
   }
 
   @override
@@ -68,8 +75,20 @@ class GoodsContentController extends GetxController {
     });
   }
 
+  ///请求商品详情页数据
+  void _requestGoodsContentData() async {
+    print("_requestGoodsContentData");
+    var data = await DoNetwork().get("api/pcontent?id=$cid");
+    model.value = GoodsContentModel.fromJson(data).result!;
+    update();
+  }
+
   void changeTabsSelectedIndex(int index) {
     selectedTabsIndex.value = index;
+    update();
+  }
+
+  void changeSelectedTags() {
     update();
   }
 }
