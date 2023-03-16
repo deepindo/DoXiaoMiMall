@@ -350,35 +350,38 @@ class GoodsContentInfoView extends GetView {
 
   ///分期
   Widget _stagesSection() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-      height: DoScreenAdapter.h(46),
-      child: Row(
-        children: [
-          const Text(
-            "分期",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-          ),
-          SizedBox(
-            width: DoScreenAdapter.w(20),
-          ),
-          Row(
-            children: [
-              Text(
-                "低至69.3元x24期",
-                style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
-              ),
-            ],
-          ),
-          const Expanded(
-            child: SizedBox(),
-          ),
-          const Icon(
-            Icons.keyboard_arrow_right_outlined,
-            color: Colors.black38,
-            size: 20,
-          ),
-        ],
+    return InkWell(
+      onTap: _showStagesBottomSheet,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
+        height: DoScreenAdapter.h(46),
+        child: Row(
+          children: [
+            const Text(
+              "分期",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+            ),
+            SizedBox(
+              width: DoScreenAdapter.w(20),
+            ),
+            Row(
+              children: [
+                Text(
+                  "低至69.3元x24期",
+                  style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                ),
+              ],
+            ),
+            const Expanded(
+              child: SizedBox(),
+            ),
+            const Icon(
+              Icons.keyboard_arrow_right_outlined,
+              color: Colors.black38,
+              size: 20,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -446,209 +449,897 @@ class GoodsContentInfoView extends GetView {
 
   ///送至
   Widget _postToSection() {
-    return Container(
-      // color: Colors.cyan,
-      padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-      height: DoScreenAdapter.h(56),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text(
-            "送至",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-          ),
-          SizedBox(
-            width: DoScreenAdapter.w(20),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  const Icon(
-                    Icons.location_on_outlined,
-                    size: 18,
-                  ),
-                  Text(
-                    "上海市 闵行区",
-                    style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
-                  ),
-                  SizedBox(
-                    width: DoScreenAdapter.w(10),
-                  ),
-                  Text(
-                    "有现货",
-                    style: TextStyle(
-                        fontSize: DoScreenAdapter.fs(12), color: Colors.orange),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: DoScreenAdapter.h(5),
-              ),
-              Row(
-                children: [
-                  Text(
-                    "今天23点前付款，预计3月17日送达",
-                    style: TextStyle(
-                        fontSize: DoScreenAdapter.fs(12),
-                        color: Colors.black38),
-                  ),
-                  SizedBox(
-                    width: DoScreenAdapter.w(5),
-                  ),
-                  const Icon(Icons.help_outline_outlined,
-                      size: 18, color: Colors.black38),
-                ],
-              ),
-            ],
-          ),
-          const Expanded(
-            child: SizedBox(),
-          ),
-          const Icon(
-            Icons.keyboard_arrow_right_outlined,
-            color: Colors.black38,
-            size: 20,
-          ),
-        ],
+    return InkWell(
+      onTap: _showPostBottomSheet,
+      child: Container(
+        // color: Colors.cyan,
+        padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
+        height: DoScreenAdapter.h(56),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              "送至",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+            ),
+            SizedBox(
+              width: DoScreenAdapter.w(20),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.location_on_outlined,
+                      size: 18,
+                    ),
+                    Text(
+                      "上海市 闵行区",
+                      style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                    ),
+                    SizedBox(
+                      width: DoScreenAdapter.w(10),
+                    ),
+                    Text(
+                      "有现货",
+                      style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(12),
+                          color: Colors.orange),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: DoScreenAdapter.h(5),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "今天23点前付款，预计3月17日送达",
+                      style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(12),
+                          color: Colors.black38),
+                    ),
+                    SizedBox(
+                      width: DoScreenAdapter.w(5),
+                    ),
+                    const Icon(Icons.help_outline_outlined,
+                        size: 18, color: Colors.black38),
+                  ],
+                ),
+              ],
+            ),
+            const Expanded(
+              child: SizedBox(),
+            ),
+            const Icon(
+              Icons.keyboard_arrow_right_outlined,
+              color: Colors.black38,
+              size: 20,
+            ),
+          ],
+        ),
       ),
     );
   }
 
   ///门店
   Widget _shopSection() {
-    return Container(
-      // color: Colors.orange,
-      padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-      height: DoScreenAdapter.h(60),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text(
-            "门店",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-          ),
-          SizedBox(
-            width: DoScreenAdapter.w(20),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("小米之家浙江杭州xxxx店",
-                  style: TextStyle(
-                      // color: Colors.orange,
-                      fontSize: DoScreenAdapter.fs(12))),
-              SizedBox(
-                height: DoScreenAdapter.h(5),
-              ),
-              Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius:
-                            BorderRadius.circular(DoScreenAdapter.w(2))),
-                    padding:
-                        // EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(2)),
-                        EdgeInsets.all(DoScreenAdapter.w(2)),
-                    child: Text(
-                      "到店自取",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: DoScreenAdapter.fs(10)),
-                    ),
-                  ),
-                  SizedBox(
-                    width: DoScreenAdapter.w(5),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius:
-                            BorderRadius.circular(DoScreenAdapter.w(2))),
-                    padding:
-                        // EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(2)),
-                        EdgeInsets.all(DoScreenAdapter.w(2)),
-                    child: Text(
-                      "门店闪送",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: DoScreenAdapter.fs(10)),
-                    ),
-                  ),
-                  SizedBox(
-                    width: DoScreenAdapter.w(5),
-                  ),
-                  Text("距离1.5km",
-                      style: TextStyle(
+    return InkWell(
+      onTap: _showShopBottomSheet,
+      child: Container(
+        // color: Colors.orange,
+        padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
+        height: DoScreenAdapter.h(60),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              "门店",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+            ),
+            SizedBox(
+              width: DoScreenAdapter.w(20),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("小米之家浙江杭州xxxx店",
+                    style: TextStyle(
+                        // color: Colors.orange,
+                        fontSize: DoScreenAdapter.fs(12))),
+                SizedBox(
+                  height: DoScreenAdapter.h(5),
+                ),
+                Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
                           color: Colors.orange,
-                          fontSize: DoScreenAdapter.fs(12))),
-                ],
-              ),
-              SizedBox(
-                height: DoScreenAdapter.h(5),
-              ),
-              Text("10:00-22:00",
-                  style: TextStyle(
-                      // color: Colors.orange,
-                      fontSize: DoScreenAdapter.fs(12))),
-            ],
-          ),
-          const Expanded(
-            child: SizedBox(),
-          ),
-          Text(
-            "库存紧张",
-            style: TextStyle(
-                fontSize: DoScreenAdapter.fs(12), color: Colors.orange),
-          ),
-          const Icon(
-            Icons.keyboard_arrow_right_outlined,
-            color: Colors.black38,
-            size: 20,
-          ),
-          // Divider(),
-        ],
+                          borderRadius:
+                              BorderRadius.circular(DoScreenAdapter.w(2))),
+                      padding:
+                          // EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(2)),
+                          EdgeInsets.all(DoScreenAdapter.w(2)),
+                      child: Text(
+                        "到店自取",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: DoScreenAdapter.fs(10)),
+                      ),
+                    ),
+                    SizedBox(
+                      width: DoScreenAdapter.w(5),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.orange,
+                          borderRadius:
+                              BorderRadius.circular(DoScreenAdapter.w(2))),
+                      padding:
+                          // EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(2)),
+                          EdgeInsets.all(DoScreenAdapter.w(2)),
+                      child: Text(
+                        "门店闪送",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: DoScreenAdapter.fs(10)),
+                      ),
+                    ),
+                    SizedBox(
+                      width: DoScreenAdapter.w(5),
+                    ),
+                    Text("距离1.5km",
+                        style: TextStyle(
+                            color: Colors.orange,
+                            fontSize: DoScreenAdapter.fs(12))),
+                  ],
+                ),
+                SizedBox(
+                  height: DoScreenAdapter.h(5),
+                ),
+                Text("10:00-22:00",
+                    style: TextStyle(
+                        // color: Colors.orange,
+                        fontSize: DoScreenAdapter.fs(12))),
+              ],
+            ),
+            const Expanded(
+              child: SizedBox(),
+            ),
+            Text(
+              "库存紧张",
+              style: TextStyle(
+                  fontSize: DoScreenAdapter.fs(12), color: Colors.orange),
+            ),
+            const Icon(
+              Icons.keyboard_arrow_right_outlined,
+              color: Colors.black38,
+              size: 20,
+            ),
+            // Divider(),
+          ],
+        ),
       ),
     );
   }
 
   ///服务
   Widget _serviceSection() {
-    return Container(
-      // color: Colors.orange,
-      padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-      height: DoScreenAdapter.h(46),
-      child: Row(
-        children: [
-          const Text(
-            "服务",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-          ),
-          SizedBox(
-            width: DoScreenAdapter.w(20),
-          ),
-          Expanded(
-            child: Image.asset(
-              "assets/images/xiaomiMenu.png",
-              fit: BoxFit.fitWidth,
+    return InkWell(
+      onTap: _showServiceBottomSheet,
+      child: Container(
+        // color: Colors.orange,
+        padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
+        height: DoScreenAdapter.h(46),
+        child: Row(
+          children: [
+            const Text(
+              "服务",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
             ),
-          ),
-          const Icon(
-            Icons.keyboard_arrow_right_outlined,
-            color: Colors.black38,
-            size: 20,
-          ),
-          const Divider(),
-        ],
+            SizedBox(
+              width: DoScreenAdapter.w(20),
+            ),
+            Expanded(
+              child: Image.asset(
+                "assets/images/xiaomiMenu.png",
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+            const Icon(
+              Icons.keyboard_arrow_right_outlined,
+              color: Colors.black38,
+              size: 20,
+            ),
+            const Divider(),
+          ],
+        ),
       ),
     );
   }
 
   ///----封装区域----
+  ///分期点击弹框
+  void _showStagesBottomSheet() {
+    Get.bottomSheet(
+      isScrollControlled: true, //设置完这个，上面设置的超过半屏的高度才会生效，否则默认最高半屏
+
+      ///Get.bottomSheet中要使用响应式只能使用GetBuilder，而不能使用Obx了
+      GetBuilder<GoodsContentController>(
+        init: controller,
+        builder: (controller) {
+          return Container(
+            width: DoScreenAdapter.sw(),
+            height: DoScreenAdapter.h(400),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(DoScreenAdapter.w(10)),
+                topRight: Radius.circular(DoScreenAdapter.w(10)),
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(width: 0.5, color: Colors.black12))),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                            width: DoScreenAdapter.w(80),
+                            height: DoScreenAdapter.w(80),
+                            child: Image.network(
+                              DoNetwork.replacePictureURL(
+                                  "${controller.model.value.pic}"),
+                              // "https://www.itying.com/images/b_focus01.png",
+                              fit: BoxFit.cover,
+                            )),
+                        SizedBox(width: DoScreenAdapter.w(10)),
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("¥${controller.model.value.price}",
+                                // "¥1599",
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: DoScreenAdapter.fs(16))),
+                            SizedBox(height: DoScreenAdapter.h(10)),
+                            Text("${controller.model.value.title}",
+                                // "Redmi Note 12 Pro",
+                                maxLines: 2,
+                                style: TextStyle(
+                                    fontSize: DoScreenAdapter.fs(12))),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                    left: 0,
+                    right: 0,
+                    top: DoScreenAdapter.h(80),
+                    bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    child: ListView(
+                      padding: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(10),
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(10),
+                      ),
+                      children: [
+                        ListTile(
+                          onTap: () {
+                            print("118.91元x3期");
+                          },
+                          title: Text(
+                            "118.91元x3期",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                          ),
+                          subtitle: Text(
+                            "手续费2.58元/期起，费率2.22%，单利年化率约为13.32%，还款本金立减30元",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
+                          ),
+                          selected: true,
+                          selectedColor: Colors.orange,
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios_outlined,
+                            size: 15,
+                          ),
+                          // contentPadding: EdgeInsets.all(0),
+                        ),
+                        ListTile(
+                          onTap: () {
+                            print("60.44元x6期");
+                          },
+                          title: Text(
+                            "60.44元x6期",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                          ),
+                          subtitle: Text(
+                            "手续费2.27元/期起，费率3.9%，单利年化率约为13.37%，还款本金立减30元",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
+                          ),
+                          // trailing: Icon(Icons.arrow_forward_ios_outlined),
+                        ),
+                        ListTile(
+                          title: Text(
+                            "31.17元x12期",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                          ),
+                          subtitle: Text(
+                            "手续费2.09元/期起，费率7.2%，单利年化率约为13.29%，还款本金立减30元",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
+                          ),
+                          // trailing: Icon(Icons.arrow_forward_ios_outlined),
+                        ),
+                        ListTile(
+                          title: Text(
+                            "17.16元x24期",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                          ),
+                          subtitle: Text(
+                            "手续费2.62元/期起，费率18%，单利年化率约为17.28%，还款本金立减30元",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
+                          ),
+                          // trailing: Icon(Icons.arrow_forward_ios_outlined),
+                        ),
+                      ],
+                    )),
+
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  // height: DoScreenAdapter.h(80),
+                  child: Container(
+                    // color: Colors.purple,
+                    height: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    child: Container(
+                      //内层实际显示小的
+                      height: DoScreenAdapter.h(49),
+                      margin: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(0),
+                        DoScreenAdapter.h(0),
+                        DoScreenAdapter.w(0),
+                        DoScreenAdapter.h(34) + DoScreenAdapter.h(0),
+                      ),
+                      decoration: BoxDecoration(
+                          // color: Colors.white,
+                          border: Border(
+                        //顶部边线
+                        top: BorderSide(
+                          width: DoScreenAdapter.h(0.5),
+                          color: Colors.black12,
+                        ),
+                      )),
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(
+                            DoScreenAdapter.w(10),
+                            DoScreenAdapter.h(10),
+                            DoScreenAdapter.w(10),
+                            DoScreenAdapter.h(10),
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(20)),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "立即购买",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: DoScreenAdapter.fs(13)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                ///这个关闭按钮要最后添加,若是先加，可能被其他Positioned的组件遮盖，点击事件无法响应
+                Positioned(
+                    right: DoScreenAdapter.w(5),
+                    top: DoScreenAdapter.h(5),
+                    child: InkWell(
+                      onTap: () {
+                        print("Get.back()");
+                        Get.back();
+                      },
+                      child: const SizedBox(
+                        // alignment: Alignment.center,
+                        // color: Colors.orange,
+                        child: Icon(
+                          Icons.close,
+                          size: 20,
+                        ),
+                      ),
+                    )),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  ///送至点击弹框
+  void _showPostBottomSheet() {
+    Get.bottomSheet(
+      isScrollControlled: true, //设置完这个，上面设置的超过半屏的高度才会生效，否则默认最高半屏
+
+      ///Get.bottomSheet中要使用响应式只能使用GetBuilder，而不能使用Obx了
+      GetBuilder<GoodsContentController>(
+        init: controller,
+        builder: (controller) {
+          return Container(
+            width: DoScreenAdapter.sw(),
+            height: DoScreenAdapter.h(400),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(DoScreenAdapter.w(10)),
+                topRight: Radius.circular(DoScreenAdapter.w(10)),
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(width: 0.5, color: Colors.black12))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "收货地址",
+                          style: TextStyle(fontSize: DoScreenAdapter.fs(16)),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                    left: 0,
+                    right: 0,
+                    top: DoScreenAdapter.h(50),
+                    bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    child: ListView(
+                      padding: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(0),
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(10),
+                      ),
+                      children: [
+                        ListTile(
+                          onTap: () {},
+                          leading: const Icon(
+                            Icons.location_on_outlined,
+                            size: 15,
+                          ),
+                          title: Text(
+                            "郝先森 上海",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(14)),
+                          ),
+                          subtitle: Text(
+                            "上海市 浦东新区 xxxx街道 xxx弄 xxxx小区xxx号1203(201100)",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                          ),
+                          // selected: true,
+                          selectedColor: Colors.orange,
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios_outlined,
+                            size: 15,
+                          ),
+                          contentPadding: EdgeInsets.zero,
+                        ),
+                      ],
+                    )),
+
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  // height: DoScreenAdapter.h(80),
+                  child: Container(
+                    // color: Colors.purple,
+                    height: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    child: Container(
+                      //内层实际显示小的
+                      height: DoScreenAdapter.h(49),
+                      margin: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(0),
+                        DoScreenAdapter.h(0),
+                        DoScreenAdapter.w(0),
+                        DoScreenAdapter.h(34) + DoScreenAdapter.h(0),
+                      ),
+                      decoration: BoxDecoration(
+                          // color: Colors.white,
+                          border: Border(
+                        //顶部边线
+                        top: BorderSide(
+                          width: DoScreenAdapter.h(0.5),
+                          color: Colors.black12,
+                        ),
+                      )),
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(
+                            DoScreenAdapter.w(10),
+                            DoScreenAdapter.h(10),
+                            DoScreenAdapter.w(10),
+                            DoScreenAdapter.h(10),
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(20)),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "选择新地址",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: DoScreenAdapter.fs(13)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                ///这个关闭按钮要最后添加,若是先加，可能被其他Positioned的组件遮盖，点击事件无法响应
+                Positioned(
+                    right: DoScreenAdapter.w(5),
+                    top: DoScreenAdapter.h(5),
+                    child: InkWell(
+                      onTap: () {
+                        print("Get.back()");
+                        Get.back();
+                      },
+                      child: const SizedBox(
+                        // alignment: Alignment.center,
+                        // color: Colors.orange,
+                        child: Icon(
+                          Icons.close,
+                          size: 20,
+                        ),
+                      ),
+                    )),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  ///门店点击弹框
+  void _showShopBottomSheet() {
+    Get.bottomSheet(
+      isScrollControlled: true, //设置完这个，上面设置的超过半屏的高度才会生效，否则默认最高半屏
+
+      ///Get.bottomSheet中要使用响应式只能使用GetBuilder，而不能使用Obx了
+      GetBuilder<GoodsContentController>(
+        init: controller,
+        builder: (controller) {
+          return Container(
+            width: DoScreenAdapter.sw(),
+            height: DoScreenAdapter.h(400),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(DoScreenAdapter.w(10)),
+                topRight: Radius.circular(DoScreenAdapter.w(10)),
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(width: 0.5, color: Colors.black12))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "选择门店",
+                          style: TextStyle(fontSize: DoScreenAdapter.fs(16)),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                    left: 0,
+                    right: 0,
+                    top: DoScreenAdapter.h(50),
+                    bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    child: ListView(
+                      padding: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(0),
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(10),
+                      ),
+                      children: [
+                        ListTile(
+                          onTap: () {},
+
+                          title: Text(
+                            "郝先森 上海",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(14)),
+                          ),
+                          subtitle: Text(
+                            "上海市 浦东新区 xxxx街道 xxx弄 xxxx小区xxx号1203(201100)",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                          ),
+                          // selected: true,
+                          selectedColor: Colors.orange,
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios_outlined,
+                            size: 15,
+                          ),
+                          contentPadding: EdgeInsets.zero,
+                        ),
+                      ],
+                    )),
+
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  // height: DoScreenAdapter.h(80),
+                  child: Container(
+                    // color: Colors.purple,
+                    height: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    child: Container(
+                      //内层实际显示小的
+                      height: DoScreenAdapter.h(49),
+                      margin: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(0),
+                        DoScreenAdapter.h(0),
+                        DoScreenAdapter.w(0),
+                        DoScreenAdapter.h(34) + DoScreenAdapter.h(0),
+                      ),
+                      decoration: BoxDecoration(
+                          // color: Colors.white,
+                          border: Border(
+                        //顶部边线
+                        top: BorderSide(
+                          width: DoScreenAdapter.h(0.5),
+                          color: Colors.black12,
+                        ),
+                      )),
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(
+                            DoScreenAdapter.w(10),
+                            DoScreenAdapter.h(10),
+                            DoScreenAdapter.w(10),
+                            DoScreenAdapter.h(10),
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(20)),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "选择",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: DoScreenAdapter.fs(13)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                ///这个关闭按钮要最后添加,若是先加，可能被其他Positioned的组件遮盖，点击事件无法响应
+                Positioned(
+                    right: DoScreenAdapter.w(5),
+                    top: DoScreenAdapter.h(5),
+                    child: InkWell(
+                      onTap: () {
+                        print("Get.back()");
+                        Get.back();
+                      },
+                      child: const SizedBox(
+                        // alignment: Alignment.center,
+                        // color: Colors.orange,
+                        child: Icon(
+                          Icons.close,
+                          size: 20,
+                        ),
+                      ),
+                    )),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  ///服务点击弹框
+  void _showServiceBottomSheet() {
+    Get.bottomSheet(
+      isScrollControlled: true, //设置完这个，上面设置的超过半屏的高度才会生效，否则默认最高半屏
+
+      ///Get.bottomSheet中要使用响应式只能使用GetBuilder，而不能使用Obx了
+      GetBuilder<GoodsContentController>(
+        init: controller,
+        builder: (controller) {
+          return Container(
+            width: DoScreenAdapter.sw(),
+            height: DoScreenAdapter.h(400),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(DoScreenAdapter.w(10)),
+                topRight: Radius.circular(DoScreenAdapter.w(10)),
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(width: 0.5, color: Colors.black12))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "服务说明",
+                          style: TextStyle(fontSize: DoScreenAdapter.fs(16)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                    left: 0,
+                    right: 0,
+                    top: DoScreenAdapter.h(80),
+                    bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    child: ListView(
+                      padding: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(10),
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(10),
+                      ),
+                      children: [
+                        ListTile(
+                          title: Text(
+                            "运费说明",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                          ),
+                          subtitle: Text(
+                            "1)所有会员针对国内大陆地区用户购买当当自营商品,选择普通配送、平邮送货方式,单笔订单实付金额(减去促销优惠和礼券/优惠码)小于49元,则承担6元运费,满49元则免运费",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
+                          ),
+                        )
+                      ],
+                    )),
+
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  // height: DoScreenAdapter.h(80),
+                  child: Container(
+                    // color: Colors.purple,
+                    height: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    child: Container(
+                      //内层实际显示小的
+                      height: DoScreenAdapter.h(49),
+                      margin: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(0),
+                        DoScreenAdapter.h(0),
+                        DoScreenAdapter.w(0),
+                        DoScreenAdapter.h(34) + DoScreenAdapter.h(0),
+                      ),
+                      decoration: BoxDecoration(
+                          // color: Colors.white,
+                          border: Border(
+                        //顶部边线
+                        top: BorderSide(
+                          width: DoScreenAdapter.h(0.5),
+                          color: Colors.black12,
+                        ),
+                      )),
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(
+                            DoScreenAdapter.w(10),
+                            DoScreenAdapter.h(10),
+                            DoScreenAdapter.w(10),
+                            DoScreenAdapter.h(10),
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(20)),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "知道了",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: DoScreenAdapter.fs(13)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                ///这个关闭按钮要最后添加,若是先加，可能被其他Positioned的组件遮盖，点击事件无法响应
+                Positioned(
+                    right: DoScreenAdapter.w(5),
+                    top: DoScreenAdapter.h(5),
+                    child: InkWell(
+                      onTap: () {
+                        print("Get.back()");
+                        Get.back();
+                      },
+                      child: const SizedBox(
+                        // alignment: Alignment.center,
+                        // color: Colors.orange,
+                        child: Icon(
+                          Icons.close,
+                          size: 20,
+                        ),
+                      ),
+                    )),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   // ///抽取了一个选择字段组件
   // Widget _commonSelectWidget({
   //   required String title,
@@ -815,22 +1506,6 @@ class GoodsContentInfoView extends GetView {
   //                     _commonSelectWidget(title: "冰峰黑提"),
   //                     _commonSelectWidget(title: "晴光白雪"),
   //                     _commonSelectWidget(title: "樱花蜜粉"),
-  //                     _commonSelectWidget(title: "清凉薄荷"),
-  //                     _commonSelectWidget(title: "冰峰黑提"),
-  //                     _commonSelectWidget(title: "晴光白雪"),
-  //                     _commonSelectWidget(title: "樱花蜜粉"),
-  //                     _commonSelectWidget(title: "清凉薄荷"),
-  //                     _commonSelectWidget(title: "冰峰黑提"),
-  //                     _commonSelectWidget(title: "晴光白雪"),
-  //                     _commonSelectWidget(title: "樱花蜜粉"),
-  //                     _commonSelectWidget(title: "清凉薄荷"),
-  //                     _commonSelectWidget(title: "冰峰黑提"),
-  //                     _commonSelectWidget(title: "晴光白雪"),
-  //                     _commonSelectWidget(title: "樱花蜜粉"),
-  //                     _commonSelectWidget(title: "清凉薄荷"),
-  //                     _commonSelectWidget(title: "冰峰黑提"),
-  //                     _commonSelectWidget(title: "晴光白雪"),
-  //                     _commonSelectWidget(title: "樱花蜜粉")
   //                   ],
   //                 ),
   //               ],
@@ -924,8 +1599,7 @@ class GoodsContentInfoView extends GetView {
   //               ),
   //             ),
   //           ),
-
-  //           ///这个关闭按钮要最后添加,若是先加，可能被其他Positioned的组件遮盖，点击事件无法响应
+  //           //这个关闭按钮要最后添加,若是先加，可能被其他Positioned的组件遮盖，点击事件无法响应
   //           Positioned(
   //               right: DoScreenAdapter.w(5),
   //               top: DoScreenAdapter.h(5),

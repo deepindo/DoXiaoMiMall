@@ -753,12 +753,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
       onTap: () {
         if (!isSelected) {
           onTap!();
-          // _showDeleteSearchAlertDialog(title);
         }
-
-        // controller.searchWords = title;
-        // DoSearchService.saveSearchHistory(title);
-        // Get.offAndToNamed("/goods-list", arguments: {"searchWords": title});
       },
       child: Container(
         decoration: BoxDecoration(
