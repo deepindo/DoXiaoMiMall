@@ -1092,24 +1092,144 @@ class GoodsContentInfoView extends GetView {
                         DoScreenAdapter.h(10),
                       ),
                       children: [
-                        ListTile(
-                          onTap: () {},
-
-                          title: Text(
-                            "郝先森 上海",
-                            style: TextStyle(fontSize: DoScreenAdapter.fs(14)),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          subtitle: Text(
-                            "上海市 浦东新区 xxxx街道 xxx弄 xxxx小区xxx号1203(201100)",
-                            style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                          // margin: const EdgeInsets.all(10),
+                          // elevation: 10,
+                          // shape: RoundedRectangleBorder(
+                          //     borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  // margin: const EdgeInsets.all(5),
+                                  padding: const EdgeInsets.all(5),
+                                  color: const Color.fromRGBO(248, 248, 248, 1),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: DoScreenAdapter.h(5),
+                                      ),
+                                      Text(
+                                        "小米之家浙江杭州余杭区西溪印象城店",
+                                        style: TextStyle(
+                                            fontSize: DoScreenAdapter.fs(14)),
+                                      ),
+                                      SizedBox(
+                                        height: DoScreenAdapter.h(5),
+                                      ),
+                                      Text(
+                                        "小米之家浙江杭州余杭区西溪印象城店上海市 浦东新区 xxxx街道 xxx弄 xxxx小区xxx号1203(201100)",
+                                        style: TextStyle(
+                                            fontSize: DoScreenAdapter.fs(12)),
+                                      ),
+                                      SizedBox(
+                                        height: DoScreenAdapter.h(5),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.orange,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        DoScreenAdapter.w(2))),
+                                            padding:
+                                                // EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(2)),
+                                                EdgeInsets.all(
+                                                    DoScreenAdapter.w(2)),
+                                            child: Text(
+                                              "到店自取",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize:
+                                                      DoScreenAdapter.fs(10)),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: DoScreenAdapter.w(5),
+                                          ),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.orange,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        DoScreenAdapter.w(2))),
+                                            padding:
+                                                // EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(2)),
+                                                EdgeInsets.all(
+                                                    DoScreenAdapter.w(2)),
+                                            child: Text(
+                                              "门店闪送",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize:
+                                                      DoScreenAdapter.fs(10)),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: DoScreenAdapter.w(5),
+                                          ),
+                                          Text("距离1.5km",
+                                              style: TextStyle(
+                                                  color: Colors.orange,
+                                                  fontSize:
+                                                      DoScreenAdapter.fs(12))),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: DoScreenAdapter.h(5),
+                                      ),
+                                      Text("10:00-22:00",
+                                          style: TextStyle(
+                                              // color: Colors.orange,
+                                              fontSize:
+                                                  DoScreenAdapter.fs(12))),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  // color: Colors.black12,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "暂时缺货",
+                                        style: TextStyle(
+                                            fontSize: DoScreenAdapter.fs(12),
+                                            color: Colors.black45),
+                                      ),
+                                      SizedBox(
+                                        height: DoScreenAdapter.h(10),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Icon(
+                                            Icons.phone,
+                                            size: 20,
+                                          ),
+                                          Icon(
+                                            Icons.facebook,
+                                            size: 20,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                          // selected: true,
-                          selectedColor: Colors.orange,
-                          trailing: const Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            size: 15,
-                          ),
-                          contentPadding: EdgeInsets.zero,
                         ),
                       ],
                     )),
