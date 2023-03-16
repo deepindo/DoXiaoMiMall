@@ -460,7 +460,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                 Positioned(
                   left: 0,
                   right: 0,
-                  top: DoScreenAdapter.h(80),
+                  top: DoScreenAdapter.h(70),
                   bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
                   child: ListView(
                     padding: EdgeInsets.fromLTRB(

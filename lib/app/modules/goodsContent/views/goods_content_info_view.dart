@@ -730,7 +730,7 @@ class GoodsContentInfoView extends GetView {
                 Positioned(
                     left: 0,
                     right: 0,
-                    top: DoScreenAdapter.h(80),
+                    top: DoScreenAdapter.h(65),
                     bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
                     child: ListView(
                       padding: EdgeInsets.fromLTRB(
@@ -923,7 +923,7 @@ class GoodsContentInfoView extends GetView {
                 Positioned(
                     left: 0,
                     right: 0,
-                    top: DoScreenAdapter.h(50),
+                    top: DoScreenAdapter.h(40),
                     bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
                     child: ListView(
                       padding: EdgeInsets.fromLTRB(
@@ -1082,7 +1082,7 @@ class GoodsContentInfoView extends GetView {
                 Positioned(
                     left: 0,
                     right: 0,
-                    top: DoScreenAdapter.h(50),
+                    top: DoScreenAdapter.h(40),
                     bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
                     child: ListView(
                       padding: EdgeInsets.fromLTRB(
@@ -1094,21 +1094,34 @@ class GoodsContentInfoView extends GetView {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            color: Colors.black12,
-                            borderRadius: BorderRadius.circular(10),
+                            color: const Color.fromRGBO(242, 242, 242, 1),
+                            borderRadius:
+                                BorderRadius.circular(DoScreenAdapter.w(10)),
+                            border: const Border.fromBorderSide(
+                                BorderSide(width: 0.5, color: Colors.red)),
                           ),
                           // margin: const EdgeInsets.all(10),
-                          // elevation: 10,
-                          // shape: RoundedRectangleBorder(
-                          //     borderRadius: BorderRadius.circular(10)),
+                          padding: EdgeInsets.fromLTRB(
+                              DoScreenAdapter.w(0),
+                              DoScreenAdapter.h(0),
+                              DoScreenAdapter.w(0),
+                              DoScreenAdapter.h(0)),
                           child: Row(
                             children: [
                               Expanded(
                                 flex: 3,
                                 child: Container(
-                                  // margin: const EdgeInsets.all(5),
-                                  padding: const EdgeInsets.all(5),
-                                  color: const Color.fromRGBO(248, 248, 248, 1),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromRGBO(249, 249, 249, 1),
+                                    borderRadius: BorderRadius.circular(
+                                        DoScreenAdapter.w(10)),
+                                  ),
+                                  padding: EdgeInsets.fromLTRB(
+                                      DoScreenAdapter.w(10),
+                                      DoScreenAdapter.h(5),
+                                      DoScreenAdapter.w(10),
+                                      DoScreenAdapter.h(5)),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -1119,7 +1132,8 @@ class GoodsContentInfoView extends GetView {
                                       Text(
                                         "小米之家浙江杭州余杭区西溪印象城店",
                                         style: TextStyle(
-                                            fontSize: DoScreenAdapter.fs(14)),
+                                            fontSize: DoScreenAdapter.fs(14),
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
                                         height: DoScreenAdapter.h(5),
@@ -1213,14 +1227,24 @@ class GoodsContentInfoView extends GetView {
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Icon(
-                                            Icons.phone,
-                                            size: 20,
+                                        children: const [
+                                          CircleAvatar(
+                                            radius: 15,
+                                            backgroundColor: Colors.white,
+                                            child: Icon(
+                                              Icons.phone,
+                                              size: 20,
+                                              color: Colors.green,
+                                            ),
                                           ),
-                                          Icon(
-                                            Icons.facebook,
-                                            size: 20,
+                                          CircleAvatar(
+                                            radius: 15,
+                                            backgroundColor: Colors.green,
+                                            child: Icon(
+                                              Icons.wechat,
+                                              size: 20,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -1358,12 +1382,12 @@ class GoodsContentInfoView extends GetView {
                 Positioned(
                     left: 0,
                     right: 0,
-                    top: DoScreenAdapter.h(80),
+                    top: DoScreenAdapter.h(40),
                     bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
                     child: ListView(
                       padding: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(10),
-                        DoScreenAdapter.h(10),
+                        DoScreenAdapter.h(0),
                         DoScreenAdapter.w(10),
                         DoScreenAdapter.h(10),
                       ),
