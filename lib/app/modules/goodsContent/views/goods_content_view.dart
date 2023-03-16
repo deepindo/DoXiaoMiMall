@@ -1,7 +1,5 @@
-// import 'package:doxiaomimall/app/services/app_network.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:get/get_connect/http/src/utils/utils.dart';
 import '../../../services/app_network.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../controllers/goods_content_controller.dart';
@@ -35,15 +33,20 @@ class GoodsContentView extends GetView<GoodsContentController> {
           elevation: 0,
           title: _customHeader(),
           centerTitle: true,
-          leading: _circleBorderButton(Icons.arrow_back_ios_new_outlined, () {
-            Get.back();
-          }),
+          leading: _circleBorderButton(
+              icon: Icons.arrow_back_ios_new_outlined,
+              isBackButton: true,
+              onPressed: () {
+                Get.back();
+              }),
           actions: [
-            _circleBorderButton(Icons.file_upload_outlined, () {}),
-            _circleBorderButton(Icons.more_horiz, () {
-              _showMenuFunction();
-              // showMenu(context: context, position: position, items: items)
-            }),
+            _circleBorderButton(
+                icon: Icons.file_upload_outlined, onPressed: () {}),
+            _circleBorderButton(
+                icon: Icons.more_horiz,
+                onPressed: () {
+                  _showMenuFunction();
+                }),
           ],
         ),
       ),
@@ -53,7 +56,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
   ///自定义标题
   Widget _customHeader() {
     return SizedBox(
-      width: DoScreenAdapter.w(130), //设置后才可以居中
+      width: DoScreenAdapter.w(140), //设置后才可以居中
       height: DoScreenAdapter.h(44),
       child: Obx(
         () => controller.showTabs.value
@@ -64,20 +67,6 @@ class GoodsContentView extends GetView<GoodsContentController> {
                           child: InkWell(
                         onTap: () {
                           controller.changeTabsSelectedIndex(e["id"]);
-
-                          if (e["id"] == 0) {
-                            Scrollable.ensureVisible(
-                                controller.gk0.currentContext as BuildContext,
-                                duration: const Duration(milliseconds: 100));
-                          } else if (e["id"] == 1) {
-                            Scrollable.ensureVisible(
-                                controller.gk1.currentContext as BuildContext,
-                                duration: const Duration(milliseconds: 100));
-                          } else if (e["id"] == 2) {
-                            Scrollable.ensureVisible(
-                                controller.gk2.currentContext as BuildContext,
-                                duration: const Duration(milliseconds: 100));
-                          }
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -126,9 +115,9 @@ class GoodsContentView extends GetView<GoodsContentController> {
           ? Positioned(
               left: 0,
               right: 0,
-              top: DoScreenAdapter.h(44) +
-                  DoScreenAdapter.statush() -
-                  DoScreenAdapter.h(0.5), //细微的差别，有条缝隙
+              top: DoScreenAdapter.h(44) + DoScreenAdapter.statush(),
+              // -
+              // DoScreenAdapter.h(0.5), //细微的差别，有条缝隙
               child: commonSubHeaders(),
             )
           : const Text(""),
@@ -139,7 +128,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
   ///通用二级标题
   Widget commonSubHeaders() {
     return Container(
-      color: Colors.white,
+      color: Colors.white.withOpacity(0.5),
       height: DoScreenAdapter.h(30),
       child: Row(
         children: controller.subTabsList
@@ -147,21 +136,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
               (e) => Expanded(
                   child: InkWell(
                 onTap: () {
-                  // controller.changeTabsSelectedIndex(e["id"]);
-
-                  // if (e["id"] == 0) {
-                  //   Scrollable.ensureVisible(
-                  //       controller.gk0.currentContext as BuildContext,
-                  //       duration: const Duration(milliseconds: 100));
-                  // } else if (e["id"] == 1) {
-                  //   Scrollable.ensureVisible(
-                  //       controller.gk1.currentContext as BuildContext,
-                  //       duration: const Duration(milliseconds: 100));
-                  // } else if (e["id"] == 2) {
-                  //   Scrollable.ensureVisible(
-                  //       controller.gk2.currentContext as BuildContext,
-                  //       duration: const Duration(milliseconds: 100));
-                  // }
+                  controller.changeSubTabsSelectedIndex(e["id"]);
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -184,14 +159,18 @@ class GoodsContentView extends GetView<GoodsContentController> {
   }
 
   ///圆边按钮
-  Widget _circleBorderButton(IconData? icon, void Function()? onPressed) {
+  Widget _circleBorderButton(
+      {required IconData icon,
+      bool isBackButton = false,
+      Function()? onPressed}) {
     return Container(
       width: DoScreenAdapter.w(40),
       height: DoScreenAdapter.w(40),
-      // color: Colors.orange,
-      margin: EdgeInsets.symmetric(
-          horizontal: DoScreenAdapter.w(10)), //设置好这个后，左边返回按钮就左右往内压
-      // margin: EdgeInsets.only(right: DoScreenAdapter.w(10)),
+
+      ///设置好这个后，左边返回按钮就左右往内压
+      margin: isBackButton
+          ? EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10))
+          : EdgeInsets.only(right: DoScreenAdapter.w(10)),
       padding: EdgeInsets.all(
           DoScreenAdapter.w(5)), //宽高大点，再加这样的padding内边距相当于视觉小点，热区大点
       child: ElevatedButton(

@@ -15,9 +15,15 @@ class GoodsContentDetailsView extends GetView {
       key: controller.gk1,
       color: Colors.purple,
       width: double.infinity,
-      height: DoScreenAdapter.h(2000),
+      height: DoScreenAdapter.h(1000),
       child: Column(
-        children: [subHeader()],
+        children: [
+          subHeader(),
+          Container(
+            color: Colors.cyan,
+            height: DoScreenAdapter.h(40),
+          )
+        ],
       ),
     );
   }
