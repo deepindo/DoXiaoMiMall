@@ -3,27 +3,29 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../services/app_network.dart';
 import '../../../models/goods_content_model.dart';
+import '../../../services/app_screenAdapter.dart';
 
 class GoodsContentController extends GetxController {
   final ScrollController scrollController = ScrollController();
-  RxDouble opacity = 0.0.obs;
-  RxBool showTabs = false.obs; //默认不显示tabs
+
+  var cid = Get.arguments["cid"];
+  var model = GoodsContentInfoModel().obs;
+
   GlobalKey gk0 = GlobalKey(); //商品页
   GlobalKey gk1 = GlobalKey(); //详情页
   GlobalKey gk2 = GlobalKey(); //推荐页
 
-  RxInt selectedTabsIndex = 0.obs; //默认三个
+  double rb1Positon = 0.0;
+  double rb2Positon = 0.0;
+
   List tabsList = [
     {"id": 0, "title": "商品"},
     {"id": 1, "title": "详情"},
     {"id": 2, "title": "推荐"}
   ];
-  RxInt selectedSubTabsIndex = 0.obs; //二级标题，可能是两个，可能是
-  List subTabsList = [
-    {"id": 0, "title": "商品介绍"},
-    {"id": 1, "title": "规格参数"},
-    {"id": 2, "title": "安装须知"},
-  ];
+  RxInt selectedTabsIndex = 0.obs; //默认三个
+  RxDouble opacity = 0.0.obs;
+  RxBool showTabs = false.obs; //默认不显示tabs
 
   List<Map> paramteterList = [
     {"id": 0, "title": "CPU", "sub_title": "天玑8100", "icon": ""},
@@ -38,8 +40,13 @@ class GoodsContentController extends GetxController {
     {"id": 9, "title": "网络模式", "sub_title": "双卡双待", "icon": ""},
   ];
 
-  var cid = Get.arguments["cid"];
-  var model = GoodsContentInfoModel().obs;
+  List subTabsList = [
+    {"id": 0, "title": "商品介绍"},
+    {"id": 1, "title": "规格参数"},
+    {"id": 2, "title": "安装须知"},
+  ];
+  RxInt selectedSubTabsIndex = 0.obs; //二级标题，可能是两个，可能是
+  RxBool showSubTabs = false.obs; //默认不显示tabs
 
   @override
   void onInit() {
@@ -65,14 +72,50 @@ class GoodsContentController extends GetxController {
       double delta = scrollPixels / criticalValue;
       opacity.value = delta > 1 ? 1 : (delta < 0 ? 0 : delta);
 
+      print("scrollPixels---$scrollPixels");
+
       ///tabs的显示与appBar不一样，不是渐变的，是突然显示的，
       ///但同时不是以完整的临界值criticalValue来比较的，目前按一半来
       // double tabsDelta = scrollPixels / (criticalValue * 0.5);
       // showTabs.value = tabsDelta > 1 ? true : false;
       showTabs.value = scrollPixels > (criticalValue * 0.5) ? true : false;
-      print("showTabs.value--${showTabs.value}");
+      // print("showTabs.value--${showTabs.value}");
+
+      ///渲染完成，滚动的时候再来获取位置
+      if (rb1Positon == 0 && rb2Positon == 0) {
+        ///理论上只执行一次，为何方法内部的打印一直在执行
+        print("只执行一次：scrollPixels---$scrollPixels");
+        _getRenderBoxPosition(scrollPixels);
+      }
+
+      showSubTabs.value =
+          (scrollPixels > rb1Positon && scrollPixels < rb2Positon)
+              ? true
+              : false;
+
       update();
     });
+  }
+
+  void _getRenderBoxPosition(double scrollPixels) {
+    RenderBox rb1 = gk1.currentContext!.findRenderObject() as RenderBox;
+    rb1Positon = rb1.localToGlobal(Offset.zero).dy +
+        scrollPixels -
+        (DoScreenAdapter.h(44) +
+            DoScreenAdapter.statush() -
+            DoScreenAdapter.h(0.5));
+
+    RenderBox rb2 = gk2.currentContext!.findRenderObject() as RenderBox;
+    rb2Positon = rb2.localToGlobal(Offset.zero).dy +
+        scrollPixels -
+        (DoScreenAdapter.h(44) +
+            DoScreenAdapter.statush() -
+            DoScreenAdapter.h(0.5)) -
+        DoScreenAdapter.h(30);
+
+    print("为何一直打印scrollPixels---$scrollPixels");
+    print("rb1Positon-$rb1Positon");
+    print("rb2Positon-$rb2Positon");
   }
 
   ///请求商品详情页数据

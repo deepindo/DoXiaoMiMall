@@ -6,8 +6,8 @@ import '../controllers/goods_content_controller.dart';
 class GoodsContentDetailsView extends GetView {
   @override
   final GoodsContentController controller = Get.find();
-
-  GoodsContentDetailsView({Key? key}) : super(key: key);
+  final Function subHeader;
+  GoodsContentDetailsView(this.subHeader, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +15,10 @@ class GoodsContentDetailsView extends GetView {
       key: controller.gk1,
       color: Colors.purple,
       width: double.infinity,
-      height: DoScreenAdapter.h(1000),
-      child: Text("详情"),
+      height: DoScreenAdapter.h(2000),
+      child: Column(
+        children: [subHeader()],
+      ),
     );
   }
 }

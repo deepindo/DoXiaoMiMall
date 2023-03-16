@@ -17,7 +17,11 @@ class GoodsContentView extends GetView<GoodsContentController> {
         extendBodyBehindAppBar: true, //实现透明导航栏
         appBar: _customAppBar(),
         body: Stack(
-          children: [_singleChildScrollView(), _bottomFloatingView()],
+          children: [
+            _singleChildScrollView(),
+            _bottomFloatingView(),
+            _customSubHeaders(),
+          ],
         ));
   }
 
@@ -29,7 +33,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
         () => AppBar(
           backgroundColor: Colors.white.withOpacity(controller.opacity.value),
           elevation: 0,
-          title: _customTabs(),
+          title: _customHeader(),
           centerTitle: true,
           leading: _circleBorderButton(Icons.arrow_back_ios_new_outlined, () {
             Get.back();
@@ -47,7 +51,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
   }
 
   ///自定义标题
-  Widget _customTabs() {
+  Widget _customHeader() {
     return SizedBox(
       width: DoScreenAdapter.w(130), //设置后才可以居中
       height: DoScreenAdapter.h(44),
@@ -80,8 +84,14 @@ class GoodsContentView extends GetView<GoodsContentController> {
                           children: [
                             Text(
                               "${e["title"]}",
-                              style: const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.normal),
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                                color: controller.selectedTabsIndex.value ==
+                                        e["id"]
+                                    ? Colors.orange
+                                    : Colors.black,
+                              ),
                             ),
                             Container(
                               margin:
@@ -104,6 +114,71 @@ class GoodsContentView extends GetView<GoodsContentController> {
         //     width: 0,
         //     height: 0,
         //   ),
+      ),
+    );
+  }
+
+  ///当前用于本页面隐藏显示响应式的二级标题
+  ///所有obx只能加在这里，不然会影响传到详情页面的显示
+  Widget _customSubHeaders() {
+    return Obx(
+      () => controller.showSubTabs.value
+          ? Positioned(
+              left: 0,
+              right: 0,
+              top: DoScreenAdapter.h(44) +
+                  DoScreenAdapter.statush() -
+                  DoScreenAdapter.h(0.5), //细微的差别，有条缝隙
+              child: commonSubHeaders(),
+            )
+          : const Text(""),
+    );
+    // _customSubHeaders()
+  }
+
+  ///通用二级标题
+  Widget commonSubHeaders() {
+    return Container(
+      color: Colors.white,
+      height: DoScreenAdapter.h(30),
+      child: Row(
+        children: controller.subTabsList
+            .map(
+              (e) => Expanded(
+                  child: InkWell(
+                onTap: () {
+                  // controller.changeTabsSelectedIndex(e["id"]);
+
+                  // if (e["id"] == 0) {
+                  //   Scrollable.ensureVisible(
+                  //       controller.gk0.currentContext as BuildContext,
+                  //       duration: const Duration(milliseconds: 100));
+                  // } else if (e["id"] == 1) {
+                  //   Scrollable.ensureVisible(
+                  //       controller.gk1.currentContext as BuildContext,
+                  //       duration: const Duration(milliseconds: 100));
+                  // } else if (e["id"] == 2) {
+                  //   Scrollable.ensureVisible(
+                  //       controller.gk2.currentContext as BuildContext,
+                  //       duration: const Duration(milliseconds: 100));
+                  // }
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "${e["title"]}",
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                      color: controller.selectedSubTabsIndex.value == e["id"]
+                          ? Colors.orange
+                          : Colors.black,
+                    ),
+                  ),
+                ),
+              )),
+            )
+            .toList(),
       ),
     );
   }
@@ -140,13 +215,14 @@ class GoodsContentView extends GetView<GoodsContentController> {
       child: Column(
         children: [
           GoodsContentInfoView(showSelectedBottomSheet),
-          GoodsContentDetailsView(),
+          GoodsContentDetailsView(commonSubHeaders),
           GoodsContentRecommendView(),
         ],
       ),
     );
   }
 
+  ///底部浮动操作区域-添加到购物车
   Widget _bottomFloatingView() {
     return Positioned(
       left: 0,

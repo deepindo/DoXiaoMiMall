@@ -35,6 +35,11 @@ class DoScreenAdapter {
   static bh() {
     return ScreenUtil().bottomBarHeight; //1.sh
   }
+
+  ///顶部状态栏高度
+  static statush() {
+    return ScreenUtil().statusBarHeight; //1.sh
+  }
 }
 
 /**
