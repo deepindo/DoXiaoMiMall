@@ -55,8 +55,8 @@ class GoodsContentRecommendView extends GetView {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Get.toNamed("/goods-content",
-                          arguments: {"cid": controller.goodsList[index].sId});
+                      // Get.toNamed("/goods-content",
+                      //     arguments: {"cid": controller.goodsList[index].sId});
                     },
                     child: Container(
                       decoration: BoxDecoration(

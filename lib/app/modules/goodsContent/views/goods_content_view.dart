@@ -127,33 +127,35 @@ class GoodsContentView extends GetView<GoodsContentController> {
 
   ///通用二级标题
   Widget commonSubHeaders() {
-    return Container(
-      color: Colors.white.withOpacity(0.5),
-      height: DoScreenAdapter.h(30),
-      child: Row(
-        children: controller.subTabsList
-            .map(
-              (e) => Expanded(
-                  child: InkWell(
-                onTap: () {
-                  controller.changeSubTabsSelectedIndex(e["id"]);
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "${e["title"]}",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.normal,
-                      color: controller.selectedSubTabsIndex.value == e["id"]
-                          ? Colors.orange
-                          : Colors.black,
+    return Obx(
+      () => Container(
+        color: Colors.white,
+        height: DoScreenAdapter.h(30),
+        child: Row(
+          children: controller.subTabsList
+              .map(
+                (e) => Expanded(
+                    child: InkWell(
+                  onTap: () {
+                    controller.changeSubTabsSelectedIndex(e["id"]);
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "${e["title"]}",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.normal,
+                        color: controller.selectedSubTabsIndex.value == e["id"]
+                            ? Colors.orange
+                            : Colors.black,
+                      ),
                     ),
                   ),
-                ),
-              )),
-            )
-            .toList(),
+                )),
+              )
+              .toList(),
+        ),
       ),
     );
   }

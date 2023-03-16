@@ -758,7 +758,7 @@ class GoodsContentInfoView extends GetView {
                 Positioned(
                     left: 0,
                     right: 0,
-                    top: DoScreenAdapter.h(65),
+                    top: DoScreenAdapter.h(80),
                     bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
                     child: ListView(
                       padding: EdgeInsets.fromLTRB(

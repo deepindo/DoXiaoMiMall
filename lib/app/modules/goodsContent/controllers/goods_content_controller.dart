@@ -47,7 +47,7 @@ class GoodsContentController extends GetxController {
   List subTabsList = [
     {"id": 0, "title": "商品介绍"},
     {"id": 1, "title": "规格参数"},
-    {"id": 2, "title": "安装须知"},
+    // {"id": 2, "title": "安装须知"},
   ];
   RxInt selectedSubTabsIndex = 0.obs; //二级标题，可能是两个，可能是
   RxBool showSubTabs = false.obs; //默认不显示tabs
@@ -77,7 +77,7 @@ class GoodsContentController extends GetxController {
       double delta = scrollPixels / criticalValue;
 
       ///临时改为0.4方便查看背景
-      opacity.value = delta > 0.4 ? 0.4 : (delta < 0 ? 0 : delta);
+      opacity.value = delta > 1 ? 1 : (delta < 0 ? 0 : delta);
 
       // print("scrollPixels---$scrollPixels");
 
@@ -93,6 +93,7 @@ class GoodsContentController extends GetxController {
       ///渲染完成，滚动的时候再来获取位置
       ///这个应该是有问题的，比如第二部分两个或者三个二级标签切换，
       ///--------！！！！！而切换后的内容长度不一样，应该是会出现问题的-----------
+      ///而且有关rb1Positon && rb2Positon获取也是有问题的，不稳定，以后再找方法
       ///
       if (rb1Positon == 0 && rb2Positon == 0) {
         ///理论上只执行一次，为何方法内部的打印一直在执行
@@ -164,34 +165,34 @@ class GoodsContentController extends GetxController {
 
       ///前100ms执行滚动，101ms开始修正一下
       ///感觉这个方法不太稳定
-      Timer.periodic(const Duration(milliseconds: 110), (timer) {
-        double scrollPixels = scrollController.position.pixels;
-        double adapterNavHeight =
-            DoScreenAdapter.h(44) + DoScreenAdapter.statush();
-        double fixedHeight =
-            scrollPixels - adapterNavHeight + DoScreenAdapter.h(2);
-        // + DoScreenAdapter.h(1); //微调一点点
+      // Timer.periodic(const Duration(milliseconds: 110), (timer) {
+      //   double scrollPixels = scrollController.position.pixels;
+      //   double adapterNavHeight =
+      //       DoScreenAdapter.h(44) + DoScreenAdapter.statush();
+      //   double fixedHeight =
+      //       scrollPixels - adapterNavHeight + DoScreenAdapter.h(2);
+      //   // + DoScreenAdapter.h(1); //微调一点点
 
-        scrollController.jumpTo(fixedHeight);
-        timer.cancel();
-      });
+      //   scrollController.jumpTo(fixedHeight);
+      //   timer.cancel();
+      // });
     } else if (index == 2) {
       Scrollable.ensureVisible(gk2.currentContext as BuildContext,
           duration: const Duration(milliseconds: 100));
 
       ///前100ms执行滚动，101ms开始修正一下
       ///感觉这个方法不太稳定
-      Timer.periodic(const Duration(milliseconds: 110), (timer) {
-        double scrollPixels = scrollController.position.pixels;
-        double adapterNavHeight =
-            DoScreenAdapter.h(44) + DoScreenAdapter.statush();
-        double fixedHeight =
-            scrollPixels - adapterNavHeight + DoScreenAdapter.h(2);
-        // + DoScreenAdapter.h(1); //微调一点点
+      // Timer.periodic(const Duration(milliseconds: 110), (timer) {
+      //   double scrollPixels = scrollController.position.pixels;
+      //   double adapterNavHeight =
+      //       DoScreenAdapter.h(44) + DoScreenAdapter.statush();
+      //   double fixedHeight =
+      //       scrollPixels - adapterNavHeight + DoScreenAdapter.h(2);
+      //   // + DoScreenAdapter.h(1); //微调一点点
 
-        scrollController.jumpTo(fixedHeight);
-        timer.cancel();
-      });
+      //   scrollController.jumpTo(fixedHeight);
+      //   timer.cancel();
+      // });
     }
     update();
   }
@@ -199,7 +200,7 @@ class GoodsContentController extends GetxController {
   ///二级标题
   void changeSubTabsSelectedIndex(int index) {
     selectedSubTabsIndex.value = index;
-    // scrollController.jumpTo(rb1Positon); //这个是一种实现方式，但与原app有区别，后续有空再实现不同的效果
+    scrollController.jumpTo(rb1Positon); //这个是一种实现方式，但与原app有区别，后续有空再实现不同的效果
     update();
   }
 
