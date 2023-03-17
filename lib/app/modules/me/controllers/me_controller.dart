@@ -5,7 +5,7 @@ import '../../../models/goods_model.dart';
 import '../../../services/app_network.dart';
 
 class MeController extends GetxController {
-  RxList<BannerItemModel> bestBannerList = <BannerItemModel>[].obs;
+  RxList<BannerItemModel> bannerList = <BannerItemModel>[].obs;
   RxList<GoodsItemModel> goodsList = <GoodsItemModel>[].obs;
 
   ///服务列表
@@ -59,10 +59,11 @@ class MeController extends GetxController {
       "title": "全服服务"
     },
   ];
+
   @override
   void onInit() {
     super.onInit();
-    _requestBestBannerData();
+    _requestBannerData();
     _requestGoodsData();
   }
 
@@ -76,11 +77,11 @@ class MeController extends GetxController {
     super.onClose();
   }
 
-  ///请求热销banner数据
-  void _requestBestBannerData() async {
-    // print("_requestBestBannerData");
-    var data = await DoNetwork().get(bestBannerPath);
-    bestBannerList.value = BannerModel.fromJson(data).result!;
+  ///请求banner数据
+  void _requestBannerData() async {
+    // print("_requestBannerData");
+    var data = await DoNetwork().get(bannerPath);
+    bannerList.value = BannerModel.fromJson(data).result!;
     update();
   }
 

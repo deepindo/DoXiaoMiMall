@@ -124,17 +124,17 @@ class HomeView extends GetView<HomeController> {
         right: 0,
         bottom: 0,
         child: ListView(controller: controller.scrollController, children: [
-          _bannerSwiperArea(),
-          _bannerImageArea(),
-          _menuSwiperArea(),
-          _sigleBannerArea(),
-          _bestGoodsArea(),
+          _bannerSwiperSection(),
+          _bannerImageSection(),
+          _menuSwiperSection(),
+          _sigleBannerSection(),
+          _bestGoodsSection(),
           _goodsListView(),
         ]));
   }
 
   ///顶部banner
-  Widget _bannerSwiperArea() {
+  Widget _bannerSwiperSection() {
     return Container(
       color: Colors.white,
       width: DoScreenAdapter.w(375),
@@ -179,7 +179,7 @@ class HomeView extends GetView<HomeController> {
   }
 
   ///固定banner图片
-  Widget _bannerImageArea() {
+  Widget _bannerImageSection() {
     return SizedBox(
       width: DoScreenAdapter.sw(),
       height: DoScreenAdapter.h(20),
@@ -191,7 +191,7 @@ class HomeView extends GetView<HomeController> {
   }
 
   ///菜单滚动区
-  Widget _menuSwiperArea() {
+  Widget _menuSwiperSection() {
     return Container(
       color: Colors.white,
       width: DoScreenAdapter.w(375),
@@ -269,7 +269,7 @@ class HomeView extends GetView<HomeController> {
   }
 
   ///单一banner区域
-  Widget _sigleBannerArea() {
+  Widget _sigleBannerSection() {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(DoScreenAdapter.w(10)),
@@ -287,7 +287,7 @@ class HomeView extends GetView<HomeController> {
   }
 
   ///热销臻选区域
-  Widget _bestGoodsArea() {
+  Widget _bestGoodsSection() {
     return Column(
       children: [
         Container(
@@ -476,7 +476,7 @@ class HomeView extends GetView<HomeController> {
                 padding: EdgeInsets.all(DoScreenAdapter.w(10)),
                 crossAxisCount: 2,
                 mainAxisSpacing: DoScreenAdapter.w(10), //垂直间距
-                crossAxisSpacing: DoScreenAdapter.h(10), //水平间距
+                crossAxisSpacing: DoScreenAdapter.h(8), //水平间距
                 itemCount: controller.goodsList.length,
                 shrinkWrap: true, //收缩，让子元素自适应宽度
                 physics:

@@ -11,7 +11,8 @@ class OfficialServiceView extends GetView<OfficialServiceController> {
       appBar: AppBar(
         title: Text(
           '官网服务',
-          style: TextStyle(fontSize: DoScreenAdapter.fs(16)),
+          style: TextStyle(
+              fontSize: DoScreenAdapter.fs(16), fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: Colors.white, //Colors.transparent=白色透明度为0

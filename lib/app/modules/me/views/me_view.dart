@@ -91,8 +91,11 @@ class MeView extends GetView<MeController> {
         _profileHeaderSection(),
         _profileMenuSection(),
         _mallVIPSection(),
+        SizedBox(height: DoScreenAdapter.h(10)),
         _orderRecordSection(),
+        SizedBox(height: DoScreenAdapter.h(10)),
         _serviceSection(),
+        SizedBox(height: DoScreenAdapter.h(10)),
         _bannerSection(),
         _goodsListView(),
       ],
@@ -134,18 +137,19 @@ class MeView extends GetView<MeController> {
   ///服务
   Widget _serviceSection() {
     return Container(
-      padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+      // padding: EdgeInsets.all(DoScreenAdapter.w(10)),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
       child: Column(
         children: [
-          _serviceHeader(),
           Container(
+            // color: Colors.purple,
+            padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
+            child: _serviceHeader(),
+          ),
+          SizedBox(
               height: DoScreenAdapter.h(150),
-              // decoration: BoxDecoration(
-              // color: Colors.white,
-              // borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
               child: GridView.builder(
                 padding: EdgeInsets.all(DoScreenAdapter.w(10)),
                 itemCount: controller.serviceList.length,
@@ -248,14 +252,15 @@ class MeView extends GetView<MeController> {
     return Container(
       height: DoScreenAdapter.h(120),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(DoScreenAdapter.w(30)),
-        color: const Color.fromRGBO(248, 248, 248, 1),
+        borderRadius: BorderRadius.circular(DoScreenAdapter.w(10)),
+        // color: Colors.cyan,
+        // color: const Color.fromRGBO(246, 246, 246, 1),
       ),
       child: Obx(
         () => Swiper(
           autoplay: true,
           loop: true,
-          itemCount: controller.bestBannerList.length,
+          itemCount: controller.bannerList.length,
           pagination: SwiperPagination(
               margin: const EdgeInsets.all(0.0),
               builder: SwiperCustomPagination(
@@ -279,10 +284,20 @@ class MeView extends GetView<MeController> {
                 );
               })),
           itemBuilder: (context, index) {
-            return Image.network(
-              DoNetwork.replacePictureURL(
-                  controller.bestBannerList[index].pic!),
-              fit: BoxFit.cover,
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(DoScreenAdapter.w(10)),
+                image: DecorationImage(
+                    image: NetworkImage(DoNetwork.replacePictureURL(
+                        controller.bannerList[index].pic!)),
+                    fit: BoxFit.fill),
+                // color: const Color.fromRGBO(246, 246, 246, 1),
+                // color: Colors.cyan,
+              ),
+              // child: Image.network(
+              //   DoNetwork.replacePictureURL(controller.bannerList[index].pic!),
+              //   fit: BoxFit.fill,
+              // ),
             );
           },
         ),
@@ -299,20 +314,20 @@ class MeView extends GetView<MeController> {
           padding: EdgeInsets.fromLTRB(
               DoScreenAdapter.w(10),
               DoScreenAdapter.h(10),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(0)),
+              DoScreenAdapter.w(0),
+              DoScreenAdapter.h(10)),
           child: const Text(
             "为你精选",
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
         ),
         Obx(() => Container(
-              color: const Color.fromRGBO(248, 248, 248, 1),
+              // color: const Color.fromRGBO(248, 248, 248, 1),
               child: MasonryGridView.count(
-                padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                // padding: EdgeInsets.all(DoScreenAdapter.w(10)),
                 crossAxisCount: 2,
                 mainAxisSpacing: DoScreenAdapter.w(10), //垂直间距
-                crossAxisSpacing: DoScreenAdapter.h(10), //水平间距
+                crossAxisSpacing: DoScreenAdapter.h(8), //水平间距
                 itemCount: controller.goodsList.length,
                 shrinkWrap: true, //收缩，让子元素自适应宽度
                 physics:

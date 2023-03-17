@@ -47,7 +47,7 @@ class GoodsContentRecommendView extends GetView {
                 padding: EdgeInsets.all(DoScreenAdapter.w(10)),
                 crossAxisCount: 2,
                 mainAxisSpacing: DoScreenAdapter.w(10), //垂直间距
-                crossAxisSpacing: DoScreenAdapter.h(10), //水平间距
+                crossAxisSpacing: DoScreenAdapter.h(8), //水平间距
                 itemCount: controller.goodsList.length,
                 shrinkWrap: true, //收缩，让子元素自适应宽度
                 physics:
