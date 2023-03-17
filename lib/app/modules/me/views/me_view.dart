@@ -13,6 +13,7 @@ class MeView extends GetView<MeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(246, 246, 246, 1),
       appBar: _customAppBar(),
       body: _body(),
     );
@@ -87,90 +88,133 @@ class MeView extends GetView<MeController> {
     return ListView(
       padding: EdgeInsets.all(DoScreenAdapter.w(10)),
       children: [
-        // _serviceSection(),
-        // _bannerSection(),
+        _profileHeaderSection(),
+        _profileMenuSection(),
+        _mallVIPSection(),
+        _orderRecordSection(),
+        _serviceSection(),
+        _bannerSection(),
         _goodsListView(),
       ],
+    );
+  }
+
+  ///个人信息头部
+  Widget _profileHeaderSection() {
+    return Container(
+      color: Colors.cyan,
+      height: DoScreenAdapter.h(40),
+    );
+  }
+
+  ///个人菜单相关
+  Widget _profileMenuSection() {
+    return Container(
+      color: Colors.orange,
+      height: DoScreenAdapter.h(40),
+    );
+  }
+
+  ///商城会员相关
+  Widget _mallVIPSection() {
+    return Container(
+      color: Colors.green,
+      height: DoScreenAdapter.h(40),
+    );
+  }
+
+  ///订单及操作记录相关
+  Widget _orderRecordSection() {
+    return Container(
+      color: Colors.blue,
+      height: DoScreenAdapter.h(40),
     );
   }
 
   ///服务
   Widget _serviceSection() {
     return Container(
-        height: DoScreenAdapter.h(190),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
-        child: Column(
-          children: [
-            // _serviceHeader(),
-            GridView.builder(
-              padding: EdgeInsets.all(DoScreenAdapter.w(10)),
-              itemCount: controller.serviceList.length,
-              scrollDirection: Axis.horizontal,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: DoScreenAdapter.w(10),
-                  crossAxisSpacing: DoScreenAdapter.w(10),
-                  childAspectRatio: 1),
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    // print(controller.serviceList[index]["uniId"]);
-                    Get.snackbar("跳转", controller.serviceList[index]["title"]);
+      padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
+      child: Column(
+        children: [
+          _serviceHeader(),
+          Container(
+              height: DoScreenAdapter.h(150),
+              // decoration: BoxDecoration(
+              // color: Colors.white,
+              // borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
+              child: GridView.builder(
+                padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                itemCount: controller.serviceList.length,
+                scrollDirection: Axis.horizontal,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: DoScreenAdapter.w(10),
+                    crossAxisSpacing: DoScreenAdapter.w(10),
+                    childAspectRatio: 1),
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      // print(controller.serviceList[index]["uniId"]);
+                      Get.snackbar(
+                          "跳转", controller.serviceList[index]["title"]);
 
-                    ///使用唯一的标识符，因为名称和图标有可能更换
-                    switch (controller.serviceList[index]["uniId"]) {
-                      case "s0":
-                        // print("我要安装");
-                        break;
-                      case "s1":
-                        // print("我要维修");
-                        break;
-                      case "s2":
-                        // print("我要退换");
-                        break;
-                      case "s3":
-                        // print("服务进度");
-                        break;
-                      case "s4":
-                        // print("以旧换新");
-                        break;
-                      case "s5":
-                        // print("维修价格");
-                        break;
-                      case "s6":
-                        // print("我要贴膜");
-                        break;
-                      case "s7":
-                        // print("全服服务");
-                        Get.toNamed("/official-service");
-                        break;
-                      default:
-                    }
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        controller.serviceList[index]["icon"],
-                        color: controller.serviceList[index]["color"],
-                      ),
-                      SizedBox(
-                        height: DoScreenAdapter.h(10),
-                      ),
-                      Text(
-                        controller.serviceList[index]["title"],
-                        style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ],
-        ));
+                      ///使用唯一的标识符，因为名称和图标有可能更换
+                      switch (controller.serviceList[index]["uniId"]) {
+                        case "s0":
+                          // print("我要安装");
+                          break;
+                        case "s1":
+                          // print("我要维修");
+                          break;
+                        case "s2":
+                          // print("我要退换");
+                          break;
+                        case "s3":
+                          // print("服务进度");
+                          break;
+                        case "s4":
+                          // print("以旧换新");
+                          break;
+                        case "s5":
+                          // print("维修价格");
+                          break;
+                        case "s6":
+                          // print("我要贴膜");
+                          break;
+                        case "s7":
+                          // print("全服服务");
+                          Get.toNamed("/official-service");
+                          break;
+                        default:
+                      }
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          controller.serviceList[index]["icon"],
+                          color: controller.serviceList[index]["color"],
+                        ),
+                        SizedBox(
+                          height: DoScreenAdapter.h(10),
+                        ),
+                        Text(
+                          controller.serviceList[index]["title"],
+                          style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              )),
+        ],
+      ),
+    );
   }
 
   ///服务-头
@@ -202,6 +246,7 @@ class MeView extends GetView<MeController> {
   ///banner区域
   Widget _bannerSection() {
     return Container(
+      height: DoScreenAdapter.h(120),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(DoScreenAdapter.w(30)),
         color: const Color.fromRGBO(248, 248, 248, 1),
@@ -237,7 +282,7 @@ class MeView extends GetView<MeController> {
             return Image.network(
               DoNetwork.replacePictureURL(
                   controller.bestBannerList[index].pic!),
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             );
           },
         ),
@@ -250,9 +295,12 @@ class MeView extends GetView<MeController> {
     return Column(
       children: [
         Container(
-          color: Colors.white,
           alignment: Alignment.centerLeft,
-          padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+          padding: EdgeInsets.fromLTRB(
+              DoScreenAdapter.w(10),
+              DoScreenAdapter.h(10),
+              DoScreenAdapter.w(10),
+              DoScreenAdapter.h(0)),
           child: const Text(
             "为你精选",
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
