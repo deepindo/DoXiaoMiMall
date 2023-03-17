@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:doxiaomimall/app/models/goods_model.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../services/app_network.dart';

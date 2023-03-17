@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:get/get.dart';
+import '../../../components/app_components.dart';
+import '../../../services/app_fontIcons.dart';
+import '../../../services/app_network.dart';
+import '../../../services/app_screenAdapter.dart';
 import '../controllers/me_controller.dart';
 
 class MeView extends GetView<MeController> {
@@ -7,16 +13,351 @@ class MeView extends GetView<MeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('MeView'),
-        centerTitle: true,
+      appBar: _customAppBar(),
+      body: _body(),
+    );
+  }
+
+  ///自定义的appBar
+  AppBar _customAppBar() {
+    return AppBar(
+      centerTitle: true,
+      backgroundColor:
+          const Color.fromRGBO(246, 246, 246, 1), //Colors.transparent=白色透明度为0
+      elevation: 0,
+      leading: Row(
+        children: [
+          const Icon(
+            Icons.child_care_sharp,
+            color: Colors.black87,
+            size: 20,
+          ),
+          Text(
+            "用户昵称",
+            style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+          ),
+        ],
       ),
-      body: const Center(
-        child: Text(
-          'MeView is working',
-          style: TextStyle(fontSize: 20),
+      leadingWidth: DoScreenAdapter.w(100),
+      actions: [
+        InkWell(
+          onTap: () {
+            Get.snackbar("跳转", "我的会员码页面");
+          },
+          child: Container(
+            child: Row(
+              children: [
+                Text(
+                  "会员码",
+                  style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                ),
+                const Icon(
+                  Icons.qr_code,
+                  color: Colors.black87,
+                  size: 20,
+                )
+              ],
+            ),
+          ),
+        ),
+        IconButton(
+            onPressed: () {
+              // Get.toNamed("/official-service");
+            },
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.black87,
+              size: 20,
+            )),
+        IconButton(
+            onPressed: () {
+              // Get.toNamed("/official-service");
+            },
+            icon: const Icon(
+              DoFontIcons.message,
+              color: Colors.black87,
+              size: 20,
+            )),
+      ],
+    );
+  }
+
+  ///body部分
+  Widget _body() {
+    return ListView(
+      padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+      children: [
+        // _serviceSection(),
+        // _bannerSection(),
+        _goodsListView(),
+      ],
+    );
+  }
+
+  ///服务
+  Widget _serviceSection() {
+    return Container(
+        height: DoScreenAdapter.h(190),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
+        child: Column(
+          children: [
+            // _serviceHeader(),
+            GridView.builder(
+              padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+              itemCount: controller.serviceList.length,
+              scrollDirection: Axis.horizontal,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: DoScreenAdapter.w(10),
+                  crossAxisSpacing: DoScreenAdapter.w(10),
+                  childAspectRatio: 1),
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    // print(controller.serviceList[index]["uniId"]);
+                    Get.snackbar("跳转", controller.serviceList[index]["title"]);
+
+                    ///使用唯一的标识符，因为名称和图标有可能更换
+                    switch (controller.serviceList[index]["uniId"]) {
+                      case "s0":
+                        // print("我要安装");
+                        break;
+                      case "s1":
+                        // print("我要维修");
+                        break;
+                      case "s2":
+                        // print("我要退换");
+                        break;
+                      case "s3":
+                        // print("服务进度");
+                        break;
+                      case "s4":
+                        // print("以旧换新");
+                        break;
+                      case "s5":
+                        // print("维修价格");
+                        break;
+                      case "s6":
+                        // print("我要贴膜");
+                        break;
+                      case "s7":
+                        // print("全服服务");
+                        Get.toNamed("/official-service");
+                        break;
+                      default:
+                    }
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        controller.serviceList[index]["icon"],
+                        color: controller.serviceList[index]["color"],
+                      ),
+                      SizedBox(
+                        height: DoScreenAdapter.h(10),
+                      ),
+                      Text(
+                        controller.serviceList[index]["title"],
+                        style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
+        ));
+  }
+
+  ///服务-头
+  Widget _serviceHeader() {
+    return commonHeader(
+        title: "服务",
+        onTap: () {
+          Get.snackbar("跳转", "全部服务页面");
+        },
+        trailing: Row(
+          children: [
+            Text(
+              "查看更多",
+              style: TextStyle(
+                  fontSize: DoScreenAdapter.fs(12), color: Colors.black38),
+            ),
+            SizedBox(
+              width: DoScreenAdapter.w(5),
+            ),
+            const Icon(
+              Icons.arrow_forward_ios_outlined,
+              size: 12,
+              color: Colors.black38,
+            ),
+          ],
+        ));
+  }
+
+  ///banner区域
+  Widget _bannerSection() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(DoScreenAdapter.w(30)),
+        color: const Color.fromRGBO(248, 248, 248, 1),
+      ),
+      child: Obx(
+        () => Swiper(
+          autoplay: true,
+          loop: true,
+          itemCount: controller.bestBannerList.length,
+          pagination: SwiperPagination(
+              margin: const EdgeInsets.all(0.0),
+              builder: SwiperCustomPagination(
+                  builder: (BuildContext context, SwiperPluginConfig config) {
+                return ConstrainedBox(
+                  constraints: BoxConstraints.expand(
+                      height: DoScreenAdapter.h(15)), //隔底部的间距
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: const RectSwiperPaginationBuilder(
+                            color: Colors.black12,
+                            activeColor: Colors.white,
+                          ).build(context, config),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              })),
+          itemBuilder: (context, index) {
+            return Image.network(
+              DoNetwork.replacePictureURL(
+                  controller.bestBannerList[index].pic!),
+              fit: BoxFit.fill,
+            );
+          },
         ),
       ),
+    );
+  }
+
+  ///为你精选-瀑布流列表
+  Widget _goodsListView() {
+    return Column(
+      children: [
+        Container(
+          color: Colors.white,
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+          child: const Text(
+            "为你精选",
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Obx(() => Container(
+              color: const Color.fromRGBO(248, 248, 248, 1),
+              child: MasonryGridView.count(
+                padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                crossAxisCount: 2,
+                mainAxisSpacing: DoScreenAdapter.w(10), //垂直间距
+                crossAxisSpacing: DoScreenAdapter.h(10), //水平间距
+                itemCount: controller.goodsList.length,
+                shrinkWrap: true, //收缩，让子元素自适应宽度
+                physics:
+                    const NeverScrollableScrollPhysics(), //禁止自身滚动，让外面的listView滚动
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      // Get.toNamed("/goods-content",
+                      //     arguments: {"cid": controller.goodsList[index].sId});
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(DoScreenAdapter.w(5)),
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            //这个是为了测试设置图片上左，上右的圆角而设置的，暂时不能完美实现，如下注释
+                            // height: DoScreenAdapter.h(40),
+                            padding: EdgeInsets.all(DoScreenAdapter.w(5)),
+                            // decoration: BoxDecoration(
+                            //如果要如下设置上左，上右的圆角，必须要有container的height，
+                            //但是这样，就不能让图片自适应了，或者计算，或者网络直接返回图片的高
+                            // borderRadius: BorderRadius.only(
+                            //     topLeft:
+                            //         Radius.circular(DoScreenAdapter.w(5)),
+                            //     topRight:
+                            //         Radius.circular(DoScreenAdapter.w(5))),
+                            // image: DecorationImage(
+                            //     image: NetworkImage(
+                            //         DoNetwork.replacePictureURL(
+                            //             controller.goodsList[index].pic!)),
+                            //     fit: BoxFit.cover),
+                            // ),
+                            ///若有特殊圆角需求，可以用上面的DecorationImage，但是各条件要满足，否则直接用child自适应
+                            child: Image.network(
+                              DoNetwork.replacePictureURL(
+                                  controller.goodsList[index].pic!),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(0),
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(5)),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "${controller.goodsList[index].title}",
+                              style: TextStyle(
+                                  fontSize: DoScreenAdapter.fs(14),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: DoScreenAdapter.w(10)),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "${controller.goodsList[index].subTitle}",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black26,
+                                fontSize: DoScreenAdapter.fs(12),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(15),
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(10)),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "¥${controller.goodsList[index].price}",
+                              style: TextStyle(
+                                  fontSize: DoScreenAdapter.fs(14),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )),
+      ],
     );
   }
 }
