@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import '../../../components/app_components.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../controllers/search_controller.dart';
 import '../../../services/app_searchService.dart';
@@ -93,9 +94,7 @@ class SearchView extends GetView<SearchController> {
         _searchHistoryWrapView(),
         _suggestSearchHeader(),
         _suggestSearchWrapView(),
-        SizedBox(
-          height: DoScreenAdapter.h(20),
-        ),
+        SizedBox(height: DoScreenAdapter.h(20)),
         _hotGridView()
       ],
     );
@@ -105,15 +104,16 @@ class SearchView extends GetView<SearchController> {
   Widget _searchHistoryHeader() {
     return Obx(
       () => controller.searchHistoryList.isNotEmpty
-          ? _commonSearchHeader(
+          ? commonHeader(
               title: "搜索历史",
-              icon: const Icon(
-                Icons.delete_forever,
-                color: Colors.black54,
-              ),
-              func: () {
+              onTap: () {
                 _showRemoveAllSearchAlertDialog();
               },
+              trailing: const Icon(
+                Icons.delete_forever,
+                size: 20,
+                color: Colors.black54,
+              ),
             )
           : const SizedBox(
               width: 0,
@@ -137,15 +137,16 @@ class SearchView extends GetView<SearchController> {
 
   ///猜你想搜头部
   Widget _suggestSearchHeader() {
-    return _commonSearchHeader(
+    return commonHeader(
       title: "猜你想搜",
-      icon: const Icon(
+      onTap: () {
+        Get.snackbar("操作", "更换想搜数据");
+      },
+      trailing: const Icon(
         Icons.refresh,
+        size: 20,
         color: Colors.black54,
       ),
-      func: () {
-        print("没有接口，刷新不做了");
-      },
     );
   }
 
@@ -298,22 +299,7 @@ class SearchView extends GetView<SearchController> {
   }
 
   ///----封装区域----
-  /// 头部区域
-  Widget _commonSearchHeader(
-      {required String title, required Icon icon, Function()? func}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-              color: Colors.black54, fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-        IconButton(onPressed: func, icon: icon),
-      ],
-    );
-  }
-
+  ///只在当前页面用的就不抽出当前页面了
   ///抽取了一个搜索字段组件
   Widget _commonSearchWidget({
     required String title,

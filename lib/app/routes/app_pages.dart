@@ -1,11 +1,15 @@
 import 'package:get/get.dart';
 
+import '../modules/customerService/bindings/customer_service_binding.dart';
+import '../modules/customerService/views/customer_service_view.dart';
 import '../modules/goodsContent/bindings/goods_content_binding.dart';
 import '../modules/goodsContent/views/goods_content_view.dart';
 import '../modules/goodsList/bindings/goods_list_binding.dart';
 import '../modules/goodsList/views/goods_list_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/officialService/bindings/official_service_binding.dart';
+import '../modules/officialService/views/official_service_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/search/bindings/search_binding.dart';
@@ -84,6 +88,16 @@ class AppPages {
       name: _Paths.GOODS_CONTENT,
       page: () => const GoodsContentView(),
       binding: GoodsContentBinding(),
+    ),
+    GetPage(
+      name: _Paths.CUSTOMER_SERVICE,
+      page: () => const CustomerServiceView(),
+      binding: CustomerServiceBinding(),
+    ),
+    GetPage(
+      name: _Paths.OFFICIAL_SERVICE,
+      page: () => const OfficialServiceView(),
+      binding: OfficialServiceBinding(),
     ),
   ];
 }
