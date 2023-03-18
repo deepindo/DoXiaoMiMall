@@ -22,9 +22,9 @@ class TabsBinding extends Bindings {
     Get.lazyPut<ServiceController>(
       () => ServiceController(),
     );
-    Get.lazyPut<CartController>(
-      () => CartController(),
-    );
+    // Get.lazyPut<CartController>(
+    //   () => CartController(),
+    // );
     Get.lazyPut<MeController>(
       () => MeController(),
     );

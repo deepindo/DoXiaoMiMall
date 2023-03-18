@@ -5,8 +5,12 @@ import 'package:get/get.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../controllers/cart_controller.dart';
 
-class CartView extends GetView<CartController> {
-  const CartView({Key? key}) : super(key: key);
+class CartView extends GetView {
+  ///商品详情页也要跳转购物车，加上tabs里面是懒加载cartController，
+  ///所以去掉懒加载依赖，改为在cartView的put，以实现效果
+  @override
+  final CartController controller = Get.put(CartController());
+  CartView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

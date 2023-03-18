@@ -237,76 +237,92 @@ class GoodsContentView extends GetView<GoodsContentController> {
             // crossAxisAlignment: CrossAxisAlignment.center,//不生效
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                // padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                padding: EdgeInsets.fromLTRB(
-                  DoScreenAdapter.w(8),
-                  DoScreenAdapter.h(10),
-                  DoScreenAdapter.w(8),
-                  DoScreenAdapter.h(5),
-                ),
-                child: Column(
-                  children: [
-                    const Icon(
-                      Icons.headset_mic_rounded,
-                      color: Colors.black54,
-                      size: 20,
-                    ),
-                    Text(
-                      "客服",
-                      style: TextStyle(
-                          fontSize: DoScreenAdapter.fs(12),
-                          color: Colors.black87),
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                // padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                padding: EdgeInsets.fromLTRB(
-                  DoScreenAdapter.w(8),
-                  DoScreenAdapter.h(10),
-                  DoScreenAdapter.w(8),
-                  DoScreenAdapter.h(5),
-                ),
-                child: Column(
-                  children: [
-                    const Icon(
-                      Icons.favorite_border_outlined,
-                      color: Colors.black54,
-                      size: 20,
-                    ),
-                    Text(
-                      "收藏",
-                      style: TextStyle(
-                          fontSize: DoScreenAdapter.fs(12),
-                          color: Colors.black87),
-                    )
-                  ],
+              InkWell(
+                onTap: () {
+                  Get.toNamed("/customer-service");
+                },
+                child: Padding(
+                  // padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: EdgeInsets.fromLTRB(
+                    DoScreenAdapter.w(8),
+                    DoScreenAdapter.h(10),
+                    DoScreenAdapter.w(8),
+                    DoScreenAdapter.h(5),
+                  ),
+                  child: Column(
+                    children: [
+                      const Icon(
+                        Icons.headset_mic_rounded,
+                        color: Colors.black54,
+                        size: 20,
+                      ),
+                      Text(
+                        "客服",
+                        style: TextStyle(
+                            fontSize: DoScreenAdapter.fs(12),
+                            color: Colors.black87),
+                      )
+                    ],
+                  ),
                 ),
               ),
-              Padding(
-                // padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                padding: EdgeInsets.fromLTRB(
-                  DoScreenAdapter.w(8),
-                  DoScreenAdapter.h(10),
-                  DoScreenAdapter.w(8),
-                  DoScreenAdapter.h(5),
+              InkWell(
+                onTap: () {
+                  Get.snackbar("提示", "收藏成功，调接口图标变化");
+                },
+                child: Padding(
+                  // padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: EdgeInsets.fromLTRB(
+                    DoScreenAdapter.w(8),
+                    DoScreenAdapter.h(10),
+                    DoScreenAdapter.w(8),
+                    DoScreenAdapter.h(5),
+                  ),
+                  child: Column(
+                    children: [
+                      const Icon(
+                        Icons.favorite_border_outlined,
+                        color: Colors.black54,
+                        size: 20,
+                      ),
+                      Text(
+                        "收藏",
+                        style: TextStyle(
+                            fontSize: DoScreenAdapter.fs(12),
+                            color: Colors.black87),
+                      )
+                    ],
+                  ),
                 ),
-                child: Column(
-                  children: [
-                    const Icon(
-                      Icons.shopping_cart,
-                      color: Colors.black54,
-                      size: 20,
-                    ),
-                    Text(
-                      "购物车",
-                      style: TextStyle(
-                          fontSize: DoScreenAdapter.fs(12),
-                          color: Colors.black87),
-                    )
-                  ],
+              ),
+              InkWell(
+                onTap: () {
+                  // Get.snackbar("跳转", "购物车页面");
+                  Get.toNamed("/cart");
+                },
+                child: Padding(
+                  // padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: EdgeInsets.fromLTRB(
+                    DoScreenAdapter.w(8),
+                    DoScreenAdapter.h(10),
+                    DoScreenAdapter.w(8),
+                    DoScreenAdapter.h(5),
+                  ),
+                  child: Column(
+                    children: [
+                      const Icon(
+                        Icons.shopping_cart,
+                        color: Colors.black54,
+                        size: 20,
+                      ),
+                      Text(
+                        "购物车",
+                        style: TextStyle(
+                            fontSize: DoScreenAdapter.fs(12),
+                            color: Colors.black87),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Expanded(
