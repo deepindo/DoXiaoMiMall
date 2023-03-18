@@ -341,7 +341,7 @@ class MeView extends GetView<MeController> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Icon(Icons.account_balance_wallet_outlined),
+                        const Icon(Icons.payment_outlined),
                         Text(
                           "待付款",
                           style: TextStyle(
@@ -355,7 +355,7 @@ class MeView extends GetView<MeController> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Icon(Icons.account_balance_wallet_outlined),
+                        const Icon(Icons.delivery_dining_outlined),
                         Text(
                           "待收货",
                           style: TextStyle(
@@ -369,7 +369,7 @@ class MeView extends GetView<MeController> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Icon(Icons.account_balance_wallet_outlined),
+                        const Icon(Icons.comment_outlined),
                         Text(
                           "待评价",
                           style: TextStyle(
@@ -383,7 +383,7 @@ class MeView extends GetView<MeController> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Icon(Icons.account_balance_wallet_outlined),
+                        const Icon(Icons.change_circle_outlined),
                         Text(
                           "退换/售后",
                           style: TextStyle(
@@ -397,7 +397,7 @@ class MeView extends GetView<MeController> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Icon(Icons.account_balance_wallet_outlined),
+                        const Icon(Icons.list_alt_outlined),
                         Text(
                           "全部订单",
                           style: TextStyle(
