@@ -46,11 +46,15 @@ class MeView extends GetView<MeController> {
             Get.snackbar("跳转", "我的会员码页面");
           },
           child: Container(
+            padding: EdgeInsets.only(right: DoScreenAdapter.w(10)),
             child: Row(
               children: [
                 Text(
                   "会员码",
                   style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                ),
+                SizedBox(
+                  width: DoScreenAdapter.w(5),
                 ),
                 const Icon(
                   Icons.qr_code,
@@ -61,24 +65,32 @@ class MeView extends GetView<MeController> {
             ),
           ),
         ),
-        IconButton(
-            onPressed: () {
-              // Get.toNamed("/official-service");
-            },
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.black87,
-              size: 20,
-            )),
-        IconButton(
-            onPressed: () {
-              // Get.toNamed("/official-service");
-            },
-            icon: const Icon(
-              DoFontIcons.message,
-              color: Colors.black87,
-              size: 20,
-            )),
+        InkWell(
+          onTap: () {
+            Get.snackbar("跳转", "设置页面");
+          },
+          child: Container(
+              padding: EdgeInsets.only(
+                  right: DoScreenAdapter.w(10), left: DoScreenAdapter.w(5)),
+              child: const Icon(
+                Icons.settings,
+                color: Colors.black87,
+                size: 20,
+              )),
+        ),
+        InkWell(
+          onTap: () {
+            Get.snackbar("跳转", "消息通知页面");
+          },
+          child: Container(
+              padding: EdgeInsets.only(
+                  right: DoScreenAdapter.w(10), left: DoScreenAdapter.w(5)),
+              child: const Icon(
+                DoFontIcons.message,
+                color: Colors.black87,
+                size: 20,
+              )),
+        ),
       ],
     );
   }
@@ -105,32 +117,300 @@ class MeView extends GetView<MeController> {
   ///个人信息头部
   Widget _profileHeaderSection() {
     return Container(
-      color: Colors.cyan,
-      height: DoScreenAdapter.h(40),
+      // color: Colors.cyan,
+      height: DoScreenAdapter.h(50),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: DoScreenAdapter.w(25),
+            backgroundImage: const AssetImage("assets/images/user.png"),
+          ),
+          SizedBox(
+            width: DoScreenAdapter.w(10),
+          ),
+          const Text(
+            "登录/注册",
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          ),
+          const Icon(
+            Icons.arrow_forward_ios_outlined,
+            size: 10,
+            color: Colors.black26,
+          )
+        ],
+      ),
     );
   }
 
   ///个人菜单相关
   Widget _profileMenuSection() {
     return Container(
-      color: Colors.orange,
+      // color: Colors.orange,
       height: DoScreenAdapter.h(40),
+      margin: EdgeInsets.symmetric(vertical: DoScreenAdapter.h(10)),
+      child: Row(
+        children: [
+          Expanded(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    "-",
+                    style: TextStyle(
+                        fontSize: DoScreenAdapter.fs(12),
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "米金",
+                    style: TextStyle(
+                        fontSize: DoScreenAdapter.fs(12),
+                        color: Colors.black45),
+                  ),
+                ],
+              )),
+          Expanded(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    "-",
+                    style: TextStyle(
+                        fontSize: DoScreenAdapter.fs(12),
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "优惠券",
+                    style: TextStyle(
+                        fontSize: DoScreenAdapter.fs(12),
+                        color: Colors.black45),
+                  ),
+                ],
+              )),
+          Expanded(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    "-",
+                    style: TextStyle(
+                        fontSize: DoScreenAdapter.fs(12),
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "红包",
+                    style: TextStyle(
+                        fontSize: DoScreenAdapter.fs(12),
+                        color: Colors.black45),
+                  ),
+                ],
+              )),
+          Expanded(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    "-",
+                    style: TextStyle(
+                        fontSize: DoScreenAdapter.fs(12),
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "最高额度",
+                    style: TextStyle(
+                        fontSize: DoScreenAdapter.fs(12),
+                        color: Colors.black45),
+                  ),
+                ],
+              )),
+          Expanded(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Icon(Icons.account_balance_wallet_outlined),
+                  Text(
+                    "钱包",
+                    style: TextStyle(
+                        fontSize: DoScreenAdapter.fs(12),
+                        color: Colors.black45),
+                  ),
+                ],
+              )),
+        ],
+      ),
     );
   }
 
   ///商城会员相关
   Widget _mallVIPSection() {
     return Container(
-      color: Colors.green,
-      height: DoScreenAdapter.h(40),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(DoScreenAdapter.h(10)),
+        color: Colors.green,
+        image: const DecorationImage(
+          image: AssetImage("assets/images/user_ad1.png"),
+          fit: BoxFit.fill,
+        ),
+      ),
+      height: DoScreenAdapter.h(90),
     );
   }
 
   ///订单及操作记录相关
   Widget _orderRecordSection() {
     return Container(
-      color: Colors.blue,
-      height: DoScreenAdapter.h(40),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
+      // height: DoScreenAdapter.h(90),
+      child: Column(
+        children: [
+          SizedBox(
+            height: DoScreenAdapter.h(30),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    height: DoScreenAdapter.h(30),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "收藏",
+                      style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(12),
+                          color: Colors.black45),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            left: BorderSide(
+                                width: DoScreenAdapter.w(0.5),
+                                color: Colors.black12),
+                            right: BorderSide(
+                                width: DoScreenAdapter.w(0.5),
+                                color: Colors.black12))),
+                    height: DoScreenAdapter.h(30),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "足迹",
+                      style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(12),
+                          color: Colors.black45),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    height: DoScreenAdapter.h(30),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "关注",
+                      style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(12),
+                          color: Colors.black45),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Divider(
+            height: DoScreenAdapter.h(1),
+            color: Colors.black12,
+          ),
+          Container(
+            height: DoScreenAdapter.h(50),
+            margin: EdgeInsets.symmetric(vertical: DoScreenAdapter.w(5)),
+            child: Row(
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Icon(Icons.account_balance_wallet_outlined),
+                        Text(
+                          "待付款",
+                          style: TextStyle(
+                              fontSize: DoScreenAdapter.fs(12),
+                              color: Colors.black45),
+                        ),
+                      ],
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Icon(Icons.account_balance_wallet_outlined),
+                        Text(
+                          "待收货",
+                          style: TextStyle(
+                              fontSize: DoScreenAdapter.fs(12),
+                              color: Colors.black45),
+                        ),
+                      ],
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Icon(Icons.account_balance_wallet_outlined),
+                        Text(
+                          "待评价",
+                          style: TextStyle(
+                              fontSize: DoScreenAdapter.fs(12),
+                              color: Colors.black45),
+                        ),
+                      ],
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Icon(Icons.account_balance_wallet_outlined),
+                        Text(
+                          "退换/售后",
+                          style: TextStyle(
+                              fontSize: DoScreenAdapter.fs(12),
+                              color: Colors.black45),
+                        ),
+                      ],
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Icon(Icons.account_balance_wallet_outlined),
+                        Text(
+                          "全部订单",
+                          style: TextStyle(
+                              fontSize: DoScreenAdapter.fs(12),
+                              color: Colors.black45),
+                        ),
+                      ],
+                    )),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -148,10 +428,11 @@ class MeView extends GetView<MeController> {
             padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
             child: _serviceHeader(),
           ),
-          SizedBox(
-              height: DoScreenAdapter.h(150),
+          Container(
+              // color: Colors.cyan,
+              height: DoScreenAdapter.h(140),
               child: GridView.builder(
-                padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                // padding: EdgeInsets.all(DoScreenAdapter.w(10)),
                 itemCount: controller.serviceList.length,
                 scrollDirection: Axis.horizontal,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
