@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../services/app_colors.dart';
 import '../../../services/app_network.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../controllers/goods_content_controller.dart';
@@ -195,7 +196,8 @@ class GoodsContentView extends GetView<GoodsContentController> {
       controller: controller.scrollController,
       child: Column(
         children: [
-          GoodsContentInfoView(showSelectedBottomSheet),
+          GoodsContentInfoView(showPrebuyBottomSheet),
+          // GoodsContentInfoView(() => showPrebuyBottomSheet(sourceType: 0)),
           GoodsContentDetailsView(commonSubHeaders),
           GoodsContentRecommendView(),
         ],
@@ -328,7 +330,9 @@ class GoodsContentView extends GetView<GoodsContentController> {
               Expanded(
                   flex: 1,
                   child: InkWell(
-                    onTap: showSelectedBottomSheet,
+                    onTap: () {
+                      showPrebuyBottomSheet(sourceType: 1);
+                    },
                     child: Container(
                       margin: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(8),
@@ -337,7 +341,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                         DoScreenAdapter.h(10),
                       ),
                       decoration: const BoxDecoration(
-                          color: Colors.orange,
+                          color: DoColors.yellow252,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20),
                               bottomLeft: Radius.circular(20))),
@@ -353,7 +357,9 @@ class GoodsContentView extends GetView<GoodsContentController> {
               Expanded(
                   flex: 1,
                   child: InkWell(
-                    onTap: showSelectedBottomSheet,
+                    onTap: () {
+                      showPrebuyBottomSheet(sourceType: 2);
+                    },
                     child: Container(
                       margin: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(0),
@@ -465,8 +471,12 @@ class GoodsContentView extends GetView<GoodsContentController> {
     );
   }
 
-  ///已选点击弹框
-  void showSelectedBottomSheet() {
+  ///卖之前的弹框:
+  ///sourceType：点击的来源
+  ///0: 已选
+  ///1: 加入购物车
+  ///2: 立即购买
+  void showPrebuyBottomSheet({int? sourceType = 0}) {
     Get.bottomSheet(
       isScrollControlled: true, //设置完这个，上面设置的超过半屏的高度才会生效，否则默认最高半屏
 
@@ -544,7 +554,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                     ),
                     children: controller.model.value.attr!.map(
                       (e) {
-                        print("---${e.selectedStr}");
+                        // print("---${e.selectedStr}");
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -567,8 +577,9 @@ class GoodsContentView extends GetView<GoodsContentController> {
                                     onTap: () {
                                       print("点中了---$v");
                                       //改变选中数据
-                                      e.selectedStr = v;
-                                      controller.changeSelectedTags();
+                                      e.selectedStr =
+                                          v; //为何不把这个放到下面方法里面，因为刚好上面两个map直接可以定位，反之要嵌套循环，就很麻烦了
+                                      controller.changeSelectedAttribute();
                                     },
                                     isSelected: v == e.selectedStr);
                               }).toList(),
@@ -727,65 +738,99 @@ class GoodsContentView extends GetView<GoodsContentController> {
                           color: Colors.black12,
                         ),
                       )),
-                      child: Row(
-                        children: [
-                          Expanded(
-                              flex: 1,
-                              child: InkWell(
-                                onTap: () {
-                                  Get.back();
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.fromLTRB(
-                                    DoScreenAdapter.w(8),
-                                    DoScreenAdapter.h(10),
-                                    DoScreenAdapter.w(0),
-                                    DoScreenAdapter.h(10),
-                                  ),
-                                  decoration: const BoxDecoration(
-                                      color: Colors.orange,
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          bottomLeft: Radius.circular(20))),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "加入购物车",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: DoScreenAdapter.fs(13)),
+                      child: sourceType == 0
+                          ? Row(
+                              children: [
+                                Expanded(
+                                    flex: 1,
+                                    child: InkWell(
+                                      onTap: () {
+                                        Get.back();
+                                        _addToCart();
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.fromLTRB(
+                                          DoScreenAdapter.w(8),
+                                          DoScreenAdapter.h(10),
+                                          DoScreenAdapter.w(0),
+                                          DoScreenAdapter.h(10),
+                                        ),
+                                        decoration: const BoxDecoration(
+                                            color: DoColors.theme,
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(20),
+                                                bottomLeft:
+                                                    Radius.circular(20))),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "加入购物车",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: DoScreenAdapter.fs(13)),
+                                        ),
+                                      ),
+                                    )),
+                                Expanded(
+                                  flex: 1,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.back();
+                                      _buyNow();
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.fromLTRB(
+                                        DoScreenAdapter.w(0),
+                                        DoScreenAdapter.h(10),
+                                        DoScreenAdapter.w(10),
+                                        DoScreenAdapter.h(10),
+                                      ),
+                                      decoration: const BoxDecoration(
+                                          color: DoColors.yellow252,
+                                          borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(20),
+                                              bottomRight:
+                                                  Radius.circular(20))),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "立即购买",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: DoScreenAdapter.fs(13)),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              )),
-                          Expanded(
-                            flex: 1,
-                            child: InkWell(
+                              ],
+                            )
+                          : InkWell(
                               onTap: () {
                                 Get.back();
+                                //要判断来自哪里
+                                if (sourceType == 1) {
+                                  _addToCart();
+                                } else if (sourceType == 2) {
+                                  _buyNow();
+                                } else {}
                               },
                               child: Container(
                                 margin: EdgeInsets.fromLTRB(
-                                  DoScreenAdapter.w(0),
+                                  DoScreenAdapter.w(10),
                                   DoScreenAdapter.h(10),
                                   DoScreenAdapter.w(10),
                                   DoScreenAdapter.h(10),
                                 ),
-                                decoration: const BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(20),
-                                        bottomRight: Radius.circular(20))),
+                                decoration: BoxDecoration(
+                                    color: DoColors.theme,
+                                    borderRadius: BorderRadius.circular(20)),
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "立即购买",
+                                  "确定",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: DoScreenAdapter.fs(13)),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ),
@@ -846,5 +891,22 @@ class GoodsContentView extends GetView<GoodsContentController> {
         ),
       ),
     );
+  }
+
+  ///加入购物车
+  ///
+  void _addToCart() {
+    // controller.selectedGoodsAttributes.value = controller.model.value.attr!
+    //     .map((e) => e.selectedStr)
+    //     .toList()
+    //     .join(" ");
+    controller.updateSelectedGoodsAttributes();
+    Get.snackbar("操作", "调对应方法，加入购物车成功");
+  }
+
+  ///立即购买
+  void _buyNow() {
+    controller.updateSelectedGoodsAttributes();
+    Get.snackbar("跳转", "结算页面");
   }
 }

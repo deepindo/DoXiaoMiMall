@@ -8,7 +8,7 @@ class GoodsContentInfoView extends GetView {
   @override
   final GoodsContentController controller = Get.find();
 
-  final Function selectedSectionEvent;
+  final Function()? selectedSectionEvent;
   GoodsContentInfoView(this.selectedSectionEvent, {Key? key}) : super(key: key);
 
   @override
@@ -419,7 +419,7 @@ class GoodsContentInfoView extends GetView {
     return InkWell(
       // onTap: _showSelectedBottomSheet,
       onTap: () {
-        selectedSectionEvent();
+        selectedSectionEvent!();
       },
       child: Container(
         // alignment: Alignment.center,
@@ -441,7 +441,8 @@ class GoodsContentInfoView extends GetView {
                 Row(
                   children: [
                     Text(
-                      "Redmi Note 12 Pro 6GB+128GB 子夜黑x1",
+                      controller.selectedGoodsAttributes.value,
+                      // "Redmi Note 12 Pro 6GB+128GB 子夜黑x1",
                       style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
                     ),
                   ],

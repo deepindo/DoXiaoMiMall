@@ -288,7 +288,7 @@ class CartView extends GetView {
                       children: [
                         _titleSection(),
                         SizedBox(height: DoScreenAdapter.h(5)),
-                        _typeSection(),
+                        _attributesSection(),
                         SizedBox(height: DoScreenAdapter.h(10)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -347,8 +347,8 @@ class CartView extends GetView {
     );
   }
 
-  ///类型区
-  Widget _typeSection() {
+  ///属性区
+  Widget _attributesSection() {
     return Row(
       children: [
         InkWell(

@@ -48,6 +48,7 @@ class GoodsContentController extends GetxController {
   ];
   RxInt selectedSubTabsIndex = 0.obs; //二级标题，可能是两个，可能是
   RxBool showSubTabs = false.obs; //默认不显示tabs
+  RxString selectedGoodsAttributes = "".obs; //已选的属性
 
   @override
   void onInit() {
@@ -139,6 +140,20 @@ class GoodsContentController extends GetxController {
     // print("_requestGoodsContentData");
     var data = await DoNetwork().get("api/pcontent?id=$cid");
     model.value = GoodsContentModel.fromJson(data).result!;
+
+    /*
+    ///这个方法直接转出来的是：(白色, 16G+128GB)，有括号且是逗号分隔
+    // String temp = model.value.attr!.map((e) => e.selectedStr).toString();
+    // print("temp这个方法怎么样-$temp");
+
+    ///这个方法直接先tolist，再join指定分隔符
+    // String temp1 =
+    //     model.value.attr!.map((e) => e.selectedStr).toList().join(" ");
+    // print("temp1这个方法怎么样-$temp1");
+    */
+    selectedGoodsAttributes.value =
+        model.value.attr!.map((e) => e.selectedStr).toList().join(" ");
+
     update();
   }
 
@@ -202,7 +217,14 @@ class GoodsContentController extends GetxController {
   }
 
   ///已选弹框中的选择标签切换点击
-  void changeSelectedTags() {
+  void changeSelectedAttribute() {
+    update();
+  }
+
+  void updateSelectedGoodsAttributes() {
+    selectedGoodsAttributes.value =
+        model.value.attr!.map((e) => e.selectedStr).toList().join(" ");
+    print("updateSelectedGoodsAttributes-${selectedGoodsAttributes.value}");
     update();
   }
 }
