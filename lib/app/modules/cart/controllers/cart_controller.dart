@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
-  //TODO: Implement CartController
+  RxBool isShowEditingButton = true.obs;
+  RxBool isShowBottomFloatingView = true.obs;
+  List cartList = [];
 
-  final count = 0.obs;
+  // final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +21,5 @@ class CartController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  // void increment() => count.value++;
 }

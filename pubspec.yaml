@@ -45,6 +45,7 @@ dependencies:
   flutter_html: ^3.0.0-alpha.5
   # easy_refresh: ^3.3.1#为啥主这个版本有问题，依赖不少其他库
   pull_to_refresh: ^2.0.0
+  roundcheckbox: ^2.0.5
 
 dev_dependencies:
   flutter_test:
@@ -99,7 +100,7 @@ flutter:
   fonts:
     - family: DoFontIcons
       fonts:
-        - asset: assets/fonts/iconfont.ttf
+        - asset: assets/fonts/DoIconFont.ttf
         # - asset: fonts/Schyler-Italic.ttf
         #   style: italic
   #   - family: Trajan Pro

@@ -1,6 +1,27 @@
 import 'package:flutter/material.dart';
 
 class DoFontIcons {
+  static const IconData cartSelected =
+      IconData(0xf01d1, fontFamily: "DoFontIcons", matchTextDirection: true);
+  static const IconData cartNormal =
+      IconData(0xf01d2, fontFamily: "DoFontIcons", matchTextDirection: true);
+  static const IconData homeSelected =
+      IconData(0xf01d5, fontFamily: "DoFontIcons", matchTextDirection: true);
+  static const IconData homeNormal =
+      IconData(0xf01d6, fontFamily: "DoFontIcons", matchTextDirection: true);
+  static const IconData meSelected =
+      IconData(0xf01d7, fontFamily: "DoFontIcons", matchTextDirection: true);
+  static const IconData meNormal =
+      IconData(0xf01d8, fontFamily: "DoFontIcons", matchTextDirection: true);
+  static const IconData categorySelected =
+      IconData(0xf01fd, fontFamily: "DoFontIcons", matchTextDirection: true);
+  static const IconData categoryNormal =
+      IconData(0xf020d, fontFamily: "DoFontIcons", matchTextDirection: true);
+  static const IconData serviceSelected =
+      IconData(0xf0207, fontFamily: "DoFontIcons", matchTextDirection: true);
+  static const IconData serviceNormal =
+      IconData(0xf0208, fontFamily: "DoFontIcons", matchTextDirection: true);
+
   static const IconData home =
       IconData(0xe612, fontFamily: "DoFontIcons", matchTextDirection: true);
   static const IconData family =

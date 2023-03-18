@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../services/app_fontIcons.dart';
+import '../../../services/app_colors.dart';
 import '../controllers/tabs_controller.dart';
 
 class TabsView extends GetView<TabsController> {
@@ -17,8 +19,7 @@ class TabsView extends GetView<TabsController> {
         ),
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            // fixedColor: Colors.green,
-            selectedItemColor: Colors.orange,
+            selectedItemColor: DoColors.theme,
             unselectedItemColor: Colors.grey,
             currentIndex: controller.currentIndex.value,
             onTap: (value) {
@@ -26,19 +27,44 @@ class TabsView extends GetView<TabsController> {
               controller.pageController.jumpToPage(value);
             },
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "首页"),
-              BottomNavigationBarItem(icon: Icon(Icons.category), label: "分类"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.room_service), label: "服务"),
+                icon: Icon(
+                  DoFontIcons.homeNormal,
+                  color: DoColors.black51,
+                ),
+                activeIcon: Icon(DoFontIcons.homeSelected),
+                label: "首页",
+              ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart), label: "购物车"),
-              BottomNavigationBarItem(icon: Icon(Icons.people), label: "我的")
+                  icon: Icon(
+                    DoFontIcons.categoryNormal,
+                    color: DoColors.black51,
+                  ),
+                  activeIcon: Icon(DoFontIcons.categorySelected),
+                  label: "分类"),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    DoFontIcons.serviceNormal,
+                    color: DoColors.black51,
+                  ),
+                  activeIcon: Icon(DoFontIcons.serviceSelected),
+                  label: "服务"),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    DoFontIcons.cartNormal,
+                    color: DoColors.black51,
+                  ),
+                  activeIcon: Icon(DoFontIcons.cartSelected),
+                  label: "购物车"),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    DoFontIcons.meNormal,
+                    color: DoColors.black51,
+                  ),
+                  activeIcon: Icon(DoFontIcons.meSelected),
+                  label: "我的")
             ]),
       ),
     );
   }
-
-  // BottomNavigationBarItem _bottomNavigationBarItem() {
-  //   return BottomNavigationBarItem(icon: Icon(Icons.home), label: "首页");
-  // }
 }

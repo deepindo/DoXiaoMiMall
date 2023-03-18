@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app/routes/app_pages.dart';
+import 'app/services/app_colors.dart';
 
 void main() {
   //flutter 修改状态栏的颜色
