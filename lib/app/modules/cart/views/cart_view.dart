@@ -1,4 +1,3 @@
-import 'package:doxiaomimall/app/services/app_network.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
@@ -263,7 +262,7 @@ class CartView extends GetView {
     );
   }
 
-  ///物品项
+  ///商品细项
   Widget _cartItemView() {
     return Container(
       margin: EdgeInsets.only(top: DoScreenAdapter.h(10)),
@@ -281,154 +280,21 @@ class CartView extends GetView {
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Checkbox(
-                    value: true,
-                    onChanged: (value) {},
-                  ),
-                  Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(right: DoScreenAdapter.h(10)),
-                      padding: EdgeInsets.all(DoScreenAdapter.w(5)),
-                      width: DoScreenAdapter.w(100),
-                      height: DoScreenAdapter.w(100),
-                      decoration: BoxDecoration(
-                          color: DoColors.gray249,
-                          borderRadius:
-                              BorderRadius.circular(DoScreenAdapter.w(10))),
-                      child: Image.network(
-                        "https://www.itying.com/images/b_focus01.png",
-                        fit: BoxFit.fitHeight,
-                      )),
+                  _checkboxSection(),
+                  _coverSection(),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      // mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(
-                          "小米小米小米小米小米小米小米小米小米小小米小米小米小米小米小米小米小米小米小小米小米小米小米小米小米小米小米小米小",
-                          // textAlign: TextAlign.start,
-                          maxLines: 2,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: DoColors.black51,
-                              fontSize: DoScreenAdapter.fs(14)),
-                        ),
+                        _titleSection(),
                         SizedBox(height: DoScreenAdapter.h(5)),
-                        Container(
-                          padding: EdgeInsets.all(DoScreenAdapter.w(5)),
-                          decoration: BoxDecoration(
-                              color: DoColors.chipNormalGray,
-                              borderRadius:
-                                  BorderRadius.circular(DoScreenAdapter.w(5))),
-                          child:
-                              // Row(
-                              // children: [
-                              Text("黑色",
-                                  style: TextStyle(
-                                    color: DoColors.black51,
-                                    fontSize: DoScreenAdapter.fs(10),
-                                    // fontWeight: FontWeight.bold,
-                                  )),
-                          // Icon(
-                          //   Icons.keyboard_arrow_down_outlined,
-                          //   size: DoScreenAdapter.fs(10),
-                          // ),
-                          // ],
-                          // ),
-                        ),
+                        _typeSection(),
                         SizedBox(height: DoScreenAdapter.h(10)),
-                        // Chip(
-                        //   backgroundColor: DoColors.gray238,
-                        //   label: Text(
-                        //     "黑色",
-                        //     style: TextStyle(
-                        //       color: DoColors.black51,
-                        //       fontSize: DoScreenAdapter.fs(12),
-                        //       // fontWeight: FontWeight.bold,
-                        //     ),
-                        //   ),
-                        //   deleteIcon: const Icon(
-                        //     Icons.keyboard_arrow_down_outlined,
-                        //     size: 10,
-                        //   ),
-                        // ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(children: [
-                              Text("￥",
-                                  style: TextStyle(
-                                      fontSize: DoScreenAdapter.fs(10),
-                                      fontWeight: FontWeight.bold,
-                                      color: DoColors.theme)),
-                              Text("1199",
-                                  style: TextStyle(
-                                      fontSize: DoScreenAdapter.fs(16),
-                                      fontWeight: FontWeight.bold,
-                                      color: DoColors.theme)),
-                            ]),
-                            Container(
-                              decoration: BoxDecoration(
-                                  // color: Colors.cyan,
-                                  border: Border.all(
-                                      color: DoColors.gray238, width: 0.5),
-                                  borderRadius: BorderRadius.circular(
-                                      DoScreenAdapter.w(20))),
-                              height: DoScreenAdapter.h(22),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    alignment: Alignment.center,
-                                    width: DoScreenAdapter.w(36),
-                                    child: Text(
-                                      "-",
-                                      style: TextStyle(
-                                          fontSize: DoScreenAdapter.fs(18),
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                      // color: Colors.cyan,
-                                      border: Border(
-                                          left: BorderSide(
-                                              color: DoColors.gray238,
-                                              width: 0.5),
-                                          right: BorderSide(
-                                              color: DoColors.gray238,
-                                              width: 0.5)),
-                                    ),
-                                    alignment: Alignment.center,
-                                    width: DoScreenAdapter.w(42),
-                                    child: TextField(
-                                      style: TextStyle(
-                                          fontSize: DoScreenAdapter.fs(14),
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                      textAlignVertical:
-                                          TextAlignVertical.center,
-                                      onChanged: (value) {},
-                                      keyboardType: TextInputType.number,
-                                      controller:
-                                          TextEditingController(text: "12"),
-                                      decoration: const InputDecoration(
-                                          border: InputBorder.none),
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    width: DoScreenAdapter.w(36),
-                                    child: Text(
-                                      "+",
-                                      style: TextStyle(
-                                          fontSize: DoScreenAdapter.fs(18),
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            _priceSection(),
+                            _numSection(),
                           ],
                         ),
                       ],
@@ -436,33 +302,143 @@ class CartView extends GetView {
                   ),
                 ]),
           ),
-          // Row(
-          //   children: [
-          //     const Text("包含"),
-          //     Column(
-          //       children: [
-          //         Row(
-          //           children: const [
-          //             Text("小米智能摄像机 云台版2K白色 x1"),
-          //             Icon(
-          //               Icons.arrow_forward_ios_outlined,
-          //               size: 10,
-          //             ),
-          //           ],
-          //         ),
-          //         Row(
-          //           children: const [
-          //             Text("固速视频监控存储卡64G x1"),
-          //             Icon(
-          //               Icons.arrow_forward_ios_outlined,
-          //               size: 10,
-          //             ),
-          //           ],
-          //         ),
-          //       ],
-          //     ),
-          //   ],
-          // ),
+        ],
+      ),
+    );
+  }
+
+  ///-----------------子组件区-----------------
+  ///选择区
+  Widget _checkboxSection() {
+    return Checkbox(
+      value: true,
+      onChanged: (value) {},
+    );
+  }
+
+  ///封面区
+  Widget _coverSection() {
+    return Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(right: DoScreenAdapter.h(10)),
+        padding: EdgeInsets.all(DoScreenAdapter.w(5)),
+        width: DoScreenAdapter.w(100),
+        height: DoScreenAdapter.w(100),
+        decoration: BoxDecoration(
+            color: DoColors.gray249,
+            borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
+        child: Image.network(
+          "https://www.itying.com/images/b_focus01.png",
+          fit: BoxFit.fitHeight,
+        ));
+  }
+
+  ///标题区
+  Widget _titleSection() {
+    return Text(
+      "小米小米小米小米小米小米小米小米小米小小米小米小米小米小米小米小米小米小米小小米小米小米小米小米小米小米小米小米小",
+      maxLines: 2,
+      softWrap: true,
+      overflow: TextOverflow.ellipsis,
+      style:
+          TextStyle(color: DoColors.black51, fontSize: DoScreenAdapter.fs(14)),
+    );
+  }
+
+  ///类型区
+  Widget _typeSection() {
+    return Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(DoScreenAdapter.w(5)),
+          decoration: BoxDecoration(
+              color: DoColors.gray249,
+              borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
+          child: Row(
+            children: [
+              Text("黑色",
+                  style: TextStyle(
+                    color: DoColors.black51,
+                    fontSize: DoScreenAdapter.fs(10),
+                  )),
+              Icon(
+                Icons.keyboard_arrow_down_outlined,
+                size: DoScreenAdapter.fs(10),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  ///价格区
+  Widget _priceSection() {
+    return Row(children: [
+      Text("￥",
+          style: TextStyle(
+              fontSize: DoScreenAdapter.fs(10),
+              fontWeight: FontWeight.bold,
+              color: DoColors.theme)),
+      Text("1199",
+          style: TextStyle(
+              fontSize: DoScreenAdapter.fs(16),
+              fontWeight: FontWeight.bold,
+              color: DoColors.theme)),
+    ]);
+  }
+
+  ///数量区
+  Widget _numSection() {
+    return Container(
+      decoration: BoxDecoration(
+          // color: Colors.cyan,
+          border: Border.all(color: DoColors.gray238, width: 0.5),
+          borderRadius: BorderRadius.circular(DoScreenAdapter.w(20))),
+      height: DoScreenAdapter.h(22),
+      child: Row(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            width: DoScreenAdapter.w(36),
+            child: Text(
+              "-",
+              style: TextStyle(
+                  fontSize: DoScreenAdapter.fs(18),
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              // color: Colors.cyan,
+              border: Border(
+                  left: BorderSide(color: DoColors.gray238, width: 0.5),
+                  right: BorderSide(color: DoColors.gray238, width: 0.5)),
+            ),
+            alignment: Alignment.center,
+            width: DoScreenAdapter.w(42),
+            child: TextField(
+              style: TextStyle(
+                  fontSize: DoScreenAdapter.fs(14),
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+              textAlignVertical: TextAlignVertical.center,
+              onChanged: (value) {},
+              keyboardType: TextInputType.number,
+              controller: TextEditingController(text: "12"),
+              decoration: const InputDecoration(border: InputBorder.none),
+            ),
+          ),
+          Container(
+            alignment: Alignment.center,
+            width: DoScreenAdapter.w(36),
+            child: Text(
+              "+",
+              style: TextStyle(
+                  fontSize: DoScreenAdapter.fs(18),
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
         ],
       ),
     );
