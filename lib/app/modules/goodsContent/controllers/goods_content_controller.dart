@@ -49,6 +49,7 @@ class GoodsContentController extends GetxController {
   RxInt selectedSubTabsIndex = 0.obs; //二级标题，可能是两个，可能是
   RxBool showSubTabs = false.obs; //默认不显示tabs
   RxString selectedGoodsAttributes = "".obs; //已选的属性
+  RxInt buyNumber = 1.obs; //购买数量
 
   @override
   void onInit() {
@@ -221,10 +222,27 @@ class GoodsContentController extends GetxController {
     update();
   }
 
+  ///更新完整的商品选择属性
   void updateSelectedGoodsAttributes() {
     selectedGoodsAttributes.value =
         model.value.attr!.map((e) => e.selectedStr).toList().join(" ");
-    print("updateSelectedGoodsAttributes-${selectedGoodsAttributes.value}");
+    // print("updateSelectedGoodsAttributes-${selectedGoodsAttributes.value}");
     update();
+  }
+
+  ///增加购买数量
+  void plusBuyNumber() {
+    buyNumber.value++;
+    update();
+  }
+
+  ///减少购买数量
+  void minusBuyNumber() {
+    if (buyNumber.value > 1) {
+      buyNumber.value--;
+      update();
+    } else {
+      Get.snackbar("提示", "已经到最低数量了！");
+    }
   }
 }

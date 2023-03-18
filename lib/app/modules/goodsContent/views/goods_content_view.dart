@@ -546,171 +546,187 @@ class GoodsContentView extends GetView<GoodsContentController> {
                   top: DoScreenAdapter.h(70),
                   bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
                   child: ListView(
-                    padding: EdgeInsets.fromLTRB(
-                      DoScreenAdapter.w(10),
-                      DoScreenAdapter.h(10),
-                      DoScreenAdapter.w(10),
-                      DoScreenAdapter.h(10),
-                    ),
-                    children: controller.model.value.attr!.map(
-                      (e) {
-                        // print("---${e.selectedStr}");
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      padding: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(10),
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(10),
+                      ),
+                      children: [
+                        ///用...可以合并数据，
+                        ///这个非常重要
+                        ...controller.model.value.attr!.map(
+                          (e) {
+                            // print("---${e.selectedStr}");
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: DoScreenAdapter.h(10)),
+                                Text(
+                                  "${e.cate}",
+                                  // "版本",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: DoScreenAdapter.fs(12)),
+                                ),
+                                SizedBox(height: DoScreenAdapter.h(10)),
+                                Wrap(
+                                  spacing: DoScreenAdapter.h(10),
+                                  runSpacing: DoScreenAdapter.w(10),
+                                  children: e.list!.map((v) {
+                                    return _commonSelectWidget(
+                                        title: v,
+                                        // "6GB+128GB",
+                                        onTap: () {
+                                          print("点中了---$v");
+                                          //改变选中数据
+                                          e.selectedStr =
+                                              v; //为何不把这个放到下面方法里面，因为刚好上面两个map直接可以定位，反之要嵌套循环，就很麻烦了
+                                          controller.changeSelectedAttribute();
+                                        },
+                                        isSelected: v == e.selectedStr);
+                                  }).toList(),
+                                  // [
+                                  ///Chip
+                                  ///InputChip
+                                  ///ChoiceChip
+                                  ///FilterChip
+                                  ///ActionChip
+                                  // Container(
+                                  //   // padding: EdgeInsets.all(5),
+                                  //   // margin: EdgeInsets.all(5),
+                                  //   child: Chip(
+                                  //     // avatar: const Icon(
+                                  //     //   Icons.av_timer,
+                                  //     //   size: 20,
+                                  //     // ),
+                                  //     side: const BorderSide(color: Colors.red, width: 0.5),
+                                  //     shape: RoundedRectangleBorder(
+                                  //         borderRadius: BorderRadius.circular(5)),
+                                  //     backgroundColor:
+                                  //         const Color.fromRGBO(248, 248, 248, 1),
+                                  //     labelPadding: const EdgeInsets.all(0),
+                                  //     // padding: const EdgeInsets.symmetric(horizontal: 2),
+                                  //     // visualDensity: const VisualDensity(vertical: 0), //不生效
+                                  //     padding: EdgeInsets.all(0),
+                                  //     label: Text("测试chip",
+                                  //         style:
+                                  //             TextStyle(fontSize: DoScreenAdapter.fs(12))),
+                                  //     // onDeleted: () {},
+                                  //     // deleteIcon: const Icon(
+                                  //     //   Icons.delete,
+                                  //     //   size: 15,
+                                  //     // ),
+                                  //   ),
+                                  // ),
+                                  // _commonSelectWidget(
+                                  //     title: "6GB+128GB", isSelected: true),
+                                  // _commonSelectWidget(title: "8GB+128GB"),
+                                  // ],
+                                ),
+                              ],
+                            );
+                          },
+                        ).toList(),
+                        SizedBox(height: DoScreenAdapter.h(10)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(height: DoScreenAdapter.h(10)),
                             Text(
-                              "${e.cate}",
-                              // "版本",
+                              "购买数量",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: DoScreenAdapter.fs(12)),
                             ),
-                            SizedBox(height: DoScreenAdapter.h(10)),
-                            Wrap(
-                              spacing: DoScreenAdapter.h(10),
-                              runSpacing: DoScreenAdapter.w(10),
-                              children: e.list!.map((v) {
-                                return _commonSelectWidget(
-                                    title: v,
-                                    // "6GB+128GB",
-                                    onTap: () {
-                                      print("点中了---$v");
-                                      //改变选中数据
-                                      e.selectedStr =
-                                          v; //为何不把这个放到下面方法里面，因为刚好上面两个map直接可以定位，反之要嵌套循环，就很麻烦了
-                                      controller.changeSelectedAttribute();
-                                    },
-                                    isSelected: v == e.selectedStr);
-                              }).toList(),
-                              // [
-                              ///Chip
-                              ///InputChip
-                              ///ChoiceChip
-                              ///FilterChip
-                              ///ActionChip
-                              // Container(
-                              //   // padding: EdgeInsets.all(5),
-                              //   // margin: EdgeInsets.all(5),
-                              //   child: Chip(
-                              //     // avatar: const Icon(
-                              //     //   Icons.av_timer,
-                              //     //   size: 20,
-                              //     // ),
-                              //     side: const BorderSide(color: Colors.red, width: 0.5),
-                              //     shape: RoundedRectangleBorder(
-                              //         borderRadius: BorderRadius.circular(5)),
-                              //     backgroundColor:
-                              //         const Color.fromRGBO(248, 248, 248, 1),
-                              //     labelPadding: const EdgeInsets.all(0),
-                              //     // padding: const EdgeInsets.symmetric(horizontal: 2),
-                              //     // visualDensity: const VisualDensity(vertical: 0), //不生效
-                              //     padding: EdgeInsets.all(0),
-                              //     label: Text("测试chip",
-                              //         style:
-                              //             TextStyle(fontSize: DoScreenAdapter.fs(12))),
-                              //     // onDeleted: () {},
-                              //     // deleteIcon: const Icon(
-                              //     //   Icons.delete,
-                              //     //   size: 15,
-                              //     // ),
-                              //   ),
-                              // ),
-                              // _commonSelectWidget(
-                              //     title: "6GB+128GB", isSelected: true),
-                              // _commonSelectWidget(title: "8GB+128GB"),
-                              // ],
-                            ),
+                            _numSection()
                           ],
-                        );
-                      },
-                    ).toList(),
-
-                    // [
-                    //   SizedBox(height: DoScreenAdapter.h(10)),
-                    //   Text(
-                    //     "版本",
-                    //     style: TextStyle(
-                    //         fontWeight: FontWeight.bold,
-                    //         fontSize: DoScreenAdapter.fs(12)),
-                    //   ),
-                    //   SizedBox(height: DoScreenAdapter.h(10)),
-                    //   Wrap(
-                    //     spacing: DoScreenAdapter.h(10),
-                    //     runSpacing: DoScreenAdapter.w(10),
-                    //     children: [
-                    //       ///Chip
-                    //       ///InputChip
-                    //       ///ChoiceChip
-                    //       ///FilterChip
-                    //       ///ActionChip
-                    //       // Container(
-                    //       //   // padding: EdgeInsets.all(5),
-                    //       //   // margin: EdgeInsets.all(5),
-                    //       //   child: Chip(
-                    //       //     // avatar: const Icon(
-                    //       //     //   Icons.av_timer,
-                    //       //     //   size: 20,
-                    //       //     // ),
-                    //       //     side: const BorderSide(color: Colors.red, width: 0.5),
-                    //       //     shape: RoundedRectangleBorder(
-                    //       //         borderRadius: BorderRadius.circular(5)),
-                    //       //     backgroundColor:
-                    //       //         const Color.fromRGBO(248, 248, 248, 1),
-                    //       //     labelPadding: const EdgeInsets.all(0),
-                    //       //     // padding: const EdgeInsets.symmetric(horizontal: 2),
-                    //       //     // visualDensity: const VisualDensity(vertical: 0), //不生效
-                    //       //     padding: EdgeInsets.all(0),
-                    //       //     label: Text("测试chip",
-                    //       //         style:
-                    //       //             TextStyle(fontSize: DoScreenAdapter.fs(12))),
-                    //       //     // onDeleted: () {},
-                    //       //     // deleteIcon: const Icon(
-                    //       //     //   Icons.delete,
-                    //       //     //   size: 15,
-                    //       //     // ),
-                    //       //   ),
-                    //       // ),
-                    //       _commonSelectWidget(title: "6GB+128GB", isSelected: true),
-                    //       _commonSelectWidget(title: "8GB+128GB"),
-                    //     ],
-                    //   ),
-                    //   SizedBox(height: DoScreenAdapter.h(10)),
-                    //   Text(
-                    //     "颜色",
-                    //     style: TextStyle(
-                    //         fontWeight: FontWeight.bold,
-                    //         fontSize: DoScreenAdapter.fs(12)),
-                    //   ),
-                    //   SizedBox(height: DoScreenAdapter.h(10)),
-                    //   Wrap(
-                    //     spacing: DoScreenAdapter.h(10),
-                    //     runSpacing: DoScreenAdapter.w(10),
-                    //     children: [
-                    //       _commonSelectWidget(title: "清凉薄荷", isSelected: true),
-                    //       _commonSelectWidget(title: "冰峰黑提"),
-                    //       _commonSelectWidget(title: "晴光白雪"),
-                    //       _commonSelectWidget(title: "樱花蜜粉"),
-                    //       _commonSelectWidget(title: "清凉薄荷"),
-                    //       _commonSelectWidget(title: "冰峰黑提"),
-                    //       _commonSelectWidget(title: "晴光白雪"),
-                    //       _commonSelectWidget(title: "樱花蜜粉"),
-                    //       _commonSelectWidget(title: "清凉薄荷"),
-                    //       _commonSelectWidget(title: "冰峰黑提"),
-                    //       _commonSelectWidget(title: "晴光白雪"),
-                    //       _commonSelectWidget(title: "樱花蜜粉"),
-                    //       _commonSelectWidget(title: "清凉薄荷"),
-                    //       _commonSelectWidget(title: "冰峰黑提"),
-                    //       _commonSelectWidget(title: "晴光白雪"),
-                    //       _commonSelectWidget(title: "樱花蜜粉"),
-                    //       _commonSelectWidget(title: "清凉薄荷"),
-                    //       _commonSelectWidget(title: "冰峰黑提"),
-                    //       _commonSelectWidget(title: "晴光白雪"),
-                    //       _commonSelectWidget(title: "樱花蜜粉")
-                    //     ],
-                    //   ),
-                    // ],
-                  ),
+                        ),
+                      ]
+                      // [
+                      //   SizedBox(height: DoScreenAdapter.h(10)),
+                      //   Text(
+                      //     "版本",
+                      //     style: TextStyle(
+                      //         fontWeight: FontWeight.bold,
+                      //         fontSize: DoScreenAdapter.fs(12)),
+                      //   ),
+                      //   SizedBox(height: DoScreenAdapter.h(10)),
+                      //   Wrap(
+                      //     spacing: DoScreenAdapter.h(10),
+                      //     runSpacing: DoScreenAdapter.w(10),
+                      //     children: [
+                      //       ///Chip
+                      //       ///InputChip
+                      //       ///ChoiceChip
+                      //       ///FilterChip
+                      //       ///ActionChip
+                      //       // Container(
+                      //       //   // padding: EdgeInsets.all(5),
+                      //       //   // margin: EdgeInsets.all(5),
+                      //       //   child: Chip(
+                      //       //     // avatar: const Icon(
+                      //       //     //   Icons.av_timer,
+                      //       //     //   size: 20,
+                      //       //     // ),
+                      //       //     side: const BorderSide(color: Colors.red, width: 0.5),
+                      //       //     shape: RoundedRectangleBorder(
+                      //       //         borderRadius: BorderRadius.circular(5)),
+                      //       //     backgroundColor:
+                      //       //         const Color.fromRGBO(248, 248, 248, 1),
+                      //       //     labelPadding: const EdgeInsets.all(0),
+                      //       //     // padding: const EdgeInsets.symmetric(horizontal: 2),
+                      //       //     // visualDensity: const VisualDensity(vertical: 0), //不生效
+                      //       //     padding: EdgeInsets.all(0),
+                      //       //     label: Text("测试chip",
+                      //       //         style:
+                      //       //             TextStyle(fontSize: DoScreenAdapter.fs(12))),
+                      //       //     // onDeleted: () {},
+                      //       //     // deleteIcon: const Icon(
+                      //       //     //   Icons.delete,
+                      //       //     //   size: 15,
+                      //       //     // ),
+                      //       //   ),
+                      //       // ),
+                      //       _commonSelectWidget(title: "6GB+128GB", isSelected: true),
+                      //       _commonSelectWidget(title: "8GB+128GB"),
+                      //     ],
+                      //   ),
+                      //   SizedBox(height: DoScreenAdapter.h(10)),
+                      //   Text(
+                      //     "颜色",
+                      //     style: TextStyle(
+                      //         fontWeight: FontWeight.bold,
+                      //         fontSize: DoScreenAdapter.fs(12)),
+                      //   ),
+                      //   SizedBox(height: DoScreenAdapter.h(10)),
+                      //   Wrap(
+                      //     spacing: DoScreenAdapter.h(10),
+                      //     runSpacing: DoScreenAdapter.w(10),
+                      //     children: [
+                      //       _commonSelectWidget(title: "清凉薄荷", isSelected: true),
+                      //       _commonSelectWidget(title: "冰峰黑提"),
+                      //       _commonSelectWidget(title: "晴光白雪"),
+                      //       _commonSelectWidget(title: "樱花蜜粉"),
+                      //       _commonSelectWidget(title: "清凉薄荷"),
+                      //       _commonSelectWidget(title: "冰峰黑提"),
+                      //       _commonSelectWidget(title: "晴光白雪"),
+                      //       _commonSelectWidget(title: "樱花蜜粉"),
+                      //       _commonSelectWidget(title: "清凉薄荷"),
+                      //       _commonSelectWidget(title: "冰峰黑提"),
+                      //       _commonSelectWidget(title: "晴光白雪"),
+                      //       _commonSelectWidget(title: "樱花蜜粉"),
+                      //       _commonSelectWidget(title: "清凉薄荷"),
+                      //       _commonSelectWidget(title: "冰峰黑提"),
+                      //       _commonSelectWidget(title: "晴光白雪"),
+                      //       _commonSelectWidget(title: "樱花蜜粉"),
+                      //       _commonSelectWidget(title: "清凉薄荷"),
+                      //       _commonSelectWidget(title: "冰峰黑提"),
+                      //       _commonSelectWidget(title: "晴光白雪"),
+                      //       _commonSelectWidget(title: "樱花蜜粉")
+                      //     ],
+                      //   ),
+                      // ],
+                      ),
                 ),
                 Positioned(
                   left: 0,
@@ -745,7 +761,6 @@ class GoodsContentView extends GetView<GoodsContentController> {
                                     flex: 1,
                                     child: InkWell(
                                       onTap: () {
-                                        Get.back();
                                         _addToCart();
                                       },
                                       child: Container(
@@ -774,7 +789,6 @@ class GoodsContentView extends GetView<GoodsContentController> {
                                   flex: 1,
                                   child: InkWell(
                                     onTap: () {
-                                      Get.back();
                                       _buyNow();
                                     },
                                     child: Container(
@@ -804,7 +818,6 @@ class GoodsContentView extends GetView<GoodsContentController> {
                             )
                           : InkWell(
                               onTap: () {
-                                Get.back();
                                 //要判断来自哪里
                                 if (sourceType == 1) {
                                   _addToCart();
@@ -861,6 +874,74 @@ class GoodsContentView extends GetView<GoodsContentController> {
     );
   }
 
+  ///数量区
+  Widget _numSection() {
+    return Container(
+      decoration: BoxDecoration(
+          // color: Colors.cyan,
+          border: Border.all(color: DoColors.gray238, width: 0.5),
+          borderRadius: BorderRadius.circular(DoScreenAdapter.w(20))),
+      height: DoScreenAdapter.h(22),
+      child: Row(
+        children: [
+          InkWell(
+            onTap: () {
+              // Get.snackbar("操作", "减少数量的逻辑");
+              controller.minusBuyNumber();
+            },
+            child: Container(
+              alignment: Alignment.center,
+              width: DoScreenAdapter.w(36),
+              child: Text(
+                "-",
+                style: TextStyle(
+                    fontSize: DoScreenAdapter.fs(18),
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              border: Border(
+                  left: BorderSide(color: DoColors.gray238, width: 0.5),
+                  right: BorderSide(color: DoColors.gray238, width: 0.5)),
+            ),
+            alignment: Alignment.center,
+            width: DoScreenAdapter.w(42),
+            child: TextField(
+              style: TextStyle(
+                  fontSize: DoScreenAdapter.fs(14),
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+              textAlignVertical: TextAlignVertical.center,
+              onChanged: (value) {},
+              keyboardType: TextInputType.number,
+              controller:
+                  TextEditingController(text: "${controller.buyNumber.value}"),
+              decoration: const InputDecoration(border: InputBorder.none),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              // Get.snackbar("操作", "增加数量的逻辑");
+              controller.plusBuyNumber();
+            },
+            child: Container(
+              alignment: Alignment.center,
+              width: DoScreenAdapter.w(36),
+              child: Text(
+                "+",
+                style: TextStyle(
+                    fontSize: DoScreenAdapter.fs(18),
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   ///抽取了一个选择字段组件
   Widget _commonSelectWidget(
       {required String title,
@@ -901,12 +982,14 @@ class GoodsContentView extends GetView<GoodsContentController> {
     //     .toList()
     //     .join(" ");
     controller.updateSelectedGoodsAttributes();
+    Get.back();
     Get.snackbar("操作", "调对应方法，加入购物车成功");
   }
 
   ///立即购买
   void _buyNow() {
     controller.updateSelectedGoodsAttributes();
+    Get.back();
     Get.snackbar("跳转", "结算页面");
   }
 }
