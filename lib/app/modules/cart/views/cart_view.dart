@@ -1,3 +1,4 @@
+import 'package:doxiaomimall/app/services/app_network.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
@@ -277,25 +278,30 @@ class CartView extends GetView {
             // height: DoScreenAdapter.w(80),
             padding: EdgeInsets.all(DoScreenAdapter.w(10)),
             child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Checkbox(
                     value: true,
                     onChanged: (value) {},
                   ),
                   Container(
+                      alignment: Alignment.center,
                       margin: EdgeInsets.only(right: DoScreenAdapter.h(10)),
-                      color: Colors.cyan,
-                      width: DoScreenAdapter.w(80),
-                      height: DoScreenAdapter.w(80),
+                      padding: EdgeInsets.all(DoScreenAdapter.w(5)),
+                      width: DoScreenAdapter.w(100),
+                      height: DoScreenAdapter.w(100),
+                      decoration: BoxDecoration(
+                          color: DoColors.gray249,
+                          borderRadius:
+                              BorderRadius.circular(DoScreenAdapter.w(10))),
                       child: Image.network(
                         "https://www.itying.com/images/b_focus01.png",
-                        fit: BoxFit.fill,
+                        fit: BoxFit.fitHeight,
                       )),
                   Expanded(
                     child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       // mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
@@ -306,8 +312,7 @@ class CartView extends GetView {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               color: DoColors.black51,
-                              fontSize: DoScreenAdapter.fs(14),
-                              fontWeight: FontWeight.bold),
+                              fontSize: DoScreenAdapter.fs(14)),
                         ),
                         SizedBox(height: DoScreenAdapter.h(5)),
                         Container(
@@ -316,20 +321,21 @@ class CartView extends GetView {
                               color: DoColors.chipNormalGray,
                               borderRadius:
                                   BorderRadius.circular(DoScreenAdapter.w(5))),
-                          child: Row(
-                            children: [
+                          child:
+                              // Row(
+                              // children: [
                               Text("黑色",
                                   style: TextStyle(
                                     color: DoColors.black51,
                                     fontSize: DoScreenAdapter.fs(10),
                                     // fontWeight: FontWeight.bold,
                                   )),
-                              Icon(
-                                Icons.keyboard_arrow_down_outlined,
-                                size: DoScreenAdapter.fs(10),
-                              ),
-                            ],
-                          ),
+                          // Icon(
+                          //   Icons.keyboard_arrow_down_outlined,
+                          //   size: DoScreenAdapter.fs(10),
+                          // ),
+                          // ],
+                          // ),
                         ),
                         SizedBox(height: DoScreenAdapter.h(10)),
                         // Chip(
@@ -350,28 +356,78 @@ class CartView extends GetView {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                Text(
-                                  "￥",
+                            Row(children: [
+                              Text("￥",
                                   style: TextStyle(
                                       fontSize: DoScreenAdapter.fs(10),
                                       fontWeight: FontWeight.bold,
-                                      color: DoColors.theme),
-                                ),
-                                Text(
-                                  "1199",
+                                      color: DoColors.theme)),
+                              Text("1199",
                                   style: TextStyle(
                                       fontSize: DoScreenAdapter.fs(16),
                                       fontWeight: FontWeight.bold,
-                                      color: DoColors.theme),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text("- 1 + "),
-                              ],
+                                      color: DoColors.theme)),
+                            ]),
+                            Container(
+                              decoration: BoxDecoration(
+                                  // color: Colors.cyan,
+                                  border: Border.all(
+                                      color: DoColors.gray238, width: 0.5),
+                                  borderRadius: BorderRadius.circular(
+                                      DoScreenAdapter.w(20))),
+                              height: DoScreenAdapter.h(22),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    alignment: Alignment.center,
+                                    width: DoScreenAdapter.w(36),
+                                    child: Text(
+                                      "-",
+                                      style: TextStyle(
+                                          fontSize: DoScreenAdapter.fs(18),
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                      // color: Colors.cyan,
+                                      border: Border(
+                                          left: BorderSide(
+                                              color: DoColors.gray238,
+                                              width: 0.5),
+                                          right: BorderSide(
+                                              color: DoColors.gray238,
+                                              width: 0.5)),
+                                    ),
+                                    alignment: Alignment.center,
+                                    width: DoScreenAdapter.w(42),
+                                    child: TextField(
+                                      style: TextStyle(
+                                          fontSize: DoScreenAdapter.fs(14),
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                      textAlignVertical:
+                                          TextAlignVertical.center,
+                                      onChanged: (value) {},
+                                      keyboardType: TextInputType.number,
+                                      controller:
+                                          TextEditingController(text: "12"),
+                                      decoration: const InputDecoration(
+                                          border: InputBorder.none),
+                                    ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    width: DoScreenAdapter.w(36),
+                                    child: Text(
+                                      "+",
+                                      style: TextStyle(
+                                          fontSize: DoScreenAdapter.fs(18),
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
