@@ -312,7 +312,9 @@ class CartView extends GetView {
   Widget _checkboxSection() {
     return Checkbox(
       value: true,
-      onChanged: (value) {},
+      onChanged: (value) {
+        Get.snackbar("操作", "改变选择后产生的影响");
+      },
     );
   }
 
@@ -349,23 +351,28 @@ class CartView extends GetView {
   Widget _typeSection() {
     return Row(
       children: [
-        Container(
-          padding: EdgeInsets.all(DoScreenAdapter.w(5)),
-          decoration: BoxDecoration(
-              color: DoColors.gray249,
-              borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
-          child: Row(
-            children: [
-              Text("黑色",
-                  style: TextStyle(
-                    color: DoColors.black51,
-                    fontSize: DoScreenAdapter.fs(10),
-                  )),
-              Icon(
-                Icons.keyboard_arrow_down_outlined,
-                size: DoScreenAdapter.fs(10),
-              ),
-            ],
+        InkWell(
+          onTap: () {
+            Get.snackbar("弹框", "bottomSheet显示对应商品的类型选择框");
+          },
+          child: Container(
+            padding: EdgeInsets.all(DoScreenAdapter.w(5)),
+            decoration: BoxDecoration(
+                color: DoColors.gray249,
+                borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
+            child: Row(
+              children: [
+                Text("黑色",
+                    style: TextStyle(
+                      color: DoColors.black51,
+                      fontSize: DoScreenAdapter.fs(10),
+                    )),
+                Icon(
+                  Icons.keyboard_arrow_down_outlined,
+                  size: DoScreenAdapter.fs(10),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -398,19 +405,23 @@ class CartView extends GetView {
       height: DoScreenAdapter.h(22),
       child: Row(
         children: [
-          Container(
-            alignment: Alignment.center,
-            width: DoScreenAdapter.w(36),
-            child: Text(
-              "-",
-              style: TextStyle(
-                  fontSize: DoScreenAdapter.fs(18),
-                  fontWeight: FontWeight.bold),
+          InkWell(
+            onTap: () {
+              Get.snackbar("操作", "减少数量的逻辑");
+            },
+            child: Container(
+              alignment: Alignment.center,
+              width: DoScreenAdapter.w(36),
+              child: Text(
+                "-",
+                style: TextStyle(
+                    fontSize: DoScreenAdapter.fs(18),
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
           Container(
             decoration: const BoxDecoration(
-              // color: Colors.cyan,
               border: Border(
                   left: BorderSide(color: DoColors.gray238, width: 0.5),
                   right: BorderSide(color: DoColors.gray238, width: 0.5)),
@@ -429,14 +440,19 @@ class CartView extends GetView {
               decoration: const InputDecoration(border: InputBorder.none),
             ),
           ),
-          Container(
-            alignment: Alignment.center,
-            width: DoScreenAdapter.w(36),
-            child: Text(
-              "+",
-              style: TextStyle(
-                  fontSize: DoScreenAdapter.fs(18),
-                  fontWeight: FontWeight.bold),
+          InkWell(
+            onTap: () {
+              Get.snackbar("操作", "增加数量的逻辑");
+            },
+            child: Container(
+              alignment: Alignment.center,
+              width: DoScreenAdapter.w(36),
+              child: Text(
+                "+",
+                style: TextStyle(
+                    fontSize: DoScreenAdapter.fs(18),
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ],
