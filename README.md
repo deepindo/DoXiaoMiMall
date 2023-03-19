@@ -4,13 +4,13 @@
 
 >项目不断更新中，部分功能使用的在线接口api，部分使用的本地存储
 
-##Show
-###iOS
+## Show
+### iOS
 
-###Android
+### Android
 
 
-##Done
+## Done
 ### 版本更新记录
 
 #### v1.0.0：2023-03-19
@@ -77,7 +77,7 @@
   roundcheckbox: ^2.0.5
 ```
 
-##ToDo
+## ToDo
 
 - [x] 商品列表过滤功能要更新
 - [x] 商品详情页html内容在android手机上有空白间隔
