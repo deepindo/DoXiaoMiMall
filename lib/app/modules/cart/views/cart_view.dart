@@ -89,6 +89,13 @@ class CartView extends GetView {
             children: [
               Row(
                 children: [
+                  Checkbox(
+                      activeColor: DoColors.theme,
+                      value: controller.checkedAllState.value,
+                      onChanged: (value) {
+                        controller.changeCheckedAllBoxState(value);
+                      }),
+                  /*
                   RoundCheckBox(
                     size: 28,
                     checkedWidget: const Icon(
@@ -117,6 +124,7 @@ class CartView extends GetView {
                     },
                   ),
                   SizedBox(width: DoScreenAdapter.w(5)),
+                  */
                   Text(
                     "全选",
                     style: TextStyle(
@@ -157,7 +165,7 @@ class CartView extends GetView {
                                 color: DoColors.theme),
                           ),
                           Text(
-                            "7225",
+                            "19796",
                             style: TextStyle(
                                 fontSize: DoScreenAdapter.fs(16),
                                 fontWeight: FontWeight.bold,
@@ -219,7 +227,7 @@ class CartView extends GetView {
                               BorderRadius.circular(DoScreenAdapter.w(30))),
                       alignment: Alignment.center,
                       child: Text(
-                        "结算(5)",
+                        "结算(4)",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

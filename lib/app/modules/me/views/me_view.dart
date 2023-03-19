@@ -26,19 +26,19 @@ class MeView extends GetView<MeController> {
       backgroundColor:
           const Color.fromRGBO(246, 246, 246, 1), //Colors.transparent=白色透明度为0
       elevation: 0,
-      leading: Row(
-        children: [
-          const Icon(
-            Icons.child_care_sharp,
-            color: Colors.black87,
-            size: 20,
-          ),
-          Text(
-            "用户昵称",
-            style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
-          ),
-        ],
-      ),
+      // leading: Row(
+      //   children: [
+      //     const Icon(
+      //       Icons.child_care_sharp,
+      //       color: Colors.black87,
+      //       size: 20,
+      //     ),
+      //     Text(
+      //       "用户昵称",
+      //       style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
+      //     ),
+      //   ],
+      // ),
       leadingWidth: DoScreenAdapter.w(100),
       actions: [
         InkWell(
