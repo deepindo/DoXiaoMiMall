@@ -433,6 +433,8 @@ class MeView extends GetView<MeController> {
               height: DoScreenAdapter.h(140),
               child: GridView.builder(
                 // padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: controller.serviceList.length,
                 scrollDirection: Axis.horizontal,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

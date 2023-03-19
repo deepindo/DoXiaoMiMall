@@ -95,6 +95,8 @@ class ServiceView extends GetView<ServiceController> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
         child: GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           padding: EdgeInsets.all(DoScreenAdapter.w(10)),
           itemCount: controller.serviceList.length,
           scrollDirection: Axis.horizontal,
