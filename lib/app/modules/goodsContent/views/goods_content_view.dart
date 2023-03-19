@@ -761,7 +761,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                                     flex: 1,
                                     child: InkWell(
                                       onTap: () {
-                                        _addToCart();
+                                        controller.addToCart();
                                       },
                                       child: Container(
                                         margin: EdgeInsets.fromLTRB(
@@ -789,7 +789,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                                   flex: 1,
                                   child: InkWell(
                                     onTap: () {
-                                      _buyNow();
+                                      controller.buyNow();
                                     },
                                     child: Container(
                                       margin: EdgeInsets.fromLTRB(
@@ -820,9 +820,9 @@ class GoodsContentView extends GetView<GoodsContentController> {
                               onTap: () {
                                 //要判断来自哪里
                                 if (sourceType == 1) {
-                                  _addToCart();
+                                  controller.addToCart();
                                 } else if (sourceType == 2) {
-                                  _buyNow();
+                                  controller.buyNow();
                                 } else {}
                               },
                               child: Container(
@@ -974,22 +974,21 @@ class GoodsContentView extends GetView<GoodsContentController> {
     );
   }
 
-  ///加入购物车
-  ///
-  void _addToCart() {
-    // controller.selectedGoodsAttributes.value = controller.model.value.attr!
-    //     .map((e) => e.selectedStr)
-    //     .toList()
-    //     .join(" ");
-    controller.updateSelectedGoodsAttributes();
-    Get.back();
-    Get.snackbar("操作", "调对应方法，加入购物车成功");
-  }
+  // ///加入购物车
+  // void _addToCart() {
+  //   // controller.selectedGoodsAttributes.value = controller.model.value.attr!
+  //   //     .map((e) => e.selectedStr)
+  //   //     .toList()
+  //   //     .join(" ");
+  //   controller.updateSelectedGoodsAttributes();
+  //   Get.back();
+  //   Get.snackbar("操作", "调对应方法，加入购物车成功");
+  // }
 
-  ///立即购买
-  void _buyNow() {
-    controller.updateSelectedGoodsAttributes();
-    Get.back();
-    Get.snackbar("跳转", "结算页面");
-  }
+  // ///立即购买
+  // void _buyNow() {
+  //   controller.updateSelectedGoodsAttributes();
+  //   Get.back();
+  //   Get.snackbar("跳转", "结算页面");
+  // }
 }

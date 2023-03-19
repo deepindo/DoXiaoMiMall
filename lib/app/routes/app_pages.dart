@@ -32,6 +32,8 @@ class AppPages {
       name: _Paths.TABS,
       page: () => const TabsView(),
       binding: TabsBinding(),
+      transition: Transition.fadeIn, //比如从空的购物车直接跳过来，不能使用rightToLeft
+      transitionDuration: const Duration(milliseconds: 100),
     ),
     // GetPage(
     //   name: _Paths.HOME,

@@ -1,3 +1,4 @@
+import 'package:doxiaomimall/app/services/app_network.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
@@ -8,6 +9,7 @@ import '../controllers/cart_controller.dart';
 class CartView extends GetView {
   ///商品详情页也要跳转购物车，加上tabs里面是懒加载cartController，
   ///所以去掉懒加载依赖，改为在cartView的put，以实现效果
+  ///CartView在多个地方调用，所以手动实现下面的控制器
   @override
   final CartController controller = Get.put(CartController());
   CartView({Key? key}) : super(key: key);
@@ -50,12 +52,23 @@ class CartView extends GetView {
 
   ///body部分
   Widget _body() {
-    return Stack(
-      children: [
-        _contentListView(),
-        _floatingView(),
-      ],
-    );
+    ///这里为了保证实时渲染，用GetBuilder替换Obx，底部浮动也需要控制，所以对整体添加的
+    return GetBuilder<CartController>(
+        initState: (state) {
+          ///这里每次update都会执行
+          controller.getLocalCartList();
+        },
+        init: controller,
+        builder: (controller) {
+          return controller.cartList.isNotEmpty
+              ? Stack(
+                  children: [
+                    _contentListView(),
+                    _floatingView(),
+                  ],
+                )
+              : _emptyView();
+        });
   }
 
   ///底部浮动区
@@ -93,9 +106,11 @@ class CartView extends GetView {
                       color: DoColors.gray154, //加状态判断,后面去看一下文档，怎么设置，另外热区太小
                       width: 1.5,
                     ),
-                    isChecked: true, //_isCheckProtocol,
+                    isChecked:
+                        controller.checkedAllState.value, //_isCheckProtocol,
                     onTap: (value) {
-                      Get.snackbar("操作", "影响购物车列表的选择和右侧显示内容及样式");
+                      // Get.snackbar("操作", "影响购物车列表的选择和右侧显示内容及样式");
+                      controller.changeCheckedAllBoxState(value);
                       // setState(() {
                       //   _isCheckProtocol = value!;
                       // });
@@ -228,42 +243,55 @@ class CartView extends GetView {
       bottom: DoScreenAdapter.h(60),
       child: ListView(
         padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+        children: controller.cartList
+            .map((element) => _cartItemView(element))
+            .toList(),
+      ),
+    );
+  }
+
+  ///空数据时显示
+  Widget _emptyView() {
+    return SizedBox(
+      // color: Colors.cyan,
+      width: double.infinity,
+      height: DoScreenAdapter.h(250),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
-          _cartItemView(),
+          Image.asset(
+            "assets/images/emptyOrder.png",
+            width: DoScreenAdapter.w(100),
+            height: DoScreenAdapter.w(100),
+            // color: Colors.cyan,
+            fit: BoxFit.fill,
+          ),
+          SizedBox(height: DoScreenAdapter.h(10)),
+          Text(
+            "购物车空空如也",
+            style: TextStyle(
+                fontSize: DoScreenAdapter.fs(14), color: DoColors.gray154),
+          ),
+          SizedBox(height: DoScreenAdapter.h(10)),
+          OutlinedButton(
+              onPressed: () {
+                Get.offAllNamed("/tabs");
+              },
+              child: Text(
+                "随便看看",
+                style: TextStyle(
+                    fontSize: DoScreenAdapter.fs(14), color: DoColors.black128),
+              )),
         ],
       ),
     );
   }
 
   ///商品细项
-  Widget _cartItemView() {
+  ///
+  ///这里因为抽取，需要传递很多次参数！！！
+  ///
+  Widget _cartItemView(Map element) {
     return Container(
       margin: EdgeInsets.only(top: DoScreenAdapter.h(10)),
       decoration: BoxDecoration(
@@ -280,21 +308,21 @@ class CartView extends GetView {
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  _checkboxSection(),
-                  _coverSection(),
+                  _checkboxSection(element),
+                  _coverSection(element["pic"]),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _titleSection(),
+                        _titleSection(element["title"]),
                         SizedBox(height: DoScreenAdapter.h(5)),
-                        _attributesSection(),
+                        _attributesSection(element["selectedGoodsAttributes"]),
                         SizedBox(height: DoScreenAdapter.h(10)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            _priceSection(),
-                            _numSection(),
+                            _priceSection(element["price"]),
+                            _numSection(element),
                           ],
                         ),
                       ],
@@ -309,17 +337,19 @@ class CartView extends GetView {
 
   ///-----------------子组件区-----------------
   ///选择区
-  Widget _checkboxSection() {
+  Widget _checkboxSection(Map element) {
     return Checkbox(
-      value: true,
+      value: element["checked"],
+      activeColor: DoColors.theme,
       onChanged: (value) {
-        Get.snackbar("操作", "改变选择后产生的影响");
+        // Get.snackbar("操作", "改变选择后产生的影响");
+        controller.changeCheckboxState(element);
       },
     );
   }
 
   ///封面区
-  Widget _coverSection() {
+  Widget _coverSection(String? pic) {
     return Container(
         alignment: Alignment.center,
         margin: EdgeInsets.only(right: DoScreenAdapter.h(10)),
@@ -330,15 +360,17 @@ class CartView extends GetView {
             color: DoColors.gray249,
             borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
         child: Image.network(
-          "https://www.itying.com/images/b_focus01.png",
+          DoNetwork.replacePictureURL(pic!),
+          // "https://www.itying.com/images/b_focus01.png",
           fit: BoxFit.fitHeight,
         ));
   }
 
   ///标题区
-  Widget _titleSection() {
+  Widget _titleSection(String title) {
     return Text(
-      "小米小米小米小米小米小米小米小米小米小小米小米小米小米小米小米小米小米小米小小米小米小米小米小米小米小米小米小米小",
+      title,
+      // "小米小米小米小米小米小米小米小米小米小小米小米小米小米小米小米小米小米小米小小米小米小米小米小米小米小米小米小米小",
       maxLines: 2,
       softWrap: true,
       overflow: TextOverflow.ellipsis,
@@ -348,7 +380,7 @@ class CartView extends GetView {
   }
 
   ///属性区
-  Widget _attributesSection() {
+  Widget _attributesSection(String selectedGoodsAttributes) {
     return Row(
       children: [
         InkWell(
@@ -362,7 +394,8 @@ class CartView extends GetView {
                 borderRadius: BorderRadius.circular(DoScreenAdapter.w(5))),
             child: Row(
               children: [
-                Text("黑色",
+                Text(selectedGoodsAttributes,
+                    // "黑色",
                     style: TextStyle(
                       color: DoColors.black51,
                       fontSize: DoScreenAdapter.fs(10),
@@ -380,14 +413,15 @@ class CartView extends GetView {
   }
 
   ///价格区
-  Widget _priceSection() {
+  Widget _priceSection(int price) {
     return Row(children: [
       Text("￥",
           style: TextStyle(
               fontSize: DoScreenAdapter.fs(10),
               fontWeight: FontWeight.bold,
               color: DoColors.theme)),
-      Text("1199",
+      Text("$price",
+          // "1199",
           style: TextStyle(
               fontSize: DoScreenAdapter.fs(16),
               fontWeight: FontWeight.bold,
@@ -396,7 +430,7 @@ class CartView extends GetView {
   }
 
   ///数量区
-  Widget _numSection() {
+  Widget _numSection(Map element) {
     return Container(
       decoration: BoxDecoration(
           // color: Colors.cyan,
@@ -407,7 +441,8 @@ class CartView extends GetView {
         children: [
           InkWell(
             onTap: () {
-              Get.snackbar("操作", "减少数量的逻辑");
+              // Get.snackbar("操作", "减少数量的逻辑");
+              controller.minusBuyNumber(element);
             },
             child: Container(
               alignment: Alignment.center,
@@ -436,13 +471,16 @@ class CartView extends GetView {
               textAlignVertical: TextAlignVertical.center,
               onChanged: (value) {},
               keyboardType: TextInputType.number,
-              controller: TextEditingController(text: "12"),
+              controller: TextEditingController(text: "${element["buyNumber"]}"
+                  // "12"
+                  ),
               decoration: const InputDecoration(border: InputBorder.none),
             ),
           ),
           InkWell(
             onTap: () {
-              Get.snackbar("操作", "增加数量的逻辑");
+              // Get.snackbar("操作", "增加数量的逻辑");
+              controller.plusBuyNumber(element);
             },
             child: Container(
               alignment: Alignment.center,

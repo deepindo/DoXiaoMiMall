@@ -1,3 +1,4 @@
+import 'package:doxiaomimall/app/services/app_cartService.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../services/app_network.dart';
@@ -244,5 +245,32 @@ class GoodsContentController extends GetxController {
     } else {
       Get.snackbar("提示", "已经到最低数量了！");
     }
+  }
+
+  ///加入购物车
+  void addToCart() {
+    // controller.selectedGoodsAttributes.value = controller.model.value.attr!
+    //     .map((e) => e.selectedStr)
+    //     .toList()
+    //     .join(" ");
+    updateSelectedGoodsAttributes();
+    DoCartService.addToLocalCartList(
+        model.value.sId,
+        model.value.title,
+        model.value.price,
+        model.value.pic,
+        selectedGoodsAttributes.value,
+        buyNumber.value);
+    Get.back();
+    Get.snackbar("提示", "加入购物车成功");
+  }
+
+  ///立即购买
+  void buyNow() {
+    updateSelectedGoodsAttributes();
+
+    ///这个没有写入本地数据库
+    Get.back();
+    Get.snackbar("跳转", "结算页面");
   }
 }
