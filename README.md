@@ -9,6 +9,16 @@
 
 ### Android
 
+<div align=center>
+<img src="./screenshot/android/011.jpg" width="220" alt="首页"/>
+<img src="./screenshot/android/012.jpg" width="220"/>
+<img src="./screenshot/android/02.jpg" width="220"/>
+<img src="./screenshot/android/03.jpg" width="220"/>
+<img src="./screenshot/android/04.jpg" width="220"/>
+<img src="./screenshot/android/05.jpg" width="220"/>
+<img src="./screenshot/android/06.jpg" width="220"/>
+<img src="./screenshot/android/07.jpg" width="220"/>
+</div>
 
 ## Done
 ### 版本更新记录
