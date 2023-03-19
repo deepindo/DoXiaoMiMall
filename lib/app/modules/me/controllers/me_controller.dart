@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../models/banner_model.dart';
 import '../../../models/goods_model.dart';
+import '../../../services/app_colors.dart';
 import '../../../services/app_network.dart';
 
 class MeController extends GetxController {
@@ -25,13 +26,13 @@ class MeController extends GetxController {
     {
       "uniId": "s2",
       "icon": Icons.accessibility_new,
-      "color": Colors.orange,
+      "color": DoColors.theme,
       "title": "我要退换"
     },
     {
       "uniId": "s3",
       "icon": Icons.account_tree,
-      "color": Colors.orange,
+      "color": DoColors.theme,
       "title": "服务进度"
     },
     {
@@ -49,7 +50,7 @@ class MeController extends GetxController {
     {
       "uniId": "s6",
       "icon": Icons.design_services_outlined,
-      "color": Colors.orange,
+      "color": DoColors.theme,
       "title": "我要贴膜"
     },
     {

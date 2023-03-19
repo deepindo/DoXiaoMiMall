@@ -145,7 +145,7 @@ class MeView extends GetView<MeController> {
   ///个人菜单相关
   Widget _profileMenuSection() {
     return Container(
-      // color: Colors.orange,
+      // color: DoColors.theme,
       height: DoScreenAdapter.h(40),
       margin: EdgeInsets.symmetric(vertical: DoScreenAdapter.h(10)),
       child: Row(

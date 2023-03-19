@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../components/app_components.dart';
+import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../controllers/search_controller.dart';
 import '../../../services/app_searchService.dart';
@@ -30,7 +31,7 @@ class SearchView extends GetView<SearchController> {
           height: DoScreenAdapter.h(26),
           decoration: BoxDecoration(
             color: const Color.fromRGBO(246, 246, 246, 1),
-            // color: Colors.orange,
+            // color: DoColors.theme,
             borderRadius: BorderRadius.circular(30),
           ),
           child: TextField(
@@ -201,7 +202,7 @@ class SearchView extends GetView<SearchController> {
                   return Row(
                     children: [
                       Container(
-                        // color: Colors.orange,
+                        // color: DoColors.theme,
                         alignment: Alignment.center,
                         width: DoScreenAdapter.w(70),
                         // height: DoScreenAdapter.h(80),
@@ -247,7 +248,7 @@ class SearchView extends GetView<SearchController> {
                 Get.back();
               },
               child: const Text("确定",
-                  style: TextStyle(fontSize: 14, color: Colors.orange)),
+                  style: TextStyle(fontSize: 14, color: DoColors.theme)),
             ),
             TextButton(
                 onPressed: () {
@@ -285,7 +286,7 @@ class SearchView extends GetView<SearchController> {
                 Get.back();
               },
               child: const Text("确定",
-                  style: TextStyle(fontSize: 14, color: Colors.orange)),
+                  style: TextStyle(fontSize: 14, color: DoColors.theme)),
             ),
             TextButton(
                 onPressed: () {

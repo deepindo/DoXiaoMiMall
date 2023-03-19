@@ -79,7 +79,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                                 fontWeight: FontWeight.normal,
                                 color: controller.selectedTabsIndex.value ==
                                         e["id"]
-                                    ? Colors.orange
+                                    ? DoColors.theme
                                     : Colors.black,
                               ),
                             ),
@@ -90,7 +90,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                               height: DoScreenAdapter.h(3),
                               color:
                                   controller.selectedTabsIndex.value == e["id"]
-                                      ? Colors.orange
+                                      ? DoColors.theme
                                       : Colors.transparent,
                             )
                           ],
@@ -148,7 +148,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                         fontSize: 12,
                         fontWeight: FontWeight.normal,
                         color: controller.selectedSubTabsIndex.value == e["id"]
-                            ? Colors.orange
+                            ? DoColors.theme
                             : Colors.black,
                       ),
                     ),
@@ -341,7 +341,13 @@ class GoodsContentView extends GetView<GoodsContentController> {
                         DoScreenAdapter.h(10),
                       ),
                       decoration: const BoxDecoration(
-                          color: DoColors.yellow252,
+                          gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                DoColors.yellowBegin,
+                                DoColors.yellowEnd
+                              ]),
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20),
                               bottomLeft: Radius.circular(20))),
@@ -368,7 +374,13 @@ class GoodsContentView extends GetView<GoodsContentController> {
                         DoScreenAdapter.h(10),
                       ),
                       decoration: const BoxDecoration(
-                          color: Colors.red,
+                          gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                DoColors.redBegin,
+                                DoColors.redEnd,
+                              ]),
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(20),
                               bottomRight: Radius.circular(20))),
@@ -525,7 +537,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                             Text("¥${controller.model.value.price}",
                                 // "¥1599",
                                 style: TextStyle(
-                                    color: Colors.red,
+                                    color: DoColors.theme,
                                     fontWeight: FontWeight.w900,
                                     fontSize: DoScreenAdapter.fs(16))),
                             SizedBox(height: DoScreenAdapter.h(10)),
@@ -600,7 +612,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                                   //     //   Icons.av_timer,
                                   //     //   size: 20,
                                   //     // ),
-                                  //     side: const BorderSide(color: Colors.red, width: 0.5),
+                                  //     side: const BorderSide(color: DoColors.theme, width: 0.5),
                                   //     shape: RoundedRectangleBorder(
                                   //         borderRadius: BorderRadius.circular(5)),
                                   //     backgroundColor:
@@ -668,7 +680,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                       //       //     //   Icons.av_timer,
                       //       //     //   size: 20,
                       //       //     // ),
-                      //       //     side: const BorderSide(color: Colors.red, width: 0.5),
+                      //       //     side: const BorderSide(color: DoColors.theme, width: 0.5),
                       //       //     shape: RoundedRectangleBorder(
                       //       //         borderRadius: BorderRadius.circular(5)),
                       //       //     backgroundColor:
@@ -771,7 +783,13 @@ class GoodsContentView extends GetView<GoodsContentController> {
                                           DoScreenAdapter.h(10),
                                         ),
                                         decoration: const BoxDecoration(
-                                            color: DoColors.theme,
+                                            gradient: LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                colors: [
+                                                  DoColors.redBegin,
+                                                  DoColors.redEnd
+                                                ]),
                                             borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(20),
                                                 bottomLeft:
@@ -799,7 +817,13 @@ class GoodsContentView extends GetView<GoodsContentController> {
                                         DoScreenAdapter.h(10),
                                       ),
                                       decoration: const BoxDecoration(
-                                          color: DoColors.yellow252,
+                                          gradient: LinearGradient(
+                                              begin: Alignment.centerLeft,
+                                              end: Alignment.centerRight,
+                                              colors: [
+                                                DoColors.yellowBegin,
+                                                DoColors.yellowEnd
+                                              ]),
                                           borderRadius: BorderRadius.only(
                                               topRight: Radius.circular(20),
                                               bottomRight:
@@ -859,7 +883,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                       },
                       child: const SizedBox(
                         // alignment: Alignment.center,
-                        // color: Colors.orange,
+                        // color: DoColors.theme,
                         child: Icon(
                           Icons.close,
                           size: 20,
@@ -956,19 +980,22 @@ class GoodsContentView extends GetView<GoodsContentController> {
       },
       child: Container(
         decoration: BoxDecoration(
-            color: const Color.fromRGBO(248, 248, 248, 1),
+            color: isSelected
+                ? DoColors.red251
+                : const Color.fromRGBO(248, 248, 248, 1),
             borderRadius: BorderRadius.circular(DoScreenAdapter.w(5)),
             border: Border.fromBorderSide(BorderSide(
                 width: DoScreenAdapter.w(0.5),
                 color: isSelected
-                    ? Colors.red
+                    ? DoColors.theme
                     : const Color.fromRGBO(248, 248, 248, 1)))),
         padding: EdgeInsets.fromLTRB(DoScreenAdapter.w(10),
             DoScreenAdapter.h(5), DoScreenAdapter.w(10), DoScreenAdapter.h(5)),
         child: Text(
           title,
           style: TextStyle(
-              fontSize: 12, color: isSelected ? Colors.red : Colors.black87),
+              fontSize: 12,
+              color: isSelected ? DoColors.theme : Colors.black87),
         ),
       ),
     );

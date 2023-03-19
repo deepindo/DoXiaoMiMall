@@ -239,7 +239,7 @@ class HomeView extends GetView<HomeController> {
                   children: [
                     Container(
                       // padding: EdgeInsets.all(5),
-                      // color: Colors.orange,
+                      // color: DoColors.theme,
                       alignment: Alignment.center,
                       //下面两个完全可以不设置，因为上面有个ratio生效
                       // width: DoScreenAdapter.h(60),
@@ -276,7 +276,7 @@ class HomeView extends GetView<HomeController> {
       child: Container(
         height: DoScreenAdapter.h(120),
         decoration: BoxDecoration(
-            // color: Colors.orange,
+            // color: DoColors.theme,
             borderRadius: BorderRadius.circular(DoScreenAdapter.w(10)),
             image: const DecorationImage(
               image: AssetImage("assets/images/xiaomiBanner.png"),

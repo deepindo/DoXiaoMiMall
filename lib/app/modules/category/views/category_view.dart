@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../services/app_colors.dart';
 import '../controllers/category_controller.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../../../services/app_fontIcons.dart';
@@ -98,7 +99,7 @@ class CategoryView extends GetView<CategoryController> {
                           width: DoScreenAdapter.w(4),
                           height: DoScreenAdapter.h(18),
                           color: controller.selectIndex.value == index
-                              ? Colors.orange
+                              ? DoColors.theme
                               : Colors.white,
                         ),
                         Padding(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../services/app_colors.dart';
+
 class OfficialServiceController extends GetxController {
   ///服务列表
   List<Map> serviceList = [
@@ -22,13 +24,13 @@ class OfficialServiceController extends GetxController {
         {
           "uniId": "s2",
           "icon": Icons.accessibility_new,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "我要退换"
         },
         {
           "uniId": "s3",
           "icon": Icons.account_tree,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "服务进度"
         },
         {
@@ -46,7 +48,7 @@ class OfficialServiceController extends GetxController {
         {
           "uniId": "s6",
           "icon": Icons.design_services_outlined,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "我要贴膜"
         },
       ]
@@ -69,13 +71,13 @@ class OfficialServiceController extends GetxController {
         {
           "uniId": "s2",
           "icon": Icons.accessibility_new,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "我要退换"
         },
         {
           "uniId": "s3",
           "icon": Icons.account_tree,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "服务进度"
         },
       ],
@@ -98,13 +100,13 @@ class OfficialServiceController extends GetxController {
         {
           "uniId": "s2",
           "icon": Icons.accessibility_new,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "我要退换"
         },
         {
           "uniId": "s3",
           "icon": Icons.account_tree,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "服务进度"
         },
       ]
@@ -127,13 +129,13 @@ class OfficialServiceController extends GetxController {
         {
           "uniId": "s2",
           "icon": Icons.accessibility_new,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "我要退换"
         },
         {
           "uniId": "s3",
           "icon": Icons.account_tree,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "服务进度"
         },
         {
@@ -168,13 +170,13 @@ class OfficialServiceController extends GetxController {
         {
           "uniId": "s2",
           "icon": Icons.accessibility_new,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "我要退换"
         },
         {
           "uniId": "s3",
           "icon": Icons.account_tree,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "服务进度"
         },
         {
@@ -209,13 +211,13 @@ class OfficialServiceController extends GetxController {
         {
           "uniId": "s2",
           "icon": Icons.accessibility_new,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "我要退换"
         },
         {
           "uniId": "s3",
           "icon": Icons.account_tree,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "服务进度"
         },
         {
@@ -233,7 +235,7 @@ class OfficialServiceController extends GetxController {
         {
           "uniId": "s6",
           "icon": Icons.design_services_outlined,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "我要贴膜"
         },
       ]
@@ -256,13 +258,13 @@ class OfficialServiceController extends GetxController {
         {
           "uniId": "s2",
           "icon": Icons.accessibility_new,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "我要退换"
         },
         {
           "uniId": "s3",
           "icon": Icons.account_tree,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "服务进度"
         },
         {
@@ -308,13 +310,13 @@ class OfficialServiceController extends GetxController {
         {
           "uniId": "s2",
           "icon": Icons.accessibility_new,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "我要退换"
         },
         {
           "uniId": "s3",
           "icon": Icons.account_tree,
-          "color": Colors.orange,
+          "color": DoColors.theme,
           "title": "服务进度"
         },
         {

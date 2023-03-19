@@ -1,6 +1,7 @@
 import 'package:doxiaomimall/app/services/app_network.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../controllers/goods_content_controller.dart';
 
@@ -120,13 +121,13 @@ class GoodsContentInfoView extends GetView {
             children: [
               Text("¥",
                   style: TextStyle(
-                      color: Colors.red,
+                      color: DoColors.theme,
                       fontWeight: FontWeight.bold,
                       fontSize: DoScreenAdapter.fs(14))),
               Text("${controller.model.value.price}",
                   // "1599",
                   style: TextStyle(
-                      color: Colors.red,
+                      color: DoColors.theme,
                       fontWeight: FontWeight.w900,
                       fontSize: DoScreenAdapter.fs(22))),
               SizedBox(
@@ -233,7 +234,6 @@ class GoodsContentInfoView extends GetView {
           childAspectRatio: 5 / 4,
           children: controller.paramteterList
               .map((e) => Container(
-                    // color: Colors.orange,
                     // padding:
                     //     EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(0)),
                     child: Column(
@@ -274,12 +274,12 @@ class GoodsContentInfoView extends GetView {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
       height: DoScreenAdapter.h(40),
-      color: Colors.orange.withOpacity(0.2),
+      color: DoColors.red251.withOpacity(0.2),
       child: Row(
         children: [
           const Icon(
             Icons.local_florist_sharp,
-            color: Colors.orange,
+            color: DoColors.theme,
             size: 20,
           ),
           SizedBox(
@@ -332,12 +332,12 @@ class GoodsContentInfoView extends GetView {
                 padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(2)),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
-                    border: Border.all(width: 0.5, color: Colors.orange)),
-                // color: Colors.orange.withOpacity(0.2),
+                    border: Border.all(width: 0.5, color: DoColors.theme)),
+                // color: DoColors.theme.withOpacity(0.2),
                 child: Text(
                   "信用换新",
                   style: TextStyle(
-                      color: Colors.orange, fontSize: DoScreenAdapter.fs(10)),
+                      color: DoColors.theme, fontSize: DoScreenAdapter.fs(10)),
                 ),
               ),
               SizedBox(
@@ -456,7 +456,7 @@ class GoodsContentInfoView extends GetView {
                       "可选增值服务",
                       style: TextStyle(
                           fontSize: DoScreenAdapter.fs(12),
-                          color: Colors.orange),
+                          color: DoColors.theme),
                     ),
                   ],
                 ),
@@ -515,7 +515,7 @@ class GoodsContentInfoView extends GetView {
                       "有现货",
                       style: TextStyle(
                           fontSize: DoScreenAdapter.fs(12),
-                          color: Colors.orange),
+                          color: DoColors.theme),
                     ),
                   ],
                 ),
@@ -558,7 +558,7 @@ class GoodsContentInfoView extends GetView {
     return InkWell(
       onTap: _showShopBottomSheet,
       child: Container(
-        // color: Colors.orange,
+        // color: DoColors.theme,
         padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
         height: DoScreenAdapter.h(60),
         child: Row(
@@ -577,7 +577,7 @@ class GoodsContentInfoView extends GetView {
               children: [
                 Text("小米之家浙江杭州xxxx店",
                     style: TextStyle(
-                        // color: Colors.orange,
+                        // color: DoColors.theme,
                         fontSize: DoScreenAdapter.fs(12))),
                 SizedBox(
                   height: DoScreenAdapter.h(5),
@@ -586,7 +586,7 @@ class GoodsContentInfoView extends GetView {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                          color: Colors.orange,
+                          color: DoColors.theme,
                           borderRadius:
                               BorderRadius.circular(DoScreenAdapter.w(2))),
                       padding:
@@ -604,7 +604,7 @@ class GoodsContentInfoView extends GetView {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                          color: Colors.orange,
+                          color: DoColors.theme,
                           borderRadius:
                               BorderRadius.circular(DoScreenAdapter.w(2))),
                       padding:
@@ -622,7 +622,7 @@ class GoodsContentInfoView extends GetView {
                     ),
                     Text("距离1.5km",
                         style: TextStyle(
-                            color: Colors.orange,
+                            color: DoColors.theme,
                             fontSize: DoScreenAdapter.fs(12))),
                   ],
                 ),
@@ -631,7 +631,7 @@ class GoodsContentInfoView extends GetView {
                 ),
                 Text("10:00-22:00",
                     style: TextStyle(
-                        // color: Colors.orange,
+                        // color: DoColors.theme,
                         fontSize: DoScreenAdapter.fs(12))),
               ],
             ),
@@ -641,7 +641,7 @@ class GoodsContentInfoView extends GetView {
             Text(
               "库存紧张",
               style: TextStyle(
-                  fontSize: DoScreenAdapter.fs(12), color: Colors.orange),
+                  fontSize: DoScreenAdapter.fs(12), color: DoColors.theme),
             ),
             const Icon(
               Icons.keyboard_arrow_right_outlined,
@@ -660,7 +660,7 @@ class GoodsContentInfoView extends GetView {
     return InkWell(
       onTap: _showServiceBottomSheet,
       child: Container(
-        // color: Colors.orange,
+        // color: DoColors.theme,
         padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
         height: DoScreenAdapter.h(46),
         child: Row(
@@ -741,7 +741,7 @@ class GoodsContentInfoView extends GetView {
                             Text("¥${controller.model.value.price}",
                                 // "¥1599",
                                 style: TextStyle(
-                                    color: Colors.red,
+                                    color: DoColors.theme,
                                     fontWeight: FontWeight.w900,
                                     fontSize: DoScreenAdapter.fs(16))),
                             SizedBox(height: DoScreenAdapter.h(10)),
@@ -782,7 +782,7 @@ class GoodsContentInfoView extends GetView {
                             style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
                           ),
                           selected: true,
-                          selectedColor: Colors.orange,
+                          selectedColor: DoColors.theme,
                           trailing: const Icon(
                             Icons.arrow_forward_ios_outlined,
                             size: 15,
@@ -866,7 +866,7 @@ class GoodsContentInfoView extends GetView {
                             DoScreenAdapter.h(10),
                           ),
                           decoration: BoxDecoration(
-                              color: Colors.red,
+                              color: DoColors.theme,
                               borderRadius: BorderRadius.circular(20)),
                           alignment: Alignment.center,
                           child: Text(
@@ -892,7 +892,7 @@ class GoodsContentInfoView extends GetView {
                       },
                       child: const SizedBox(
                         // alignment: Alignment.center,
-                        // color: Colors.orange,
+                        // color: DoColors.theme,
                         child: Icon(
                           Icons.close,
                           size: 20,
@@ -977,7 +977,7 @@ class GoodsContentInfoView extends GetView {
                             style: TextStyle(fontSize: DoScreenAdapter.fs(12)),
                           ),
                           // selected: true,
-                          selectedColor: Colors.orange,
+                          selectedColor: DoColors.theme,
                           trailing: const Icon(
                             Icons.arrow_forward_ios_outlined,
                             size: 15,
@@ -1025,7 +1025,7 @@ class GoodsContentInfoView extends GetView {
                             DoScreenAdapter.h(10),
                           ),
                           decoration: BoxDecoration(
-                              color: Colors.red,
+                              color: DoColors.theme,
                               borderRadius: BorderRadius.circular(20)),
                           alignment: Alignment.center,
                           child: Text(
@@ -1051,7 +1051,7 @@ class GoodsContentInfoView extends GetView {
                       },
                       child: const SizedBox(
                         // alignment: Alignment.center,
-                        // color: Colors.orange,
+                        // color: DoColors.theme,
                         child: Icon(
                           Icons.close,
                           size: 20,
@@ -1127,7 +1127,7 @@ class GoodsContentInfoView extends GetView {
                             borderRadius:
                                 BorderRadius.circular(DoScreenAdapter.w(10)),
                             border: const Border.fromBorderSide(
-                                BorderSide(width: 0.5, color: Colors.red)),
+                                BorderSide(width: 0.5, color: DoColors.theme)),
                           ),
                           // margin: const EdgeInsets.all(10),
                           padding: EdgeInsets.fromLTRB(
@@ -1179,7 +1179,7 @@ class GoodsContentInfoView extends GetView {
                                         children: [
                                           Container(
                                             decoration: BoxDecoration(
-                                                color: Colors.orange,
+                                                color: DoColors.theme,
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         DoScreenAdapter.w(2))),
@@ -1200,7 +1200,7 @@ class GoodsContentInfoView extends GetView {
                                           ),
                                           Container(
                                             decoration: BoxDecoration(
-                                                color: Colors.orange,
+                                                color: DoColors.theme,
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         DoScreenAdapter.w(2))),
@@ -1221,7 +1221,7 @@ class GoodsContentInfoView extends GetView {
                                           ),
                                           Text("距离1.5km",
                                               style: TextStyle(
-                                                  color: Colors.orange,
+                                                  color: DoColors.theme,
                                                   fontSize:
                                                       DoScreenAdapter.fs(12))),
                                         ],
@@ -1231,7 +1231,7 @@ class GoodsContentInfoView extends GetView {
                                       ),
                                       Text("10:00-22:00",
                                           style: TextStyle(
-                                              // color: Colors.orange,
+                                              // color: DoColors.theme,
                                               fontSize:
                                                   DoScreenAdapter.fs(12))),
                                     ],
@@ -1325,7 +1325,7 @@ class GoodsContentInfoView extends GetView {
                             DoScreenAdapter.h(10),
                           ),
                           decoration: BoxDecoration(
-                              color: Colors.red,
+                              color: DoColors.theme,
                               borderRadius: BorderRadius.circular(20)),
                           alignment: Alignment.center,
                           child: Text(
@@ -1351,7 +1351,7 @@ class GoodsContentInfoView extends GetView {
                       },
                       child: const SizedBox(
                         // alignment: Alignment.center,
-                        // color: Colors.orange,
+                        // color: DoColors.theme,
                         child: Icon(
                           Icons.close,
                           size: 20,
@@ -1472,7 +1472,7 @@ class GoodsContentInfoView extends GetView {
                             DoScreenAdapter.h(10),
                           ),
                           decoration: BoxDecoration(
-                              color: Colors.red,
+                              color: DoColors.theme,
                               borderRadius: BorderRadius.circular(20)),
                           alignment: Alignment.center,
                           child: Text(
@@ -1498,7 +1498,7 @@ class GoodsContentInfoView extends GetView {
                       },
                       child: const SizedBox(
                         // alignment: Alignment.center,
-                        // color: Colors.orange,
+                        // color: DoColors.theme,
                         child: Icon(
                           Icons.close,
                           size: 20,
@@ -1536,14 +1536,14 @@ class GoodsContentInfoView extends GetView {
   //           border: Border.fromBorderSide(BorderSide(
   //               width: DoScreenAdapter.w(0.5),
   //               color: isSelected
-  //                   ? Colors.red
+  //                   ? DoColors.theme
   //                   : const Color.fromRGBO(248, 248, 248, 1)))),
   //       padding: EdgeInsets.fromLTRB(DoScreenAdapter.w(10),
   //           DoScreenAdapter.h(5), DoScreenAdapter.w(10), DoScreenAdapter.h(5)),
   //       child: Text(
   //         title,
   //         style: TextStyle(
-  //             fontSize: 12, color: isSelected ? Colors.red : Colors.black87),
+  //             fontSize: 12, color: isSelected ? DoColors.theme : Colors.black87),
   //       ),
   //     ),
   //   );
@@ -1589,7 +1589,7 @@ class GoodsContentInfoView extends GetView {
   //                     children: [
   //                       Text("¥1599",
   //                           style: TextStyle(
-  //                               color: Colors.red,
+  //                               color: DoColors.theme,
   //                               fontWeight: FontWeight.w900,
   //                               fontSize: DoScreenAdapter.fs(16))),
   //                       SizedBox(height: DoScreenAdapter.h(10)),
@@ -1640,7 +1640,7 @@ class GoodsContentInfoView extends GetView {
   //                     //     //   Icons.av_timer,
   //                     //     //   size: 20,
   //                     //     // ),
-  //                     //     side: const BorderSide(color: Colors.red, width: 0.5),
+  //                     //     side: const BorderSide(color: DoColors.theme, width: 0.5),
   //                     //     shape: RoundedRectangleBorder(
   //                     //         borderRadius: BorderRadius.circular(5)),
   //                     //     backgroundColor:
@@ -1726,7 +1726,7 @@ class GoodsContentInfoView extends GetView {
   //                               DoScreenAdapter.h(10),
   //                             ),
   //                             decoration: const BoxDecoration(
-  //                                 color: Colors.orange,
+  //                                 color: DoColors.theme,
   //                                 borderRadius: BorderRadius.only(
   //                                     topLeft: Radius.circular(20),
   //                                     bottomLeft: Radius.circular(20))),
@@ -1753,7 +1753,7 @@ class GoodsContentInfoView extends GetView {
   //                             DoScreenAdapter.h(10),
   //                           ),
   //                           decoration: const BoxDecoration(
-  //                               color: Colors.red,
+  //                               color: DoColors.theme,
   //                               borderRadius: BorderRadius.only(
   //                                   topRight: Radius.circular(20),
   //                                   bottomRight: Radius.circular(20))),
@@ -1783,7 +1783,7 @@ class GoodsContentInfoView extends GetView {
   //                 },
   //                 child: const SizedBox(
   //                   // alignment: Alignment.center,
-  //                   // color: Colors.orange,
+  //                   // color: DoColors.theme,
   //                   child: Icon(
   //                     Icons.close,
   //                     size: 20,

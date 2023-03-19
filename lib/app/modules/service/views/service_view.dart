@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../controllers/service_controller.dart';
 import '../../../components/app_components.dart';
@@ -189,7 +190,7 @@ class ServiceView extends GetView<ServiceController> {
                     DoScreenAdapter.h(5)),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: Colors.orange,
+                    color: DoColors.theme,
                     borderRadius: BorderRadius.circular(DoScreenAdapter.w(20))),
                 child: Text("立即识别",
                     style: TextStyle(

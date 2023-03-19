@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:pull_to_refresh/pull_to_refresh.dart';
-
+import '../../../services/app_colors.dart';
 import '../controllers/goods_list_controller.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../../../services/app_network.dart';
@@ -116,7 +116,7 @@ class GoodsListView extends GetView<GoodsListController> {
                               fontSize: 14,
                               color: controller.selectHeaderId.value ==
                                       element["id"]
-                                  ? Colors.orange
+                                  ? DoColors.theme
                                   : Colors.black54),
                         ),
                         _showIcon(element["id"]),
@@ -134,7 +134,7 @@ class GoodsListView extends GetView<GoodsListController> {
             //         child: const Text(
             //           "综合",
             //           textAlign: TextAlign.center,
-            //           style: TextStyle(fontSize: 14, color: Colors.orange),
+            //           style: TextStyle(fontSize: 14, color: DoColors.theme),
             //         ),
             //       )),
             //   Expanded(
@@ -371,7 +371,7 @@ class GoodsListView extends GetView<GoodsListController> {
                         child: Text("¥${controller.goodsList[index].price}起",
                             style: const TextStyle(
                                 fontSize: 14,
-                                color: Colors.red,
+                                color: DoColors.theme,
                                 fontWeight: FontWeight.bold)),
                       ),
                       Padding(
