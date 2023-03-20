@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
 
 class VerificationCodeController extends GetxController {
-  //TODO: Implement VerificationCodeController
+  RxInt seconds = 69.obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +18,10 @@ class VerificationCodeController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void decrement() {
+    if (seconds.value > 1) {
+      seconds.value--;
+      update();
+    }
+  }
 }

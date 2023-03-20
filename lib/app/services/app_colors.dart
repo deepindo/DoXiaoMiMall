@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class DoColors {
   static const Color theme =
       Color.fromRGBO(252, 90, 61, 1); //FC5A3D //立即购买，主题色等等
+  static const Color yellow253 = Color.fromRGBO(253, 181, 131, 1);
+
   static const Color red251 = Color.fromRGBO(251, 239, 237, 1);
   static const Color yellow254 =
       Color.fromRGBO(254, 226, 208, 1); //门店右上角小标签，特殊的

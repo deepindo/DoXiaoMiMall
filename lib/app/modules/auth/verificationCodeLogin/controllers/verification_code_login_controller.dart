@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VerificationCodeLoginController extends GetxController {
-  //TODO: Implement VerificationCodeLoginController
+  TextEditingController phoneController = TextEditingController();
 
   final count = 0.obs;
   @override

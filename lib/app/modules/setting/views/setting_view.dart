@@ -50,24 +50,47 @@ class SettingView extends GetView<SettingController> {
         _commonListTile("小米账号用户协议", onTap: () {}),
         _commonListTile("小米账号隐私政策", onTap: () {}),
         Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
-        ElevatedButton(
+        TextButton(
             onPressed: () {
               Get.snackbar("提示", "退出登录");
             },
-            // style: ButtonStyle(),
             child: Text("退出账号",
-                style: TextStyle(fontSize: DoScreenAdapter.fs(14)))),
+                style: TextStyle(
+                    fontSize: DoScreenAdapter.fs(14),
+                    color: DoColors.black51))),
+        // ElevatedButton(
+        //   onPressed: () {
+        //     Get.snackbar("提示", "退出登录");
+        //   },
+        //   style: ButtonStyle(
+        //     elevation: MaterialStateProperty.all(0),
+        //     overlayColor: MaterialStateProperty.all(Colors.white),
+        //     shadowColor: MaterialStateProperty.all(Colors.white),
+        //     // shape: MaterialStateProperty.all(RoundedRectangleBorder(
+        //     //     borderRadius:
+        //     //         BorderRadius.circular(DoScreenAdapter.w(20)))),
+        //     backgroundColor: MaterialStateProperty.all(Colors.white),
+        //     // foregroundColor: MaterialStateProperty.all(Colors.white)
+        //   ),
+        //   child:
+        //       Text("退出账号", style: TextStyle(fontSize: DoScreenAdapter.fs(14))),
+        // ),
         Container(height: DoScreenAdapter.h(60), color: DoColors.gray238),
       ],
     );
   }
 
   Widget _commonListTile(String data, {void Function()? onTap}) {
-    return ListTile(
-      title: Text(data, style: TextStyle(fontSize: DoScreenAdapter.fs(14))),
-      trailing: Icon(Icons.arrow_forward_ios_outlined,
-          size: DoScreenAdapter.fs(14), color: DoColors.black128),
-      onTap: onTap,
+    return Container(
+      // height: DoScreenAdapter.h(30), //用于改变ListTile的高
+      // alignment: Alignment.centerLeft,
+      child: ListTile(
+        // contentPadding: EdgeInsets.all(DoScreenAdapter.w(10)),
+        title: Text(data, style: TextStyle(fontSize: DoScreenAdapter.fs(14))),
+        trailing: Icon(Icons.arrow_forward_ios_outlined,
+            size: DoScreenAdapter.fs(12), color: DoColors.black128),
+        onTap: onTap,
+      ),
     );
   }
 }
