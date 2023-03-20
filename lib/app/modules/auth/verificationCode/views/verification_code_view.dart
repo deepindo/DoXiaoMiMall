@@ -72,23 +72,31 @@ class VerificationCodeView extends GetView<VerificationCodeController> {
           enableActiveFill: true,
           // errorAnimationController: errorController,
           // controller: textEditingController,
+          dialogConfig: DialogConfig(
+              //汉化dialog
+              dialogTitle: "粘贴验证码",
+              dialogContent: "确定要粘贴验证码？",
+              affirmativeText: "确定",
+              negativeText: "取消"),
           pinTheme: PinTheme(
             shape: PinCodeFieldShape.box, //多种风格
             borderRadius: BorderRadius.circular(5),
             fieldHeight: DoScreenAdapter.w(40),
             fieldWidth: DoScreenAdapter.w(40),
-            borderWidth: DoScreenAdapter.w(1),
+            // borderWidth: DoScreenAdapter.w(1),
             inactiveColor: DoColors.yellow254, //未输入的边框色
             inactiveFillColor: DoColors.yellow254, //未输入的填充色
-            selectedColor: DoColors.theme,
+            selectedColor: DoColors.yellow254, //当前选中的边框色
             selectedFillColor: Colors.white,
-            activeColor: Colors.green,
+            activeColor: DoColors.yellow254, //输入过的边框色
             activeFillColor: Colors.white,
             disabledColor: DoColors.gray249,
             errorBorderColor: Colors.red,
           ),
           onCompleted: (v) {
             print("Completed");
+            //自动收起键盘
+            FocusScope.of(Get.context!).requestFocus(FocusNode());
           },
           onChanged: (value) {
             print(value);
