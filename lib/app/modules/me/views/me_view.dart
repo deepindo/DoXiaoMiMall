@@ -3,6 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:get/get.dart';
 import '../../../components/app_components.dart';
+import '../../../services/app_colors.dart';
 import '../../../services/app_fontIcons.dart';
 import '../../../services/app_network.dart';
 import '../../../services/app_screenAdapter.dart';
@@ -43,7 +44,7 @@ class MeView extends GetView<MeController> {
       actions: [
         InkWell(
           onTap: () {
-            Get.snackbar("跳转", "我的会员码页面");
+            Get.toNamed("/vip-code");
           },
           child: Container(
             padding: EdgeInsets.only(right: DoScreenAdapter.w(10)),
@@ -67,7 +68,7 @@ class MeView extends GetView<MeController> {
         ),
         InkWell(
           onTap: () {
-            Get.snackbar("跳转", "设置页面");
+            Get.toNamed("/setting");
           },
           child: Container(
               padding: EdgeInsets.only(
@@ -80,7 +81,7 @@ class MeView extends GetView<MeController> {
         ),
         InkWell(
           onTap: () {
-            Get.snackbar("跳转", "消息通知页面");
+            Get.toNamed("/message-notification");
           },
           child: Container(
               padding: EdgeInsets.only(
@@ -116,28 +117,104 @@ class MeView extends GetView<MeController> {
 
   ///个人信息头部
   Widget _profileHeaderSection() {
-    return Container(
-      // color: Colors.cyan,
-      height: DoScreenAdapter.h(50),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: DoScreenAdapter.w(25),
-            backgroundImage: const AssetImage("assets/images/user.png"),
-          ),
-          SizedBox(
-            width: DoScreenAdapter.w(10),
-          ),
-          const Text(
-            "登录/注册",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-          ),
-          const Icon(
-            Icons.arrow_forward_ios_outlined,
-            size: 10,
-            color: Colors.black26,
-          )
-        ],
+    // return SizedBox(
+    //   height: DoScreenAdapter.h(40),
+    //   child: Row(
+    //     crossAxisAlignment: CrossAxisAlignment.center,
+    //     children: [
+    //       InkWell(
+    //         onTap: () {
+    //           Get.toNamed("/profile");
+    //         },
+    //         child: CircleAvatar(
+    //           radius: DoScreenAdapter.w(20),
+    //           backgroundImage: const AssetImage("assets/images/user.png"),
+    //         ),
+    //       ),
+    //       SizedBox(
+    //         width: DoScreenAdapter.w(10),
+    //       ),
+    //       Column(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         crossAxisAlignment: CrossAxisAlignment.start,
+    //         children: [
+    //           const Text(
+    //             "17623458080",
+    //             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+    //           ),
+    //           SizedBox(height: DoScreenAdapter.h(5)),
+    //           Row(
+    //             children: [
+    //               Container(
+    //                 padding: EdgeInsets.all(DoScreenAdapter.w(3)),
+    //                 decoration: BoxDecoration(
+    //                     color: DoColors.gray238,
+    //                     borderRadius:
+    //                         BorderRadius.circular(DoScreenAdapter.w(10))),
+    //                 child: Text(
+    //                   "小米ID2432342353",
+    //                   style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
+    //                 ),
+    //               ),
+    //               SizedBox(width: DoScreenAdapter.w(10)),
+    //               InkWell(
+    //                 onTap: () {
+    //                   Get.toNamed("/vip-medal");
+    //                 },
+    //                 child: Container(
+    //                     padding: EdgeInsets.all(DoScreenAdapter.w(3)),
+    //                     decoration: BoxDecoration(
+    //                         color: DoColors.gray238,
+    //                         borderRadius:
+    //                             BorderRadius.circular(DoScreenAdapter.w(10))),
+    //                     child: Row(
+    //                       children: [
+    //                         Text(
+    //                           "勋章2枚",
+    //                           style:
+    //                               TextStyle(fontSize: DoScreenAdapter.fs(10)),
+    //                         ),
+    //                         const Icon(
+    //                           Icons.arrow_forward_ios_outlined,
+    //                           size: 10,
+    //                           color: Colors.black26,
+    //                         )
+    //                       ],
+    //                     )),
+    //               ),
+    //             ],
+    //           ),
+    //         ],
+    //       ),
+    //     ],
+    //   ),
+    // );
+    return SizedBox(
+      height: DoScreenAdapter.h(40),
+      child: InkWell(
+        onTap: () {
+          Get.toNamed("/verification-code-login");
+        },
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: DoScreenAdapter.w(25),
+              backgroundImage: const AssetImage("assets/images/user.png"),
+            ),
+            SizedBox(
+              width: DoScreenAdapter.w(10),
+            ),
+            const Text(
+              "登录/注册",
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            const Icon(
+              Icons.arrow_forward_ios_outlined,
+              size: 10,
+              color: Colors.black26,
+            )
+          ],
+        ),
       ),
     );
   }

@@ -45,6 +45,7 @@ dependencies:
   flutter_html: ^3.0.0-alpha.5
   # easy_refresh: ^3.3.1#为啥主这个版本有问题，依赖不少其他库
   pull_to_refresh: ^2.0.0
+  pin_code_fields: ^7.4.0
   roundcheckbox: ^2.0.5
 
 dev_dependencies:
@@ -85,6 +86,7 @@ flutter:
     - assets/images/3.0x/emptyOrder.png
     - assets/images/change_new.png
     - assets/images/xiaomiShop.jpeg
+    - assets/images/logo.png
     - assets/images/user.png
     - assets/images/user_ad1.png
     - assets/images/user_ad2.png

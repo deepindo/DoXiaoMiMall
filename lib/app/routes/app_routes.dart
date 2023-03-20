@@ -9,14 +9,24 @@ abstract class Routes {
   // static const SERVICE = _Paths.SERVICE;
   static const CART = _Paths.CART;
   // static const ME = _Paths.ME;
+  static const REGISTER = _Paths.REGISTER;
+  static const VERIFICATION_CODE_LOGIN = _Paths.VERIFICATION_CODE_LOGIN;
+  static const VERIFICATION_CODE = _Paths.VERIFICATION_CODE;
+  static const ACCOUNT_PASSWORD_LOGIN = _Paths.ACCOUNT_PASSWORD_LOGIN;
+  static const ONE_CLICK_LOGIN = _Paths.ONE_CLICK_LOGIN;
+  static const RESET_PASSWORD = _Paths.RESET_PASSWORD;
+  static const ACCOUNT_HELP = _Paths.ACCOUNT_HELP;
   static const SEARCH = _Paths.SEARCH;
-  static const SETTING = _Paths.SETTING;
-  static const PROFILE = _Paths.PROFILE;
-  static const LOGIN = _Paths.LOGIN;
   static const GOODS_LIST = _Paths.GOODS_LIST;
   static const GOODS_CONTENT = _Paths.GOODS_CONTENT;
   static const CUSTOMER_SERVICE = _Paths.CUSTOMER_SERVICE;
   static const OFFICIAL_SERVICE = _Paths.OFFICIAL_SERVICE;
+  static const SETTING = _Paths.SETTING;
+  static const PROFILE = _Paths.PROFILE;
+  static const VIP_CODE = _Paths.VIP_CODE;
+  static const MESSAGE_NOTIFICATION = _Paths.MESSAGE_NOTIFICATION;
+  static const MESSAGE = _Paths.MESSAGE;
+  static const VIP_MEDAL = _Paths.VIP_MEDAL;
 }
 
 abstract class _Paths {
@@ -27,12 +37,22 @@ abstract class _Paths {
   // static const SERVICE = '/service';
   static const CART = '/cart';
   // static const ME = '/me';
+  static const REGISTER = '/register';
+  static const VERIFICATION_CODE_LOGIN = '/verification-code-login';
+  static const VERIFICATION_CODE = '/verification-code';
+  static const ACCOUNT_PASSWORD_LOGIN = '/account-password-login';
+  static const ONE_CLICK_LOGIN = '/one-click-login';
+  static const RESET_PASSWORD = '/reset-password';
+  static const ACCOUNT_HELP = '/account-help';
   static const SEARCH = '/search';
-  static const SETTING = '/setting';
-  static const PROFILE = '/profile';
-  static const LOGIN = '/login';
   static const GOODS_LIST = '/goods-list';
   static const GOODS_CONTENT = '/goods-content';
   static const CUSTOMER_SERVICE = '/customer-service';
   static const OFFICIAL_SERVICE = '/official-service';
+  static const SETTING = '/setting';
+  static const PROFILE = '/profile';
+  static const VIP_CODE = '/vip-code';
+  static const MESSAGE_NOTIFICATION = '/message-notification';
+  static const MESSAGE = '/message';
+  static const VIP_MEDAL = '/vip-medal';
 }
