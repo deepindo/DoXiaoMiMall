@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../controllers/verification_code_login_controller.dart';
@@ -165,8 +163,7 @@ class VerificationCodeLoginView
                 child: Text("忘记密码",
                     style: TextStyle(
                         fontSize: DoScreenAdapter.fs(14),
-                        color: DoColors.black128,
-                        fontWeight: FontWeight.bold))),
+                        color: DoColors.black51))),
             TextButton(
                 onPressed: () {
                   Get.toNamed("/account-password-login");
@@ -174,8 +171,7 @@ class VerificationCodeLoginView
                 child: Text("密码登录",
                     style: TextStyle(
                         fontSize: DoScreenAdapter.fs(14),
-                        color: DoColors.black128,
-                        fontWeight: FontWeight.bold)))
+                        color: DoColors.black51)))
           ],
         ),
       ],

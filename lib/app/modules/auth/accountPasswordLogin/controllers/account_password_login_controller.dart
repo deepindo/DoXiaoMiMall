@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AccountPasswordLoginController extends GetxController {
-  //TODO: Implement AccountPasswordLoginController
+  TextEditingController userController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   final count = 0.obs;
   @override
