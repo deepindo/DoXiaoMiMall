@@ -8,6 +8,10 @@ import '../modules/auth/oneClickLogin/bindings/one_click_login_binding.dart';
 import '../modules/auth/oneClickLogin/views/one_click_login_view.dart';
 import '../modules/auth/register/bindings/register_binding.dart';
 import '../modules/auth/register/views/register_view.dart';
+import '../modules/auth/registerCode/bindings/register_code_binding.dart';
+import '../modules/auth/registerCode/views/register_code_view.dart';
+import '../modules/auth/registerPassword/bindings/register_password_binding.dart';
+import '../modules/auth/registerPassword/views/register_password_view.dart';
 import '../modules/auth/resetPassword/bindings/reset_password_binding.dart';
 import '../modules/auth/resetPassword/views/reset_password_view.dart';
 import '../modules/auth/verificationCode/bindings/verification_code_binding.dart';
@@ -84,6 +88,16 @@ class AppPages {
       name: _Paths.REGISTER,
       page: () => const RegisterView(),
       binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER_CODE,
+      page: () => const RegisterCodeView(),
+      binding: RegisterCodeBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER_PASSWORD,
+      page: () => const RegisterPasswordView(),
+      binding: RegisterPasswordBinding(),
     ),
     GetPage(
       name: _Paths.VERIFICATION_CODE_LOGIN,

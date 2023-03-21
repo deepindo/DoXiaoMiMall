@@ -1,9 +1,10 @@
 import 'package:doxiaomimall/app/services/app_network.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:roundcheckbox/roundcheckbox.dart';
+// import 'package:roundcheckbox/roundcheckbox.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
+import '../../../components/app_components.dart';
 import '../controllers/cart_controller.dart';
 
 class CartView extends GetView {
@@ -89,42 +90,10 @@ class CartView extends GetView {
             children: [
               Row(
                 children: [
-                  Checkbox(
-                      activeColor: DoColors.theme,
-                      value: controller.checkedAllState.value,
-                      onChanged: (value) {
-                        controller.changeCheckedAllBoxState(value);
-                      }),
-                  /*
-                  RoundCheckBox(
-                    size: 28,
-                    checkedWidget: const Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      size: 12,
-                    ),
-                    checkedColor: DoColors.theme,
-                    // uncheckedColor: DoColors.gray238,
-                    // uncheckedWidget: Icon(
-                    //   Icons.circle_outlined,
-                    //   size: 12,
-                    // ),
-                    border: Border.all(
-                      color: DoColors.gray154, //加状态判断,后面去看一下文档，怎么设置，另外热区太小
-                      width: 1.5,
-                    ),
-                    isChecked:
-                        controller.checkedAllState.value, //_isCheckProtocol,
-                    onTap: (value) {
-                      // Get.snackbar("操作", "影响购物车列表的选择和右侧显示内容及样式");
-                      controller.changeCheckedAllBoxState(value);
-                      // setState(() {
-                      //   _isCheckProtocol = value!;
-                      // });
-                    },
-                  ),
-                  SizedBox(width: DoScreenAdapter.w(5)),
-                  */
+                  commonRoundCheckBox(controller.checkedAllState.value,
+                      onTap: (value) {
+                    controller.changeCheckedAllBoxState(value);
+                  }),
                   Text(
                     "全选",
                     style: TextStyle(
@@ -311,7 +280,12 @@ class CartView extends GetView {
           Container(
             width: double.infinity,
             // height: DoScreenAdapter.w(80),
-            padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+            padding: EdgeInsets.fromLTRB(
+              DoScreenAdapter.w(0), //与浮动区对齐，左不加
+              DoScreenAdapter.h(10),
+              DoScreenAdapter.w(10),
+              DoScreenAdapter.h(10),
+            ),
             child: Row(
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisAlignment: MainAxisAlignment.start,
@@ -346,14 +320,9 @@ class CartView extends GetView {
   ///-----------------子组件区-----------------
   ///选择区
   Widget _checkboxSection(Map element) {
-    return Checkbox(
-      value: element["checked"],
-      activeColor: DoColors.theme,
-      onChanged: (value) {
-        // Get.snackbar("操作", "改变选择后产生的影响");
-        controller.changeCheckboxState(element);
-      },
-    );
+    return commonRoundCheckBox(element["checked"], onTap: (value) {
+      controller.changeCheckboxState(element);
+    });
   }
 
   ///封面区

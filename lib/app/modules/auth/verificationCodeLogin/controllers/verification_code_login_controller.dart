@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 
 class VerificationCodeLoginController extends GetxController {
   TextEditingController phoneController = TextEditingController();
+  RxBool isSendCodeButtonEnable = false.obs;
+  RxBool isCheckedProtocol = false.obs;
 
   final count = 0.obs;
   @override

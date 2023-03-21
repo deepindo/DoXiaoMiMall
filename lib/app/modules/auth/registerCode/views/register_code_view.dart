@@ -4,10 +4,10 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../../../../components/app_components.dart';
-import '../controllers/verification_code_controller.dart';
+import '../controllers/register_code_controller.dart';
 
-class VerificationCodeView extends GetView<VerificationCodeController> {
-  const VerificationCodeView({Key? key}) : super(key: key);
+class RegisterCodeView extends GetView<RegisterCodeController> {
+  const RegisterCodeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

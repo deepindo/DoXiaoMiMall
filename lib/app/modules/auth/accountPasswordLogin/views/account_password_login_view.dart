@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
+import '../../../../components/app_components.dart';
 import '../controllers/account_password_login_controller.dart';
 
 class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
@@ -42,7 +43,7 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
     return Stack(
       children: [
         _listView(),
-        _bottomView(), //键盘会顶起来，是一个问题
+        commonThirdLoginView(), //键盘会顶起来，是一个问题
       ],
     );
   }
@@ -51,16 +52,9 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
     return ListView(
       padding: EdgeInsets.all(DoScreenAdapter.w(20)),
       children: [
+        commonLogoView(),
         Container(
-            margin: EdgeInsets.only(bottom: DoScreenAdapter.h(20)),
-            alignment: Alignment.center,
-            child: Image.asset(
-              "assets/images/logo.png",
-              width: DoScreenAdapter.w(50),
-              height: DoScreenAdapter.w(50),
-            )),
-        Container(
-          // alignment: Alignment.center,
+          alignment: Alignment.center,
           height: DoScreenAdapter.h(50),
           padding: EdgeInsets.only(left: DoScreenAdapter.w(15)),
           decoration: BoxDecoration(
@@ -68,14 +62,13 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
               borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
           child: TextField(
             textAlignVertical: TextAlignVertical.center,
-            controller: controller.userController,
+            controller: controller.accountController,
             keyboardType: TextInputType.number,
             style: TextStyle(
                 color: DoColors.black0,
                 fontSize: DoScreenAdapter.fs(16),
                 fontWeight: FontWeight.bold),
             decoration: InputDecoration(
-                // contentPadding: EdgeInsets.zero,//这个设置不设置，都主要看textAlignVertical才能使水平居中
                 border: InputBorder.none,
                 hintText: "小米账号/手机号/邮箱",
                 hintStyle: TextStyle(
@@ -84,13 +77,15 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
                     fontWeight: FontWeight.bold),
                 suffixIcon:
                     Icon(Icons.close_outlined, size: DoScreenAdapter.fs(18))),
-            onChanged: (value) {},
+            onChanged: (value) {
+              controller.updateLoginButtonState();
+            },
             onSubmitted: (value) {},
           ),
         ),
         SizedBox(height: DoScreenAdapter.h(10)),
         Container(
-          // alignment: Alignment.center,
+          alignment: Alignment.center,
           height: DoScreenAdapter.h(50),
           padding: EdgeInsets.only(left: DoScreenAdapter.w(15)),
           decoration: BoxDecoration(
@@ -105,7 +100,6 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
                 fontSize: DoScreenAdapter.fs(16),
                 fontWeight: FontWeight.bold),
             decoration: InputDecoration(
-                // contentPadding: EdgeInsets.zero,//这个设置不设置，都主要看textAlignVertical才能使水平居中
                 border: InputBorder.none,
                 hintText: "密码",
                 hintStyle: TextStyle(
@@ -114,56 +108,49 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
                     fontWeight: FontWeight.bold),
                 suffixIcon:
                     Icon(Icons.close_outlined, size: DoScreenAdapter.fs(18))),
-            onChanged: (value) {},
+            onChanged: (value) {
+              controller.updateLoginButtonState();
+            },
             onSubmitted: (value) {},
           ),
         ),
         SizedBox(height: DoScreenAdapter.h(20)),
-        Wrap(
-          runSpacing: DoScreenAdapter.w(5),
-          // spacing: DoScreenAdapter.w(5),
-          children: [
-            Container(
-              width: DoScreenAdapter.w(15),
-              height: DoScreenAdapter.w(15),
-              alignment: Alignment.center,
-              child: Checkbox(
-                  activeColor: DoColors.theme,
-                  value: true,
-                  onChanged: (value) {}),
-            ),
-            Text("已阅读并同意",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(12), color: DoColors.gray154)),
-            Text("《小米商城用户协议》",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(12), color: DoColors.theme)),
-            Text("《小米商城隐私政策》",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(12), color: DoColors.theme)),
-            Text("《小米账号用户协议》",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(12), color: DoColors.theme)),
-            Text("《小米账号隐私政策》",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(12), color: DoColors.theme)),
-          ],
+        Obx(
+          () => commonProtocolView(
+            controller.isCheckedProtocol.value,
+            onTap: (selected) {
+              controller.isCheckedProtocol.value = selected!;
+            },
+          ),
         ),
         SizedBox(height: DoScreenAdapter.h(10)),
-        ElevatedButton(
-            style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(DoScreenAdapter.w(20)))),
-                backgroundColor: MaterialStateProperty.all(DoColors.yellow253),
-                foregroundColor: MaterialStateProperty.all(Colors.white)),
-            onPressed: () {
-              Get.toNamed("/verification-code");
-            },
-            child: Text("登录",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(14),
-                    fontWeight: FontWeight.bold))),
+        Obx(
+          () => ElevatedButton(
+              style: ButtonStyle(
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(DoScreenAdapter.w(20)))),
+                  backgroundColor: MaterialStateProperty.all(
+                      controller.isLoginButtonEnable.value
+                          ? DoColors.theme
+                          : DoColors.yellow253),
+                  foregroundColor: MaterialStateProperty.all(Colors.white)),
+              onPressed: !controller.isLoginButtonEnable.value
+                  ? null
+                  : () {
+                      if (controller.accountController.text.isNotEmpty &&
+                          controller.passwordController.text.isNotEmpty) {
+                        // Get.toNamed("/verification-code");
+                        //登录
+                      } else {
+                        Get.snackbar("提示", "请输入正确的账号和密码");
+                      }
+                    },
+              child: Text("登录",
+                  style: TextStyle(
+                      fontSize: DoScreenAdapter.fs(14),
+                      fontWeight: FontWeight.bold))),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
-  //TODO: Implement RegisterController
+  TextEditingController phoneController = TextEditingController();
+  RxBool isSendCodeButtonEnable = false.obs;
+  RxBool isCheckedProtocol = false.obs;
 
   final count = 0.obs;
   @override

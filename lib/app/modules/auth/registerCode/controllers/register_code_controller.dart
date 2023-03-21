@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
 
-class VerificationCodeController extends GetxController {
+class RegisterCodeController extends GetxController {
   RxInt seconds = 70.obs;
 
+  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();

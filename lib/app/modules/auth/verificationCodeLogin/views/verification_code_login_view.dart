@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
+import '../../../../components/app_components.dart';
 import '../controllers/verification_code_login_controller.dart';
 
 class VerificationCodeLoginView
@@ -43,7 +44,7 @@ class VerificationCodeLoginView
     return Stack(
       children: [
         _listView(),
-        _bottomView(), //键盘会顶起来，是一个问题
+        commonThirdLoginView(), //键盘会顶起来，是一个问题
       ],
     );
   }
@@ -52,16 +53,8 @@ class VerificationCodeLoginView
     return ListView(
       padding: EdgeInsets.all(DoScreenAdapter.w(20)),
       children: [
+        commonLogoView(),
         Container(
-            margin: EdgeInsets.only(bottom: DoScreenAdapter.h(20)),
-            alignment: Alignment.center,
-            child: Image.asset(
-              "assets/images/logo.png",
-              width: DoScreenAdapter.w(50),
-              height: DoScreenAdapter.w(50),
-            )),
-        Container(
-          // alignment: Alignment.center,
           height: DoScreenAdapter.h(50),
           padding: EdgeInsets.only(left: DoScreenAdapter.w(15)),
           decoration: BoxDecoration(
@@ -100,7 +93,12 @@ class VerificationCodeLoginView
                           fontWeight: FontWeight.bold),
                       suffixIcon: Icon(Icons.close_outlined,
                           size: DoScreenAdapter.fs(18))),
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    controller.isSendCodeButtonEnable.value =
+                        (controller.phoneController.text.length == 11)
+                            ? true
+                            : false;
+                  },
                   onSubmitted: (value) {},
                 ),
               ),
@@ -108,51 +106,41 @@ class VerificationCodeLoginView
           ),
         ),
         SizedBox(height: DoScreenAdapter.h(20)),
-        Wrap(
-          runSpacing: DoScreenAdapter.w(5),
-          // spacing: DoScreenAdapter.w(5),
-          children: [
-            Container(
-              width: DoScreenAdapter.w(15),
-              height: DoScreenAdapter.w(15),
-              alignment: Alignment.center,
-              child: Checkbox(
-                  activeColor: DoColors.theme,
-                  value: true,
-                  onChanged: (value) {}),
-            ),
-            Text("已阅读并同意",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(12), color: DoColors.gray154)),
-            Text("《小米商城用户协议》",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(12), color: DoColors.theme)),
-            Text("《小米商城隐私政策》",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(12), color: DoColors.theme)),
-            Text("《小米账号用户协议》",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(12), color: DoColors.theme)),
-            Text("《小米账号隐私政策》",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(12), color: DoColors.theme)),
-          ],
+        Obx(
+          () => commonProtocolView(
+            controller.isCheckedProtocol.value,
+            onTap: (selected) {
+              controller.isCheckedProtocol.value = selected!;
+            },
+          ),
         ),
         SizedBox(height: DoScreenAdapter.h(10)),
-        ElevatedButton(
-            style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(DoScreenAdapter.w(20)))),
-                backgroundColor: MaterialStateProperty.all(DoColors.yellow253),
-                foregroundColor: MaterialStateProperty.all(Colors.white)),
-            onPressed: () {
-              Get.toNamed("/verification-code");
-            },
-            child: Text("获取验证码",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(14),
-                    fontWeight: FontWeight.bold))),
+        Obx(
+          () => ElevatedButton(
+              style: ButtonStyle(
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(DoScreenAdapter.w(20)))),
+                  backgroundColor: MaterialStateProperty.all(
+                      controller.isSendCodeButtonEnable.value
+                          ? DoColors.theme
+                          : DoColors.yellow253),
+                  foregroundColor: MaterialStateProperty.all(Colors.white)),
+              onPressed: !controller.isSendCodeButtonEnable.value
+                  ? null
+                  : () {
+                      if (GetUtils.isPhoneNumber(
+                          controller.phoneController.text)) {
+                        Get.toNamed("/verification-code");
+                      } else {
+                        Get.snackbar("提示", "请输入正确的手机号");
+                      }
+                    },
+              child: Text("获取验证码",
+                  style: TextStyle(
+                      fontSize: DoScreenAdapter.fs(14),
+                      fontWeight: FontWeight.bold))),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -177,66 +165,4 @@ class VerificationCodeLoginView
       ],
     );
   }
-
-  ///底部固定区域-第三方登录
-  Widget _bottomView() {
-    return Positioned(
-      left: DoScreenAdapter.h(60),
-      right: DoScreenAdapter.h(60),
-      bottom: DoScreenAdapter.h(20), //太高了会被键盘推到遮盖上面的组件
-      // bottom: 0,
-      child: Column(
-        children: [
-          Text("- 其他方式登录 -",
-              style: TextStyle(
-                  fontSize: DoScreenAdapter.fs(12), color: DoColors.gray154)),
-          SizedBox(height: DoScreenAdapter.h(10)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              InkWell(
-                  onTap: () {},
-                  child: CircleAvatar(
-                      backgroundColor: const Color.fromARGB(255, 206, 247, 221),
-                      radius: DoScreenAdapter.w(15),
-                      child: const Icon(Icons.wechat,
-                          color: Colors.green, size: 18))),
-              InkWell(
-                  onTap: () {},
-                  child: CircleAvatar(
-                      backgroundColor: const Color.fromARGB(255, 149, 199, 240),
-                      radius: DoScreenAdapter.w(15),
-                      child: const Icon(Icons.facebook,
-                          color: Colors.blue, size: 18))),
-              InkWell(
-                  onTap: () {},
-                  child: CircleAvatar(
-                      backgroundColor: const Color.fromARGB(255, 244, 150, 143),
-                      radius: DoScreenAdapter.w(15),
-                      child:
-                          const Icon(Icons.mail, color: Colors.red, size: 18))),
-              InkWell(
-                  onTap: () {},
-                  child: CircleAvatar(
-                      backgroundColor: Colors.black,
-                      radius: DoScreenAdapter.w(15),
-                      child: const Icon(Icons.apple,
-                          color: Colors.white, size: 18)))
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  ///有问题
-  // Widget _thirdCircleButton(IconData? icon,
-  //     {Color? foreColor, Color? backColor, void Function()? onTap}) {
-  //   return InkWell(
-  //       onTap: onTap,
-  //       child: CircleAvatar(
-  //           backgroundColor: backColor,
-  //           radius: DoScreenAdapter.w(15),
-  //           child: const Icon(icon, color: foreColor, size: 18)));
-  // }
 }
