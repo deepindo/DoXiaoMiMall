@@ -117,106 +117,110 @@ class MeView extends GetView<MeController> {
 
   ///个人信息头部
   Widget _profileHeaderSection() {
-    // return SizedBox(
-    //   height: DoScreenAdapter.h(40),
-    //   child: Row(
-    //     crossAxisAlignment: CrossAxisAlignment.center,
-    //     children: [
-    //       InkWell(
-    //         onTap: () {
-    //           Get.toNamed("/profile");
-    //         },
-    //         child: CircleAvatar(
-    //           radius: DoScreenAdapter.w(20),
-    //           backgroundImage: const AssetImage("assets/images/user.png"),
-    //         ),
-    //       ),
-    //       SizedBox(
-    //         width: DoScreenAdapter.w(10),
-    //       ),
-    //       Column(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: [
-    //           const Text(
-    //             "17623458080",
-    //             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-    //           ),
-    //           SizedBox(height: DoScreenAdapter.h(5)),
-    //           Row(
-    //             children: [
-    //               Container(
-    //                 padding: EdgeInsets.all(DoScreenAdapter.w(3)),
-    //                 decoration: BoxDecoration(
-    //                     color: DoColors.gray238,
-    //                     borderRadius:
-    //                         BorderRadius.circular(DoScreenAdapter.w(10))),
-    //                 child: Text(
-    //                   "小米ID2432342353",
-    //                   style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
-    //                 ),
-    //               ),
-    //               SizedBox(width: DoScreenAdapter.w(10)),
-    //               InkWell(
-    //                 onTap: () {
-    //                   Get.toNamed("/vip-medal");
-    //                 },
-    //                 child: Container(
-    //                     padding: EdgeInsets.all(DoScreenAdapter.w(3)),
-    //                     decoration: BoxDecoration(
-    //                         color: DoColors.gray238,
-    //                         borderRadius:
-    //                             BorderRadius.circular(DoScreenAdapter.w(10))),
-    //                     child: Row(
-    //                       children: [
-    //                         Text(
-    //                           "勋章2枚",
-    //                           style:
-    //                               TextStyle(fontSize: DoScreenAdapter.fs(10)),
-    //                         ),
-    //                         const Icon(
-    //                           Icons.arrow_forward_ios_outlined,
-    //                           size: 10,
-    //                           color: Colors.black26,
-    //                         )
-    //                       ],
-    //                     )),
-    //               ),
-    //             ],
-    //           ),
-    //         ],
-    //       ),
-    //     ],
-    //   ),
-    // );
-    return SizedBox(
-      height: DoScreenAdapter.h(40),
-      child: InkWell(
-        onTap: () {
-          Get.toNamed("/one-click-login");
-        },
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: DoScreenAdapter.w(25),
-              backgroundImage: const AssetImage("assets/images/avatar_man.png"),
+    return Obx(() => controller.isLogin.value
+        ? SizedBox(
+            height: DoScreenAdapter.h(40),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Get.toNamed("/profile");
+                  },
+                  child: CircleAvatar(
+                    radius: DoScreenAdapter.w(25),
+                    backgroundImage:
+                        const AssetImage("assets/images/avatar_man.png"),
+                  ),
+                ),
+                SizedBox(
+                  width: DoScreenAdapter.w(10),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "17623458080",
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: DoScreenAdapter.h(5)),
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(DoScreenAdapter.w(3)),
+                          decoration: BoxDecoration(
+                              color: DoColors.gray238,
+                              borderRadius:
+                                  BorderRadius.circular(DoScreenAdapter.w(10))),
+                          child: Text(
+                            "小米ID2432342353",
+                            style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
+                          ),
+                        ),
+                        SizedBox(width: DoScreenAdapter.w(10)),
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed("/vip-medal");
+                          },
+                          child: Container(
+                              padding: EdgeInsets.all(DoScreenAdapter.w(3)),
+                              decoration: BoxDecoration(
+                                  color: DoColors.gray238,
+                                  borderRadius: BorderRadius.circular(
+                                      DoScreenAdapter.w(10))),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "勋章2枚",
+                                    style: TextStyle(
+                                        fontSize: DoScreenAdapter.fs(10)),
+                                  ),
+                                  const Icon(
+                                    Icons.arrow_forward_ios_outlined,
+                                    size: 10,
+                                    color: Colors.black26,
+                                  )
+                                ],
+                              )),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
-            SizedBox(
-              width: DoScreenAdapter.w(10),
+          )
+        : SizedBox(
+            height: DoScreenAdapter.h(40),
+            child: InkWell(
+              onTap: () {
+                Get.toNamed("/one-click-login");
+              },
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: DoScreenAdapter.w(25),
+                    backgroundImage:
+                        const AssetImage("assets/images/avatar_default.png"),
+                  ),
+                  SizedBox(
+                    width: DoScreenAdapter.w(10),
+                  ),
+                  const Text(
+                    "登录/注册",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                  const Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    size: 10,
+                    color: Colors.black26,
+                  )
+                ],
+              ),
             ),
-            const Text(
-              "登录/注册",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-            ),
-            const Icon(
-              Icons.arrow_forward_ios_outlined,
-              size: 10,
-              color: Colors.black26,
-            )
-          ],
-        ),
-      ),
-    );
+          ));
   }
 
   ///个人菜单相关

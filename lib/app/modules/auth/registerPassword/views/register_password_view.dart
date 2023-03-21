@@ -134,7 +134,8 @@ class RegisterPasswordView extends GetView<RegisterPasswordController> {
                             ResponseModel response =
                                 await controller.register();
                             if (response.success) {
-                              Get.offAllNamed("/tabs");
+                              Get.offAllNamed("/tabs",
+                                  arguments: {"initialPage": 4});
                               Get.snackbar("提示", "注册成功");
 
                               ///将数据写入本地

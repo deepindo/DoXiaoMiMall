@@ -4,10 +4,13 @@ import '../../../models/banner_model.dart';
 import '../../../models/goods_model.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_network.dart';
+import '../../../services/app_userService.dart';
 
 class MeController extends GetxController {
   RxList<BannerItemModel> bannerList = <BannerItemModel>[].obs;
   RxList<GoodsItemModel> goodsList = <GoodsItemModel>[].obs;
+  RxBool isLogin = false.obs;
+  RxList userInfoList = [].obs;
 
   ///服务列表
   List<Map> serviceList = [
@@ -66,6 +69,7 @@ class MeController extends GetxController {
     super.onInit();
     _requestBannerData();
     _requestGoodsData();
+    // getUserInfo();
   }
 
   @override
@@ -92,5 +96,19 @@ class MeController extends GetxController {
     var data = await DoNetwork().get(goodsPath);
     goodsList.value = GoodsModel.fromJson(data).result!;
     update();
+  }
+
+  void getUserInfo() async {
+    isLogin.value = await DoUserService.isLogin();
+    List temp = await DoUserService.getUserInfo();
+    if (temp != []) {
+      userInfoList.value = temp;
+    }
+    update();
+  }
+
+  ///退出登录，最后放到设置里面去
+  void logout() async {
+    await DoUserService.removeUserInfo();
   }
 }
