@@ -248,7 +248,7 @@ Widget commonThirdLoginView() {
   return Positioned(
     left: DoScreenAdapter.h(60),
     right: DoScreenAdapter.h(60),
-    bottom: DoScreenAdapter.h(20), //太高了会被键盘推到遮盖上面的组件
+    bottom: DoScreenAdapter.h(80),
     // bottom: 0,
     child: Column(
       children: [

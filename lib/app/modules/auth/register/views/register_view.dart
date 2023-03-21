@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../models/response_model.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../../../../components/app_components.dart';
@@ -10,10 +11,13 @@ class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        title: const Text("手机号快速注册"),
+        centerTitle: true,
         actions: [
           TextButton(
               onPressed: () {
@@ -49,118 +53,118 @@ class RegisterView extends GetView<RegisterController> {
         padding: EdgeInsets.all(DoScreenAdapter.w(20)),
         children: [
           commonLogoView(),
-          Container(
-            height: DoScreenAdapter.h(50),
-            padding: EdgeInsets.only(left: DoScreenAdapter.w(15)),
-            decoration: BoxDecoration(
-                color: DoColors.gray249,
-                borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
-            child: Row(
-              children: [
-                Row(children: [
-                  Text("+86",
-                      style: TextStyle(
-                          fontSize: DoScreenAdapter.fs(16),
-                          color: DoColors.black128,
-                          fontWeight: FontWeight.bold)),
-                  Icon(
-                    Icons.arrow_drop_down_outlined,
-                    size: DoScreenAdapter.fs(15),
-                  )
-                ]),
-                SizedBox(width: DoScreenAdapter.w(10)),
-                Expanded(
-                  child: TextField(
-                    textAlignVertical: TextAlignVertical.center,
-                    controller: controller.phoneController,
-                    keyboardType: TextInputType.number,
-                    style: TextStyle(
-                        color: DoColors.black0,
-                        fontSize: DoScreenAdapter.fs(16),
-                        fontWeight: FontWeight.bold),
-                    decoration: InputDecoration(
-                        // contentPadding: EdgeInsets.zero,//这个设置不设置，都主要看textAlignVertical才能使水平居中
-                        border: InputBorder.none,
-                        hintText: "请输入手机号",
-                        hintStyle: TextStyle(
-                            color: DoColors.gray168,
-                            fontSize: DoScreenAdapter.fs(16),
-                            fontWeight: FontWeight.bold),
-                        suffixIcon: Icon(Icons.close_outlined,
-                            size: DoScreenAdapter.fs(18))),
-                    onChanged: (value) {
-                      controller.isSendCodeButtonEnable.value =
-                          (controller.phoneController.text.length == 11)
-                              ? true
-                              : false;
-                    },
-                    onSubmitted: (value) {},
-                  ),
-                ),
-              ],
-            ),
-          ),
+          _phoneTextFieldSection(),
           SizedBox(height: DoScreenAdapter.h(20)),
-          Obx(
-            () => commonProtocolView(
-              controller.isCheckedProtocol.value,
-              onTap: (selected) {
-                controller.isCheckedProtocol.value = selected!;
-              },
-            ),
-          ),
+          _protocolSection(),
           SizedBox(height: DoScreenAdapter.h(10)),
-          Obx(
-            () => ElevatedButton(
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(DoScreenAdapter.w(20)))),
-                    backgroundColor: MaterialStateProperty.all(
-                        controller.isSendCodeButtonEnable.value
-                            ? DoColors.theme
-                            : DoColors.yellow253),
-                    foregroundColor: MaterialStateProperty.all(Colors.white)),
-                onPressed: !controller.isSendCodeButtonEnable.value
-                    ? null
-                    : () {
-                        if (GetUtils.isPhoneNumber(
-                            controller.phoneController.text)) {
-                          Get.toNamed("/verification-code");
-                          //自动收起键盘
-                          FocusScope.of(Get.context!).requestFocus(FocusNode());
-                        } else {
-                          Get.snackbar("提示", "请输入正确的手机号");
-                        }
-                      },
-                child: Text("获取验证码",
-                    style: TextStyle(
-                        fontSize: DoScreenAdapter.fs(14),
-                        fontWeight: FontWeight.bold))),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                  onPressed: () {
-                    Get.toNamed("/reset-password");
-                  },
-                  child: Text("忘记密码",
-                      style: TextStyle(
-                          fontSize: DoScreenAdapter.fs(14),
-                          color: DoColors.black51))),
-              TextButton(
-                  onPressed: () {
-                    Get.toNamed("/account-password-login");
-                  },
-                  child: Text("密码登录",
-                      style: TextStyle(
-                          fontSize: DoScreenAdapter.fs(14),
-                          color: DoColors.black51)))
-            ],
+          _sendCodeButtonSection(),
+        ],
+      ),
+    );
+  }
+
+  ///手机号输入区
+  Widget _phoneTextFieldSection() {
+    return Container(
+      height: DoScreenAdapter.h(50),
+      padding: EdgeInsets.only(left: DoScreenAdapter.w(15)),
+      decoration: BoxDecoration(
+          color: DoColors.gray249,
+          borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
+      child: Row(
+        children: [
+          Row(children: [
+            Text("+86",
+                style: TextStyle(
+                    fontSize: DoScreenAdapter.fs(16),
+                    color: DoColors.black128,
+                    fontWeight: FontWeight.bold)),
+            Icon(
+              Icons.arrow_drop_down_outlined,
+              size: DoScreenAdapter.fs(15),
+            )
+          ]),
+          SizedBox(width: DoScreenAdapter.w(10)),
+          Expanded(
+            child: TextField(
+              textAlignVertical: TextAlignVertical.center,
+              controller: controller.phoneController,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
+                  color: DoColors.black0,
+                  fontSize: DoScreenAdapter.fs(16),
+                  fontWeight: FontWeight.bold),
+              decoration: InputDecoration(
+                  // contentPadding: EdgeInsets.zero,//这个设置不设置，都主要看textAlignVertical才能使水平居中
+                  border: InputBorder.none,
+                  hintText: "请输入手机号",
+                  hintStyle: TextStyle(
+                      color: DoColors.gray168,
+                      fontSize: DoScreenAdapter.fs(16),
+                      fontWeight: FontWeight.bold),
+                  suffixIcon:
+                      Icon(Icons.close_outlined, size: DoScreenAdapter.fs(18))),
+              onChanged: (value) {
+                controller.isSendCodeButtonEnable.value =
+                    (controller.phoneController.text.length == 11)
+                        ? true
+                        : false;
+              },
+              onSubmitted: (value) {},
+            ),
           ),
         ],
       ),
+    );
+  }
+
+  ///协议区
+  Widget _protocolSection() {
+    return Obx(
+      () => commonProtocolView(
+        controller.isCheckedProtocol.value,
+        onTap: (selected) {
+          controller.isCheckedProtocol.value = selected!;
+        },
+      ),
+    );
+  }
+
+  ///发送验证码按钮区
+  Widget _sendCodeButtonSection() {
+    return Obx(
+      () => ElevatedButton(
+          style: ButtonStyle(
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(DoScreenAdapter.w(20)))),
+              backgroundColor: MaterialStateProperty.all(
+                  controller.isSendCodeButtonEnable.value
+                      ? DoColors.theme
+                      : DoColors.yellow253),
+              foregroundColor: MaterialStateProperty.all(Colors.white)),
+          onPressed: !controller.isSendCodeButtonEnable.value
+              ? null
+              : () async {
+                  if (GetUtils.isPhoneNumber(controller.phoneController.text)) {
+                    ResponseModel response =
+                        await controller.requestVerificationCode();
+                    if (response.success) {
+                      //自动收起键盘
+                      FocusScope.of(Get.context!).requestFocus(FocusNode());
+                      Get.toNamed("/register-code", arguments: {
+                        "phone": controller.phoneController.text
+                      });
+                    } else {
+                      Get.snackbar("提示", response.message);
+                    }
+                  } else {
+                    Get.snackbar("提示", "请输入正确的手机号");
+                  }
+                },
+          child: Text("获取验证码",
+              style: TextStyle(
+                  fontSize: DoScreenAdapter.fs(14),
+                  fontWeight: FontWeight.bold))),
     );
   }
 }

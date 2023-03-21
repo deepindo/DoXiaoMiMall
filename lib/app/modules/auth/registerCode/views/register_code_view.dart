@@ -4,6 +4,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../../../../components/app_components.dart';
+import '../../../../models/response_model.dart';
 import '../controllers/register_code_controller.dart';
 
 class RegisterCodeView extends GetView<RegisterCodeController> {
@@ -15,8 +16,19 @@ class RegisterCodeView extends GetView<RegisterCodeController> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text('获取验证码'),
+        title: const Text('手机号快速注册'),
         centerTitle: true,
+        actions: [
+          TextButton(
+              onPressed: () {
+                Get.toNamed("/account-help");
+              },
+              child: Text(
+                "帮助",
+                style: TextStyle(
+                    fontSize: DoScreenAdapter.fs(14), color: DoColors.black51),
+              ))
+        ],
       ),
       body: _body(),
     );
@@ -51,7 +63,8 @@ class RegisterCodeView extends GetView<RegisterCodeController> {
                           fontSize: DoScreenAdapter.fs(12),
                           color: DoColors.gray154)),
                   SizedBox(width: DoScreenAdapter.w(5)),
-                  Text("+86 176****6789",
+                  // Text("+86 ${controller.phone.replaceRange(3, 6, '*'}"),
+                  Text("+86 ${controller.phone.replaceRange(3, 7, '****')}",
                       style: TextStyle(
                           fontSize: DoScreenAdapter.fs(12),
                           color: DoColors.black51,
@@ -62,9 +75,11 @@ class RegisterCodeView extends GetView<RegisterCodeController> {
           ),
           SizedBox(height: DoScreenAdapter.h(20)),
           PinCodeTextField(
+            controller: controller.codeController,
             appContext: Get.context!,
             length: 6,
             obscureText: false,
+            keyboardType: TextInputType.number,
             animationType: AnimationType.fade,
             animationDuration: const Duration(milliseconds: 300),
             // backgroundColor: Colors.blue.shade50,
@@ -92,19 +107,26 @@ class RegisterCodeView extends GetView<RegisterCodeController> {
               disabledColor: DoColors.gray249,
               errorBorderColor: Colors.red,
             ),
-            onCompleted: (v) {
+            onCompleted: (v) async {
               print("Completed");
-              //自动收起键盘
-              FocusScope.of(Get.context!).requestFocus(FocusNode());
+              ResponseModel response =
+                  await controller.validateVerificationCode();
+              if (response.success) {
+                //自动收起键盘
+                FocusScope.of(Get.context!).requestFocus(FocusNode());
+                print(controller.phone);
+                print(controller.codeController.text);
+                Get.toNamed("/register-password", arguments: {
+                  "phone": controller.phone,
+                  "code": controller.codeController.text
+                });
+              } else {
+                Get.snackbar("提示", response.message);
+              }
             },
-            onChanged: (value) {
-              print(value);
-              // setState(() {
-              //   currentText = value;
-              // });
-            },
+            onChanged: (value) {},
             beforeTextPaste: (text) {
-              print("Allowing to paste $text");
+              // print("Allowing to paste $text");
               //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
               //but you can show anything you want here, like your pop up saying wrong paste format or etc
               return true;
@@ -113,14 +135,30 @@ class RegisterCodeView extends GetView<RegisterCodeController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(
-                  onPressed: () {
-                    // Get.toNamed("/reset-password");
-                  },
-                  child: Text("重新发送(${controller.seconds})",
-                      style: TextStyle(
-                          fontSize: DoScreenAdapter.fs(14),
-                          color: DoColors.gray154))),
+              Obx(
+                () => controller.seconds.value > 0
+                    ? TextButton(
+                        onPressed: null,
+                        child: Text("${controller.seconds.value}秒后重新获取验证码",
+                            style: TextStyle(
+                                fontSize: DoScreenAdapter.fs(14),
+                                color: DoColors.gray154)))
+                    : TextButton(
+                        onPressed: () async {
+                          ResponseModel response =
+                              await controller.requestVerificationCode();
+                          Get.snackbar("提示", response.message);
+                          // if (response.success) {
+                          //   Get.snackbar("提示", response.message);
+                          // } else {
+                          //   Get.snackbar("提示", "请求失败");
+                          // }
+                        },
+                        child: Text("重新获取验证码",
+                            style: TextStyle(
+                                fontSize: DoScreenAdapter.fs(14),
+                                color: DoColors.gray154))),
+              ),
               TextButton(
                   onPressed: () {
                     Get.toNamed("/account-help");

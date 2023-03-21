@@ -10,6 +10,7 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -68,7 +69,7 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
             child: TextField(
               textAlignVertical: TextAlignVertical.center,
               controller: controller.accountController,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
               style: TextStyle(
                   color: DoColors.black0,
                   fontSize: DoScreenAdapter.fs(16),
@@ -99,7 +100,8 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
             child: TextField(
               textAlignVertical: TextAlignVertical.center,
               controller: controller.passwordController,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
+              obscureText: true,
               style: TextStyle(
                   color: DoColors.black0,
                   fontSize: DoScreenAdapter.fs(16),
@@ -177,57 +179,6 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
                           color: DoColors.black51)))
             ],
           ),
-        ],
-      ),
-    );
-  }
-
-  ///底部固定区域-第三方登录
-  Widget _bottomView() {
-    return Positioned(
-      left: DoScreenAdapter.h(60),
-      right: DoScreenAdapter.h(60),
-      bottom: DoScreenAdapter.h(20), //太高了会被键盘推到遮盖上面的组件
-      // bottom: 0,
-      child: Column(
-        children: [
-          Text("- 其他方式登录 -",
-              style: TextStyle(
-                  fontSize: DoScreenAdapter.fs(12), color: DoColors.gray154)),
-          SizedBox(height: DoScreenAdapter.h(10)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              InkWell(
-                  onTap: () {},
-                  child: CircleAvatar(
-                      backgroundColor: const Color.fromARGB(255, 206, 247, 221),
-                      radius: DoScreenAdapter.w(15),
-                      child: const Icon(Icons.wechat,
-                          color: Colors.green, size: 18))),
-              InkWell(
-                  onTap: () {},
-                  child: CircleAvatar(
-                      backgroundColor: const Color.fromARGB(255, 149, 199, 240),
-                      radius: DoScreenAdapter.w(15),
-                      child: const Icon(Icons.facebook,
-                          color: Colors.blue, size: 18))),
-              InkWell(
-                  onTap: () {},
-                  child: CircleAvatar(
-                      backgroundColor: const Color.fromARGB(255, 244, 150, 143),
-                      radius: DoScreenAdapter.w(15),
-                      child:
-                          const Icon(Icons.mail, color: Colors.red, size: 18))),
-              InkWell(
-                  onTap: () {},
-                  child: CircleAvatar(
-                      backgroundColor: Colors.black,
-                      radius: DoScreenAdapter.w(15),
-                      child: const Icon(Icons.apple,
-                          color: Colors.white, size: 18)))
-            ],
-          )
         ],
       ),
     );

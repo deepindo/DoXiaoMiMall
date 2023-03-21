@@ -9,7 +9,16 @@ const String hotGoodsPath = "api/plist?is_hot=1&pageSize=3";
 const String mainCategoryPath = "api/pcate/";
 const String secondCategoryPath = "api/pcate?pid=";
 // const String goodsListPath = "api/plist?page=";
+//发送验证码
+const String sendCodePath = "api/sendCode";
+//验证验证码
+const String validateCodePath = "api/validateCode";
+//注册
+const String registerPath = "api/register";
 
+///
+///
+///网络请求类
 class DoNetwork {
   //根据网络环境来判断基URL是啥
   static String baseURL = "https://xiaomi.itying.com/";
@@ -78,15 +87,15 @@ class DoNetwork {
   Future get(apiPath) async {
     try {
       var response = await dio.get(apiPath);
-      print(
-          "||------------------------------Begin------------------------------||");
-      print("||---->response:--${response}");
+      // print("||-------------------Begin-------------------||");
+      print("||----------get---->response:--$response ");
       // print("||---->response.statusCode:--${response.statusCode}");
       // print("||---->response.statusMessage:--${response.statusMessage}");
       // print("response.headers:-----${response.headers}");
       // print("response.requestOptions:-----${response.requestOptions}");
 
       if (response.data != null) {
+        print("response.data != null");
         // print("||---->response.data:--${response.data}");
         return response.data;
       } else {
@@ -94,10 +103,10 @@ class DoNetwork {
         print("||---->response.statusCode:--${response.statusCode}");
         print("||---->response.statusMessage:--${response.statusMessage}");
         print("||---->response.headers:--${response.headers}");
-        print("||---->response.requestOptions:--${response.requestOptions}");
-        print("||---->response.isRedirect:--${response.isRedirect}");
-        print("||---->response.extra:--${response.extra}");
-        print("||---->response.redirects:--${response.redirects}");
+        // print("||---->response.requestOptions:--${response.requestOptions}");
+        // print("||---->response.isRedirect:--${response.isRedirect}");
+        // print("||---->response.extra:--${response.extra}");
+        // print("||---->response.redirects:--${response.redirects}");
         return null;
       }
     } on DioError catch (e) {
@@ -105,7 +114,38 @@ class DoNetwork {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       ///请求失败的，比如断网了，是不是要在这里添加网络监听
-      print(e);
+      print("---catchError:$e.message");
+      return null;
+    }
+  }
+
+  ///post请求
+  Future post(String apiPath, {Object? data}) async {
+    try {
+      var response = await Dio().post(apiPath, data: data);
+      print("||--------post---->response:--$response ");
+      if (response.data != null) {
+        print("response.data != null");
+        // print("||---->response.data:--${response.data}");
+        return response.data;
+      } else {
+        ///应该先判断code吧，然后根据情况返回data
+        print("||---->response.statusCode:--${response.statusCode}");
+        print("||---->response.statusMessage:--${response.statusMessage}");
+        print("||---->response.headers:--${response.headers}");
+        // print("||---->response.requestOptions:--${response.requestOptions}");
+        // print("||---->response.isRedirect:--${response.isRedirect}");
+        // print("||---->response.extra:--${response.extra}");
+        // print("||---->response.redirects:--${response.redirects}");
+        return null;
+      }
+    } on DioError catch (e) {
+      // print("catchError-----:$e.error");
+      // print("catchError-----:$e.response");
+      print("catchError-----:$e.message");
+      // print("catchError-----:$e.type");
+      // print("catchError-----:$e.requestOptions");
+
       return null;
     }
   }

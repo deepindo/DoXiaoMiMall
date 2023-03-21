@@ -15,8 +15,17 @@ class VerificationCodeView extends GetView<VerificationCodeController> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text('获取验证码'),
-        centerTitle: true,
+        actions: [
+          TextButton(
+              onPressed: () {
+                Get.toNamed("/account-help");
+              },
+              child: Text(
+                "帮助",
+                style: TextStyle(
+                    fontSize: DoScreenAdapter.fs(14), color: DoColors.black51),
+              ))
+        ],
       ),
       body: _body(),
     );
@@ -65,6 +74,7 @@ class VerificationCodeView extends GetView<VerificationCodeController> {
             appContext: Get.context!,
             length: 6,
             obscureText: false,
+            keyboardType: TextInputType.number,
             animationType: AnimationType.fade,
             animationDuration: const Duration(milliseconds: 300),
             // backgroundColor: Colors.blue.shade50,

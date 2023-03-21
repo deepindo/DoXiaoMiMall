@@ -7,7 +7,6 @@ class AccountPasswordLoginController extends GetxController {
   RxBool isLoginButtonEnable = false.obs;
   RxBool isCheckedProtocol = false.obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -22,8 +21,6 @@ class AccountPasswordLoginController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 
   ///更新登录按钮状态
   void updateLoginButtonState() {
