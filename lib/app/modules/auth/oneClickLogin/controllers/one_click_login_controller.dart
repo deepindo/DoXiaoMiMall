@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class OneClickLoginController extends GetxController {
-  //TODO: Implement OneClickLoginController
+  RxBool isCheckedProtocol = false.obs;
 
   final count = 0.obs;
   @override
