@@ -9,12 +9,18 @@ const String hotGoodsPath = "api/plist?is_hot=1&pageSize=3";
 const String mainCategoryPath = "api/pcate/";
 const String secondCategoryPath = "api/pcate?pid=";
 // const String goodsListPath = "api/plist?page=";
-//发送验证码
+//注册-发送验证码
 const String sendCodePath = "api/sendCode";
-//验证验证码
+//注册-验证验证码
 const String validateCodePath = "api/validateCode";
 //注册
 const String registerPath = "api/register";
+//登录
+const String loginPath = "api/doLogin";
+//验证码登录-发送验证码
+const String sendLoginCodePath = "api/sendLoginCode";
+//验证码登录-验证-注册+登录
+const String validateLoginCodePath = "api/validateLoginCode";
 
 ///
 ///

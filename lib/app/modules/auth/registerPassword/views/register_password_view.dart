@@ -1,10 +1,9 @@
-import 'package:doxiaomimall/app/models/response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../components/app_components.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
-import '../../../../services/app_network.dart';
+import '../../../../models/response_model.dart';
 import '../controllers/register_password_controller.dart';
 
 class RegisterPasswordView extends GetView<RegisterPasswordController> {

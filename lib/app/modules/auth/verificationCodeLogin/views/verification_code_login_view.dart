@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../models/response_model.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../../../../components/app_components.dart';
@@ -134,12 +135,21 @@ class VerificationCodeLoginView
                     foregroundColor: MaterialStateProperty.all(Colors.white)),
                 onPressed: !controller.isSendCodeButtonEnable.value
                     ? null
-                    : () {
+                    : () async {
                         if (GetUtils.isPhoneNumber(
                             controller.phoneController.text)) {
-                          Get.toNamed("/verification-code");
-                          //自动收起键盘
-                          FocusScope.of(Get.context!).requestFocus(FocusNode());
+                          ResponseModel response =
+                              await controller.requestVerificationCode();
+                          if (response.success) {
+                            //自动收起键盘
+                            FocusScope.of(Get.context!)
+                                .requestFocus(FocusNode());
+                            Get.toNamed("/verification-code", arguments: {
+                              "phone": controller.phoneController.text
+                            });
+                          } else {
+                            Get.snackbar("提示", response.message);
+                          }
                         } else {
                           Get.snackbar("提示", "请输入正确的手机号");
                         }

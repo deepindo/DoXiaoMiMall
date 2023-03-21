@@ -196,7 +196,10 @@ class MeView extends GetView<MeController> {
             height: DoScreenAdapter.h(40),
             child: InkWell(
               onTap: () {
-                Get.toNamed("/one-click-login");
+                ///一键登录页面，UI有了
+                // Get.toNamed("/one-click-login");
+                ///验证码登录
+                Get.toNamed("/verification-code-login");
               },
               child: Row(
                 children: [

@@ -4,6 +4,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../../../../components/app_components.dart';
+import '../../../../models/response_model.dart';
 import '../controllers/verification_code_controller.dart';
 
 class VerificationCodeView extends GetView<VerificationCodeController> {
@@ -60,7 +61,7 @@ class VerificationCodeView extends GetView<VerificationCodeController> {
                           fontSize: DoScreenAdapter.fs(12),
                           color: DoColors.gray154)),
                   SizedBox(width: DoScreenAdapter.w(5)),
-                  Text("+86 176****6789",
+                  Text("+86 ${controller.phone.replaceRange(3, 7, '****')}",
                       style: TextStyle(
                           fontSize: DoScreenAdapter.fs(12),
                           color: DoColors.black51,
@@ -102,10 +103,18 @@ class VerificationCodeView extends GetView<VerificationCodeController> {
               disabledColor: DoColors.gray249,
               errorBorderColor: Colors.red,
             ),
-            onCompleted: (v) {
+            onCompleted: (v) async {
               print("Completed");
-              //自动收起键盘
-              FocusScope.of(Get.context!).requestFocus(FocusNode());
+              ResponseModel response =
+                  await controller.validateVerificationCode();
+              if (response.success) {
+                //自动收起键盘
+                FocusScope.of(Get.context!).requestFocus(FocusNode());
+                Get.offAllNamed("/tabs", arguments: {"initialPage": 4});
+                Get.snackbar("提示", "登录成功");
+              } else {
+                Get.snackbar("提示", response.message);
+              }
             },
             onChanged: (value) {
               print(value);
@@ -123,14 +132,30 @@ class VerificationCodeView extends GetView<VerificationCodeController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(
-                  onPressed: () {
-                    // Get.toNamed("/reset-password");
-                  },
-                  child: Text("重新发送(${controller.seconds})",
-                      style: TextStyle(
-                          fontSize: DoScreenAdapter.fs(14),
-                          color: DoColors.gray154))),
+              Obx(
+                () => controller.seconds.value > 0
+                    ? TextButton(
+                        onPressed: null,
+                        child: Text("${controller.seconds.value}秒后重新获取验证码",
+                            style: TextStyle(
+                                fontSize: DoScreenAdapter.fs(14),
+                                color: DoColors.gray154)))
+                    : TextButton(
+                        onPressed: () async {
+                          ResponseModel response =
+                              await controller.requestVerificationCode();
+                          Get.snackbar("提示", response.message);
+                          // if (response.success) {
+                          //   Get.snackbar("提示", response.message);
+                          // } else {
+                          //   Get.snackbar("提示", "请求失败");
+                          // }
+                        },
+                        child: Text("重新获取验证码",
+                            style: TextStyle(
+                                fontSize: DoScreenAdapter.fs(14),
+                                color: DoColors.gray154))),
+              ),
               TextButton(
                   onPressed: () {
                     Get.toNamed("/account-help");

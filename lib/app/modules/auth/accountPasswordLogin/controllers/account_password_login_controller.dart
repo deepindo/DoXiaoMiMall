@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../..//services/app_network.dart';
+import '../../../..//services/app_userService.dart';
+import '../../../../models/response_model.dart';
 
 class AccountPasswordLoginController extends GetxController {
   TextEditingController accountController = TextEditingController();
@@ -24,19 +27,28 @@ class AccountPasswordLoginController extends GetxController {
 
   ///更新登录按钮状态
   void updateLoginButtonState() {
-    // print("account:${accountController.text}");
-    // print("password:${passwordController.text}");
-    // if (accountController.text.isNotEmpty &&
-    //     passwordController.text.isNotEmpty) {
-    //   print("都真");
-    // } else {
-    //   print("有假");
-    // }
-    isLoginButtonEnable.value = (accountController.text.isNotEmpty &&
-            passwordController.text.isNotEmpty)
+    isLoginButtonEnable.value = (accountController.text.length == 11 &&
+            passwordController.text.length >= 8)
         ? true
         : false;
-    // print(isLoginButtonEnable.value);
     update();
+  }
+
+  Future<ResponseModel> login() async {
+    var data = await DoNetwork().post(loginPath, data: {
+      "username": accountController.text,
+      "password": passwordController.text
+    });
+    print("login-----:$data");
+    if (data != null) {
+      if (data["success"]) {
+        DoUserService.setUserInfo(data["userinfo"]);
+        return ResponseModel(success: true, message: "登录成功");
+      } else {
+        return ResponseModel(success: false, message: data["message"]);
+      }
+    } else {
+      return ResponseModel(success: false, message: data["请求失败"]);
+    }
   }
 }

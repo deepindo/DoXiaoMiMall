@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../models/response_model.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../../../../components/app_components.dart';
+import '../../../../services/app_userService.dart';
 import '../controllers/account_password_login_controller.dart';
 
 class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
@@ -144,13 +146,21 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
                     foregroundColor: MaterialStateProperty.all(Colors.white)),
                 onPressed: !controller.isLoginButtonEnable.value
                     ? null
-                    : () {
-                        if (controller.accountController.text.isNotEmpty &&
-                            controller.passwordController.text.isNotEmpty) {
-                          // Get.toNamed("/verification-code");
-                          //登录
+                    : () async {
+                        if (GetUtils.isPhoneNumber(
+                            controller.accountController.text)) {
+                          ResponseModel response = await controller.login();
+                          if (response.success) {
+                            FocusScope.of(Get.context!)
+                                .requestFocus(FocusNode());
+                            Get.offAllNamed("/tabs",
+                                arguments: {"initialPage": 4});
+                            Get.snackbar("提示", "登录成功");
+                          } else {
+                            Get.snackbar("提示", response.message);
+                          }
                         } else {
-                          Get.snackbar("提示", "请输入正确的账号和密码");
+                          Get.snackbar("提示", "请输入正确手机号");
                         }
                       },
                 child: Text("登录",

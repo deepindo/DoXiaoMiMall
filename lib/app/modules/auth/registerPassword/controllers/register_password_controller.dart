@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../services/app_network.dart';
 import '../../../../models/response_model.dart';
+import '../../../../services/app_userService.dart';
 
 class RegisterPasswordController extends GetxController {
   TextEditingController passwordController = TextEditingController();
@@ -43,6 +44,7 @@ class RegisterPasswordController extends GetxController {
     print("register-----:$data");
     if (data != null) {
       if (data["success"]) {
+        DoUserService.setUserInfo(data["userinfo"]);
         return ResponseModel(success: true, message: "注册成功");
       } else {
         return ResponseModel(success: false, message: data["message"]);
