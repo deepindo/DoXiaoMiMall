@@ -18,15 +18,6 @@ class VerificationCodeLoginView
         actions: [
           TextButton(
               onPressed: () {
-                Get.toNamed("/register");
-              },
-              child: Text(
-                "注册",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(14), color: DoColors.black51),
-              )),
-          TextButton(
-              onPressed: () {
                 Get.toNamed("/account-help");
               },
               child: Text(

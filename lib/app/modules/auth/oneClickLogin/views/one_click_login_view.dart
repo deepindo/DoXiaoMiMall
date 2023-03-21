@@ -49,7 +49,8 @@ class OneClickLoginView extends GetView<OneClickLoginController> {
           children: [
             CircleAvatar(
               radius: DoScreenAdapter.w(30),
-              foregroundImage: const AssetImage("assets/images/user.png"),
+              foregroundImage:
+                  const AssetImage("assets/images/avatar_default.png"),
             ),
           ],
         ),
@@ -81,11 +82,10 @@ class OneClickLoginView extends GetView<OneClickLoginController> {
         SizedBox(height: DoScreenAdapter.h(20)),
         Obx(
           () => commonProtocolView(
-            controller.isCheckedProtocol.value,
-            onTap: (selected) {
-              controller.isCheckedProtocol.value = selected!;
-            },
-          ),
+              isOneClick: true,
+              controller.isCheckedProtocol.value, onTap: (selected) {
+            controller.isCheckedProtocol.value = selected!;
+          }),
         ),
         SizedBox(height: DoScreenAdapter.h(10)),
         ElevatedButton(

@@ -199,7 +199,7 @@ class MeView extends GetView<MeController> {
           children: [
             CircleAvatar(
               radius: DoScreenAdapter.w(25),
-              backgroundImage: const AssetImage("assets/images/user.png"),
+              backgroundImage: const AssetImage("assets/images/avatar_man.png"),
             ),
             SizedBox(
               width: DoScreenAdapter.w(10),

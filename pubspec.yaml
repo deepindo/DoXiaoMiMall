@@ -90,6 +90,9 @@ flutter:
     - assets/images/xiaomiShop.jpeg
     - assets/images/logo.png
     - assets/images/user.png
+    - assets/images/avatar_default.png
+    - assets/images/avatar_man.png
+    - assets/images/avatar_woman.png
     - assets/images/user_ad1.png
     - assets/images/user_ad2.png
 
