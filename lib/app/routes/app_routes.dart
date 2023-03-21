@@ -12,6 +12,7 @@ abstract class Routes {
   static const REGISTER = _Paths.REGISTER;
   static const REGISTER_CODE = _Paths.REGISTER_CODE;
   static const REGISTER_PASSWORD = _Paths.REGISTER_PASSWORD;
+  static const LOGIN = _Paths.LOGIN;
   static const VERIFICATION_CODE_LOGIN = _Paths.VERIFICATION_CODE_LOGIN;
   static const VERIFICATION_CODE = _Paths.VERIFICATION_CODE;
   static const ACCOUNT_PASSWORD_LOGIN = _Paths.ACCOUNT_PASSWORD_LOGIN;
@@ -42,6 +43,7 @@ abstract class _Paths {
   static const REGISTER = '/register';
   static const REGISTER_CODE = '/register-code';
   static const REGISTER_PASSWORD = '/register-password';
+  static const LOGIN = '/login';
   static const VERIFICATION_CODE_LOGIN = '/verification-code-login';
   static const VERIFICATION_CODE = '/verification-code';
   static const ACCOUNT_PASSWORD_LOGIN = '/account-password-login';
