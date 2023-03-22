@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 import '../../../../services/app_network.dart';
 import '../../../../models/response_model.dart';
 import '../../../../services/app_userService.dart';
+import '../../../me/controllers/me_controller.dart';
 
 class VerificationCodeController extends GetxController {
+  MeController meController = Get.find();
   TextEditingController codeController = TextEditingController();
   String phone = Get.arguments["phone"];
   RxInt seconds = 60.obs;
@@ -25,6 +27,9 @@ class VerificationCodeController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+
+    ///本页面关闭的时候，获取用户信息刷新
+    meController.getUserInfo();
   }
 
   ///倒计时

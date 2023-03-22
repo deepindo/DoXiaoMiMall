@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 
 class CheckoutController extends GetxController {
-  List checkoutList = Get.arguments["checkoutList"];
+  List checkoutList =
+      Get.arguments != null ? Get.arguments["checkoutList"] : [];
 
   final count = 0.obs;
   @override

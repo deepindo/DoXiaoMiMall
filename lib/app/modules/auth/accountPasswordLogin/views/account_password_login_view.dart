@@ -152,8 +152,9 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
                           if (response.success) {
                             FocusScope.of(Get.context!)
                                 .requestFocus(FocusNode());
-                            Get.offAllNamed("/tabs",
-                                arguments: {"initialPage": 4});
+                            // Get.offAllNamed("/tabs",
+                            //     arguments: {"initialPage": 4});
+                            Get.back(); //替换路由
                             Get.snackbar("提示", "登录成功");
                           } else {
                             Get.snackbar("提示", response.message);

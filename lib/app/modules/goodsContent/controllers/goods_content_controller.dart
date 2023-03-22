@@ -5,6 +5,7 @@ import '../../../services/app_network.dart';
 import '../../../models/goods_content_model.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../../../models/goods_model.dart';
+import '../../../services/app_userService.dart';
 
 class GoodsContentController extends GetxController {
   final ScrollController scrollController = ScrollController();
@@ -266,11 +267,22 @@ class GoodsContentController extends GetxController {
   }
 
   ///立即购买
-  void buyNow() {
+  void buyNow() async {
     updateSelectedGoodsAttributes();
 
     ///这个没有写入本地数据库
-    Get.back();
-    Get.snackbar("跳转", "结算页面");
+    // Get.back();
+    // Get.snackbar("跳转", "结算页面");
+
+    if (await DoUserService.isLogin()) {
+      ///这里要将当前选的这个传进去，暂时不判断是否登录
+      Get.toNamed(
+        "/checkout",
+        // arguments: {"checkoutList": controller.getCheckedList()},
+      );
+      // }
+    } else {
+      Get.toNamed("/verification-code-login");
+    }
   }
 }

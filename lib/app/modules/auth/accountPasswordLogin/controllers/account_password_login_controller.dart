@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import '../../../..//services/app_network.dart';
 import '../../../..//services/app_userService.dart';
 import '../../../../models/response_model.dart';
+import '../../../me/controllers/me_controller.dart';
 
 class AccountPasswordLoginController extends GetxController {
+  MeController meController = Get.find();
   TextEditingController accountController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   RxBool isLoginButtonEnable = false.obs;
@@ -23,6 +25,9 @@ class AccountPasswordLoginController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+
+    ///本页面关闭的时候，获取用户信息刷新
+    meController.getUserInfo();
   }
 
   ///更新登录按钮状态

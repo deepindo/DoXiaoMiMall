@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_network.dart';
 import '../../../services/app_screenAdapter.dart';
+import '../../../services/app_userService.dart';
 import '../controllers/checkout_controller.dart';
 
 class CheckoutView extends GetView<CheckoutController> {
@@ -97,7 +98,13 @@ class CheckoutView extends GetView<CheckoutController> {
                 ],
               ),
               InkWell(
-                onTap: () {},
+                onTap: () async {
+                  if (await DoUserService.isLogin()) {
+                    Get.snackbar("弹框", "选择支付方式付款");
+                  } else {
+                    Get.toNamed("/verification-code-login");
+                  }
+                },
                 child: Container(
                   margin: EdgeInsets.only(right: DoScreenAdapter.w(10)),
                   padding: EdgeInsets.fromLTRB(

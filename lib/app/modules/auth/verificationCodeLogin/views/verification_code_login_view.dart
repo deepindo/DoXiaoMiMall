@@ -176,7 +176,8 @@ class VerificationCodeLoginView
                           color: DoColors.black51))),
               TextButton(
                   onPressed: () {
-                    Get.toNamed("/account-password-login");
+                    ///替换路由
+                    Get.offAndToNamed("/account-password-login");
                   },
                   child: Text("密码登录",
                       style: TextStyle(
