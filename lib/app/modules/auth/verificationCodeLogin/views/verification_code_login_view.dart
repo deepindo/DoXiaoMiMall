@@ -144,7 +144,11 @@ class VerificationCodeLoginView
                             //自动收起键盘
                             FocusScope.of(Get.context!)
                                 .requestFocus(FocusNode());
-                            Get.toNamed("/verification-code", arguments: {
+                            // Get.toNamed("/verification-code", arguments: {
+                            //   "phone": controller.phoneController.text
+                            // });
+                            ///替换路由
+                            Get.offAndToNamed("/verification-code", arguments: {
                               "phone": controller.phoneController.text
                             });
                           } else {

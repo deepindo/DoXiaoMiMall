@@ -1,10 +1,10 @@
 import 'package:doxiaomimall/app/services/app_network.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:roundcheckbox/roundcheckbox.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../../../components/app_components.dart';
+import '../../../services/app_userService.dart';
 import '../controllers/cart_controller.dart';
 
 class CartView extends GetView {
@@ -179,8 +179,20 @@ class CartView extends GetView {
                     ],
                   ),
                   InkWell(
-                    onTap: () {
-                      Get.snackbar("跳转", "确认订单页面");
+                    onTap: () async {
+                      if (await DoUserService.isLogin()) {
+                        // List tempList = controller.getCheckedList();
+                        if (controller.getCheckedList().isEmpty) {
+                          ///先判断是否有选中
+                          Get.snackbar("提示", "请勾选需要结算的商品");
+                        } else {
+                          Get.toNamed("/checkout", arguments: {
+                            "checkoutList": controller.getCheckedList()
+                          });
+                        }
+                      } else {
+                        Get.toNamed("/verification-code-login");
+                      }
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: DoScreenAdapter.w(10)),

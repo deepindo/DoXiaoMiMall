@@ -95,6 +95,18 @@ class CartController extends GetxController {
     } else {
       return false;
     }
-    // return null;
+  }
+
+  ///获取已经选中的清单
+  List getCheckedList() {
+    var tempList = [];
+    if (cartList.isNotEmpty) {
+      for (var element in cartList) {
+        if (element["checked"] == true) {
+          tempList.add(element);
+        }
+      }
+    }
+    return tempList;
   }
 }

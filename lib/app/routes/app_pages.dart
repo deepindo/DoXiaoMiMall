@@ -21,6 +21,8 @@ import '../modules/auth/verificationCode/views/verification_code_view.dart';
 import '../modules/auth/verificationCodeLogin/bindings/verification_code_login_binding.dart';
 import '../modules/auth/verificationCodeLogin/views/verification_code_login_view.dart';
 import '../modules/cart/views/cart_view.dart';
+import '../modules/checkout/bindings/checkout_binding.dart';
+import '../modules/checkout/views/checkout_view.dart';
 import '../modules/customerService/bindings/customer_service_binding.dart';
 import '../modules/customerService/views/customer_service_view.dart';
 import '../modules/goodsContent/bindings/goods_content_binding.dart';
@@ -192,6 +194,11 @@ class AppPages {
       name: _Paths.RESET_PASSWORD,
       page: () => const ResetPasswordView(),
       binding: ResetPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHECKOUT,
+      page: () => const CheckoutView(),
+      binding: CheckoutBinding(),
     ),
   ];
 }

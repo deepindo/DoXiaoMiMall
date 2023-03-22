@@ -10,9 +10,9 @@ class DoUserService {
 
   ///获取本地的用户信息
   static Future<List> getUserInfo() async {
-    List list = await DoSharedPreferences.getData(USERINFOKEY);
-    if (list.isNotEmpty) {
-      return list;
+    var data = await DoSharedPreferences.getData(USERINFOKEY);
+    if (data != null && data.isNotEmpty) {
+      return data;
     } else {
       return [];
     }
@@ -25,8 +25,8 @@ class DoUserService {
 
   ///获取用户登录状态
   static Future<bool> isLogin() async {
-    List list = await DoSharedPreferences.getData(USERINFOKEY);
-    if (list.isNotEmpty && list[0]["username"] != "") {
+    var data = await DoSharedPreferences.getData(USERINFOKEY);
+    if (data != null && data.isNotEmpty && data[0]["username"] != "") {
       return true;
     } else {
       return false;

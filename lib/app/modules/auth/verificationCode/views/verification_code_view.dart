@@ -110,7 +110,9 @@ class VerificationCodeView extends GetView<VerificationCodeController> {
               if (response.success) {
                 //自动收起键盘
                 FocusScope.of(Get.context!).requestFocus(FocusNode());
-                Get.offAllNamed("/tabs", arguments: {"initialPage": 4});
+                // Get.offAllNamed("/tabs", arguments: {"initialPage": 4});
+                ///前一个页面使用了替换路由
+                Get.back();
                 Get.snackbar("提示", "登录成功");
               } else {
                 Get.snackbar("提示", response.message);

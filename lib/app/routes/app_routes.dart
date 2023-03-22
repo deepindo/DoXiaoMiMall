@@ -30,6 +30,7 @@ abstract class Routes {
   static const MESSAGE_NOTIFICATION = _Paths.MESSAGE_NOTIFICATION;
   static const MESSAGE = _Paths.MESSAGE;
   static const VIP_MEDAL = _Paths.VIP_MEDAL;
+  static const CHECKOUT = _Paths.CHECKOUT;
 }
 
 abstract class _Paths {
@@ -61,4 +62,5 @@ abstract class _Paths {
   static const MESSAGE_NOTIFICATION = '/message-notification';
   static const MESSAGE = '/message';
   static const VIP_MEDAL = '/vip-medal';
+  static const CHECKOUT = '/checkout';
 }
