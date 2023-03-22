@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
@@ -53,7 +54,8 @@ class SettingView extends GetView<SettingController> {
             onPressed: () async {
               await DoUserService.removeUserInfo();
               Get.offAllNamed("/tabs");
-              Get.snackbar("提示", "退出登录");
+              // Get.snackbar("提示", "退出登录");
+              EasyLoading.showSuccess("退出登录");
             },
             child: Text("退出账号",
                 style: TextStyle(

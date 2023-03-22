@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../../services/app_colors.dart';
@@ -106,16 +107,17 @@ class VerificationCodeView extends GetView<VerificationCodeController> {
             ),
             onCompleted: (v) async {
               print("Completed");
+              //自动收起键盘
+              FocusScope.of(Get.context!).requestFocus(FocusNode());
+              EasyLoading.show(status: "登录中...");
               ResponseModel response = await controller.validateCodeAndLogin();
               if (response.success) {
-                //自动收起键盘
-                FocusScope.of(Get.context!).requestFocus(FocusNode());
                 // Get.offAllNamed("/tabs", arguments: {"initialPage": 4});
                 ///前一个页面使用了替换路由
                 Get.back();
-                Get.snackbar("提示", "登录成功");
+                EasyLoading.showSuccess(response.message);
               } else {
-                Get.snackbar("提示", response.message);
+                EasyLoading.showError(response.message);
               }
             },
             onChanged: (value) {
@@ -144,14 +146,14 @@ class VerificationCodeView extends GetView<VerificationCodeController> {
                                 color: DoColors.gray154)))
                     : TextButton(
                         onPressed: () async {
+                          EasyLoading.show(status: "获取中...");
                           ResponseModel response =
                               await controller.requestVerificationCode();
-                          Get.snackbar("提示", response.message);
-                          // if (response.success) {
-                          //   Get.snackbar("提示", response.message);
-                          // } else {
-                          //   Get.snackbar("提示", "请求失败");
-                          // }
+                          if (response.success) {
+                            EasyLoading.showSuccess(response.message);
+                          } else {
+                            EasyLoading.showError(response.message);
+                          }
                         },
                         child: Text("重新获取验证码",
                             style: TextStyle(

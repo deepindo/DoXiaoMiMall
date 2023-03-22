@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../../../components/app_components.dart';
 import '../../../../services/app_colors.dart';
@@ -124,23 +125,22 @@ class RegisterPasswordView extends GetView<RegisterPasswordController> {
                     : () async {
                         if (controller.passwordController.text !=
                             controller.confirmPasswordController.text) {
-                          Get.snackbar("提示", "两次密码不一致");
+                          EasyLoading.showError("两次密码不一致");
                         } else if (controller.passwordController.text.length <
                             8) {
-                          Get.snackbar("提示", "密码小于8位");
+                          EasyLoading.showError("密码小于8位");
                         } else {
                           FocusScope.of(Get.context!).requestFocus(FocusNode());
-                          // print(controller.phone);
-                          // print(controller.code);
-                          // print(controller.passwordController.text);
+                          EasyLoading.show(status: "注册中");
                           ResponseModel response = await controller.register();
                           if (response.success) {
-                            // Get.offAllNamed("/tabs",
-                            //     arguments: {"initialPage": 4});
-                            Get.back(); //替换路由
-                            Get.snackbar("提示", "注册成功");
+                            ///层级太多，用不了替换路由
+                            Get.offAllNamed("/tabs",
+                                arguments: {"initialPage": 4});
+                            // Get.back(); //替换路由
+                            EasyLoading.showSuccess(response.message);
                           } else {
-                            Get.snackbar("提示", response.message);
+                            EasyLoading.showError(response.message);
                           }
                         }
                       },

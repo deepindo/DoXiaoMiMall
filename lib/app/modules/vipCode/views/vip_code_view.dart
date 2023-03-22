@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../controllers/vip_code_controller.dart';
 
 class VipCodeView extends GetView<VipCodeController> {
@@ -9,6 +8,7 @@ class VipCodeView extends GetView<VipCodeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.cyan,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -16,10 +16,7 @@ class VipCodeView extends GetView<VipCodeController> {
         centerTitle: true,
       ),
       body: const Center(
-        child: Text(
-          'VipCodeView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+        child: SpinKitFadingCircle(color: Colors.white),
       ),
     );
   }

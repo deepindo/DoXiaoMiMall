@@ -430,7 +430,6 @@ class CartView extends GetView {
         children: [
           InkWell(
             onTap: () {
-              // Get.snackbar("操作", "减少数量的逻辑");
               controller.minusBuyNumber(element);
             },
             child: Container(
@@ -468,7 +467,6 @@ class CartView extends GetView {
           ),
           InkWell(
             onTap: () {
-              // Get.snackbar("操作", "增加数量的逻辑");
               controller.plusBuyNumber(element);
             },
             child: Container(

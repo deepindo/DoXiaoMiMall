@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../../services/app_colors.dart';
@@ -108,20 +109,20 @@ class RegisterCodeView extends GetView<RegisterCodeController> {
               errorBorderColor: Colors.red,
             ),
             onCompleted: (v) async {
-              print("Completed");
+              // print("Completed");
+              //自动收起键盘
+              FocusScope.of(Get.context!).requestFocus(FocusNode());
+              EasyLoading.show(status: "校验中...");
               ResponseModel response =
                   await controller.validateVerificationCode();
               if (response.success) {
-                //自动收起键盘
-                FocusScope.of(Get.context!).requestFocus(FocusNode());
-                print(controller.phone);
-                print(controller.codeController.text);
                 Get.toNamed("/register-password", arguments: {
                   "phone": controller.phone,
                   "code": controller.codeController.text
                 });
+                EasyLoading.showSuccess(response.message);
               } else {
-                Get.snackbar("提示", response.message);
+                EasyLoading.showError(response.message);
               }
             },
             onChanged: (value) {},
@@ -145,14 +146,14 @@ class RegisterCodeView extends GetView<RegisterCodeController> {
                                 color: DoColors.gray154)))
                     : TextButton(
                         onPressed: () async {
+                          EasyLoading.show(status: "获取中...");
                           ResponseModel response =
                               await controller.requestVerificationCode();
-                          Get.snackbar("提示", response.message);
-                          // if (response.success) {
-                          //   Get.snackbar("提示", response.message);
-                          // } else {
-                          //   Get.snackbar("提示", "请求失败");
-                          // }
+                          if (response.success) {
+                            EasyLoading.showSuccess(response.message);
+                          } else {
+                            EasyLoading.showError(response.message);
+                          }
                         },
                         child: Text("重新获取验证码",
                             style: TextStyle(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../../../models/response_model.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
@@ -148,19 +149,20 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
                     : () async {
                         if (GetUtils.isPhoneNumber(
                             controller.accountController.text)) {
+                          FocusScope.of(Get.context!).requestFocus(FocusNode());
+                          // EasyLoading.show();
+                          EasyLoading.show(status: "登录中...");
                           ResponseModel response = await controller.login();
                           if (response.success) {
-                            FocusScope.of(Get.context!)
-                                .requestFocus(FocusNode());
                             // Get.offAllNamed("/tabs",
                             //     arguments: {"initialPage": 4});
                             Get.back(); //替换路由
-                            Get.snackbar("提示", "登录成功");
+                            EasyLoading.showSuccess(response.message);
                           } else {
-                            Get.snackbar("提示", response.message);
+                            EasyLoading.showError(response.message);
                           }
                         } else {
-                          Get.snackbar("提示", "请输入正确手机号");
+                          EasyLoading.showError("请输入正确手机号");
                         }
                       },
                 child: Text("登录",

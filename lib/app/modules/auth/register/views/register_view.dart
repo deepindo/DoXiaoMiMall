@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../../../models/response_model.dart';
 import '../../../../services/app_colors.dart';
@@ -146,19 +147,21 @@ class RegisterView extends GetView<RegisterController> {
               ? null
               : () async {
                   if (GetUtils.isPhoneNumber(controller.phoneController.text)) {
+                    //自动收起键盘
+                    FocusScope.of(Get.context!).requestFocus(FocusNode());
+                    EasyLoading.show(status: "获取中...");
                     ResponseModel response =
                         await controller.requestVerificationCode();
                     if (response.success) {
-                      //自动收起键盘
-                      FocusScope.of(Get.context!).requestFocus(FocusNode());
                       Get.toNamed("/register-code", arguments: {
                         "phone": controller.phoneController.text
                       });
+                      EasyLoading.showSuccess(response.message);
                     } else {
-                      Get.snackbar("提示", response.message);
+                      EasyLoading.showError(response.message);
                     }
                   } else {
-                    Get.snackbar("提示", "请输入正确的手机号");
+                    EasyLoading.showError("请输入正确的手机号");
                   }
                 },
           child: Text("获取验证码",

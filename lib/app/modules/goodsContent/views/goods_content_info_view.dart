@@ -25,61 +25,59 @@ class GoodsContentInfoView extends GetView {
       //     DoScreenAdapter.w(10), DoScreenAdapter.h(10)),
       child: Obx(
         () => controller.model.value.sId != null
-            ? Column(
-                children: [
-                  _headerSection(),
-                  _infoSection(),
-                  _prebuySection(),
-                  const Divider(),
-                  _parametersSection(),
-                  _rankingListSection(),
-                  _activitySection(),
-                  _activityBannerSection(),
-                  Container(
-                    width: double.infinity,
-                    height: DoScreenAdapter.h(10),
-                    color: const Color.fromARGB(31, 175, 175, 175),
-                  ),
-                  _stagesSection(),
-                  Container(
-                    width: double.infinity,
-                    height: DoScreenAdapter.h(10),
-                    color: const Color.fromARGB(31, 175, 175, 175),
-                  ),
-                  _selectedSection(),
-                  Container(
-                    margin: EdgeInsets.only(left: DoScreenAdapter.w(50)),
-                    height: DoScreenAdapter.h(0.8),
-                    color: const Color.fromARGB(31, 175, 175, 175),
-                  ),
-                  _postToSection(),
-                  Container(
-                    margin: EdgeInsets.only(left: DoScreenAdapter.w(50)),
-                    height: DoScreenAdapter.h(0.8),
-                    color: const Color.fromARGB(31, 175, 175, 175),
-                  ),
-                  _shopSection(),
-                  Container(
-                    margin: EdgeInsets.only(left: DoScreenAdapter.w(50)),
-                    height: DoScreenAdapter.h(0.8),
-                    color: const Color.fromARGB(31, 175, 175, 175),
-                  ),
+            ? Column(children: [
+                _headerSection(),
+                _infoSection(),
+                _prebuySection(),
+                const Divider(),
+                _parametersSection(),
+                _rankingListSection(),
+                _activitySection(),
+                _activityBannerSection(),
+                Container(
+                  width: double.infinity,
+                  height: DoScreenAdapter.h(10),
+                  color: const Color.fromARGB(31, 175, 175, 175),
+                ),
+                _stagesSection(),
+                Container(
+                  width: double.infinity,
+                  height: DoScreenAdapter.h(10),
+                  color: const Color.fromARGB(31, 175, 175, 175),
+                ),
+                _selectedSection(),
+                Container(
+                  margin: EdgeInsets.only(left: DoScreenAdapter.w(50)),
+                  height: DoScreenAdapter.h(0.8),
+                  color: const Color.fromARGB(31, 175, 175, 175),
+                ),
+                _postToSection(),
+                Container(
+                  margin: EdgeInsets.only(left: DoScreenAdapter.w(50)),
+                  height: DoScreenAdapter.h(0.8),
+                  color: const Color.fromARGB(31, 175, 175, 175),
+                ),
+                _shopSection(),
+                Container(
+                  margin: EdgeInsets.only(left: DoScreenAdapter.w(50)),
+                  height: DoScreenAdapter.h(0.8),
+                  color: const Color.fromARGB(31, 175, 175, 175),
+                ),
 
-                  ///Divider不太明显
-                  // Padding(
-                  //   padding: EdgeInsets.only(left: DoScreenAdapter.w(50)),
-                  //   child: const Divider(
-                  //     color: Color.fromARGB(31, 175, 175, 175),
-                  //   ),
-                  // ),
-                  _serviceSection(),
-                  Container(
-                    width: double.infinity,
-                    height: DoScreenAdapter.h(10),
-                    color: const Color.fromARGB(31, 175, 175, 175),
-                  ),
-                ],
-              )
+                ///Divider不太明显
+                // Padding(
+                //   padding: EdgeInsets.only(left: DoScreenAdapter.w(50)),
+                //   child: const Divider(
+                //     color: Color.fromARGB(31, 175, 175, 175),
+                //   ),
+                // ),
+                _serviceSection(),
+                Container(
+                  width: double.infinity,
+                  height: DoScreenAdapter.h(10),
+                  color: const Color.fromARGB(31, 175, 175, 175),
+                ),
+              ])
             : SizedBox(
                 height: DoScreenAdapter.sh(),
                 child: const Center(
