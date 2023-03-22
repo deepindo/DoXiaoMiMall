@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
+import '../../../services/app_userService.dart';
 import '../controllers/setting_controller.dart';
 
 class SettingView extends GetView<SettingController> {
@@ -51,7 +50,9 @@ class SettingView extends GetView<SettingController> {
         _commonListTile("小米账号隐私政策", onTap: () {}),
         Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
         TextButton(
-            onPressed: () {
+            onPressed: () async {
+              await DoUserService.removeUserInfo();
+              Get.offAllNamed("/tabs");
               Get.snackbar("提示", "退出登录");
             },
             child: Text("退出账号",

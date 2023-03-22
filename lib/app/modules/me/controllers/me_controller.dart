@@ -69,7 +69,7 @@ class MeController extends GetxController {
     super.onInit();
     _requestBannerData();
     _requestGoodsData();
-    // getUserInfo();
+    getUserInfo();
   }
 
   @override
@@ -107,8 +107,8 @@ class MeController extends GetxController {
     update();
   }
 
-  ///退出登录，最后放到设置里面去
-  void logout() async {
-    await DoUserService.removeUserInfo();
-  }
+  // ///退出登录，最后放到设置里面去
+  // void logout() async {
+  //   await DoUserService.removeUserInfo();
+  // }
 }

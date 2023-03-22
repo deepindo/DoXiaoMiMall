@@ -73,6 +73,7 @@ class VerificationCodeView extends GetView<VerificationCodeController> {
           SizedBox(height: DoScreenAdapter.h(20)),
           PinCodeTextField(
             appContext: Get.context!,
+            controller: controller.codeController,
             length: 6,
             obscureText: false,
             keyboardType: TextInputType.number,
@@ -105,8 +106,7 @@ class VerificationCodeView extends GetView<VerificationCodeController> {
             ),
             onCompleted: (v) async {
               print("Completed");
-              ResponseModel response =
-                  await controller.validateVerificationCode();
+              ResponseModel response = await controller.validateCodeAndLogin();
               if (response.success) {
                 //自动收起键盘
                 FocusScope.of(Get.context!).requestFocus(FocusNode());

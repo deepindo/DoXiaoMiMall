@@ -128,8 +128,12 @@ class DoNetwork {
   ///post请求
   Future post(String apiPath, {Object? data}) async {
     try {
-      var response = await Dio().post(apiPath, data: data);
+      var response = await dio.post(apiPath, data: data);
       print("||--------post---->response:--$response ");
+      // print("||---->response.statusCode:--${response.statusCode}");
+      // print("||---->response.statusMessage:--${response.statusMessage}");
+      // print("response.headers:-----${response.headers}");
+      // print("response.requestOptions:-----${response.requestOptions}");
       if (response.data != null) {
         print("response.data != null");
         // print("||---->response.data:--${response.data}");

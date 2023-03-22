@@ -4,7 +4,7 @@ String USERINFOKEY = "userInfo";
 
 class DoUserService {
   ///存储本地的用户信息
-  static setUserInfo(List<Map> userInfoList) async {
+  static setUserInfo(List userInfoList) async {
     await DoSharedPreferences.setData(USERINFOKEY, userInfoList);
   }
 

@@ -75,8 +75,8 @@ class RegisterCodeView extends GetView<RegisterCodeController> {
           ),
           SizedBox(height: DoScreenAdapter.h(20)),
           PinCodeTextField(
-            controller: controller.codeController,
             appContext: Get.context!,
+            controller: controller.codeController,
             length: 6,
             obscureText: false,
             keyboardType: TextInputType.number,

@@ -63,8 +63,7 @@ class RegisterCodeController extends GetxController {
       // return data["success"] ? true : false;
       if (data["success"]) {
         ///测试阶段，将接口返回的短信验证码直接设置到粘贴板
-        // Clipboard.setData(ClipboardData(text: data["code"]));
-        Clipboard.setData(const ClipboardData(text: "865479"));
+        Clipboard.setData(ClipboardData(text: data["code"]));
         //重置定时器
         seconds.value = 60;
         countDecrement();
