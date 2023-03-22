@@ -4,7 +4,6 @@ import '../../../../models/response_model.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../../../../components/app_components.dart';
-import '../../../../services/app_userService.dart';
 import '../controllers/account_password_login_controller.dart';
 
 class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../models/banner_model.dart';
 import '../../../models/goods_model.dart';
+import '../../../models/user_model.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_network.dart';
 import '../../../services/app_userService.dart';
@@ -10,7 +11,8 @@ class MeController extends GetxController {
   RxList<BannerItemModel> bannerList = <BannerItemModel>[].obs;
   RxList<GoodsItemModel> goodsList = <GoodsItemModel>[].obs;
   RxBool isLogin = false.obs;
-  RxList userInfoList = [].obs;
+  // RxList userInfoList = [].obs;
+  var model = UserModel().obs;
 
   ///服务列表
   List<Map> serviceList = [
@@ -100,9 +102,10 @@ class MeController extends GetxController {
 
   void getUserInfo() async {
     isLogin.value = await DoUserService.isLogin();
-    List temp = await DoUserService.getUserInfo();
-    if (temp != []) {
-      userInfoList.value = temp;
+    var data = await DoUserService.getUserInfo();
+    if (data != []) {
+      // userInfoList.value = data;
+      model.value = UserModel.fromJson(data[0]);
     }
     update();
   }

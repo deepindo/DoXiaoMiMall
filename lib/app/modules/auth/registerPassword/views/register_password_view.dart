@@ -122,31 +122,25 @@ class RegisterPasswordView extends GetView<RegisterPasswordController> {
                 onPressed: !controller.isRegisterButtonEnable.value
                     ? null
                     : () async {
-                        if (controller.passwordController.text ==
+                        if (controller.passwordController.text !=
                             controller.confirmPasswordController.text) {
-                          if (controller.passwordController.text.length >= 8) {
-                            FocusScope.of(Get.context!)
-                                .requestFocus(FocusNode());
-                            print(controller.phone);
-                            print(controller.code);
-                            print(controller.passwordController.text);
-                            ResponseModel response =
-                                await controller.register();
-                            if (response.success) {
-                              Get.offAllNamed("/tabs",
-                                  arguments: {"initialPage": 4});
-                              Get.snackbar("提示", "注册成功");
-
-                              ///将数据写入本地
-                              ///
-                            } else {
-                              Get.snackbar("提示", response.message);
-                            }
-                          } else {
-                            Get.snackbar("提示", "密码小于8位");
-                          }
-                        } else {
                           Get.snackbar("提示", "两次密码不一致");
+                        } else if (controller.passwordController.text.length <
+                            8) {
+                          Get.snackbar("提示", "密码小于8位");
+                        } else {
+                          FocusScope.of(Get.context!).requestFocus(FocusNode());
+                          // print(controller.phone);
+                          // print(controller.code);
+                          // print(controller.passwordController.text);
+                          ResponseModel response = await controller.register();
+                          if (response.success) {
+                            Get.offAllNamed("/tabs",
+                                arguments: {"initialPage": 4});
+                            Get.snackbar("提示", "注册成功");
+                          } else {
+                            Get.snackbar("提示", response.message);
+                          }
                         }
                       },
                 child: Text("完成注册",
