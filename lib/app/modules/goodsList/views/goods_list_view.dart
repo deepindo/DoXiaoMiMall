@@ -223,7 +223,7 @@ class GoodsListView extends GetView<GoodsListController> {
     return SmartRefresher(
       enablePullDown: true,
       enablePullUp: true,
-      enableTwoLevel: true,
+      // enableTwoLevel: true,
       controller: controller.refreshController,
       onRefresh: controller.onRefresh,
       onLoading: controller.onLoad,
@@ -251,183 +251,190 @@ class GoodsListView extends GetView<GoodsListController> {
             top: DoScreenAdapter.h(50), bottom: DoScreenAdapter.h(20)),
         itemCount: controller.goodsList.length,
         itemBuilder: (context, index) {
-          return Column(children: [
-            Container(
-              margin: EdgeInsets.fromLTRB(
-                  DoScreenAdapter.w(10),
-                  DoScreenAdapter.h(0),
-                  DoScreenAdapter.w(10),
-                  DoScreenAdapter.h(10)),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
-              child: Row(
-                children: [
-                  ///左侧图片
-                  SizedBox(
-                    width: DoScreenAdapter.w(120),
-                    height: DoScreenAdapter.h(120),
-                    child: Image.network(
-                      DoNetwork.replacePictureURL(
-                          controller.goodsList[index].pic!),
-                      fit: BoxFit.fitHeight,
+          return InkWell(
+            onTap: () {
+              Get.toNamed("/goods-content",
+                  arguments: {"sid": controller.goodsList[index].sId});
+            },
+            child: Column(children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(
+                    DoScreenAdapter.w(10),
+                    DoScreenAdapter.h(0),
+                    DoScreenAdapter.w(10),
+                    DoScreenAdapter.h(10)),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
+                child: Row(
+                  children: [
+                    ///左侧图片
+                    SizedBox(
+                      width: DoScreenAdapter.w(120),
+                      height: DoScreenAdapter.h(120),
+                      child: Image.network(
+                        DoNetwork.replacePictureURL(
+                            controller.goodsList[index].pic!),
+                        fit: BoxFit.fitHeight,
+                      ),
                     ),
-                  ),
 
-                  ///右侧
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(
-                              DoScreenAdapter.w(10),
-                              DoScreenAdapter.h(10),
-                              DoScreenAdapter.w(5),
-                              DoScreenAdapter.h(0)),
-                          child: Text(
-                            "${controller.goodsList[index].title}",
-                            style: TextStyle(
-                                fontSize: DoScreenAdapter.fs(14),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(
-                              DoScreenAdapter.w(10),
-                              DoScreenAdapter.h(5),
-                              DoScreenAdapter.w(5),
-                              DoScreenAdapter.h(0)),
-                          child: Text(
-                            "${controller.goodsList[index].subTitle}",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Colors.black26,
-                              fontSize: DoScreenAdapter.fs(12),
+                    ///右侧
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(10),
+                                DoScreenAdapter.w(5),
+                                DoScreenAdapter.h(0)),
+                            child: Text(
+                              "${controller.goodsList[index].title}",
+                              style: TextStyle(
+                                  fontSize: DoScreenAdapter.fs(14),
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(
-                              DoScreenAdapter.w(10),
-                              DoScreenAdapter.h(5),
-                              DoScreenAdapter.w(5),
-                              DoScreenAdapter.h(0)),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                  flex: 1,
-                                  child: Column(
-                                    children: const [
-                                      Text(
-                                        "CPU",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black26,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        "Hello G25",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.black26,
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                              Container(
-                                width: DoScreenAdapter.w(1),
-                                height: DoScreenAdapter.h(10),
-                                color: Colors.black12,
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(5),
+                                DoScreenAdapter.w(5),
+                                DoScreenAdapter.h(0)),
+                            child: Text(
+                              "${controller.goodsList[index].subTitle}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black26,
+                                fontSize: DoScreenAdapter.fs(12),
                               ),
-                              Expanded(
-                                  flex: 1,
-                                  child: Column(
-                                    children: const [
-                                      Text(
-                                        "高清拍摄",
-                                        style: TextStyle(
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(5),
+                                DoScreenAdapter.w(5),
+                                DoScreenAdapter.h(0)),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    flex: 1,
+                                    child: Column(
+                                      children: const [
+                                        Text(
+                                          "CPU",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black26,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "Hello G25",
+                                          style: TextStyle(
                                             fontSize: 12,
                                             color: Colors.black26,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        "1300万像素",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.black26,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                              Container(
-                                width: DoScreenAdapter.w(1),
-                                height: DoScreenAdapter.h(10),
-                                color: Colors.black12,
-                              ),
-                              Expanded(
-                                  flex: 1,
-                                  child: Column(
-                                    children: const [
-                                      Text(
-                                        "超大屏",
-                                        style: TextStyle(
+                                      ],
+                                    )),
+                                Container(
+                                  width: DoScreenAdapter.w(1),
+                                  height: DoScreenAdapter.h(10),
+                                  color: Colors.black12,
+                                ),
+                                Expanded(
+                                    flex: 1,
+                                    child: Column(
+                                      children: const [
+                                        Text(
+                                          "高清拍摄",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black26,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "1300万像素",
+                                          style: TextStyle(
                                             fontSize: 12,
                                             color: Colors.black26,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        "6.6英寸",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.black26,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
+                                      ],
+                                    )),
+                                Container(
+                                  width: DoScreenAdapter.w(1),
+                                  height: DoScreenAdapter.h(10),
+                                  color: Colors.black12,
+                                ),
+                                Expanded(
+                                    flex: 1,
+                                    child: Column(
+                                      children: const [
+                                        Text(
+                                          "超大屏",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black26,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "6.6英寸",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.black26,
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+                              ],
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(
-                              DoScreenAdapter.w(10),
-                              DoScreenAdapter.h(10),
-                              DoScreenAdapter.w(5),
-                              DoScreenAdapter.h(0)),
-                          child: Text("¥${controller.goodsList[index].price}起",
-                              style: const TextStyle(
-                                  fontSize: 14,
-                                  color: DoColors.theme,
-                                  fontWeight: FontWeight.bold)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(
-                              DoScreenAdapter.w(10),
-                              DoScreenAdapter.h(10),
-                              DoScreenAdapter.w(5),
-                              DoScreenAdapter.h(10)),
-                          child: const Text(
-                            "11212条评价 99.8%满意",
-                            style:
-                                TextStyle(fontSize: 10, color: Colors.black26),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(10),
+                                DoScreenAdapter.w(5),
+                                DoScreenAdapter.h(0)),
+                            child: Text(
+                                "¥${controller.goodsList[index].price}起",
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    color: DoColors.theme,
+                                    fontWeight: FontWeight.bold)),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(
+                                DoScreenAdapter.w(10),
+                                DoScreenAdapter.h(10),
+                                DoScreenAdapter.w(5),
+                                DoScreenAdapter.h(10)),
+                            child: const Text(
+                              "11212条评价 99.8%满意",
+                              style: TextStyle(
+                                  fontSize: 10, color: Colors.black26),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
 
-            ///最后一个元素添加加载indicator
-            ///index不是最后一个是，每个都加了一个空内容的text，会导致间距增加
-            // (index == controller.goodsList.length - 1)
-            //     ? _loadMoreDataIndicator()
-            //     : const SizedBox(
-            //         height: 0,
-            //       ),
-          ]);
+              ///最后一个元素添加加载indicator
+              ///index不是最后一个是，每个都加了一个空内容的text，会导致间距增加
+              // (index == controller.goodsList.length - 1)
+              //     ? _loadMoreDataIndicator()
+              //     : const SizedBox(
+              //         height: 0,
+              //       ),
+            ]),
+          );
         },
       ),
     );

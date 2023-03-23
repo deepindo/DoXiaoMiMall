@@ -366,50 +366,59 @@ class CartView extends GetView {
   ///这里因为抽取，需要传递很多次参数！！！
   ///
   Widget _cartItemView(Map element) {
-    return Container(
-      margin: EdgeInsets.only(top: DoScreenAdapter.h(10)),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(DoScreenAdapter.w(10)),
-        color: Colors.white,
-      ),
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            // height: DoScreenAdapter.w(80),
-            padding: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(0), //与浮动区对齐，左不加
-              DoScreenAdapter.h(10),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(10),
-            ),
-            child: Row(
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  _checkboxSection(element),
-                  _coverSection(element["pic"]),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _titleSection(element["title"]),
-                        SizedBox(height: DoScreenAdapter.h(5)),
-                        _attributesSection(element["selectedGoodsAttributes"]),
-                        SizedBox(height: DoScreenAdapter.h(10)),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            _priceSection(element["price"]),
-                            _numSection(element),
-                          ],
-                        ),
-                      ],
+    return InkWell(
+      onTap: () {
+        ///购物车直接进入有问题，相当于：商品详情A->购物车B->商品详情A,会错乱，
+        ///除非这是两个不同的详情页，因为商品详情A没有释放，sId一直是开始传入的，
+        ///这个时候不管点购物车哪件商品，看到的详情都是同一个
+        // Get.toNamed("/goods-content", arguments: {"sid": element["sId"]});
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: DoScreenAdapter.h(10)),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(DoScreenAdapter.w(10)),
+          color: Colors.white,
+        ),
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              // height: DoScreenAdapter.w(80),
+              padding: EdgeInsets.fromLTRB(
+                DoScreenAdapter.w(0), //与浮动区对齐，左不加
+                DoScreenAdapter.h(10),
+                DoScreenAdapter.w(10),
+                DoScreenAdapter.h(10),
+              ),
+              child: Row(
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    _checkboxSection(element),
+                    _coverSection(element["pic"]),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _titleSection(element["title"]),
+                          SizedBox(height: DoScreenAdapter.h(5)),
+                          _attributesSection(
+                              element["selectedGoodsAttributes"]),
+                          SizedBox(height: DoScreenAdapter.h(10)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _priceSection(element["price"]),
+                              _numSection(element),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ]),
-          ),
-        ],
+                  ]),
+            ),
+          ],
+        ),
       ),
     );
   }

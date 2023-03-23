@@ -137,6 +137,7 @@ class CartController extends GetxController {
     }
     cartList.value = tempList;
     DoCartService.setLocalCartList(tempList);
+    getCheckedList();
     update();
   }
 }

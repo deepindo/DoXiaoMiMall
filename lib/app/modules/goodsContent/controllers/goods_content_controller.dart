@@ -11,7 +11,7 @@ import '../../../services/app_userService.dart';
 class GoodsContentController extends GetxController {
   final ScrollController scrollController = ScrollController();
 
-  var cid = Get.arguments["cid"];
+  var sid = Get.arguments["sid"];
   var model = GoodsContentInfoModel().obs;
   RxList<GoodsItemModel> goodsList = <GoodsItemModel>[].obs;
 
@@ -142,7 +142,7 @@ class GoodsContentController extends GetxController {
   ///请求商品详情页数据
   void _requestGoodsContentData() async {
     // print("_requestGoodsContentData");
-    var data = await DoNetwork().get("api/pcontent?id=$cid");
+    var data = await DoNetwork().get("api/pcontent?id=$sid");
     model.value = GoodsContentModel.fromJson(data).result!;
 
     /*

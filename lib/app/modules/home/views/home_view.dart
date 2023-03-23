@@ -127,8 +127,8 @@ class HomeView extends GetView<HomeController> {
         bottom: 0,
         child: SmartRefresher(
           enablePullDown: true,
-          enablePullUp: true,
-          enableTwoLevel: true,
+          // enablePullUp: true,
+          // enableTwoLevel: true,
           controller: controller.refreshController,
           onRefresh: controller.onRefresh,
           // onLoading: controller.onLoad,
@@ -503,7 +503,7 @@ class HomeView extends GetView<HomeController> {
                   return InkWell(
                     onTap: () {
                       Get.toNamed("/goods-content",
-                          arguments: {"cid": controller.goodsList[index].sId});
+                          arguments: {"sid": controller.goodsList[index].sId});
                     },
                     child: Container(
                       decoration: BoxDecoration(
