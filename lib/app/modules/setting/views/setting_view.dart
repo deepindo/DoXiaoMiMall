@@ -51,9 +51,11 @@ class SettingView extends GetView<SettingController> {
         _commonListTile("小米账号隐私政策", onTap: () {}),
         Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
         TextButton(
-            onPressed: () async {
-              await DoUserService.removeUserInfo();
+            onPressed: () {
+              DoUserService.removeUserInfo();
+              // Get.back();
               Get.offAllNamed("/tabs");
+
               EasyLoading.showSuccess("退出登录");
             },
             child: Text("退出账号",

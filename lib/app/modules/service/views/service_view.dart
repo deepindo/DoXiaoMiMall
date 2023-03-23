@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
+import '../../../services/app_userService.dart';
 import '../controllers/service_controller.dart';
 import '../../../components/app_components.dart';
 

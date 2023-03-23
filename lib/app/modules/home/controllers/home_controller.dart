@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../models/banner_model.dart';
 import '../../../models/category_model.dart';
 import '../../../models/goods_model.dart';
@@ -7,6 +8,8 @@ import '../../../services/app_network.dart';
 
 class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
   RxBool flag = false.obs;
   RxDouble ratio = 0.0.obs;
   RxList<BannerItemModel> bannerList = <BannerItemModel>[].obs;
@@ -20,11 +23,7 @@ class HomeController extends GetxController {
     super.onInit();
 
     _addScrollListener();
-    _requestBannerData();
-    _requestCategoryData();
-    _requestBestBannerData();
-    _requestHotGoodsData();
-    _requestGoodsData();
+    reuqestData();
   }
 
   @override
@@ -58,6 +57,28 @@ class HomeController extends GetxController {
 
       update();
     });
+  }
+
+  ///下拉刷新
+  void onRefresh() {
+    reuqestData();
+    print("onRefresh");
+    refreshController.refreshCompleted();
+  }
+
+  ///上拉加载更多
+  void onLoad() {
+    print("onLoading");
+    // _requestGoodsData();//分页
+    refreshController.loadComplete();
+  }
+
+  void reuqestData() {
+    _requestBannerData();
+    _requestCategoryData();
+    _requestBestBannerData();
+    _requestHotGoodsData();
+    _requestGoodsData();
   }
 
   ///请求顶部banner数据

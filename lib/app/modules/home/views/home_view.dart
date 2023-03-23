@@ -1,8 +1,10 @@
 import 'package:doxiaomimall/app/services/app_screenAdapter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import '../../../services/app_colors.dart';
 import '../../../services/app_fontIcons.dart';
 import '../../../services/app_keepAliveWrapper.dart';
 import '../../../services/app_network.dart';
@@ -119,18 +121,33 @@ class HomeView extends GetView<HomeController> {
   ///listView的内容区域
   Widget _contentListView() {
     return Positioned(
-        top: -DoScreenAdapter.h(44),
+        top: -DoScreenAdapter.h(0),
         left: 0,
         right: 0,
         bottom: 0,
-        child: ListView(controller: controller.scrollController, children: [
-          _bannerSwiperSection(),
-          _bannerImageSection(),
-          _menuSwiperSection(),
-          _sigleBannerSection(),
-          _bestGoodsSection(),
-          _goodsListView(),
-        ]));
+        child: SmartRefresher(
+          enablePullDown: true,
+          enablePullUp: true,
+          enableTwoLevel: true,
+          controller: controller.refreshController,
+          onRefresh: controller.onRefresh,
+          onLoading: controller.onLoad,
+          onTwoLevel: (isOpen) {},
+          // header: ClassicFooter(),
+          header: const WaterDropMaterialHeader(
+            color: Colors.white,
+            backgroundColor: DoColors.theme,
+          ),
+          // footer: ClassicFooter(),
+          child: ListView(controller: controller.scrollController, children: [
+            _bannerSwiperSection(),
+            _bannerImageSection(),
+            _menuSwiperSection(),
+            _sigleBannerSection(),
+            _bestGoodsSection(),
+            _goodsListView(),
+          ]),
+        ));
   }
 
   ///顶部banner
@@ -224,6 +241,7 @@ class HomeView extends GetView<HomeController> {
           itemCount: controller.categoryList.length ~/ 10, //取整
           itemBuilder: (context, index) {
             return GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               padding: EdgeInsets.all(DoScreenAdapter.w(10)),
               itemCount: 10, //代表一屏最多显示几个
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -299,12 +317,12 @@ class HomeView extends GetView<HomeController> {
             children: const [
               Text(
                 "热销臻选",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               Text(
                 "更多手机推荐 ＞",
                 style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
                     // fontWeight: FontWeight.bold,
                     color: Colors.black38),
               ),
@@ -458,12 +476,12 @@ class HomeView extends GetView<HomeController> {
             children: const [
               Text(
                 "省心优惠",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               Text(
                 "全部优惠 ＞",
                 style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
                     // fontWeight: FontWeight.bold,
                     color: Colors.black38),
               ),

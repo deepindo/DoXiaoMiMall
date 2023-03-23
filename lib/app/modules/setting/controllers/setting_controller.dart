@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
+// import '../../me/controllers/me_controller.dart';
 
 class SettingController extends GetxController {
-  //TODO: Implement SettingController
+  // MeController meController = Get.find();
 
   final count = 0.obs;
   @override
@@ -17,6 +18,8 @@ class SettingController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    print("设置页面onClose执行么");
+    // meController.getUserInfo();
   }
 
   void increment() => count.value++;

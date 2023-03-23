@@ -10,8 +10,10 @@ import '../../../services/app_network.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../controllers/me_controller.dart';
 
-class MeView extends GetView<MeController> {
-  const MeView({Key? key}) : super(key: key);
+class MeView extends GetView {
+  @override
+  final MeController controller = Get.put(MeController());
+  MeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +48,7 @@ class MeView extends GetView<MeController> {
         InkWell(
           onTap: () {
             Get.toNamed("/vip-code");
+            // controller.logout();
           },
           child: Container(
             padding: EdgeInsets.only(right: DoScreenAdapter.w(10)),

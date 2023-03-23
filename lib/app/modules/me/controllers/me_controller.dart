@@ -11,7 +11,6 @@ class MeController extends GetxController {
   RxList<BannerItemModel> bannerList = <BannerItemModel>[].obs;
   RxList<GoodsItemModel> goodsList = <GoodsItemModel>[].obs;
   RxBool isLogin = false.obs;
-  // RxList userInfoList = [].obs;
   var model = UserModel().obs;
 
   ///服务列表
@@ -106,12 +105,16 @@ class MeController extends GetxController {
     if (data != []) {
       // userInfoList.value = data;
       model.value = UserModel.fromJson(data[0]);
+      update();
     }
-    update();
   }
 
-  // ///退出登录，最后放到设置里面去
+  ///退出登录，最后放到设置里面去
   // void logout() async {
   //   await DoUserService.removeUserInfo();
+  //   isLogin.value = await DoUserService.isLogin();
+  //   model.value = UserModel();
+  //   Get.offAllNamed("/tabs");
+  //   update();
   // }
 }
