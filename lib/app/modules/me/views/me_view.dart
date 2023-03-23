@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:get/get.dart';
@@ -553,8 +554,8 @@ class MeView extends GetView<MeController> {
                   return InkWell(
                     onTap: () {
                       // print(controller.serviceList[index]["uniId"]);
-                      Get.snackbar(
-                          "跳转", controller.serviceList[index]["title"]);
+                      EasyLoading.showToast(
+                          controller.serviceList[index]["title"]);
 
                       ///使用唯一的标识符，因为名称和图标有可能更换
                       switch (controller.serviceList[index]["uniId"]) {
@@ -616,7 +617,7 @@ class MeView extends GetView<MeController> {
     return commonHeader(
         title: "服务",
         onTap: () {
-          Get.snackbar("跳转", "全部服务页面");
+          EasyLoading.showToast("全部服务页面");
         },
         trailing: Row(
           children: [

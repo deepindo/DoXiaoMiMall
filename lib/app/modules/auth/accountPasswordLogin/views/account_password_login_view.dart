@@ -71,14 +71,14 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
             child: TextField(
               textAlignVertical: TextAlignVertical.center,
               controller: controller.accountController,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               style: TextStyle(
                   color: DoColors.black0,
                   fontSize: DoScreenAdapter.fs(16),
                   fontWeight: FontWeight.bold),
               decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: "小米账号/手机号/邮箱",
+                  hintText: "手机号(小米账号/邮箱暂时没有)",
                   hintStyle: TextStyle(
                       color: DoColors.gray168,
                       fontSize: DoScreenAdapter.fs(16),

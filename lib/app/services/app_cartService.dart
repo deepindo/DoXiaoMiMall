@@ -1,7 +1,7 @@
 import '../services/app_sharedPreferences.dart';
 import '../models/goods_content_model.dart';
 
-String CARTKEY = "cart";
+const String CARTKEY = "cart";
 
 class DoCartService {
   ///添加到(保存本地)购物车
@@ -61,7 +61,6 @@ class DoCartService {
       ///为了本地展示，不是所有字段都弄过来
       tempList.add(
         {
-          // "goodsModel": goodsContent,
           "sId": sId,
           "title": title,
           "price": price,
@@ -79,6 +78,11 @@ class DoCartService {
   static Future<List> getLocalCartList() async {
     List? cartList = await DoSharedPreferences.getData(CARTKEY);
     return cartList ?? [];
+  }
+
+  ///设置本地购物车列表
+  static setLocalCartList(dynamic value) async {
+    await DoSharedPreferences.setData(CARTKEY, value);
   }
 
   ///获取本地购物车列表

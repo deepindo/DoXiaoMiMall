@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../../components/app_components.dart';
 import '../../../services/app_colors.dart';
@@ -141,7 +142,7 @@ class SearchView extends GetView<SearchController> {
     return commonHeader(
       title: "猜你想搜",
       onTap: () {
-        Get.snackbar("操作", "更换想搜数据");
+        EasyLoading.showToast("更换想搜数据");
       },
       trailing: const Icon(
         Icons.refresh,

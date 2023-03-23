@@ -54,30 +54,12 @@ class SettingView extends GetView<SettingController> {
             onPressed: () async {
               await DoUserService.removeUserInfo();
               Get.offAllNamed("/tabs");
-              // Get.snackbar("提示", "退出登录");
               EasyLoading.showSuccess("退出登录");
             },
             child: Text("退出账号",
                 style: TextStyle(
                     fontSize: DoScreenAdapter.fs(14),
                     color: DoColors.black51))),
-        // ElevatedButton(
-        //   onPressed: () {
-        //     Get.snackbar("提示", "退出登录");
-        //   },
-        //   style: ButtonStyle(
-        //     elevation: MaterialStateProperty.all(0),
-        //     overlayColor: MaterialStateProperty.all(Colors.white),
-        //     shadowColor: MaterialStateProperty.all(Colors.white),
-        //     // shape: MaterialStateProperty.all(RoundedRectangleBorder(
-        //     //     borderRadius:
-        //     //         BorderRadius.circular(DoScreenAdapter.w(20)))),
-        //     backgroundColor: MaterialStateProperty.all(Colors.white),
-        //     // foregroundColor: MaterialStateProperty.all(Colors.white)
-        //   ),
-        //   child:
-        //       Text("退出账号", style: TextStyle(fontSize: DoScreenAdapter.fs(14))),
-        // ),
         Container(height: DoScreenAdapter.h(60), color: DoColors.gray238),
       ],
     );

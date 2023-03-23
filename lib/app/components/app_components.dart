@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 import '../services/app_colors.dart';
@@ -121,7 +122,7 @@ Widget commonProtocolView(bool isChecked,
                       fontSize: DoScreenAdapter.fs(12)),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Get.snackbar("跳转", "《小米商城用户协议》");
+                      EasyLoading.showToast("《小米商城用户协议》");
                     },
                 ),
                 TextSpan(
@@ -132,7 +133,7 @@ Widget commonProtocolView(bool isChecked,
                       fontSize: DoScreenAdapter.fs(12)),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Get.snackbar("跳转", "《小米商城隐私政策》");
+                      EasyLoading.showToast("《小米商城隐私政策》");
                     },
                 ),
                 TextSpan(
@@ -143,7 +144,7 @@ Widget commonProtocolView(bool isChecked,
                       fontSize: DoScreenAdapter.fs(12)),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Get.snackbar("跳转", "《小米账号用户协议》");
+                      EasyLoading.showToast("《小米账号用户协议》");
                     },
                 ),
                 TextSpan(
@@ -154,7 +155,7 @@ Widget commonProtocolView(bool isChecked,
                       fontSize: DoScreenAdapter.fs(12)),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Get.snackbar("跳转", "《小米账号隐私政策》");
+                      EasyLoading.showToast("《小米账号隐私政策》");
                     },
                 ),
                 isOneClick
@@ -166,7 +167,7 @@ Widget commonProtocolView(bool isChecked,
                             fontSize: DoScreenAdapter.fs(12)),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.snackbar("跳转", "《中国联通认证服务条款》");
+                            EasyLoading.showToast("《中国联通认证服务条款》");
                           },
                       )
                     : const TextSpan(text: ""),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
 
@@ -100,7 +101,7 @@ class CheckoutView extends GetView<CheckoutController> {
               InkWell(
                 onTap: () async {
                   if (await DoUserService.isLogin()) {
-                    Get.snackbar("弹框", "选择支付方式付款");
+                    EasyLoading.showToast("选择支付方式付款");
                   } else {
                     Get.toNamed("/verification-code-login");
                   }

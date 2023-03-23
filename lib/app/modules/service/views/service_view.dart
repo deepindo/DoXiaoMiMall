@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
@@ -110,7 +111,7 @@ class ServiceView extends GetView<ServiceController> {
             return InkWell(
               onTap: () {
                 // print(controller.serviceList[index]["uniId"]);
-                Get.snackbar("跳转", controller.serviceList[index]["title"]);
+                EasyLoading.showToast(controller.serviceList[index]["title"]);
 
                 ///使用唯一的标识符，因为名称和图标有可能更换
                 switch (controller.serviceList[index]["uniId"]) {
@@ -180,7 +181,7 @@ class ServiceView extends GetView<ServiceController> {
           ),
           InkWell(
             onTap: () {
-              Get.snackbar("弹框", "设备信息授权-后续");
+              EasyLoading.showToast("设备信息授权-后续");
             },
             child: Container(
                 padding: EdgeInsets.fromLTRB(
@@ -212,7 +213,7 @@ class ServiceView extends GetView<ServiceController> {
             flex: 1,
             child: InkWell(
               onTap: () {
-                Get.snackbar("跳转", "手机维修钜惠-网页");
+                EasyLoading.showToast("手机维修钜惠-网页");
               },
               child: Container(
                 height: DoScreenAdapter.h(70),
@@ -250,7 +251,7 @@ class ServiceView extends GetView<ServiceController> {
             flex: 1,
             child: InkWell(
               onTap: () {
-                Get.snackbar("跳转", "手机特惠屏优惠-网页");
+                EasyLoading.showToast("手机特惠屏优惠-网页");
               },
               child: Container(
                 height: DoScreenAdapter.h(70),
@@ -290,7 +291,7 @@ class ServiceView extends GetView<ServiceController> {
     return commonHeader(
         title: "附近服务",
         onTap: () {
-          Get.snackbar("跳转", "地图页面");
+          EasyLoading.showToast("地图页面");
         },
         trailing: Row(
           children: [
@@ -315,7 +316,7 @@ class ServiceView extends GetView<ServiceController> {
   Widget _nearbyServiceSection() {
     return InkWell(
       onTap: () {
-        Get.snackbar("跳转", "小米之家浙江杭州xxxx店-详情");
+        EasyLoading.showToast("小米之家浙江杭州xxxx店-详情");
       },
       child: Container(
         height: DoScreenAdapter.h(160),
@@ -433,7 +434,7 @@ class ServiceView extends GetView<ServiceController> {
     return commonHeader(
         title: "猜你想问",
         onTap: () {
-          Get.snackbar("操作", "更换问题数据");
+          EasyLoading.showToast("更换问题数据");
         },
         trailing: Row(
           children: [
@@ -467,7 +468,7 @@ class ServiceView extends GetView<ServiceController> {
                     onTap: () {
                       ///这个对应QS系统的页面，可能是webview
                       ///根据questionList列表中的uniId去请求页面即可
-                      Get.snackbar("跳转", "小米客服帮助中心:${e["title"]}");
+                      EasyLoading.showToast("小米客服帮助中心:${e["title"]}");
                     },
                     child: Padding(
                       padding: EdgeInsets.all(DoScreenAdapter.w(5)),

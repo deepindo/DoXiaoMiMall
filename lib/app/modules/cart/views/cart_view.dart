@@ -1,5 +1,6 @@
 import 'package:doxiaomimall/app/services/app_network.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
@@ -39,12 +40,16 @@ class CartView extends GetView {
       elevation: 0,
       actions: [
         TextButton(
-            onPressed: () {},
-            child: Text(
-              "编辑",
-              style: TextStyle(
-                fontSize: DoScreenAdapter.fs(14),
-                color: DoColors.black0,
+            onPressed: () {
+              controller.changeEditingButtonState();
+            },
+            child: Obx(
+              () => Text(
+                controller.isEditing.value ? "完成" : "编辑",
+                style: TextStyle(
+                  fontSize: DoScreenAdapter.fs(14),
+                  color: DoColors.black0,
+                ),
               ),
             )),
       ],
@@ -103,120 +108,200 @@ class CartView extends GetView {
                   )
                 ],
               ),
-              Row(
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Row(
+              Obx(
+                () => controller.isEditing.value
+                    ? Row(
                         children: [
-                          Text(
-                            "合计",
-                            style: TextStyle(
-                                fontSize: DoScreenAdapter.fs(14),
-                                // fontWeight: FontWeight.bold,
-                                color: DoColors.black51),
-                          ),
-                          Text(
-                            "(不含运费):",
-                            style: TextStyle(
-                                fontSize: DoScreenAdapter.fs(12),
-                                color: DoColors.gray154),
-                          ),
-                          Text(
-                            "￥",
-                            style: TextStyle(
-                                fontSize: DoScreenAdapter.fs(10),
-                                fontWeight: FontWeight.bold,
-                                color: DoColors.theme),
-                          ),
-                          Text(
-                            "19796",
-                            style: TextStyle(
-                                fontSize: DoScreenAdapter.fs(16),
-                                fontWeight: FontWeight.bold,
-                                color: DoColors.theme),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: DoScreenAdapter.h(5),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "免运费",
-                            style: TextStyle(
-                                fontSize: DoScreenAdapter.fs(14),
-                                color: DoColors.gray154),
-                          ),
-                          SizedBox(width: DoScreenAdapter.w(5)),
                           InkWell(
                             onTap: () {
-                              Get.snackbar("弹框", "bottomSheet");
+                              ///删除和与结算共用一套选中逻辑，要是分开各自记录，就特别麻烦了，相关的都得两套
+                              if (controller.checkedCount.value > 0) {
+                                controller.deleteGoods();
+                                EasyLoading.showToast("移入收藏夹并删除");
+                              } else {
+                                EasyLoading.showToast("请勾选需要删除的商品");
+                              }
                             },
-                            child: Row(
-                              children: [
-                                Text(
-                                  "明细",
-                                  style: TextStyle(
-                                      fontSize: DoScreenAdapter.fs(14),
-                                      color: DoColors.theme),
-                                ),
-                                Icon(
-                                  Icons.keyboard_arrow_down_outlined,
+                            child: Container(
+                              margin:
+                                  EdgeInsets.only(left: DoScreenAdapter.w(10)),
+                              padding: EdgeInsets.fromLTRB(
+                                  DoScreenAdapter.w(15),
+                                  DoScreenAdapter.h(0),
+                                  DoScreenAdapter.w(15),
+                                  DoScreenAdapter.h(0)),
+                              height: DoScreenAdapter.h(30),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(
+                                      DoScreenAdapter.w(30)),
+                                  border: Border.all(
+                                      color: DoColors.gray186,
+                                      width: DoScreenAdapter.w(1))),
+                              alignment: Alignment.center,
+                              child: Text(
+                                (controller.checkedCount.value > 0)
+                                    ? "移入收藏 (${controller.checkedCount.value})"
+                                    : "移入收藏",
+                                style: TextStyle(
+                                    color: DoColors.gray154,
+                                    fontSize: DoScreenAdapter.fs(14)),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              if (controller.checkedCount.value > 0) {
+                                ///弹框，确定删除
+                                controller.deleteGoods();
+                                EasyLoading.showToast("删除成功");
+                              } else {
+                                EasyLoading.showToast("请勾选需要删除的商品");
+                              }
+                            },
+                            child: Container(
+                              margin:
+                                  EdgeInsets.only(left: DoScreenAdapter.w(10)),
+                              padding: EdgeInsets.fromLTRB(
+                                  DoScreenAdapter.w(15),
+                                  DoScreenAdapter.h(0),
+                                  DoScreenAdapter.w(15),
+                                  DoScreenAdapter.h(0)),
+                              height: DoScreenAdapter.h(30),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(
+                                      DoScreenAdapter.w(30)),
+                                  border: Border.all(
+                                      color: DoColors.gray154,
+                                      width: DoScreenAdapter.w(1))),
+                              alignment: Alignment.center,
+                              child: Text(
+                                (controller.checkedCount.value > 0)
+                                    ? "删除 (${controller.checkedCount.value})"
+                                    : "删除",
+                                style: TextStyle(
+                                    color: DoColors.gray154,
+                                    fontSize: DoScreenAdapter.fs(14)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "合计",
+                                    style: TextStyle(
+                                        fontSize: DoScreenAdapter.fs(14),
+                                        // fontWeight: FontWeight.bold,
+                                        color: DoColors.black51),
+                                  ),
+                                  Text(
+                                    "(不含运费):",
+                                    style: TextStyle(
+                                        fontSize: DoScreenAdapter.fs(12),
+                                        color: DoColors.gray154),
+                                  ),
+                                  Text(
+                                    "￥",
+                                    style: TextStyle(
+                                        fontSize: DoScreenAdapter.fs(10),
+                                        fontWeight: FontWeight.bold,
+                                        color: DoColors.theme),
+                                  ),
+                                  Text(
+                                    "19796",
+                                    style: TextStyle(
+                                        fontSize: DoScreenAdapter.fs(16),
+                                        fontWeight: FontWeight.bold,
+                                        color: DoColors.theme),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: DoScreenAdapter.h(5),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "免运费",
+                                    style: TextStyle(
+                                        fontSize: DoScreenAdapter.fs(14),
+                                        color: DoColors.gray154),
+                                  ),
+                                  SizedBox(width: DoScreenAdapter.w(5)),
+                                  InkWell(
+                                    onTap: () {
+                                      EasyLoading.showToast("bottomSheet");
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "明细",
+                                          style: TextStyle(
+                                              fontSize: DoScreenAdapter.fs(14),
+                                              color: DoColors.theme),
+                                        ),
+                                        Icon(
+                                          Icons.keyboard_arrow_down_outlined,
+                                          color: DoColors.theme,
+                                          size: DoScreenAdapter.fs(15),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              if (await DoUserService.isLogin()) {
+                                if (controller.checkedCount.value > 0) {
+                                  Get.toNamed("/checkout", arguments: {
+                                    "checkoutList": controller.getCheckedList()
+                                  });
+                                } else {
+                                  EasyLoading.showToast("请勾选需要结算的商品");
+                                }
+                              } else {
+                                Get.toNamed("/verification-code-login");
+                              }
+                            },
+                            child: Container(
+                              margin:
+                                  EdgeInsets.only(left: DoScreenAdapter.w(10)),
+                              padding: EdgeInsets.fromLTRB(
+                                  DoScreenAdapter.w(15),
+                                  DoScreenAdapter.h(5),
+                                  DoScreenAdapter.w(15),
+                                  DoScreenAdapter.h(5)),
+                              height: DoScreenAdapter.h(40),
+                              decoration: BoxDecoration(
                                   color: DoColors.theme,
-                                  size: DoScreenAdapter.fs(15),
-                                )
-                              ],
+                                  borderRadius: BorderRadius.circular(
+                                      DoScreenAdapter.w(30))),
+                              alignment: Alignment.center,
+                              child: Text(
+                                (controller.checkedCount.value > 0)
+                                    ? "结算 (${controller.checkedCount.value})"
+                                    : "结算",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: DoScreenAdapter.fs(16)),
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      if (await DoUserService.isLogin()) {
-                        // List tempList = controller.getCheckedList();
-                        if (controller.getCheckedList().isEmpty) {
-                          ///先判断是否有选中
-                          Get.snackbar("提示", "请勾选需要结算的商品");
-                        } else {
-                          Get.toNamed("/checkout", arguments: {
-                            "checkoutList": controller.getCheckedList()
-                          });
-                        }
-                      } else {
-                        Get.toNamed("/verification-code-login");
-                      }
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(left: DoScreenAdapter.w(10)),
-                      padding: EdgeInsets.fromLTRB(
-                          DoScreenAdapter.w(15),
-                          DoScreenAdapter.h(5),
-                          DoScreenAdapter.w(15),
-                          DoScreenAdapter.h(5)),
-                      height: DoScreenAdapter.h(40),
-                      decoration: BoxDecoration(
-                          color: DoColors.theme,
-                          borderRadius:
-                              BorderRadius.circular(DoScreenAdapter.w(30))),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "结算(4)",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: DoScreenAdapter.fs(16)),
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ],
           ),
@@ -374,7 +459,7 @@ class CartView extends GetView {
       children: [
         InkWell(
           onTap: () {
-            Get.snackbar("弹框", "bottomSheet显示对应商品的类型选择框");
+            EasyLoading.showToast("bottomSheet显示对应商品的类型选择框");
           },
           child: Container(
             padding: EdgeInsets.all(DoScreenAdapter.w(5)),

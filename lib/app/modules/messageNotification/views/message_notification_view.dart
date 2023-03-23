@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
 
@@ -17,7 +18,7 @@ class MessageNotificationView extends GetView<MessageNotificationController> {
         actions: [
           IconButton(
               onPressed: () {
-                Get.snackbar("弹框", "清除未读消息红点？");
+                EasyLoading.showToast("清除未读消息红点？");
               },
               icon: const Icon(
                 Icons.brush_outlined,

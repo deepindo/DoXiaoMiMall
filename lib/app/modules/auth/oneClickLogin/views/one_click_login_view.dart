@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
@@ -96,7 +97,7 @@ class OneClickLoginView extends GetView<OneClickLoginController> {
                 backgroundColor: MaterialStateProperty.all(DoColors.theme),
                 foregroundColor: MaterialStateProperty.all(Colors.white)),
             onPressed: () {
-              Get.snackbar("提示", "一键登录");
+              EasyLoading.showToast("一键登录");
             },
             child: Text("本机号码一键登录",
                 style: TextStyle(

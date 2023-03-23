@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_network.dart';
@@ -270,7 +271,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
               ),
               InkWell(
                 onTap: () {
-                  Get.snackbar("提示", "收藏成功，调接口图标变化");
+                  EasyLoading.showToast("收藏成功，调接口图标变化");
                 },
                 child: Padding(
                   // padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -299,7 +300,6 @@ class GoodsContentView extends GetView<GoodsContentController> {
               ),
               InkWell(
                 onTap: () {
-                  // Get.snackbar("跳转", "购物车页面");
                   Get.toNamed("/cart");
                 },
                 child: Padding(
@@ -598,43 +598,6 @@ class GoodsContentView extends GetView<GoodsContentController> {
                                         },
                                         isSelected: v == e.selectedStr);
                                   }).toList(),
-                                  // [
-                                  ///Chip
-                                  ///InputChip
-                                  ///ChoiceChip
-                                  ///FilterChip
-                                  ///ActionChip
-                                  // Container(
-                                  //   // padding: EdgeInsets.all(5),
-                                  //   // margin: EdgeInsets.all(5),
-                                  //   child: Chip(
-                                  //     // avatar: const Icon(
-                                  //     //   Icons.av_timer,
-                                  //     //   size: 20,
-                                  //     // ),
-                                  //     side: const BorderSide(color: DoColors.theme, width: 0.5),
-                                  //     shape: RoundedRectangleBorder(
-                                  //         borderRadius: BorderRadius.circular(5)),
-                                  //     backgroundColor:
-                                  //         const Color.fromRGBO(248, 248, 248, 1),
-                                  //     labelPadding: const EdgeInsets.all(0),
-                                  //     // padding: const EdgeInsets.symmetric(horizontal: 2),
-                                  //     // visualDensity: const VisualDensity(vertical: 0), //不生效
-                                  //     padding: EdgeInsets.all(0),
-                                  //     label: Text("测试chip",
-                                  //         style:
-                                  //             TextStyle(fontSize: DoScreenAdapter.fs(12))),
-                                  //     // onDeleted: () {},
-                                  //     // deleteIcon: const Icon(
-                                  //     //   Icons.delete,
-                                  //     //   size: 15,
-                                  //     // ),
-                                  //   ),
-                                  // ),
-                                  // _commonSelectWidget(
-                                  //     title: "6GB+128GB", isSelected: true),
-                                  // _commonSelectWidget(title: "8GB+128GB"),
-                                  // ],
                                 ),
                               ],
                             );
@@ -653,92 +616,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                             _numSection()
                           ],
                         ),
-                      ]
-                      // [
-                      //   SizedBox(height: DoScreenAdapter.h(10)),
-                      //   Text(
-                      //     "版本",
-                      //     style: TextStyle(
-                      //         fontWeight: FontWeight.bold,
-                      //         fontSize: DoScreenAdapter.fs(12)),
-                      //   ),
-                      //   SizedBox(height: DoScreenAdapter.h(10)),
-                      //   Wrap(
-                      //     spacing: DoScreenAdapter.h(10),
-                      //     runSpacing: DoScreenAdapter.w(10),
-                      //     children: [
-                      //       ///Chip
-                      //       ///InputChip
-                      //       ///ChoiceChip
-                      //       ///FilterChip
-                      //       ///ActionChip
-                      //       // Container(
-                      //       //   // padding: EdgeInsets.all(5),
-                      //       //   // margin: EdgeInsets.all(5),
-                      //       //   child: Chip(
-                      //       //     // avatar: const Icon(
-                      //       //     //   Icons.av_timer,
-                      //       //     //   size: 20,
-                      //       //     // ),
-                      //       //     side: const BorderSide(color: DoColors.theme, width: 0.5),
-                      //       //     shape: RoundedRectangleBorder(
-                      //       //         borderRadius: BorderRadius.circular(5)),
-                      //       //     backgroundColor:
-                      //       //         const Color.fromRGBO(248, 248, 248, 1),
-                      //       //     labelPadding: const EdgeInsets.all(0),
-                      //       //     // padding: const EdgeInsets.symmetric(horizontal: 2),
-                      //       //     // visualDensity: const VisualDensity(vertical: 0), //不生效
-                      //       //     padding: EdgeInsets.all(0),
-                      //       //     label: Text("测试chip",
-                      //       //         style:
-                      //       //             TextStyle(fontSize: DoScreenAdapter.fs(12))),
-                      //       //     // onDeleted: () {},
-                      //       //     // deleteIcon: const Icon(
-                      //       //     //   Icons.delete,
-                      //       //     //   size: 15,
-                      //       //     // ),
-                      //       //   ),
-                      //       // ),
-                      //       _commonSelectWidget(title: "6GB+128GB", isSelected: true),
-                      //       _commonSelectWidget(title: "8GB+128GB"),
-                      //     ],
-                      //   ),
-                      //   SizedBox(height: DoScreenAdapter.h(10)),
-                      //   Text(
-                      //     "颜色",
-                      //     style: TextStyle(
-                      //         fontWeight: FontWeight.bold,
-                      //         fontSize: DoScreenAdapter.fs(12)),
-                      //   ),
-                      //   SizedBox(height: DoScreenAdapter.h(10)),
-                      //   Wrap(
-                      //     spacing: DoScreenAdapter.h(10),
-                      //     runSpacing: DoScreenAdapter.w(10),
-                      //     children: [
-                      //       _commonSelectWidget(title: "清凉薄荷", isSelected: true),
-                      //       _commonSelectWidget(title: "冰峰黑提"),
-                      //       _commonSelectWidget(title: "晴光白雪"),
-                      //       _commonSelectWidget(title: "樱花蜜粉"),
-                      //       _commonSelectWidget(title: "清凉薄荷"),
-                      //       _commonSelectWidget(title: "冰峰黑提"),
-                      //       _commonSelectWidget(title: "晴光白雪"),
-                      //       _commonSelectWidget(title: "樱花蜜粉"),
-                      //       _commonSelectWidget(title: "清凉薄荷"),
-                      //       _commonSelectWidget(title: "冰峰黑提"),
-                      //       _commonSelectWidget(title: "晴光白雪"),
-                      //       _commonSelectWidget(title: "樱花蜜粉"),
-                      //       _commonSelectWidget(title: "清凉薄荷"),
-                      //       _commonSelectWidget(title: "冰峰黑提"),
-                      //       _commonSelectWidget(title: "晴光白雪"),
-                      //       _commonSelectWidget(title: "樱花蜜粉"),
-                      //       _commonSelectWidget(title: "清凉薄荷"),
-                      //       _commonSelectWidget(title: "冰峰黑提"),
-                      //       _commonSelectWidget(title: "晴光白雪"),
-                      //       _commonSelectWidget(title: "樱花蜜粉")
-                      //     ],
-                      //   ),
-                      // ],
-                      ),
+                      ]),
                 ),
                 Positioned(
                   left: 0,
@@ -910,7 +788,6 @@ class GoodsContentView extends GetView<GoodsContentController> {
         children: [
           InkWell(
             onTap: () {
-              // Get.snackbar("操作", "减少数量的逻辑");
               controller.minusBuyNumber();
             },
             child: Container(
@@ -947,7 +824,6 @@ class GoodsContentView extends GetView<GoodsContentController> {
           ),
           InkWell(
             onTap: () {
-              // Get.snackbar("操作", "增加数量的逻辑");
               controller.plusBuyNumber();
             },
             child: Container(
@@ -966,6 +842,11 @@ class GoodsContentView extends GetView<GoodsContentController> {
     );
   }
 
+  ///Chip
+  ///InputChip
+  ///ChoiceChip
+  ///FilterChip
+  ///ActionChip
   ///抽取了一个选择字段组件
   Widget _commonSelectWidget(
       {required String title,
@@ -1000,22 +881,4 @@ class GoodsContentView extends GetView<GoodsContentController> {
       ),
     );
   }
-
-  // ///加入购物车
-  // void _addToCart() {
-  //   // controller.selectedGoodsAttributes.value = controller.model.value.attr!
-  //   //     .map((e) => e.selectedStr)
-  //   //     .toList()
-  //   //     .join(" ");
-  //   controller.updateSelectedGoodsAttributes();
-  //   Get.back();
-  //   Get.snackbar("操作", "调对应方法，加入购物车成功");
-  // }
-
-  // ///立即购买
-  // void _buyNow() {
-  //   controller.updateSelectedGoodsAttributes();
-  //   Get.back();
-  //   Get.snackbar("跳转", "结算页面");
-  // }
 }

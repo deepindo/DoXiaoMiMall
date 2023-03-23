@@ -1,4 +1,5 @@
 import 'package:doxiaomimall/app/services/app_cartService.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../services/app_network.dart';
@@ -244,7 +245,7 @@ class GoodsContentController extends GetxController {
       buyNumber.value--;
       update();
     } else {
-      Get.snackbar("提示", "已经到最低数量了！");
+      EasyLoading.showToast("已经到最低数量了！");
     }
   }
 
@@ -262,23 +263,39 @@ class GoodsContentController extends GetxController {
         model.value.pic,
         selectedGoodsAttributes.value,
         buyNumber.value);
+
+    ///以下两行代码，当在点击很快的时候，可能不有back，但是snackbar会执行
+    ///先执行snackbar的话可能back都不执行了
+    ///所以换成EasyLoading结合更佳
     Get.back();
-    Get.snackbar("提示", "加入购物车成功");
+    EasyLoading.showToast("加入购物车成功");
   }
 
   ///立即购买
   void buyNow() async {
     updateSelectedGoodsAttributes();
+    Get.back();
 
-    ///这个没有写入本地数据库
-    // Get.back();
-    // Get.snackbar("跳转", "结算页面");
-
+    ///这里要将当前选的这个传进去，
+    ///小米app暂时没判断是否登录
     if (await DoUserService.isLogin()) {
-      ///这里要将当前选的这个传进去，暂时不判断是否登录
+      //////这个没有写入本地数据库
       Get.toNamed(
         "/checkout",
-        // arguments: {"checkoutList": controller.getCheckedList()},
+        arguments: {
+          "checkoutList": [
+            {
+              // "goodsModel": goodsContent<GoodsContentInfoModel>,
+              "sId": model.value.sId,
+              "title": model.value.title,
+              "price": model.value.price,
+              "pic": model.value.pic,
+              "selectedGoodsAttributes": selectedGoodsAttributes.value,
+              "buyNumber": buyNumber.value,
+              "checked": true
+            },
+          ]
+        },
       );
       // }
     } else {
