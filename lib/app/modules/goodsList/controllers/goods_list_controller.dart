@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../models/goods_model.dart';
 import '../../../services/app_network.dart';
 
 class GoodsListController extends GetxController {
-  ScrollController scrollController = ScrollController();
+  final ScrollController scrollController = ScrollController();
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 
   ///分页相关
   int page = 1;
   int pageSize = 10;
-  bool flag = true;
-  RxBool isHaveData = true.obs;
+  // bool flag = true;
+  // RxBool isHaveData = true.obs;
 
   ///接收参数
   String? cid = Get.arguments["cid"];
@@ -40,7 +43,9 @@ class GoodsListController extends GetxController {
     super.onInit();
 
     _addScrollControllerListener();
-    _requestGoodsListData();
+    // _requestGoodsListData();
+    // onRefresh();
+    requestData();
   }
 
   @override
@@ -53,6 +58,42 @@ class GoodsListController extends GetxController {
     super.onClose();
   }
 
+  ///下拉刷新
+  void onRefresh() {
+    // print("onRefresh");
+
+    ///重置
+    page = 1;
+    // isHaveData.value = true;
+    goodsList.value = [];
+    // scrollController.jumpTo(0);
+    refreshController.loadComplete();
+
+    ///设置此状态，则可以重新上拉，相当于重置
+
+    ///请求数据
+    requestData();
+
+    ///设置下拉刷新完成
+    refreshController.refreshCompleted();
+  }
+
+  ///上拉加载更多
+  void onLoad() {
+    // print("onLoading${isHaveData.value}");
+    // if (isHaveData.value) {
+    // print("onLoading");
+
+    ///请求数据
+    requestData();
+
+    // print("异步的，这个loadComplete比上面请求数据先执行");
+    ///设置上拉加载完成
+    // refreshController.loadComplete();
+    // }
+  }
+
+  ///点击header不同文字
   void changeHeaderId(int id) {
     selectHeaderId.value = id;
     if (id == 4) {
@@ -68,6 +109,7 @@ class GoodsListController extends GetxController {
       headerMapList[id]["sort"] = headerMapList[id]["sort"] * -1;
       currentHeaderSort.value = headerMapList[id]["sort"];
 
+/*
       ///各变量重置
       page = 1;
       isHaveData.value = true;
@@ -76,6 +118,9 @@ class GoodsListController extends GetxController {
 
       /// 重新请求
       _requestGoodsListData();
+      */
+      //直接执行
+      onRefresh();
     }
     update();
   }
@@ -83,14 +128,15 @@ class GoodsListController extends GetxController {
   void _addScrollControllerListener() {
     scrollController.addListener(() {
       ///滚动距离接近
-      if (scrollController.position.pixels >
-          scrollController.position.maxScrollExtent - 30) {
-        ///加载下一页
-        _requestGoodsListData();
-      }
+      // if (scrollController.position.pixels >
+      //     scrollController.position.maxScrollExtent - 30) {
+      //   ///加载下一页
+      //   _requestGoodsListData();
+      // }
     });
   }
 
+/*
   ///请求商品列表数据
   void _requestGoodsListData() async {
     if (flag && isHaveData.value) {
@@ -125,6 +171,38 @@ class GoodsListController extends GetxController {
       if (GoodsModel.fromJson(data).result!.length < pageSize) {
         isHaveData.value = false;
       }
+    }
+  }
+*/
+  ///请求数据的方法
+  void requestData() async {
+    if (cid != null) {
+      fullPath =
+          "api/plist?pageSize=$pageSize&page=$page&cid=$cid&sort=$sortFields";
+    }
+
+    if (searchWords != null) {
+      fullPath =
+          "api/plist?pageSize=$pageSize&page=$page&search=$searchWords&sort=$sortFields";
+    }
+    print("fullPath---$fullPath");
+
+    var data = await DoNetwork().get(fullPath);
+    goodsList.addAll(GoodsModel.fromJson(data).result!);
+    update();
+
+    ///加页
+    page++;
+
+    ///设置没有下页状态，理论应该是控件带的才对
+    ///当前这次请求的数据小于一页的数据，则证明没有数据了
+    if (GoodsModel.fromJson(data).result!.length < pageSize) {
+      // isHaveData.value = false;
+      // print("没有数据了");
+      refreshController.loadNoData();
+    } else {
+      // print("还有数据");
+      refreshController.loadComplete();
     }
   }
 }

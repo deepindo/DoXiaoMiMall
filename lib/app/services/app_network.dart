@@ -1,14 +1,20 @@
 import 'package:dio/dio.dart';
 
-/// 各api的path
+///---------------------各api的path---------------------
+///
+///--首页--
 const String bannerPath = "api/focus/";
 const String bestBannerPath = "api/focus?position=2";
 const String bestCategoryPath = "api/bestCate/";
-const String goodsPath = "api/plist/";
+const String goodsPath = "api/plist/?is_best=1";
 const String hotGoodsPath = "api/plist?is_hot=1&pageSize=3";
+
+///--分类--
 const String mainCategoryPath = "api/pcate/";
 const String secondCategoryPath = "api/pcate?pid=";
 // const String goodsListPath = "api/plist?page=";
+
+///--登录&注册--
 //注册-发送验证码
 const String sendCodePath = "api/sendCode";
 //注册-验证验证码
@@ -22,9 +28,8 @@ const String sendLoginCodePath = "api/sendLoginCode";
 //验证码登录-验证-注册+登录
 const String validateLoginCodePath = "api/validateLoginCode";
 
+///---------------------网络请求类---------------------
 ///
-///
-///网络请求类
 class DoNetwork {
   //根据网络环境来判断基URL是啥
   static String baseURL = "https://xiaomi.itying.com/";

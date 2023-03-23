@@ -131,8 +131,8 @@ class HomeView extends GetView<HomeController> {
           enableTwoLevel: true,
           controller: controller.refreshController,
           onRefresh: controller.onRefresh,
-          onLoading: controller.onLoad,
-          onTwoLevel: (isOpen) {},
+          // onLoading: controller.onLoad,
+          // onTwoLevel: (isOpen) {},
           // header: ClassicFooter(),
           header: const WaterDropMaterialHeader(
             color: Colors.white,
