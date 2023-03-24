@@ -21,9 +21,8 @@ class TabsController extends GetxController {
     const HomeView(),
     const CategoryView(),
     const ServiceView(),
-    CartView(),
-    // const MeView(),
-    MeView(),
+    const CartView(),
+    const MeView(),
   ];
 
   @override

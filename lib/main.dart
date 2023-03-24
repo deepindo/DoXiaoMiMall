@@ -37,8 +37,9 @@ void main() {
 
 void configLoading() {
   EasyLoading.instance
+    ..animationDuration = const Duration(milliseconds: 100)
     ..loadingStyle = EasyLoadingStyle.custom
-    ..displayDuration = const Duration(milliseconds: 2000)
+    ..displayDuration = const Duration(milliseconds: 1000)
 
     ///loading就是框
     ..loadingStyle = EasyLoadingStyle.custom //框为custom下面4个生效
@@ -54,13 +55,16 @@ void configLoading() {
     ///indicator就是指示器
     ..indicatorType = EasyLoadingIndicatorType.fadingCircle
     ..indicatorSize = 45.0
-    // ..textStyle = const TextStyle(fontSize: 12, color: Colors.white) //这个设置后，上面单独的text设置不生效
+    // ..textStyle = const TextStyle(
+    // fontSize: 12, color: Colors.white) //这个设置后，上面单独的text设置不生效
     ..textPadding = const EdgeInsets.only(top: 10)
-    ..errorWidget = const Icon(Icons.close, size: 20)
+    ..successWidget =
+        const Icon(Icons.check_outlined, size: 20, color: Colors.white)
+    ..errorWidget = const Icon(Icons.close, size: 20, color: Colors.white)
 
     ///mask遮罩
     ..maskType = EasyLoadingMaskType.none
-    ..maskColor = Colors.black.withOpacity(0.2) //EasyLoadingMaskType.custom生效
+    // ..maskColor = Colors.black.withOpacity(0.2) //EasyLoadingMaskType.custom生效
     /// 当loading展示的时候，是否允许用户操作.
     ..userInteractions = false
 

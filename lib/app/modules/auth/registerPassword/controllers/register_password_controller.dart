@@ -10,6 +10,8 @@ class RegisterPasswordController extends GetxController {
   RxBool isRegisterButtonEnable = false.obs;
   String phone = Get.arguments["phone"];
   String code = Get.arguments["code"];
+  RxBool isObscure = true.obs;
+  RxBool isConfrimObscure = true.obs;
 
   @override
   void onInit() {
@@ -32,6 +34,16 @@ class RegisterPasswordController extends GetxController {
             confirmPasswordController.text.isNotEmpty)
         ? true
         : false;
+    update();
+  }
+
+  void updateObscureState() {
+    isObscure.value = !isObscure.value;
+    update();
+  }
+
+  void updateConfirmObscureState() {
+    isConfrimObscure.value = !isConfrimObscure.value;
     update();
   }
 

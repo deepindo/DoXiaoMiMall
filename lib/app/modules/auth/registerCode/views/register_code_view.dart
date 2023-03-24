@@ -81,6 +81,7 @@ class RegisterCodeView extends GetView<RegisterCodeController> {
             length: 6,
             obscureText: false,
             keyboardType: TextInputType.number,
+            cursorColor: DoColors.theme,
             animationType: AnimationType.fade,
             animationDuration: const Duration(milliseconds: 300),
             // backgroundColor: Colors.blue.shade50,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../../../models/response_model.dart';
@@ -69,9 +70,11 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
                 color: DoColors.gray249,
                 borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
             child: TextField(
+              inputFormatters: [LengthLimitingTextInputFormatter(11)],
               textAlignVertical: TextAlignVertical.center,
               controller: controller.accountController,
               keyboardType: TextInputType.number,
+              cursorColor: DoColors.theme,
               style: TextStyle(
                   color: DoColors.black0,
                   fontSize: DoScreenAdapter.fs(16),
@@ -83,8 +86,12 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
                       color: DoColors.gray168,
                       fontSize: DoScreenAdapter.fs(16),
                       fontWeight: FontWeight.bold),
-                  suffixIcon:
-                      Icon(Icons.close_outlined, size: DoScreenAdapter.fs(18))),
+                  suffixIcon: InkWell(
+                      onTap: () {
+                        controller.accountController.text = "";
+                      },
+                      child: Icon(Icons.close_outlined,
+                          size: DoScreenAdapter.fs(18)))),
               onChanged: (value) {
                 controller.updateLoginButtonState();
               },
@@ -92,35 +99,64 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
             ),
           ),
           SizedBox(height: DoScreenAdapter.h(10)),
-          Container(
-            alignment: Alignment.center,
-            height: DoScreenAdapter.h(50),
-            padding: EdgeInsets.only(left: DoScreenAdapter.w(15)),
-            decoration: BoxDecoration(
-                color: DoColors.gray249,
-                borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
-            child: TextField(
-              textAlignVertical: TextAlignVertical.center,
-              controller: controller.passwordController,
-              keyboardType: TextInputType.text,
-              obscureText: true,
-              style: TextStyle(
-                  color: DoColors.black0,
-                  fontSize: DoScreenAdapter.fs(16),
-                  fontWeight: FontWeight.bold),
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "密码",
-                  hintStyle: TextStyle(
-                      color: DoColors.gray168,
-                      fontSize: DoScreenAdapter.fs(16),
-                      fontWeight: FontWeight.bold),
-                  suffixIcon:
-                      Icon(Icons.close_outlined, size: DoScreenAdapter.fs(18))),
-              onChanged: (value) {
-                controller.updateLoginButtonState();
-              },
-              onSubmitted: (value) {},
+          Obx(
+            () => Container(
+              alignment: Alignment.center,
+              height: DoScreenAdapter.h(50),
+              padding: EdgeInsets.only(left: DoScreenAdapter.w(15)),
+              decoration: BoxDecoration(
+                  color: DoColors.gray249,
+                  borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      textAlignVertical: TextAlignVertical.center,
+                      controller: controller.passwordController,
+                      keyboardType: TextInputType.text,
+                      cursorColor: DoColors.theme,
+                      obscureText: controller.isObscure.value,
+                      style: TextStyle(
+                          color: DoColors.black0,
+                          fontSize: DoScreenAdapter.fs(16),
+                          fontWeight: FontWeight.bold),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "密码",
+                        hintStyle: TextStyle(
+                            color: DoColors.gray168,
+                            fontSize: DoScreenAdapter.fs(16),
+                            fontWeight: FontWeight.bold),
+                        suffixIcon: InkWell(
+                            onTap: () {
+                              controller.passwordController.text = "";
+                            },
+                            child: Icon(Icons.close_outlined,
+                                size: DoScreenAdapter.fs(18))),
+                      ),
+                      onChanged: (value) {
+                        controller.updateLoginButtonState();
+                      },
+                      onSubmitted: (value) {},
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      controller.updateObscureState();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: DoScreenAdapter.w(15)),
+                      child: Icon(
+                          controller.isObscure.value
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          size: DoScreenAdapter.fs(18),
+                          color: Colors.black38),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(height: DoScreenAdapter.h(20)),
@@ -149,17 +185,22 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
                     : () async {
                         if (GetUtils.isPhoneNumber(
                             controller.accountController.text)) {
-                          FocusScope.of(Get.context!).requestFocus(FocusNode());
-                          // EasyLoading.show();
-                          EasyLoading.show(status: "登录中...");
-                          ResponseModel response = await controller.login();
-                          if (response.success) {
-                            // Get.offAllNamed("/tabs",
-                            //     arguments: {"initialPage": 4});
-                            Get.back(); //替换路由
-                            EasyLoading.showSuccess(response.message);
+                          if (controller.isCheckedProtocol.value) {
+                            FocusScope.of(Get.context!)
+                                .requestFocus(FocusNode());
+                            // EasyLoading.show();
+                            EasyLoading.show(status: "登录中...");
+                            ResponseModel response = await controller.login();
+                            if (response.success) {
+                              // Get.offAllNamed("/tabs",
+                              //     arguments: {"initialPage": 4});
+                              Get.back(); //替换路由
+                              EasyLoading.showSuccess(response.message);
+                            } else {
+                              EasyLoading.showError(response.message);
+                            }
                           } else {
-                            EasyLoading.showError(response.message);
+                            EasyLoading.showToast("请先同意协议");
                           }
                         } else {
                           EasyLoading.showError("请输入正确手机号");

@@ -9,13 +9,14 @@ import '../../../components/app_components.dart';
 import '../../../services/app_userService.dart';
 import '../controllers/cart_controller.dart';
 
-class CartView extends GetView {
+class CartView extends GetView<CartController> {
   ///商品详情页也要跳转购物车，加上tabs里面是懒加载cartController，
   ///所以去掉懒加载依赖，改为在cartView的put，以实现效果
   ///CartView在多个地方调用，所以手动实现下面的控制器
-  @override
-  final CartController controller = Get.put(CartController());
-  CartView({Key? key}) : super(key: key);
+  // @override
+  // final CartController controller = Get.put(CartController());
+  //上面的用了新的方式，在TabsBinding中将lazyPut改成put，做了微调，就不用在外面改很多地方了
+  const CartView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,10 +1,25 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 import '../services/app_colors.dart';
 import '../services/app_screenAdapter.dart';
+
+///通用ListTile
+Widget commonListTile(String data, {void Function()? onTap}) {
+  return Container(
+    // height: DoScreenAdapter.h(40), //用于改变ListTile的高
+    // alignment: Alignment.centerLeft,
+    child: ListTile(
+      contentPadding:
+          EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10), vertical: 0),
+      title: Text(data, style: TextStyle(fontSize: DoScreenAdapter.fs(14))),
+      trailing: Icon(Icons.arrow_forward_ios_outlined,
+          size: DoScreenAdapter.fs(12), color: DoColors.black128),
+      onTap: onTap,
+    ),
+  );
+}
 
 ///通用标题头组件
 Widget commonHeader(

@@ -11,6 +11,7 @@ class AccountPasswordLoginController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   RxBool isLoginButtonEnable = false.obs;
   RxBool isCheckedProtocol = false.obs;
+  RxBool isObscure = true.obs;
 
   @override
   void onInit() {
@@ -36,6 +37,11 @@ class AccountPasswordLoginController extends GetxController {
             passwordController.text.length >= 8)
         ? true
         : false;
+    update();
+  }
+
+  void updateObscureState() {
+    isObscure.value = !isObscure.value;
     update();
   }
 

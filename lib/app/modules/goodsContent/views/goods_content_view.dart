@@ -10,10 +10,13 @@ import '../views/goods_content_details_view.dart';
 import '../views/goods_content_recommend_view.dart';
 
 class GoodsContentView extends GetView<GoodsContentController> {
+  // @override
+  // final GoodsContentController controller = Get.put(GoodsContentController());
   const GoodsContentView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        // key: UniqueKey(),
         extendBodyBehindAppBar: true, //实现透明导航栏
         appBar: _customAppBar(),
         body: Stack(

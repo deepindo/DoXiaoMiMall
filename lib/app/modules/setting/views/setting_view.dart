@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import '../../../components/app_components.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../../../services/app_userService.dart';
@@ -25,59 +26,115 @@ class SettingView extends GetView<SettingController> {
   Widget _body() {
     return ListView(
       children: [
-        Container(height: DoScreenAdapter.h(40), color: Colors.cyan),
-        _commonListTile("密保手机", onTap: () {}),
-        _commonListTile("收货地址", onTap: () {}),
-        Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
-        _commonListTile("消息推送", onTap: () {}),
-        _commonListTile("隐私设置", onTap: () {
-          print("隐私设置");
+        _profileSection(),
+        commonListTile("密保手机", onTap: () {}),
+        commonListTile("收货地址", onTap: () {
+          Get.toNamed("address-manager");
         }),
-        _commonListTile("小米商城隐私政策", onTap: () {
-          print("小米商城隐私政策");
-        }),
-        _commonListTile("小米商城隐私政策-简要版", onTap: () {}),
         Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
-        _commonListTile("关于商城", onTap: () {
-          print("关于商城");
+        commonListTile("消息推送", onTap: () {}),
+        commonListTile("隐私设置", onTap: () {
+          // print("隐私设置");
         }),
-        _commonListTile("网络诊断", onTap: () {}),
-        _commonListTile("个人信息收集与使用清单", onTap: () {}),
-        _commonListTile("个人信息第三方共享清单", onTap: () {}),
-        _commonListTile("协议规则", onTap: () {}),
-        _commonListTile("资质证照", onTap: () {}),
-        _commonListTile("小米商城用户协议", onTap: () {}),
-        _commonListTile("小米账号用户协议", onTap: () {}),
-        _commonListTile("小米账号隐私政策", onTap: () {}),
+        commonListTile("小米商城隐私政策", onTap: () {
+          // print("小米商城隐私政策");
+        }),
+        commonListTile("小米商城隐私政策-简要版", onTap: () {}),
         Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
-        TextButton(
-            onPressed: () {
-              DoUserService.removeUserInfo();
-              // Get.back();
-              Get.offAllNamed("/tabs");
-
-              EasyLoading.showSuccess("退出登录");
-            },
-            child: Text("退出账号",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(14),
-                    color: DoColors.black51))),
-        Container(height: DoScreenAdapter.h(60), color: DoColors.gray238),
+        commonListTile("关于商城", onTap: () {
+          // print("关于商城");
+        }),
+        commonListTile("网络诊断", onTap: () {}),
+        commonListTile("个人信息收集与使用清单", onTap: () {}),
+        commonListTile("个人信息第三方共享清单", onTap: () {}),
+        commonListTile("协议规则", onTap: () {}),
+        commonListTile("资质证照", onTap: () {}),
+        commonListTile("小米商城用户协议", onTap: () {}),
+        commonListTile("小米账号用户协议", onTap: () {}),
+        commonListTile("小米账号隐私政策", onTap: () {}),
+        Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
+        _logouButton(),
+        // Container(height: DoScreenAdapter.h(60), color: DoColors.gray238)
       ],
     );
   }
 
-  Widget _commonListTile(String data, {void Function()? onTap}) {
-    return Container(
-      // height: DoScreenAdapter.h(30), //用于改变ListTile的高
-      // alignment: Alignment.centerLeft,
-      child: ListTile(
-        // contentPadding: EdgeInsets.all(DoScreenAdapter.w(10)),
-        title: Text(data, style: TextStyle(fontSize: DoScreenAdapter.fs(14))),
-        trailing: Icon(Icons.arrow_forward_ios_outlined,
-            size: DoScreenAdapter.fs(12), color: DoColors.black128),
-        onTap: onTap,
+  Widget _profileSection() {
+    return InkWell(
+      onTap: () {
+        Get.toNamed("/profile");
+      },
+      child: Container(
+        height: DoScreenAdapter.h(50),
+        padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {},
+                  child: CircleAvatar(
+                    radius: DoScreenAdapter.w(25),
+                    backgroundImage:
+                        const AssetImage("assets/images/avatar_man.png"),
+                  ),
+                ),
+                SizedBox(
+                  width: DoScreenAdapter.w(10),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "17623458080",
+                      // "${controller.model.value.username}",
+                      style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(14),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: DoScreenAdapter.h(5)),
+                    Container(
+                      padding: EdgeInsets.all(DoScreenAdapter.w(3)),
+                      decoration: BoxDecoration(
+                          color: DoColors.gray238,
+                          borderRadius:
+                              BorderRadius.circular(DoScreenAdapter.w(10))),
+                      child: Text(
+                        "小米ID",
+                        // "小米ID${controller.model.value.salt}",
+                        style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Icon(Icons.arrow_forward_ios_outlined,
+                    size: DoScreenAdapter.fs(12), color: DoColors.black128)
+              ],
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  Widget _logouButton() {
+    return TextButton(
+        onPressed: () {
+          DoUserService.removeUserInfo();
+          // Get.back();
+          Get.offAllNamed("/tabs");
+          EasyLoading.showSuccess("退出登录");
+        },
+        child: Text("退出账号",
+            style: TextStyle(
+                fontSize: DoScreenAdapter.fs(14), color: DoColors.black51)));
+    ;
   }
 }

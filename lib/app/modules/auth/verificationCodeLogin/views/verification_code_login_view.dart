@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../../../models/response_model.dart';
@@ -84,9 +85,11 @@ class VerificationCodeLoginView
                 SizedBox(width: DoScreenAdapter.w(10)),
                 Expanded(
                   child: TextField(
+                    inputFormatters: [LengthLimitingTextInputFormatter(11)],
                     textAlignVertical: TextAlignVertical.center,
                     controller: controller.phoneController,
                     keyboardType: TextInputType.number,
+                    cursorColor: DoColors.theme,
                     style: TextStyle(
                         color: DoColors.black0,
                         fontSize: DoScreenAdapter.fs(16),
@@ -99,8 +102,13 @@ class VerificationCodeLoginView
                             color: DoColors.gray168,
                             fontSize: DoScreenAdapter.fs(16),
                             fontWeight: FontWeight.bold),
-                        suffixIcon: Icon(Icons.close_outlined,
-                            size: DoScreenAdapter.fs(18))),
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            controller.phoneController.text = "";
+                          },
+                          child: Icon(Icons.close_outlined,
+                              size: DoScreenAdapter.fs(18)),
+                        )),
                     onChanged: (value) {
                       controller.isSendCodeButtonEnable.value =
                           (controller.phoneController.text.length == 11)
@@ -139,22 +147,28 @@ class VerificationCodeLoginView
                     : () async {
                         if (GetUtils.isPhoneNumber(
                             controller.phoneController.text)) {
-                          //自动收起键盘
-                          FocusScope.of(Get.context!).requestFocus(FocusNode());
-                          EasyLoading.show(status: "获取中...");
-                          ResponseModel response =
-                              await controller.requestVerificationCode();
-                          if (response.success) {
-                            // Get.toNamed("/verification-code", arguments: {
-                            //   "phone": controller.phoneController.text
-                            // });
-                            ///替换路由
-                            Get.offAndToNamed("/verification-code", arguments: {
-                              "phone": controller.phoneController.text
-                            });
-                            EasyLoading.showSuccess(response.message);
+                          if (controller.isCheckedProtocol.value) {
+                            //自动收起键盘
+                            FocusScope.of(Get.context!)
+                                .requestFocus(FocusNode());
+                            EasyLoading.show(status: "获取中...");
+                            ResponseModel response =
+                                await controller.requestVerificationCode();
+                            if (response.success) {
+                              // Get.toNamed("/verification-code", arguments: {
+                              //   "phone": controller.phoneController.text
+                              // });
+                              ///替换路由
+                              Get.offAndToNamed("/verification-code",
+                                  arguments: {
+                                    "phone": controller.phoneController.text
+                                  });
+                              EasyLoading.showSuccess(response.message);
+                            } else {
+                              EasyLoading.showError(response.message);
+                            }
                           } else {
-                            EasyLoading.showError(response.message);
+                            EasyLoading.showToast("请先同意协议");
                           }
                         } else {
                           EasyLoading.showError("请输入正确的手机号");

@@ -31,6 +31,10 @@ abstract class Routes {
   static const MESSAGE = _Paths.MESSAGE;
   static const VIP_MEDAL = _Paths.VIP_MEDAL;
   static const CHECKOUT = _Paths.CHECKOUT;
+  static const ADDRESS_MANAGER = _Paths.ADDRESS_MANAGER;
+  static const ADDRESS_CREATE = _Paths.ADDRESS_CREATE;
+  static const ADDRESS_MODIFY = _Paths.ADDRESS_MODIFY;
+  static const PERSONAL_HOMEPAGE = _Paths.PERSONAL_HOMEPAGE;
 }
 
 abstract class _Paths {
@@ -63,4 +67,8 @@ abstract class _Paths {
   static const MESSAGE = '/message';
   static const VIP_MEDAL = '/vip-medal';
   static const CHECKOUT = '/checkout';
+  static const ADDRESS_MANAGER = '/address-manager';
+  static const ADDRESS_CREATE = '/address-create';
+  static const ADDRESS_MODIFY = '/address-modify';
+  static const PERSONAL_HOMEPAGE = '/personal-homepage';
 }

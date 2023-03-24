@@ -1,5 +1,11 @@
 import 'package:get/get.dart';
 
+import '../modules/address/addressCreate/bindings/address_create_binding.dart';
+import '../modules/address/addressCreate/views/address_create_view.dart';
+import '../modules/address/addressManager/bindings/address_manager_binding.dart';
+import '../modules/address/addressManager/views/address_manager_view.dart';
+import '../modules/address/addressModify/bindings/address_modify_binding.dart';
+import '../modules/address/addressModify/views/address_modify_view.dart';
 import '../modules/auth/accountHelp/bindings/account_help_binding.dart';
 import '../modules/auth/accountHelp/views/account_help_view.dart';
 import '../modules/auth/accountPasswordLogin/bindings/account_password_login_binding.dart';
@@ -35,6 +41,8 @@ import '../modules/messageNotification/bindings/message_notification_binding.dar
 import '../modules/messageNotification/views/message_notification_view.dart';
 import '../modules/officialService/bindings/official_service_binding.dart';
 import '../modules/officialService/views/official_service_view.dart';
+import '../modules/personalHomepage/bindings/personal_homepage_binding.dart';
+import '../modules/personalHomepage/views/personal_homepage_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/search/bindings/search_binding.dart';
@@ -148,7 +156,7 @@ class AppPages {
     GetPage(
       name: _Paths.GOODS_CONTENT,
       page: () => const GoodsContentView(),
-      // arguments: {},
+      // arguments: const {"a": "a"},
       binding: GoodsContentBinding(),
     ),
     GetPage(
@@ -200,6 +208,26 @@ class AppPages {
       name: _Paths.CHECKOUT,
       page: () => const CheckoutView(),
       binding: CheckoutBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDRESS_MANAGER,
+      page: () => const AddressManagerView(),
+      binding: AddressManagerBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDRESS_CREATE,
+      page: () => const AddressCreateView(),
+      binding: AddressCreateBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDRESS_MODIFY,
+      page: () => const AddressModifyView(),
+      binding: AddressModifyBinding(),
+    ),
+    GetPage(
+      name: _Paths.PERSONAL_HOMEPAGE,
+      page: () => const PersonalHomepageView(),
+      binding: PersonalHomepageBinding(),
     ),
   ];
 }

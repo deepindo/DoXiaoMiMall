@@ -77,6 +77,7 @@ class VerificationCodeView extends GetView<VerificationCodeController> {
             controller: controller.codeController,
             length: 6,
             obscureText: false,
+            cursorColor: DoColors.theme,
             keyboardType: TextInputType.number,
             animationType: AnimationType.fade,
             animationDuration: const Duration(milliseconds: 300),

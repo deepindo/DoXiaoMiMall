@@ -10,10 +10,11 @@ import '../../../services/app_network.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../controllers/me_controller.dart';
 
-class MeView extends GetView {
-  @override
-  final MeController controller = Get.put(MeController());
-  MeView({Key? key}) : super(key: key);
+class MeView extends GetView<MeController> {
+  ///几个登录页面都需要用到，共享的，所以各页面的销毁会导致各页面find的也销毁，所以懒加载的不行
+  // @override
+  // final MeController controller = Get.put(MeController());
+  const MeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,7 +130,7 @@ class MeView extends GetView {
               children: [
                 InkWell(
                   onTap: () {
-                    Get.toNamed("/profile");
+                    Get.toNamed("/personal-homepage");
                   },
                   child: CircleAvatar(
                     radius: DoScreenAdapter.w(25),
