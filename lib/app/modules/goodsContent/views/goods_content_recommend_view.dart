@@ -1,3 +1,5 @@
+import 'package:doxiaomimall/app/modules/goodsContent/views/goods_content_info_view.dart';
+import 'package:doxiaomimall/app/modules/goodsContent/views/goods_content_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -55,8 +57,20 @@ class GoodsContentRecommendView extends GetView {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      // Get.toNamed("/goods-content",
-                      //     arguments: {"cid": controller.goodsList[index].sId});
+                      ///商品详情中的商品列表再进商品详情？
+                      ///怎么解决
+                      print("商品详情中的商品列表再进商品详情？");
+
+                      //直接用page跳转也不行
+                      // Get.to(const GoodsContentView());
+
+                      ///下面代码不会执行的，可能是get原因，可能是flutter原因
+                      /*
+                      Get.toNamed("/goods-content", arguments: {
+                        "sid": controller.goodsList[index].sId,
+                        "isCanJumpCart": true
+                      });
+                      */
                     },
                     child: Container(
                       decoration: BoxDecoration(

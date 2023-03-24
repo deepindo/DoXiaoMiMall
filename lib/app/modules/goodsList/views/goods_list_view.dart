@@ -253,8 +253,10 @@ class GoodsListView extends GetView<GoodsListController> {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              Get.toNamed("/goods-content",
-                  arguments: {"sid": controller.goodsList[index].sId});
+              Get.toNamed("/goods-content", arguments: {
+                "sid": controller.goodsList[index].sId,
+                "isCanJumpCart": true,
+              });
             },
             child: Column(children: [
               Container(

@@ -300,7 +300,12 @@ class GoodsContentView extends GetView<GoodsContentController> {
               ),
               InkWell(
                 onTap: () {
-                  Get.toNamed("/cart");
+                  ///这个地方要加判断，有些来源可以进购物车，有些不行
+                  ///比如购物车下面“猜你喜欢的”列表，可以添加，购买，就是不能直接进入购物车
+                  ///所以此处要
+                  if (controller.isCanJumpCart) {
+                    Get.toNamed("/cart", arguments: {"jumpSource": "outer"});
+                  }
                 },
                 child: Padding(
                   // padding: const EdgeInsets.symmetric(horizontal: 8.0),

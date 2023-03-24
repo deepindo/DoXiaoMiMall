@@ -502,8 +502,10 @@ class HomeView extends GetView<HomeController> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Get.toNamed("/goods-content",
-                          arguments: {"sid": controller.goodsList[index].sId});
+                      Get.toNamed("/goods-content", arguments: {
+                        "sid": controller.goodsList[index].sId,
+                        "isCanJumpCart": true,
+                      });
                     },
                     child: Container(
                       decoration: BoxDecoration(

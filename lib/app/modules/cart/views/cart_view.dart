@@ -1,6 +1,7 @@
 import 'package:doxiaomimall/app/services/app_network.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
@@ -73,7 +74,10 @@ class CartView extends GetView {
                     _floatingView(),
                   ],
                 )
-              : _emptyView();
+              : ListView(children: [
+                  _emptyView(),
+                  _goodsListView(),
+                ]);
         });
   }
 
@@ -317,9 +321,12 @@ class CartView extends GetView {
       bottom: DoScreenAdapter.h(60),
       child: ListView(
         padding: EdgeInsets.all(DoScreenAdapter.w(10)),
-        children: controller.cartList
-            .map((element) => _cartItemView(element))
-            .toList(),
+        children: [
+          ...controller.cartList
+              .map((element) => _cartItemView(element))
+              .toList(),
+          _goodsListView(),
+        ],
       ),
     );
   }
@@ -361,6 +368,125 @@ class CartView extends GetView {
     );
   }
 
+  ///为你精选-瀑布流列表
+  Widget _goodsListView() {
+    return Column(
+      children: [
+        Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.fromLTRB(
+              DoScreenAdapter.w(10),
+              DoScreenAdapter.h(10),
+              DoScreenAdapter.w(0),
+              DoScreenAdapter.h(10)),
+          child: const Text(
+            "- 猜你喜欢 -",
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Obx(() => MasonryGridView.count(
+              // padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+              crossAxisCount: 2,
+              mainAxisSpacing: DoScreenAdapter.w(10), //垂直间距
+              crossAxisSpacing: DoScreenAdapter.h(8), //水平间距
+              itemCount: controller.goodsList.length,
+              shrinkWrap: true, //收缩，让子元素自适应宽度
+              physics:
+                  const NeverScrollableScrollPhysics(), //禁止自身滚动，让外面的listView滚动
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    if (Get.arguments == null) {
+                      Get.toNamed("/goods-content", arguments: {
+                        "sid": controller.goodsList[index].sId,
+                        "isCanJumpCart": false
+                      });
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(DoScreenAdapter.w(5)),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          //这个是为了测试设置图片上左，上右的圆角而设置的，暂时不能完美实现，如下注释
+                          // height: DoScreenAdapter.h(40),
+                          padding: EdgeInsets.all(DoScreenAdapter.w(5)),
+                          // decoration: BoxDecoration(
+                          //如果要如下设置上左，上右的圆角，必须要有container的height，
+                          //但是这样，就不能让图片自适应了，或者计算，或者网络直接返回图片的高
+                          // borderRadius: BorderRadius.only(
+                          //     topLeft:
+                          //         Radius.circular(DoScreenAdapter.w(5)),
+                          //     topRight:
+                          //         Radius.circular(DoScreenAdapter.w(5))),
+                          // image: DecorationImage(
+                          //     image: NetworkImage(
+                          //         DoNetwork.replacePictureURL(
+                          //             controller.goodsList[index].pic!)),
+                          //     fit: BoxFit.cover),
+                          // ),
+                          ///若有特殊圆角需求，可以用上面的DecorationImage，但是各条件要满足，否则直接用child自适应
+                          child: Image.network(
+                            DoNetwork.replacePictureURL(
+                                controller.goodsList[index].pic!),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(
+                              DoScreenAdapter.w(10),
+                              DoScreenAdapter.h(0),
+                              DoScreenAdapter.w(10),
+                              DoScreenAdapter.h(5)),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "${controller.goodsList[index].title}",
+                            style: TextStyle(
+                                fontSize: DoScreenAdapter.fs(14),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: DoScreenAdapter.w(10)),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "${controller.goodsList[index].subTitle}",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.black26,
+                              fontSize: DoScreenAdapter.fs(12),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(
+                              DoScreenAdapter.w(10),
+                              DoScreenAdapter.h(15),
+                              DoScreenAdapter.w(10),
+                              DoScreenAdapter.h(10)),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "¥${controller.goodsList[index].price}",
+                            style: TextStyle(
+                                fontSize: DoScreenAdapter.fs(14),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            )),
+      ],
+    );
+  }
+
   ///商品细项
   ///
   ///这里因为抽取，需要传递很多次参数！！！
@@ -371,7 +497,11 @@ class CartView extends GetView {
         ///购物车直接进入有问题，相当于：商品详情A->购物车B->商品详情A,会错乱，
         ///除非这是两个不同的详情页，因为商品详情A没有释放，sId一直是开始传入的，
         ///这个时候不管点购物车哪件商品，看到的详情都是同一个
-        // Get.toNamed("/goods-content", arguments: {"sid": element["sId"]});
+        ///要判断来源
+        if (Get.arguments == null) {
+          Get.toNamed("/goods-content",
+              arguments: {"sid": element["sId"], "isCanJumpCart": false});
+        }
       },
       child: Container(
         margin: EdgeInsets.only(top: DoScreenAdapter.h(10)),

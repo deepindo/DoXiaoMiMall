@@ -148,6 +148,7 @@ class AppPages {
     GetPage(
       name: _Paths.GOODS_CONTENT,
       page: () => const GoodsContentView(),
+      // arguments: {},
       binding: GoodsContentBinding(),
     ),
     GetPage(

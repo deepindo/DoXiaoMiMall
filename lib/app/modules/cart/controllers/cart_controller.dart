@@ -1,17 +1,22 @@
 import 'package:doxiaomimall/app/services/app_cartService.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import '../../../services/app_network.dart';
+import '../../../models/goods_model.dart';
 
 class CartController extends GetxController {
+  // bool isCanJumpGoodsInfo =
+  // Get.arguments != null ? Get.arguments["isCanJumpGoodsInfo"] : false;
+  RxList<GoodsItemModel> goodsList = <GoodsItemModel>[].obs;
   RxBool isEditing = false.obs;
   RxList cartList = [].obs;
   RxBool checkedAllState = true.obs;
   RxInt checkedCount = 0.obs;
 
-  // final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    _requestGoodsData();
   }
 
   @override
@@ -22,6 +27,14 @@ class CartController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  ///请求瀑布流商品数据
+  void _requestGoodsData() async {
+    // print("_requestGoodsData");
+    var data = await DoNetwork().get(goodsPath);
+    goodsList.value = GoodsModel.fromJson(data).result!;
+    update();
   }
 
   ///获取本地购物车数据
