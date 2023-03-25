@@ -4,10 +4,11 @@ import 'package:get/get.dart';
 class AddressCreateController extends GetxController {
   TextEditingController usernameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController addressDistrictController = TextEditingController();
   TextEditingController addressDetailController = TextEditingController();
   TextEditingController pasteController = TextEditingController();
+  RxBool isAddressDefault = false.obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -23,5 +24,8 @@ class AddressCreateController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void changeDefaultAddress() {
+    isAddressDefault.value = !isAddressDefault.value;
+    update();
+  }
 }
