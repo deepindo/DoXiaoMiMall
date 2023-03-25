@@ -17,8 +17,8 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return KeepAliveWrapper(
       child: Scaffold(
-          // backgroundColor: const Color.fromRGBO(248, 248, 248, 1),
-          backgroundColor: Colors.white,
+          backgroundColor: DoColors.gray249,
+          // backgroundColor: Colors.cyan,
           body: Stack(
             children: [
               _contentListView(),
@@ -198,7 +198,7 @@ class HomeView extends GetView<HomeController> {
   ///固定banner图片
   Widget _bannerImageSection() {
     return SizedBox(
-      width: DoScreenAdapter.sw(),
+      width: DoScreenAdapter.screenW(),
       height: DoScreenAdapter.h(20),
       child: Image.asset(
         "assets/images/xiaomiMenu.png",
@@ -342,7 +342,7 @@ class HomeView extends GetView<HomeController> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(DoScreenAdapter.w(30)),
-                    color: const Color.fromRGBO(248, 248, 248, 1),
+                    color: DoColors.gray249,
                   ),
                   child: Obx(
                     () => Swiper(
@@ -407,7 +407,7 @@ class HomeView extends GetView<HomeController> {
                             decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.circular(DoScreenAdapter.w(5)),
-                              color: const Color.fromRGBO(248, 248, 248, 1),
+                              color: DoColors.gray249,
                             ),
                             child: Row(
                               children: [
@@ -489,7 +489,7 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
         Obx(() => Container(
-              color: const Color.fromRGBO(248, 248, 248, 1),
+              color: DoColors.gray249,
               child: MasonryGridView.count(
                 padding: EdgeInsets.all(DoScreenAdapter.w(10)),
                 crossAxisCount: 2,

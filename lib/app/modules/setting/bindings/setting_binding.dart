@@ -8,5 +8,6 @@ class SettingBinding extends Bindings {
     Get.lazyPut<SettingController>(
       () => SettingController(),
     );
+    // Get.put<SettingController>(SettingController());
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../controllers/goods_content_controller.dart';
 import '../../../services/app_network.dart';
@@ -43,7 +44,7 @@ class GoodsContentRecommendView extends GetView {
           ),
         ),
         Obx(() => Container(
-              color: const Color.fromRGBO(248, 248, 248, 1),
+              color: DoColors.gray249,
               child: MasonryGridView.count(
                 padding: EdgeInsets.all(DoScreenAdapter.w(10)),
                 crossAxisCount: 2,

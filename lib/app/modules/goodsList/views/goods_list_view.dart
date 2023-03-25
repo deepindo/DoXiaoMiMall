@@ -22,7 +22,7 @@ class GoodsListView extends GetView<GoodsListController> {
             // children: [const Center(child: Text("没有更多数据了")), _listHeader()],
           )),
       // : _loadMoreDataIndicator()), //没有数据的时候添加
-      backgroundColor: const Color.fromRGBO(248, 248, 248, 1),
+      backgroundColor: DoColors.gray249,
     );
   }
 
@@ -87,7 +87,7 @@ class GoodsListView extends GetView<GoodsListController> {
       left: 0,
       top: 0,
       // right: 0,
-      width: DoScreenAdapter.sw(),
+      width: DoScreenAdapter.screenW(),
       child: Obx(
         () => Container(
           height: DoScreenAdapter.h(40),

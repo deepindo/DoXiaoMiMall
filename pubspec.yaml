@@ -41,14 +41,14 @@ dependencies:
   shared_preferences: ^2.0.18
   flutter_swiper_view: ^1.1.8
   flutter_staggered_grid_view: ^0.6.2
-  # flutter_html: ^2.2.1
   flutter_html: ^3.0.0-alpha.5
-  # easy_refresh: ^3.3.1#为啥主这个版本有问题，依赖不少其他库
   flutter_spinkit: ^5.1.0
   flutter_easyloading: ^3.0.3
   pull_to_refresh: ^2.0.0
   pin_code_fields: ^7.4.0
   roundcheckbox: ^2.0.5
+  city_pickers: ^1.2.1
+  crypto: ^3.0.2
 
 dev_dependencies:
   flutter_test:

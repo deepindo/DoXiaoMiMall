@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../services/app_colors.dart';
 import '../controllers/category_controller.dart';
 import '../../../services/app_screenAdapter.dart';
@@ -76,49 +77,59 @@ class CategoryView extends GetView<CategoryController> {
       child: Obx(
         () => Container(
           color: Colors.white,
-          child: ListView.builder(
-            itemCount: controller.leftCategoryList.length,
-            itemBuilder: (context, index) {
-              return Obx(
-                () => InkWell(
-                  onTap: () {
-                    controller.changeIndex(
-                        index, controller.leftCategoryList[index].sId);
-                  },
-                  child: Container(
-                    // color:
-                    // Colors.white, //若是为了设置背景色，也可以在listView外面再包一层container来设置
-                    color: controller.selectIndex.value == index
-                        ? const Color.fromRGBO(248, 248, 248, 1)
-                        : Colors.white,
-                    height: DoScreenAdapter.h(50),
-                    child: Stack(
-                      alignment: Alignment.centerLeft,
-                      children: [
-                        Container(
-                          width: DoScreenAdapter.w(4),
-                          height: DoScreenAdapter.h(18),
-                          color: controller.selectIndex.value == index
-                              ? DoColors.theme
-                              : Colors.white,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: DoScreenAdapter.w(20)),
-                          child: Text(
-                            "${controller.leftCategoryList[index].title}",
-                            style: TextStyle(
-                                fontWeight:
-                                    controller.selectIndex.value == index
-                                        ? FontWeight.bold
-                                        : FontWeight.normal),
+          child: SmartRefresher(
+            enablePullDown: true,
+            controller: controller.refreshController,
+            onRefresh: controller.onRefresh,
+            header: const WaterDropMaterialHeader(
+              color: Colors.white,
+              backgroundColor: DoColors.theme,
+            ),
+            child: ListView.builder(
+              itemCount: controller.leftCategoryList.length,
+              itemBuilder: (context, index) {
+                return Obx(
+                  () => InkWell(
+                    onTap: () {
+                      controller.changeIndex(
+                          index, controller.leftCategoryList[index].sId);
+                    },
+                    child: Container(
+                      // color:
+                      // Colors.white, //若是为了设置背景色，也可以在listView外面再包一层container来设置
+                      color: controller.selectIndex.value == index
+                          ? DoColors.gray249
+                          : Colors.white,
+                      height: DoScreenAdapter.h(50),
+                      child: Stack(
+                        alignment: Alignment.centerLeft,
+                        children: [
+                          Container(
+                            width: DoScreenAdapter.w(4),
+                            height: DoScreenAdapter.h(18),
+                            color: controller.selectIndex.value == index
+                                ? DoColors.theme
+                                : Colors.white,
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding:
+                                EdgeInsets.only(left: DoScreenAdapter.w(20)),
+                            child: Text(
+                              "${controller.leftCategoryList[index].title}",
+                              style: TextStyle(
+                                  fontWeight:
+                                      controller.selectIndex.value == index
+                                          ? FontWeight.bold
+                                          : FontWeight.normal),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
       ),

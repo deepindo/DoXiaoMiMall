@@ -79,7 +79,7 @@ class GoodsContentInfoView extends GetView {
                 ),
               ])
             : SizedBox(
-                height: DoScreenAdapter.sh(),
+                height: DoScreenAdapter.screenH(),
                 child: const Center(
                   child: CircularProgressIndicator(),
                 ),
@@ -98,7 +98,7 @@ class GoodsContentInfoView extends GetView {
       //     DoScreenAdapter.w(10),
       //     DoScreenAdapter.h(10)),
       color: Colors.cyan,
-      width: DoScreenAdapter.sw(),
+      width: DoScreenAdapter.screenW(),
       height: DoScreenAdapter.h(280),
       child: Image.network(
         DoNetwork.replacePictureURL("${controller.model.value.pic}"),
@@ -699,7 +699,7 @@ class GoodsContentInfoView extends GetView {
         init: controller,
         builder: (controller) {
           return Container(
-            width: DoScreenAdapter.sw(),
+            width: DoScreenAdapter.screenW(),
             height: DoScreenAdapter.h(400),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -758,7 +758,7 @@ class GoodsContentInfoView extends GetView {
                     left: 0,
                     right: 0,
                     top: DoScreenAdapter.h(80),
-                    bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
                     child: ListView(
                       padding: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(10),
@@ -833,10 +833,10 @@ class GoodsContentInfoView extends GetView {
                   // height: DoScreenAdapter.h(80),
                   child: Container(
                     // color: Colors.purple,
-                    height: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
                     child: Container(
                       //内层实际显示小的
-                      height: DoScreenAdapter.h(49),
+                      height: DoScreenAdapter.tabBarH(),
                       margin: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(0),
                         DoScreenAdapter.h(0),
@@ -915,7 +915,7 @@ class GoodsContentInfoView extends GetView {
         init: controller,
         builder: (controller) {
           return Container(
-            width: DoScreenAdapter.sw(),
+            width: DoScreenAdapter.screenW(),
             height: DoScreenAdapter.h(400),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -951,7 +951,7 @@ class GoodsContentInfoView extends GetView {
                     left: 0,
                     right: 0,
                     top: DoScreenAdapter.h(40),
-                    bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
                     child: ListView(
                       padding: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(10),
@@ -992,10 +992,10 @@ class GoodsContentInfoView extends GetView {
                   // height: DoScreenAdapter.h(80),
                   child: Container(
                     // color: Colors.purple,
-                    height: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
                     child: Container(
                       //内层实际显示小的
-                      height: DoScreenAdapter.h(49),
+                      height: DoScreenAdapter.tabBarH(),
                       margin: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(0),
                         DoScreenAdapter.h(0),
@@ -1074,7 +1074,7 @@ class GoodsContentInfoView extends GetView {
         init: controller,
         builder: (controller) {
           return Container(
-            width: DoScreenAdapter.sw(),
+            width: DoScreenAdapter.screenW(),
             height: DoScreenAdapter.h(400),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -1110,7 +1110,7 @@ class GoodsContentInfoView extends GetView {
                     left: 0,
                     right: 0,
                     top: DoScreenAdapter.h(40),
-                    bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
                     child: ListView(
                       padding: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(10),
@@ -1292,10 +1292,10 @@ class GoodsContentInfoView extends GetView {
                   // height: DoScreenAdapter.h(80),
                   child: Container(
                     // color: Colors.purple,
-                    height: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
                     child: Container(
                       //内层实际显示小的
-                      height: DoScreenAdapter.h(49),
+                      height: DoScreenAdapter.tabBarH(),
                       margin: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(0),
                         DoScreenAdapter.h(0),
@@ -1374,7 +1374,7 @@ class GoodsContentInfoView extends GetView {
         init: controller,
         builder: (controller) {
           return Container(
-            width: DoScreenAdapter.sw(),
+            width: DoScreenAdapter.screenW(),
             height: DoScreenAdapter.h(400),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -1410,7 +1410,7 @@ class GoodsContentInfoView extends GetView {
                     left: 0,
                     right: 0,
                     top: DoScreenAdapter.h(40),
-                    bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
                     child: ListView(
                       padding: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(10),
@@ -1439,10 +1439,10 @@ class GoodsContentInfoView extends GetView {
                   // height: DoScreenAdapter.h(80),
                   child: Container(
                     // color: Colors.purple,
-                    height: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
                     child: Container(
                       //内层实际显示小的
-                      height: DoScreenAdapter.h(49),
+                      height: DoScreenAdapter.tabBarH(),
                       margin: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(0),
                         DoScreenAdapter.h(0),
@@ -1529,13 +1529,13 @@ class GoodsContentInfoView extends GetView {
   //     },
   //     child: Container(
   //       decoration: BoxDecoration(
-  //           color: const Color.fromRGBO(248, 248, 248, 1),
+  //           color: DoColors.gray249,
   //           borderRadius: BorderRadius.circular(DoScreenAdapter.w(5)),
   //           border: Border.fromBorderSide(BorderSide(
   //               width: DoScreenAdapter.w(0.5),
   //               color: isSelected
   //                   ? DoColors.theme
-  //                   : const Color.fromRGBO(248, 248, 248, 1)))),
+  //                   : DoColors.gray249))),
   //       padding: EdgeInsets.fromLTRB(DoScreenAdapter.w(10),
   //           DoScreenAdapter.h(5), DoScreenAdapter.w(10), DoScreenAdapter.h(5)),
   //       child: Text(
@@ -1551,7 +1551,7 @@ class GoodsContentInfoView extends GetView {
   // void _showSelectedBottomSheet() {
   //   Get.bottomSheet(
   //     Container(
-  //       width: DoScreenAdapter.sw(),
+  //       width: DoScreenAdapter.screenW(),
   //       height: DoScreenAdapter.h(500),
   //       decoration: BoxDecoration(
   //         color: Colors.white,
@@ -1604,7 +1604,7 @@ class GoodsContentInfoView extends GetView {
   //             left: 0,
   //             right: 0,
   //             top: DoScreenAdapter.h(80),
-  //             bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+  //             bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
   //             child: ListView(
   //               padding: EdgeInsets.fromLTRB(
   //                 DoScreenAdapter.w(10),
@@ -1642,7 +1642,7 @@ class GoodsContentInfoView extends GetView {
   //                     //     shape: RoundedRectangleBorder(
   //                     //         borderRadius: BorderRadius.circular(5)),
   //                     //     backgroundColor:
-  //                     //         const Color.fromRGBO(248, 248, 248, 1),
+  //                     //         DoColors.gray249,
   //                     //     labelPadding: const EdgeInsets.all(0),
   //                     //     // padding: const EdgeInsets.symmetric(horizontal: 2),
   //                     //     // visualDensity: const VisualDensity(vertical: 0), //不生效
@@ -1689,10 +1689,10 @@ class GoodsContentInfoView extends GetView {
   //             // height: DoScreenAdapter.h(80),
   //             child: Container(
   //               // color: Colors.purple,
-  //               height: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+  //               height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
   //               child: Container(
   //                 //内层实际显示小的
-  //                 height: DoScreenAdapter.h(49),
+  //                 height: DoScreenAdapter.tabBarH(),
   //                 margin: EdgeInsets.fromLTRB(
   //                   DoScreenAdapter.w(0),
   //                   DoScreenAdapter.h(0),

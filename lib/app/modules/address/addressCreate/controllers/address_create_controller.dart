@@ -1,7 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddressCreateController extends GetxController {
-  //TODO: Implement AddressCreateController
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressDetailController = TextEditingController();
+  TextEditingController pasteController = TextEditingController();
 
   final count = 0.obs;
   @override

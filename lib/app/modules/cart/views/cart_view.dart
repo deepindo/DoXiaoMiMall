@@ -1,8 +1,9 @@
-import 'package:doxiaomimall/app/services/app_network.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:get/get.dart';
+import '../../../services/app_network.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../../../components/app_components.dart';
@@ -320,14 +321,23 @@ class CartView extends GetView<CartController> {
       right: 0,
       top: 0,
       bottom: DoScreenAdapter.h(60),
-      child: ListView(
-        padding: EdgeInsets.all(DoScreenAdapter.w(10)),
-        children: [
-          ...controller.cartList
-              .map((element) => _cartItemView(element))
-              .toList(),
-          _goodsListView(),
-        ],
+      child: SmartRefresher(
+        enablePullDown: true,
+        controller: controller.refreshController,
+        onRefresh: controller.onRefresh,
+        header: const WaterDropMaterialHeader(
+          color: Colors.white,
+          backgroundColor: DoColors.theme,
+        ),
+        child: ListView(
+          padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+          children: [
+            ...controller.cartList
+                .map((element) => _cartItemView(element))
+                .toList(),
+            _goodsListView(),
+          ],
+        ),
       ),
     );
   }

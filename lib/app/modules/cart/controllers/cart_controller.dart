@@ -1,10 +1,13 @@
 import 'package:doxiaomimall/app/services/app_cartService.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
 import '../../../services/app_network.dart';
 import '../../../models/goods_model.dart';
 
 class CartController extends GetxController {
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
   // bool isCanJumpGoodsInfo =
   // Get.arguments != null ? Get.arguments["isCanJumpGoodsInfo"] : false;
   RxList<GoodsItemModel> goodsList = <GoodsItemModel>[].obs;
@@ -27,6 +30,14 @@ class CartController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  ///下拉刷新
+  void onRefresh() {
+    _requestGoodsData();
+    getLocalCartList();
+    print("refreshController.loadComplete()");
+    refreshController.refreshCompleted();
   }
 
   ///请求瀑布流商品数据

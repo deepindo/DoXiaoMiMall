@@ -13,7 +13,7 @@ class SearchView extends GetView<SearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(248, 248, 248, 1),
+      backgroundColor: DoColors.gray249,
       appBar: _customAppBar(),
       body: _contentListView(),
     );

@@ -1,8 +1,9 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_swiper_view/flutter_swiper_view.dart';
-import 'package:get/get.dart';
 import '../../../components/app_components.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_fontIcons.dart';
@@ -103,20 +104,29 @@ class MeView extends GetView<MeController> {
 
   ///body部分
   Widget _body() {
-    return ListView(
-      padding: EdgeInsets.all(DoScreenAdapter.w(10)),
-      children: [
-        _profileHeaderSection(),
-        _profileMenuSection(),
-        _mallVIPSection(),
-        SizedBox(height: DoScreenAdapter.h(10)),
-        _orderRecordSection(),
-        SizedBox(height: DoScreenAdapter.h(10)),
-        _serviceSection(),
-        SizedBox(height: DoScreenAdapter.h(10)),
-        _bannerSection(),
-        _goodsListView(),
-      ],
+    return SmartRefresher(
+      enablePullDown: true,
+      controller: controller.refreshController,
+      onRefresh: controller.onRefresh,
+      header: const WaterDropMaterialHeader(
+        color: Colors.white,
+        backgroundColor: DoColors.theme,
+      ),
+      child: ListView(
+        padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+        children: [
+          _profileHeaderSection(),
+          _profileMenuSection(),
+          _mallVIPSection(),
+          SizedBox(height: DoScreenAdapter.h(10)),
+          _orderRecordSection(),
+          SizedBox(height: DoScreenAdapter.h(10)),
+          _serviceSection(),
+          SizedBox(height: DoScreenAdapter.h(10)),
+          _bannerSection(),
+          _goodsListView(),
+        ],
+      ),
     );
   }
 
@@ -162,7 +172,7 @@ class MeView extends GetView<MeController> {
                               borderRadius:
                                   BorderRadius.circular(DoScreenAdapter.w(10))),
                           child: Text(
-                            "小米ID${controller.model.value.salt}",
+                            "小米ID${controller.model.value.sId}",
                             style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
                           ),
                         ),

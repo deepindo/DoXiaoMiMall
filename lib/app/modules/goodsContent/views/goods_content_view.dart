@@ -22,7 +22,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
         body: Stack(
           children: [
             _singleChildScrollView(),
-            _bottomFloatingView(),
+            _floatingBottomView(),
             _customSubHeaders(),
           ],
         ));
@@ -31,7 +31,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
   ///自定义appBar
   PreferredSize _customAppBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(DoScreenAdapter.h(44)),
+      preferredSize: Size.fromHeight(DoScreenAdapter.navH()),
       child: Obx(
         () => AppBar(
           backgroundColor: Colors.white.withOpacity(controller.opacity.value),
@@ -62,7 +62,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
   Widget _customHeader() {
     return SizedBox(
       width: DoScreenAdapter.w(140), //设置后才可以居中
-      height: DoScreenAdapter.h(44),
+      height: DoScreenAdapter.navH(),
       child: Obx(
         () => controller.showTabs.value
             ? Row(
@@ -120,7 +120,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
           ? Positioned(
               left: 0,
               right: 0,
-              top: DoScreenAdapter.h(44) + DoScreenAdapter.statush(),
+              top: DoScreenAdapter.navH() + DoScreenAdapter.statusH(),
               // -
               // DoScreenAdapter.h(0.5), //细微的差别，有条缝隙
               child: commonSubHeaders(),
@@ -210,24 +210,23 @@ class GoodsContentView extends GetView<GoodsContentController> {
   }
 
   ///底部浮动操作区域-添加到购物车
-  Widget _bottomFloatingView() {
+  Widget _floatingBottomView() {
     return Positioned(
       left: 0,
       right: 0,
       bottom: 0,
       child: Container(
         //外层适应适配大的
-        height: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+        height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.bottomH()),
         color: Colors.white,
-        // height: (DoScreenAdapter.h(64) + DoScreenAdapter.bh()),
         child: Container(
           //内层实际显示小的
-          height: DoScreenAdapter.h(49),
+          height: DoScreenAdapter.tabBarH(),
           margin: EdgeInsets.fromLTRB(
             DoScreenAdapter.w(0),
             DoScreenAdapter.h(0),
             DoScreenAdapter.w(0),
-            DoScreenAdapter.h(34) + DoScreenAdapter.h(0),
+            DoScreenAdapter.h(0) + DoScreenAdapter.bottomH(),
           ),
           decoration: BoxDecoration(
               color: Colors.white,
@@ -248,14 +247,14 @@ class GoodsContentView extends GetView<GoodsContentController> {
                   Get.toNamed("/customer-service");
                 },
                 child: Padding(
-                  // padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   padding: EdgeInsets.fromLTRB(
                     DoScreenAdapter.w(8),
-                    DoScreenAdapter.h(10),
+                    DoScreenAdapter.h(0),
                     DoScreenAdapter.w(8),
-                    DoScreenAdapter.h(5),
+                    DoScreenAdapter.h(0),
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(
                         Icons.headset_mic_rounded,
@@ -413,7 +412,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
     showMenu(
       context: Get.context!,
       position: RelativeRect.fromLTRB(
-        DoScreenAdapter.sw(),
+        DoScreenAdapter.screenW(),
         DoScreenAdapter.h(64 + 24 - 16), //24是适配刘海屏的,10是为了微调的
         DoScreenAdapter.w(20),
         DoScreenAdapter.h(0),
@@ -505,7 +504,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
         init: controller,
         builder: (controller) {
           return Container(
-            width: DoScreenAdapter.sw(),
+            width: DoScreenAdapter.screenW(),
             height: DoScreenAdapter.h(400),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -564,7 +563,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                   left: 0,
                   right: 0,
                   top: DoScreenAdapter.h(70),
-                  bottom: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                  bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
                   child: ListView(
                       padding: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(10),
@@ -633,10 +632,10 @@ class GoodsContentView extends GetView<GoodsContentController> {
                   // height: DoScreenAdapter.h(80),
                   child: Container(
                     // color: Colors.purple,
-                    height: (DoScreenAdapter.h(49) + DoScreenAdapter.h(34)),
+                    height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
                     child: Container(
                       //内层实际显示小的
-                      height: DoScreenAdapter.h(49),
+                      height: DoScreenAdapter.tabBarH(),
                       margin: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(0),
                         DoScreenAdapter.h(0),
@@ -869,15 +868,11 @@ class GoodsContentView extends GetView<GoodsContentController> {
       },
       child: Container(
         decoration: BoxDecoration(
-            color: isSelected
-                ? DoColors.red251
-                : const Color.fromRGBO(248, 248, 248, 1),
+            color: isSelected ? DoColors.red251 : DoColors.gray249,
             borderRadius: BorderRadius.circular(DoScreenAdapter.w(5)),
             border: Border.fromBorderSide(BorderSide(
                 width: DoScreenAdapter.w(0.5),
-                color: isSelected
-                    ? DoColors.theme
-                    : const Color.fromRGBO(248, 248, 248, 1)))),
+                color: isSelected ? DoColors.theme : DoColors.gray249))),
         padding: EdgeInsets.fromLTRB(DoScreenAdapter.w(10),
             DoScreenAdapter.h(5), DoScreenAdapter.w(10), DoScreenAdapter.h(5)),
         child: Text(

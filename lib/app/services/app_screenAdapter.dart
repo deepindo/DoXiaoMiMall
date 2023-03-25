@@ -22,23 +22,40 @@ class DoScreenAdapter {
   }
 
   ///屏宽
-  static sw() {
+  static screenW() {
     return ScreenUtil().screenWidth; //1.sw
   }
 
   ///屏高
-  static sh() {
+  static screenH() {
     return ScreenUtil().screenHeight; //1.sh
   }
 
-  ///底部安全区距离
-  static bh() {
-    return ScreenUtil().bottomBarHeight; //1.sh
+  ///状态栏高度 刘海屏会更高
+  static statusH() {
+    return ScreenUtil().statusBarHeight; //1.sh
   }
 
-  ///顶部状态栏高度
-  static statush() {
-    return ScreenUtil().statusBarHeight; //1.sh
+  ///对于导航栏(不加状态栏的高)，两端统一用这个
+  ///方便控制
+  static navH() {
+    return 44.h; //1.sh
+  }
+
+  ///对于底部栏(不加安全区的高)，两端统一用这个
+  ///方便控制
+  static tabBarH() {
+    return 49.h; //1.sh
+  }
+
+  ///底部安全区距离，适用于全面屏下面有按键的
+  ///因为安卓手机获取的值为0，实际显示其实是和iOS-x系列以后一样，
+  ///底部是个弧形的屏幕，太贴底，而且感觉按49高度设置的水平居中的控制，实际看起来的效果是偏下
+  ///对于这个，在这控制更加方便
+  static bottomH() {
+    return ScreenUtil().bottomBarHeight != 0.0
+        ? ScreenUtil().bottomBarHeight
+        : 34; //1.sh
   }
 }
 
@@ -63,7 +80,7 @@ class DoScreenAdapter {
 
 #define kNavBarH                (kISIPhoneX_Serial == YES ? 88 : 64)  /// 导航栏高度
 #define kTabBarH                (kISIPhoneX_Serial == YES ? 83 : 49)  /// 底部Tabbar高度
-#define kStatusBarH             (kISIPhoneX_Serial == YES ? 44 : 20)  /// 状态栏高度
-#define kSafeAreaBottomHeight   (kISIPhoneX_Serial == YES ? 34 : 0)   /// 底部安全区高度
+#define kStatusBarH             (kISIPhoneX_Serial == YES ? 44 : 20)  /// 状态栏高度, 安卓咋是33.0，iOS是47
+#define kSafeAreaBottomHeight   (kISIPhoneX_Serial == YES ? 34 : 0)   /// 底部安全区高度，安卓是0.0，iOS是34
 
  */

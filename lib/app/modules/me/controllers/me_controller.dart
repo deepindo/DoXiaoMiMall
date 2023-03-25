@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../models/banner_model.dart';
 import '../../../models/goods_model.dart';
 import '../../../models/user_model.dart';
@@ -8,6 +9,8 @@ import '../../../services/app_network.dart';
 import '../../../services/app_userService.dart';
 
 class MeController extends GetxController {
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
   RxList<BannerItemModel> bannerList = <BannerItemModel>[].obs;
   RxList<GoodsItemModel> goodsList = <GoodsItemModel>[].obs;
   RxBool isLogin = false.obs;
@@ -83,11 +86,20 @@ class MeController extends GetxController {
     super.onClose();
   }
 
+  ///下拉刷新
+  void onRefresh() {
+    _requestBannerData();
+    _requestGoodsData();
+    getUserInfo();
+    refreshController.refreshCompleted();
+  }
+
   ///请求banner数据
   void _requestBannerData() async {
     // print("_requestBannerData");
     var data = await DoNetwork().get(bannerPath);
     bannerList.value = BannerModel.fromJson(data).result!;
+    refreshController.refreshCompleted();
     update();
   }
 

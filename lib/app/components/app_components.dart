@@ -90,9 +90,9 @@ Widget commonProtocolView(bool isChecked,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Container(
-        width: DoScreenAdapter.w(15),
-        height: DoScreenAdapter.w(15),
-        alignment: Alignment.center,
+        width: DoScreenAdapter.w(25),
+        height: DoScreenAdapter.w(25),
+        alignment: Alignment.topCenter, //上面相当于加大了热区
         child: RoundCheckBox(
           onTap: onTap,
           checkedColor: DoColors.theme,

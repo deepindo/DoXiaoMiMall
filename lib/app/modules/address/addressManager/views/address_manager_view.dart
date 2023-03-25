@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../controllers/address_manager_controller.dart';
@@ -11,6 +9,7 @@ class AddressManagerView extends GetView<AddressManagerController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: DoColors.gray249,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -39,11 +38,48 @@ class AddressManagerView extends GetView<AddressManagerController> {
         left: 0,
         right: 0,
         bottom: 0,
-        child: Container(
-          color: Colors.cyan,
-          height: DoScreenAdapter.h(40),
+        child: InkWell(
+          onTap: () {
+            Get.toNamed("/address-create");
+          },
           child: Container(
-            decoration: BoxDecoration(),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              border:
+                  Border(top: BorderSide(width: 1, color: DoColors.gray238)),
+            ),
+            height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.bottomH()),
+            child: Container(
+              // height: DoScreenAdapter.h(39),
+              margin: EdgeInsets.fromLTRB(
+                DoScreenAdapter.w(20),
+                DoScreenAdapter.h(10),
+                DoScreenAdapter.w(20),
+                DoScreenAdapter.h(10) + DoScreenAdapter.bottomH(),
+              ),
+              decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [DoColors.redBegin, DoColors.redEnd]),
+                  borderRadius: BorderRadius.circular(DoScreenAdapter.w(20))),
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: DoScreenAdapter.fs(15),
+                  ),
+                  Text(
+                    "新建收货地址",
+                    style: TextStyle(
+                        color: Colors.white, fontSize: DoScreenAdapter.fs(13)),
+                  ),
+                ],
+              ),
+            ),
           ),
         ));
   }
@@ -54,58 +90,84 @@ class AddressManagerView extends GetView<AddressManagerController> {
         Get.toNamed("/address-modify");
       },
       child: Container(
-        // height: DoScreenAdapter.h(50),
-        padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        color: Colors.white,
+        padding: EdgeInsets.fromLTRB(DoScreenAdapter.w(10),
+            DoScreenAdapter.h(10), DoScreenAdapter.w(10), DoScreenAdapter.h(0)),
+        child: Column(
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "xxxx",
+                            // "${controller.model.value.username}",
+                            style: TextStyle(
+                                fontSize: DoScreenAdapter.fs(16),
+                                color: DoColors.theme),
+                          ),
+                          SizedBox(width: DoScreenAdapter.w(20)),
+                          Text(
+                            "17623458080",
+                            // "${controller.model.value.username}",
+                            style: TextStyle(
+                              fontSize: DoScreenAdapter.fs(14),
+                            ),
+                          ),
+                          SizedBox(width: DoScreenAdapter.w(10)),
+                          Container(
+                            padding: EdgeInsets.all(DoScreenAdapter.w(2)),
+                            decoration: BoxDecoration(
+                                color: DoColors.theme,
+                                borderRadius: BorderRadius.circular(
+                                    DoScreenAdapter.w(2))),
+                            child: Text(
+                              "默认",
+                              style: TextStyle(
+                                  fontSize: DoScreenAdapter.fs(10),
+                                  color: Colors.white),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: DoScreenAdapter.h(2)),
+                      Text(
+                        "streetxxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊x枯叶基加油 因果报应劳而无功我啊",
+                        // "${controller.model.value.username}",
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(14),
+                        ),
+                      ),
+                      SizedBox(height: DoScreenAdapter.h(2)),
+                      Text(
+                        "detailxxxxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊xxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊xxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊xxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊xxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊xxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊",
+                        // "${controller.model.value.username}",
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(14),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: DoScreenAdapter.w(10)),
                 Row(
                   children: [
-                    Text(
-                      "xxxx",
-                      // "${controller.model.value.username}",
-                      style: TextStyle(
-                          fontSize: DoScreenAdapter.fs(14),
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(width: DoScreenAdapter.w(10)),
-                    Text(
-                      "17623458080",
-                      // "${controller.model.value.username}",
-                      style: TextStyle(
-                          fontSize: DoScreenAdapter.fs(14),
-                          fontWeight: FontWeight.bold),
-                    ),
+                    Icon(Icons.arrow_forward_ios_outlined,
+                        size: DoScreenAdapter.fs(12), color: DoColors.black128)
                   ],
                 ),
-                SizedBox(height: DoScreenAdapter.h(5)),
-                Text(
-                  "xxxx",
-                  // "${controller.model.value.username}",
-                  style: TextStyle(
-                      fontSize: DoScreenAdapter.fs(14),
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: DoScreenAdapter.h(5)),
-                Text(
-                  "xxxx",
-                  // "${controller.model.value.username}",
-                  style: TextStyle(
-                      fontSize: DoScreenAdapter.fs(14),
-                      fontWeight: FontWeight.bold),
-                ),
               ],
             ),
-            Row(
-              children: [
-                Icon(Icons.arrow_forward_ios_outlined,
-                    size: DoScreenAdapter.fs(12), color: DoColors.black128)
-              ],
-            ),
+            SizedBox(height: DoScreenAdapter.h(10)),
+            const Divider(height: 0.5, color: DoColors.gray238)
           ],
         ),
       ),

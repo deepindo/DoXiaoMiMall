@@ -126,7 +126,8 @@ class GoodsContentController extends GetxController {
 
   ///获取渲染图层的位置
   void _getRenderBoxPosition(double scrollPixels) {
-    double adapterNavHeight = DoScreenAdapter.h(44) + DoScreenAdapter.statush();
+    double adapterNavHeight =
+        DoScreenAdapter.navH() + DoScreenAdapter.statusH();
 
     RenderBox rb1 = gk1.currentContext!.findRenderObject() as RenderBox;
     rb1Positon =
@@ -189,7 +190,7 @@ class GoodsContentController extends GetxController {
       // Timer.periodic(const Duration(milliseconds: 110), (timer) {
       //   double scrollPixels = scrollController.position.pixels;
       //   double adapterNavHeight =
-      //       DoScreenAdapter.h(44) + DoScreenAdapter.statush();
+      //       DoScreenAdapter.navH() + DoScreenAdapter.statusH();
       //   double fixedHeight =
       //       scrollPixels - adapterNavHeight + DoScreenAdapter.h(2);
       //   // + DoScreenAdapter.h(1); //微调一点点
@@ -206,7 +207,7 @@ class GoodsContentController extends GetxController {
       // Timer.periodic(const Duration(milliseconds: 110), (timer) {
       //   double scrollPixels = scrollController.position.pixels;
       //   double adapterNavHeight =
-      //       DoScreenAdapter.h(44) + DoScreenAdapter.statush();
+      //       DoScreenAdapter.navH() + DoScreenAdapter.statusH();
       //   double fixedHeight =
       //       scrollPixels - adapterNavHeight + DoScreenAdapter.h(2);
       //   // + DoScreenAdapter.h(1); //微调一点点

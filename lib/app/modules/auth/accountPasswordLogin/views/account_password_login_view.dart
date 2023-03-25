@@ -115,6 +115,7 @@ class AccountPasswordLoginView extends GetView<AccountPasswordLoginController> {
                       controller: controller.passwordController,
                       keyboardType: TextInputType.text,
                       cursorColor: DoColors.theme,
+                      obscuringCharacter: "*",
                       obscureText: controller.isObscure.value,
                       style: TextStyle(
                           color: DoColors.black0,
