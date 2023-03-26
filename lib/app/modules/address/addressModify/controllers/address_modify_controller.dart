@@ -13,6 +13,7 @@ class AddressModifyController extends GetxController {
   TextEditingController addressDistrictController = TextEditingController();
   TextEditingController addressDetailController = TextEditingController();
   TextEditingController pasteController = TextEditingController();
+  RxBool isAddressPasteUnfold = true.obs;
   RxBool isAddressDefault = false.obs;
 
   @override
@@ -48,6 +49,12 @@ class AddressModifyController extends GetxController {
   ///改变是否是默认switch
   void switchDefault() {
     isAddressDefault.value = !isAddressDefault.value;
+    update();
+  }
+
+  ///改变地址粘贴板的展开收缩状态
+  void changeAddressPasteState() {
+    isAddressPasteUnfold.value = !isAddressPasteUnfold.value;
     update();
   }
 

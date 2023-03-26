@@ -346,56 +346,57 @@ class AddressModifyView extends GetView<AddressModifyController> {
               ),
 
               ///粘帖框
-              Container(
-                padding: EdgeInsets.all(DoScreenAdapter.w(10)),
-                color: Colors.white,
-                alignment: Alignment.centerLeft,
-                child: TextField(
-                  controller: controller.pasteController,
-                  maxLines: 4,
-                  style: TextStyle(
-                      color: DoColors.black0,
-                      fontSize: DoScreenAdapter.fs(14),
-                      fontWeight: FontWeight.bold),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: DoColors.gray238,
-                    contentPadding: EdgeInsets.all(DoScreenAdapter.w(6)),
+              Obx(() => controller.isAddressPasteUnfold.value
+                  ? Container(
+                      padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                      color: Colors.white,
+                      alignment: Alignment.centerLeft,
+                      child: TextField(
+                        controller: controller.pasteController,
+                        maxLines: 4,
+                        style: TextStyle(
+                            color: DoColors.black0,
+                            fontSize: DoScreenAdapter.fs(14),
+                            fontWeight: FontWeight.bold),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: DoColors.gray238,
+                          contentPadding: EdgeInsets.all(DoScreenAdapter.w(6)),
 
-                    ///以下三个都设置了，border才能去掉
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.circular(DoScreenAdapter.w(5)),
-                        borderSide: const BorderSide(
-                          style: BorderStyle.none,
-                        )),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.circular(DoScreenAdapter.w(5)),
-                        borderSide: const BorderSide(
-                          style: BorderStyle.none,
-                        )),
-                    border: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.circular(DoScreenAdapter.w(5)),
-                        borderSide: const BorderSide(
-                          style: BorderStyle.none,
-                        )),
-                    hintText: "粘帖文本，可自动识别姓名、电话和地址",
-                    hintStyle: TextStyle(
-                        color: DoColors.gray168,
-                        fontSize: DoScreenAdapter.fs(14),
-                        fontWeight: FontWeight.normal),
-                  ),
-                ),
-              ),
+                          ///以下三个都设置了，border才能去掉
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(DoScreenAdapter.w(5)),
+                              borderSide: const BorderSide(
+                                style: BorderStyle.none,
+                              )),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(DoScreenAdapter.w(5)),
+                              borderSide: const BorderSide(
+                                style: BorderStyle.none,
+                              )),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(DoScreenAdapter.w(5)),
+                              borderSide: const BorderSide(
+                                style: BorderStyle.none,
+                              )),
+                          hintText: "粘帖文本，可自动识别姓名、电话和地址",
+                          hintStyle: TextStyle(
+                              color: DoColors.gray168,
+                              fontSize: DoScreenAdapter.fs(14),
+                              fontWeight: FontWeight.normal),
+                        ),
+                      ),
+                    )
+                  : const SizedBox(height: 0)),
 
               ///地址粘帖板
               InkWell(
                 onTap: () {
-                  print("地址粘贴板");
                   // Clipboard.setData(ClipboardData(text: "code"));
-                  controller.pasteController.text = "地址粘贴板地址粘贴板地址粘贴板地址粘贴板";
+                  controller.changeAddressPasteState();
                 },
                 child: Container(
                   height: DoScreenAdapter.h(30),

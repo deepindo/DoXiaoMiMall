@@ -89,8 +89,7 @@ class SettingView extends GetView<SettingController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "17623458080",
-                      // "${controller.model.value.username}",
+                      "${controller.userModel.value.username}",
                       style: TextStyle(
                           fontSize: DoScreenAdapter.fs(14),
                           fontWeight: FontWeight.bold),
@@ -103,8 +102,7 @@ class SettingView extends GetView<SettingController> {
                           borderRadius:
                               BorderRadius.circular(DoScreenAdapter.w(10))),
                       child: Text(
-                        "小米ID",
-                        // "小米ID${controller.model.value.salt}",
+                        "小米ID${controller.userModel.value.sId}",
                         style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
                       ),
                     ),

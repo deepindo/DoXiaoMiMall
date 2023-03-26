@@ -1,8 +1,12 @@
+import '../../../models/user_model.dart';
 import '../../../services/app_screenAdapter.dart';
 import 'package:get/get.dart';
+
+import '../../../services/app_userService.dart';
 // import '../../me/controllers/me_controller.dart';
 
 class SettingController extends GetxController {
+  var userModel = UserModel().obs;
   // MeController meController = Get.find();
 
   @override
@@ -12,6 +16,8 @@ class SettingController extends GetxController {
     // print(DoScreenAdapter.bottomH());
     super.onInit();
     // print("onInit a-SettingController");
+
+    initUserInfo();
   }
 
   @override
@@ -37,6 +43,13 @@ class SettingController extends GetxController {
     // print("before dispose SettingController");
     super.dispose();
     // print("after dispose SettingController");
+  }
+
+  void initUserInfo() async {
+    List list = await DoUserService.getUserInfo();
+    if (list.isNotEmpty) {
+      userModel.value = UserModel.fromJson(list[0]);
+    }
   }
 
   ///控制器中有方法在view中执行，才会触发lazyPut的controller执行onInit等方法，

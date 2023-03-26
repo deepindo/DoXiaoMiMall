@@ -47,6 +47,15 @@ const String modifyAddressPath = "api/editAddress";
 ///删除收货地址
 const String deleteAddressPath = "api/deleteAddress";
 
+///
+///
+///
+///
+///
+///
+///
+///
+///
 ///---------------------网络请求类---------------------
 ///
 class DoNetwork {
@@ -111,9 +120,14 @@ class DoNetwork {
     ),
   );
 
-  /// 似乎可以再抽一个基类方法出来
   /// get请求方法
-  /// api也可以抽取
+  /// 似乎可以再抽一个基类方法出来
+  ///
+  ///
+  ///
+  ///
+  ///
+  ///
   Future get(apiPath) async {
     try {
       var response = await dio.get(apiPath);
@@ -150,6 +164,12 @@ class DoNetwork {
   }
 
   ///post请求
+  ///
+  ///
+  ///
+  ///
+  ///
+  ///
   Future post(String apiPath, {Object? data}) async {
     try {
       var response = await dio.post(apiPath, data: data);
