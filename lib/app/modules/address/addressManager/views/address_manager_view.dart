@@ -30,7 +30,7 @@ class AddressManagerView extends GetView<AddressManagerController> {
         left: 0,
         right: 0,
         top: 0,
-        bottom: DoScreenAdapter.h(40),
+        bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.bottomH()),
         child: Obx(() => controller.addressList.isNotEmpty
             ? ListView(
                 children: controller.addressList
