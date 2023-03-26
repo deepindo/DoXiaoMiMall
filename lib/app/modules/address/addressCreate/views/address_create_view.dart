@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:city_pickers/city_pickers.dart';
+import '../../../../models/response_model.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../controllers/address_create_controller.dart';
@@ -219,7 +221,7 @@ class AddressCreateView extends GetView<AddressCreateController> {
                                 print("validator:$value");
                               },
                               controller: controller.addressDistrictController,
-                              keyboardType: TextInputType.name,
+                              keyboardType: TextInputType.text,
                               cursorColor: DoColors.theme,
                               textAlignVertical: TextAlignVertical.center,
                               // enabled: false,
@@ -310,7 +312,7 @@ class AddressCreateView extends GetView<AddressCreateController> {
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(11)
                               ],
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.text,
                               cursorColor: DoColors.theme,
                               textAlignVertical: TextAlignVertical.center,
                               style: TextStyle(
@@ -467,30 +469,56 @@ class AddressCreateView extends GetView<AddressCreateController> {
         left: 0,
         right: 0,
         bottom: 0,
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            border: Border(top: BorderSide(width: 1, color: DoColors.gray238)),
-          ),
-          height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.bottomH()),
+        child: InkWell(
+          onTap: () async {
+            if (controller.usernameController.text.isEmpty) {
+              EasyLoading.showToast("请填写完整的姓名");
+            } else if (!GetUtils.isPhoneNumber(
+                    controller.phoneController.text) ||
+                controller.phoneController.text.length != 11) {
+              EasyLoading.showToast("请填写正确的手机号");
+            } else if (controller.addressDistrictController.text.length < 2) {
+              EasyLoading.showToast("请选择地区");
+            } else if (controller.addressDetailController.text.length < 2) {
+              EasyLoading.showToast("请填写详细地址");
+            } else {
+              FocusScope.of(Get.context!).requestFocus(FocusNode());
+              EasyLoading.show(status: "保存中");
+              ResponseModel response = await controller.addressCreate();
+              if (response.success) {
+                Get.back();
+                EasyLoading.showSuccess(response.message);
+              } else {
+                EasyLoading.showError(response.message);
+              }
+            }
+          },
           child: Container(
-            margin: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(20),
-              DoScreenAdapter.h(10),
-              DoScreenAdapter.w(20),
-              DoScreenAdapter.h(10) + DoScreenAdapter.bottomH(),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              border:
+                  Border(top: BorderSide(width: 1, color: DoColors.gray238)),
             ),
-            decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [DoColors.redBegin, DoColors.redEnd]),
-                borderRadius: BorderRadius.circular(DoScreenAdapter.w(20))),
-            alignment: Alignment.center,
-            child: Text(
-              "保存地址",
-              style: TextStyle(
-                  color: Colors.white, fontSize: DoScreenAdapter.fs(13)),
+            height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.bottomH()),
+            child: Container(
+              margin: EdgeInsets.fromLTRB(
+                DoScreenAdapter.w(20),
+                DoScreenAdapter.h(10),
+                DoScreenAdapter.w(20),
+                DoScreenAdapter.h(10) + DoScreenAdapter.bottomH(),
+              ),
+              decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [DoColors.redBegin, DoColors.redEnd]),
+                  borderRadius: BorderRadius.circular(DoScreenAdapter.w(20))),
+              alignment: Alignment.center,
+              child: Text(
+                "保存地址",
+                style: TextStyle(
+                    color: Colors.white, fontSize: DoScreenAdapter.fs(13)),
+              ),
             ),
           ),
         ));

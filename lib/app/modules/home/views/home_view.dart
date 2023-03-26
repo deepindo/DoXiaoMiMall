@@ -1,4 +1,3 @@
-import 'package:doxiaomimall/app/services/app_screenAdapter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -8,6 +7,7 @@ import '../../../services/app_colors.dart';
 import '../../../services/app_fontIcons.dart';
 import '../../../services/app_keepAliveWrapper.dart';
 import '../../../services/app_network.dart';
+import '../../../services/app_screenAdapter.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {

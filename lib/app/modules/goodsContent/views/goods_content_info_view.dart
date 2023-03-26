@@ -1,8 +1,8 @@
-import 'package:doxiaomimall/app/services/app_network.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
+import '../../../services/app_network.dart';
 import '../controllers/goods_content_controller.dart';
 
 class GoodsContentInfoView extends GetView {

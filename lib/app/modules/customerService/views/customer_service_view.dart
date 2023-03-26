@@ -1,7 +1,7 @@
-import 'package:doxiaomimall/app/services/app_screenAdapter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../services/app_fontIcons.dart';
+import '../../../services/app_screenAdapter.dart';
 import '../controllers/customer_service_controller.dart';
 
 class CustomerServiceView extends GetView<CustomerServiceController> {

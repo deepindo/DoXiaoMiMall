@@ -1,3 +1,4 @@
+import 'package:doxiaomimall/app/models/address_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../services/app_colors.dart';
@@ -30,7 +31,12 @@ class AddressManagerView extends GetView<AddressManagerController> {
         right: 0,
         top: 0,
         bottom: DoScreenAdapter.h(40),
-        child: ListView(children: [_addressItem(), _addressItem()]));
+        child: Obx(() => controller.addressList.isNotEmpty
+            ? ListView(
+                children: controller.addressList
+                    .map((element) => _addressItem(element))
+                    .toList())
+            : const Text("暂无数据")));
   }
 
   Widget _floatingButton() {
@@ -84,7 +90,7 @@ class AddressManagerView extends GetView<AddressManagerController> {
         ));
   }
 
-  Widget _addressItem() {
+  Widget _addressItem(AddressItemModel element) {
     return InkWell(
       onTap: () {
         Get.toNamed("/address-modify");
@@ -106,39 +112,39 @@ class AddressManagerView extends GetView<AddressManagerController> {
                       Row(
                         children: [
                           Text(
-                            "xxxx",
-                            // "${controller.model.value.username}",
+                            element.name!,
                             style: TextStyle(
                                 fontSize: DoScreenAdapter.fs(16),
                                 color: DoColors.theme),
                           ),
                           SizedBox(width: DoScreenAdapter.w(20)),
                           Text(
-                            "17623458080",
-                            // "${controller.model.value.username}",
+                            element.phone!,
                             style: TextStyle(
                               fontSize: DoScreenAdapter.fs(14),
                             ),
                           ),
                           SizedBox(width: DoScreenAdapter.w(10)),
-                          Container(
-                            padding: EdgeInsets.all(DoScreenAdapter.w(2)),
-                            decoration: BoxDecoration(
-                                color: DoColors.theme,
-                                borderRadius: BorderRadius.circular(
-                                    DoScreenAdapter.w(2))),
-                            child: Text(
-                              "默认",
-                              style: TextStyle(
-                                  fontSize: DoScreenAdapter.fs(10),
-                                  color: Colors.white),
-                            ),
-                          ),
+                          element.defaultAddress == 1
+                              ? Container(
+                                  padding: EdgeInsets.all(DoScreenAdapter.w(2)),
+                                  decoration: BoxDecoration(
+                                      color: DoColors.theme,
+                                      borderRadius: BorderRadius.circular(
+                                          DoScreenAdapter.w(2))),
+                                  child: Text(
+                                    "默认",
+                                    style: TextStyle(
+                                        fontSize: DoScreenAdapter.fs(10),
+                                        color: Colors.white),
+                                  ),
+                                )
+                              : const Text(""),
                         ],
                       ),
                       SizedBox(height: DoScreenAdapter.h(2)),
                       Text(
-                        "streetxxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊x枯叶基加油 因果报应劳而无功我啊",
+                        element.address!,
                         // "${controller.model.value.username}",
                         maxLines: 2,
                         style: TextStyle(
@@ -147,8 +153,7 @@ class AddressManagerView extends GetView<AddressManagerController> {
                       ),
                       SizedBox(height: DoScreenAdapter.h(2)),
                       Text(
-                        "detailxxxxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊xxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊xxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊xxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊xxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊xxx悄葙fsflk枯叶基加油 因果报应劳而无功我啊",
-                        // "${controller.model.value.username}",
+                        element.address!,
                         maxLines: 2,
                         style: TextStyle(
                           fontSize: DoScreenAdapter.fs(14),

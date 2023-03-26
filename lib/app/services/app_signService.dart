@@ -20,8 +20,7 @@ class DoSignService {
     }
 
     ///6.md5加密生成签名
-    String sign = md5.convert(utf8.encode(str)) as String;
-
-    return sign;
+    var sign = md5.convert(utf8.encode(str));
+    return "$sign"; //这样转字符串
   }
 }

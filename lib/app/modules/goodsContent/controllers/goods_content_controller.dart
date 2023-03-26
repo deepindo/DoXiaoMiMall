@@ -1,12 +1,12 @@
-import 'package:doxiaomimall/app/services/app_cartService.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import '../../../services/app_network.dart';
 import '../../../models/goods_content_model.dart';
-import '../../../services/app_screenAdapter.dart';
 import '../../../models/goods_model.dart';
+import '../../../services/app_network.dart';
 import '../../../services/app_userService.dart';
+import '../../../services/app_cartService.dart';
+import '../../../services/app_screenAdapter.dart';
 
 class GoodsContentController extends GetxController {
   final ScrollController scrollController = ScrollController();
