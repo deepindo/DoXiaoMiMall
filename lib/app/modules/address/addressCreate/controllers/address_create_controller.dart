@@ -31,10 +31,10 @@ class AddressCreateController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    print("AddressCreateController---onClose");
     // controller.requestAddressList();
     Get.find<CheckoutController>().requestDefaultAddress();
     Get.find<CheckoutController>().requestAllAddressList();
-
     Get.find<AddressManagerController>().requestAddressList();
   }
 

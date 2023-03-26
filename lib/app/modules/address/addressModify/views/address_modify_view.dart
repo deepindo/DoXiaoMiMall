@@ -8,8 +8,11 @@ import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../controllers/address_modify_controller.dart';
 
-class AddressModifyView extends GetView<AddressModifyController> {
-  const AddressModifyView({Key? key}) : super(key: key);
+// class AddressModifyView extends GetView<AddressModifyController> {
+class AddressModifyView extends GetView {
+  @override
+  AddressModifyController controller = Get.put(AddressModifyController());
+  AddressModifyView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +49,6 @@ class AddressModifyView extends GetView<AddressModifyController> {
             children: [
               ///姓名
               Container(
-                // height: DoScreenAdapter.h(41.5),
                 padding:
                     EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
                 color: Colors.white,
@@ -75,10 +77,6 @@ class AddressModifyView extends GetView<AddressModifyController> {
                                 fontWeight: FontWeight.bold),
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              // prefix: Text("姓名1:"),
-                              // prefixText: "姓名",
-                              // label: Text("姓名:"),
-                              // helperText: "help",
                               hintText: "填写收货人姓名",
                               hintStyle: TextStyle(
                                   color: DoColors.gray168,
@@ -99,9 +97,6 @@ class AddressModifyView extends GetView<AddressModifyController> {
                   ],
                 ),
               ),
-
-              ///电话-通过设置高度，上下与分隔线用了Expanded,左右与左边文字间也用了Expanded
-              ///这样方便控制高度，另外不用设置空的suffixIcon来达到居中的效果
               Container(
                 height: DoScreenAdapter.h(41.5),
                 padding:
@@ -119,7 +114,7 @@ class AddressModifyView extends GetView<AddressModifyController> {
                               onChanged: (value) {},
                               onFieldSubmitted: (value) {},
                               validator: (value) {
-                                print("validator:$value");
+                                // print("validator:$value");
                               },
                               controller: controller.phoneController,
                               inputFormatters: [
@@ -134,20 +129,6 @@ class AddressModifyView extends GetView<AddressModifyController> {
                                   fontWeight: FontWeight.bold),
                               decoration: InputDecoration(
                                   isCollapsed: true,
-                                  // contentPadding:
-                                  //     const EdgeInsets.only(top: 0, bottom: 0),
-                                  // focusedBorder: const OutlineInputBorder(
-                                  //     borderSide: BorderSide(
-                                  //   style: BorderStyle.none,
-                                  // )),
-                                  // enabledBorder: const OutlineInputBorder(
-                                  //     borderSide: BorderSide(
-                                  //   style: BorderStyle.none,
-                                  // )),
-                                  // border: const OutlineInputBorder(
-                                  //     borderSide: BorderSide(
-                                  //   style: BorderStyle.none,
-                                  // )),
                                   border: InputBorder.none,
                                   hintText: "填写收货人手机号",
                                   hintStyle: TextStyle(
@@ -167,37 +148,6 @@ class AddressModifyView extends GetView<AddressModifyController> {
               ),
               Container(height: DoScreenAdapter.h(5), color: DoColors.gray238),
 
-              ///所在地区-使用纯文本实现的
-              /*
-              Container(
-                height: DoScreenAdapter.h(41.5),
-                padding:
-                    EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-                color: Colors.white,
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          const Text("所在地区:"),
-                          SizedBox(width: DoScreenAdapter.w(5)),
-                          Expanded(
-                              child: Text(
-                            "选择地区信息",
-                            style: TextStyle(
-                              color: DoColors.gray168,
-                              fontSize: DoScreenAdapter.fs(14),
-                            ),
-                          )),
-                        ],
-                      ),
-                    ),
-                    const Divider(height: 0.5, color: DoColors.gray154)
-                  ],
-                ),
-              ),
-              */
               ///所在地区-使用输入框实现的
               Container(
                 padding:
@@ -224,14 +174,12 @@ class AddressModifyView extends GetView<AddressModifyController> {
                               onChanged: (value) {},
                               onFieldSubmitted: (value) {},
                               validator: (value) {
-                                print("validator:$value");
+                                // print("validator:$value");
                               },
                               controller: controller.addressDistrictController,
                               keyboardType: TextInputType.text,
                               cursorColor: DoColors.theme,
                               textAlignVertical: TextAlignVertical.center,
-                              // enabled: false,
-                              // enableInteractiveSelection: true,
                               style: TextStyle(
                                   color: DoColors.black0,
                                   fontSize: DoScreenAdapter.fs(14),
@@ -253,48 +201,6 @@ class AddressModifyView extends GetView<AddressModifyController> {
               ),
 
               ///详细地址-isCollapsed
-              /*
-              Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        const Text("详细地址:"),
-                        SizedBox(width: DoScreenAdapter.w(5)),
-                        Expanded(
-                          child: TextFormField(
-                              onChanged: (value) {},
-                              onFieldSubmitted: (value) {},
-                              validator: (value) {
-                                print("validator:$value");
-                              },
-                              controller: controller.addressDetailController,
-                              keyboardType: TextInputType.name,
-                              cursorColor: DoColors.theme,
-                              textAlignVertical: TextAlignVertical.center,
-                              style: TextStyle(
-                                  color: DoColors.black0,
-                                  fontSize: DoScreenAdapter.fs(16),
-                                  fontWeight: FontWeight.bold),
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "小区、楼牌号等",
-                                  hintStyle: TextStyle(
-                                      color: DoColors.gray168,
-                                      fontSize: DoScreenAdapter.fs(14),
-                                      fontWeight: FontWeight.normal),
-                                  suffixIcon: const Text(""))),
-                        ),
-                      ],
-                    ),
-                    const Divider(height: 0.5, color: DoColors.gray154)
-                  ],
-                ),
-              ),
-              */
               Container(
                 height: DoScreenAdapter.h(41.5),
                 padding:
@@ -312,7 +218,7 @@ class AddressModifyView extends GetView<AddressModifyController> {
                               onChanged: (value) {},
                               onFieldSubmitted: (value) {},
                               validator: (value) {
-                                print("validator:$value");
+                                // print("validator:$value");
                               },
                               controller: controller.addressDetailController,
                               inputFormatters: [

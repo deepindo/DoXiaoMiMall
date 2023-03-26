@@ -60,63 +60,65 @@ class SettingView extends GetView<SettingController> {
   }
 
   Widget _profileSection() {
-    return InkWell(
-      onTap: () {
-        Get.toNamed("/profile");
-      },
-      child: Container(
-        height: DoScreenAdapter.h(50),
-        padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {},
-                  child: CircleAvatar(
-                    radius: DoScreenAdapter.w(25),
-                    backgroundImage:
-                        const AssetImage("assets/images/avatar_man.png"),
+    return Obx(
+      () => InkWell(
+        onTap: () {
+          Get.toNamed("/profile");
+        },
+        child: Container(
+          height: DoScreenAdapter.h(50),
+          padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    child: CircleAvatar(
+                      radius: DoScreenAdapter.w(25),
+                      backgroundImage:
+                          const AssetImage("assets/images/avatar_man.png"),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: DoScreenAdapter.w(10),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${controller.userModel.value.username}",
-                      style: TextStyle(
-                          fontSize: DoScreenAdapter.fs(14),
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: DoScreenAdapter.h(5)),
-                    Container(
-                      padding: EdgeInsets.all(DoScreenAdapter.w(3)),
-                      decoration: BoxDecoration(
-                          color: DoColors.gray238,
-                          borderRadius:
-                              BorderRadius.circular(DoScreenAdapter.w(10))),
-                      child: Text(
-                        "小米ID${controller.userModel.value.sId}",
-                        style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
+                  SizedBox(
+                    width: DoScreenAdapter.w(10),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${controller.userModel.value.username}",
+                        style: TextStyle(
+                            fontSize: DoScreenAdapter.fs(14),
+                            fontWeight: FontWeight.bold),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Icon(Icons.arrow_forward_ios_outlined,
-                    size: DoScreenAdapter.fs(12), color: DoColors.black128)
-              ],
-            ),
-          ],
+                      SizedBox(height: DoScreenAdapter.h(5)),
+                      Container(
+                        padding: EdgeInsets.all(DoScreenAdapter.w(3)),
+                        decoration: BoxDecoration(
+                            color: DoColors.gray238,
+                            borderRadius:
+                                BorderRadius.circular(DoScreenAdapter.w(10))),
+                        child: Text(
+                          "小米ID${controller.userModel.value.sId}",
+                          style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Icon(Icons.arrow_forward_ios_outlined,
+                      size: DoScreenAdapter.fs(12), color: DoColors.black128)
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:city_pickers/city_pickers.dart';
-import '../../../../models/response_model.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../controllers/address_create_controller.dart';
@@ -34,13 +33,12 @@ class AddressCreateView extends GetView<AddressCreateController> {
         left: 0,
         right: 0,
         top: 0,
-        bottom: DoScreenAdapter.h(40),
+        bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.bottomH()),
         child: ListView(
             padding: EdgeInsets.only(top: DoScreenAdapter.h(5)),
             children: [
               ///姓名
               Container(
-                // height: DoScreenAdapter.h(41.5),
                 padding:
                     EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
                 color: Colors.white,
@@ -113,7 +111,7 @@ class AddressCreateView extends GetView<AddressCreateController> {
                               onChanged: (value) {},
                               onFieldSubmitted: (value) {},
                               validator: (value) {
-                                print("validator:$value");
+                                // print("validator:$value");
                               },
                               controller: controller.phoneController,
                               inputFormatters: [
@@ -218,7 +216,7 @@ class AddressCreateView extends GetView<AddressCreateController> {
                               onChanged: (value) {},
                               onFieldSubmitted: (value) {},
                               validator: (value) {
-                                print("validator:$value");
+                                // print("validator:$value");
                               },
                               controller: controller.addressDistrictController,
                               keyboardType: TextInputType.text,
@@ -306,7 +304,7 @@ class AddressCreateView extends GetView<AddressCreateController> {
                               onChanged: (value) {},
                               onFieldSubmitted: (value) {},
                               validator: (value) {
-                                print("validator:$value");
+                                // print("validator:$value");
                               },
                               controller: controller.addressDetailController,
                               inputFormatters: [
@@ -465,6 +463,7 @@ class AddressCreateView extends GetView<AddressCreateController> {
             ]));
   }
 
+  ///保存地址按钮
   Widget _floatingButton() {
     return Positioned(
         left: 0,

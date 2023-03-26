@@ -8,8 +8,8 @@ class AddressModifyBinding extends Bindings {
     // Get.lazyPut<AddressModifyController>(
     //   () => AddressModifyController(),
     // );
-    Get.put(
-      AddressModifyController(),
-    );
+    // Get.put(
+    //   AddressModifyController(),
+    // );
   }
 }

@@ -16,10 +16,12 @@ class AddressModifyController extends GetxController {
   RxBool isAddressPasteUnfold = true.obs;
   RxBool isAddressDefault = false.obs;
 
+  String test = Get.arguments["sId"];
+
   @override
   void onInit() {
+    prepareInitData();
     super.onInit();
-    initEditingControllerContent();
   }
 
   @override
@@ -30,16 +32,19 @@ class AddressModifyController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    print("AddressModifyController---onClose");
     Get.find<AddressManagerController>().requestAddressList();
   }
 
   ///初始化上个页面传过来的值
-  void initEditingControllerContent() {
+  void prepareInitData() {
+    print("init-------测试参数${Get.arguments["sId"]}");
+    print("init-------测试参数${Get.arguments["name"]}");
     usernameController.text = Get.arguments["name"];
     phoneController.text = Get.arguments["phone"];
+    String fullAddress = Get.arguments["address"];
 
     ///对地址内容做处理
-    String fullAddress = Get.arguments["address"];
     List list = fullAddress.split(" ");
     addressDistrictController.text = "${list[0]} ${list[1]} ${list[2]}";
     list.removeRange(0, 3);
@@ -60,6 +65,10 @@ class AddressModifyController extends GetxController {
 
   ///修改地址
   void modifyAddress() async {
+    print("-------测试参数$test");
+    print("-------测试参数${Get.arguments["sId"]}");
+    print("-------测试参数${Get.arguments["name"]}");
+    return;
     List list = await DoUserService.getUserInfo();
     if (list.isNotEmpty) {
       EasyLoading.show();

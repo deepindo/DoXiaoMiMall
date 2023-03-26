@@ -622,6 +622,8 @@ class CheckoutView extends GetView<CheckoutController> {
                                             InkWell(
                                                 onTap: () {
                                                   Get.back();
+                                                  print(
+                                                      "------到底传入的什么${e.name}");
                                                   Get.toNamed("/address-modify",
                                                       arguments: {
                                                         "sId": e.sId,

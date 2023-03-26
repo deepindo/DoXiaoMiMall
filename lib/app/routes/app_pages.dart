@@ -221,7 +221,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ADDRESS_MODIFY,
-      page: () => const AddressModifyView(),
+      // page: () => const AddressModifyView(),
+      page: () => AddressModifyView(),
       binding: AddressModifyBinding(),
     ),
     GetPage(
