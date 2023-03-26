@@ -247,37 +247,104 @@ class CheckoutView extends GetView<CheckoutController> {
 
   ///收货地址
   Widget _deliveryAddressSection() {
-    return Container(
-      padding: EdgeInsets.all(DoScreenAdapter.w(10)),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(DoScreenAdapter.w(10)),
-        color: Colors.white,
-      ),
-      child: ListTile(
-          leading: Icon(Icons.location_on_outlined), title: Text("添加地址")),
+    return Obx(
+      () => controller.addressList.isEmpty
+          ? InkWell(
+              onTap: () {
+                Get.toNamed("/address-manager");
+              },
+              child: Container(
+                padding:
+                    EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(DoScreenAdapter.w(10)),
+                  color: Colors.white,
+                ),
+                child: ListTile(
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: DoScreenAdapter.w(10), vertical: 0),
+                    leading: Icon(
+                      Icons.location_on_outlined,
+                      size: DoScreenAdapter.fs(20),
+                    ),
+                    title: Text("添加地址",
+                        style: TextStyle(fontSize: DoScreenAdapter.fs(14)))),
+              ),
+            )
+          : InkWell(
+              onTap: () {
+                Get.toNamed("/address-manager");
+              },
+              child: Container(
+                color: Colors.white,
+                padding: EdgeInsets.fromLTRB(
+                    DoScreenAdapter.w(10),
+                    DoScreenAdapter.h(10),
+                    DoScreenAdapter.w(10),
+                    DoScreenAdapter.h(0)),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                controller.addressList[0].address!,
+                                // "${controller.model.value.username}",
+                                maxLines: 2,
+                                style: TextStyle(
+                                  fontSize: DoScreenAdapter.fs(12),
+                                ),
+                              ),
+                              SizedBox(height: DoScreenAdapter.h(2)),
+                              Text(
+                                controller.addressList[0].address!,
+                                maxLines: 2,
+                                style: TextStyle(
+                                    fontSize: DoScreenAdapter.fs(16),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(height: DoScreenAdapter.h(2)),
+                              Row(
+                                children: [
+                                  Text(
+                                    controller.addressList[0].name!,
+                                    style: TextStyle(
+                                        fontSize: DoScreenAdapter.fs(12)),
+                                  ),
+                                  SizedBox(width: DoScreenAdapter.w(20)),
+                                  Text(
+                                    controller.addressList[0].phone!,
+                                    style: TextStyle(
+                                      fontSize: DoScreenAdapter.fs(12),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(width: DoScreenAdapter.w(10)),
+                        Row(
+                          children: [
+                            Icon(Icons.arrow_forward_ios_outlined,
+                                size: DoScreenAdapter.fs(12),
+                                color: DoColors.black128)
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: DoScreenAdapter.h(10)),
+                    const Divider(height: 0.5, color: DoColors.gray238)
+                  ],
+                ),
+              ),
+            ),
     );
-    // Container(
-    //   padding: EdgeInsets.all(DoScreenAdapter.w(10)),
-    //   decoration: BoxDecoration(
-    //     borderRadius: BorderRadius.circular(DoScreenAdapter.w(10)),
-    //     color: Colors.white,
-    //   ),
-    //   child: Row(
-    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //     children: [
-    //       Column(
-    //         children: [
-    //           const Text("xxx街道"),
-    //           const Text("详细地址"),
-    //           Row(
-    //             children: const [Text("xxx"), Text("tel")],
-    //           )
-    //         ],
-    //       ),
-    //       const Icon(Icons.keyboard_arrow_right_outlined)
-    //     ],
-    //   ),
-    // ),
   }
 
   ///配送日期

@@ -29,16 +29,14 @@ class AddressManagerController extends GetxController {
       // EasyLoading.show(status: "加载中...");
       UserModel model = UserModel.fromJson(list[0]);
       Map jsonMap = {"uid": model.sId};
-
       String sign =
           DoSignService.createAndGetSign({...jsonMap, "salt": model.salt});
 
       ///get与post没有兼容，只能用get
       // String path = addressListPath + "?uid=${model.sId}&sign=$sign";
       String path = "api/addressList?uid=${model.sId}&sign=$sign";
-      print(path);
-      var data =
-          await DoNetwork().get("api/addressList?uid=${model.sId}&sign=$sign");
+      // print(path);
+      var data = await DoNetwork().get(path);
       addressList.value = AddressModel.fromJson(data).result!;
       update();
 
