@@ -30,22 +30,22 @@ const String validateLoginCodePath = "api/validateLoginCode";
 
 ///--地址相关--
 ///获取用户默认地址
-const String defaultAddressGetPath = "api/oneAddressList";
+const String defaultAddressPath = "api/oneAddressList";
 
 ///修改默认收货地址
-const String defaultAddressChangePath = "api/changeDefaultAddress";
+const String modifyDefaultAddressPath = "api/changeDefaultAddress";
 
 ///获取用户全部地址
 const String addressListPath = "api/addressList";
 
 ///增加用户收货地址
-const String addressCreatePath = "api/addAddress";
+const String createAddressPath = "api/addAddress";
 
 ///修改收货地址
-const String addressModifyPath = "api/editAddress";
+const String modifyAddressPath = "api/editAddress";
 
 ///删除收货地址
-const String addressDeletePath = "api/deleteAddress";
+const String deleteAddressPath = "api/deleteAddress";
 
 ///---------------------网络请求类---------------------
 ///

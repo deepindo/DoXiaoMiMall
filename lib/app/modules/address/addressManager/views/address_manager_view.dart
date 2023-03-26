@@ -1,6 +1,7 @@
 import 'package:doxiaomimall/app/models/address_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../controllers/address_manager_controller.dart';
@@ -32,11 +33,74 @@ class AddressManagerView extends GetView<AddressManagerController> {
         top: 0,
         bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.bottomH()),
         child: Obx(() => controller.addressList.isNotEmpty
-            ? ListView(
-                children: controller.addressList
-                    .map((element) => _addressItem(element))
-                    .toList())
-            : const Text("暂无数据")));
+            ? ListView.builder(
+                itemCount: controller.addressList.length,
+                itemBuilder: (context, index) {
+                  return SwipeActionCell(
+                    key: ValueKey(controller.addressList[index]),
+                    trailingActions: [
+                      SwipeAction(
+                          onTap: (handler) {
+                            controller.deleteAddress(
+                                controller.addressList[index].sId!);
+                          },
+                          title: "删除",
+                          style: TextStyle(
+                              fontSize: DoScreenAdapter.fs(14),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                          widthSpace: DoScreenAdapter.w(50),
+                          color: Colors.red),
+                      controller.addressList[index].defaultAddress != 1
+                          ? SwipeAction(
+                              onTap: (handler) {
+                                controller.modifyDefaultAddress(
+                                    controller.addressList[index].sId!);
+                              },
+                              title: "设为默认",
+                              style: TextStyle(
+                                  fontSize: DoScreenAdapter.fs(14),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                              color: DoColors.gray186)
+                          : SwipeAction(onTap: (handler) {}, widthSpace: 0),
+                    ],
+                    child: _addressItem(controller.addressList[index]),
+                  );
+                },
+              )
+            // ListView(
+            //     children: controller.addressList
+            //         .map((element) => _addressItem(element))
+            //         .toList())
+            : _emptyView()));
+  }
+
+  ///空数据时显示
+  Widget _emptyView() {
+    return SizedBox(
+      // color: Colors.cyan,
+      width: double.infinity,
+      height: DoScreenAdapter.h(250),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            "assets/images/emptyOrder.png",
+            width: DoScreenAdapter.w(100),
+            height: DoScreenAdapter.w(100),
+            // color: Colors.cyan,
+            fit: BoxFit.fill,
+          ),
+          SizedBox(height: DoScreenAdapter.h(10)),
+          Text(
+            "您还没有添加地址",
+            style: TextStyle(
+                fontSize: DoScreenAdapter.fs(14), color: DoColors.gray154),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _floatingButton() {
@@ -91,9 +155,21 @@ class AddressManagerView extends GetView<AddressManagerController> {
   }
 
   Widget _addressItem(AddressItemModel element) {
+    String fullAddress = element.address!;
+    List list = fullAddress.split(" ");
+    String addressDistrict = "${list[0]} ${list[1]} ${list[2]}";
+    list.removeRange(0, 3);
+    String addressDetail = list.join(" ");
+
     return InkWell(
       onTap: () {
-        Get.toNamed("/address-modify");
+        print(element);
+        Get.toNamed("/address-modify", arguments: {
+          "sId": element.sId,
+          "name": element.name,
+          "phone": element.phone,
+          "address": element.address,
+        });
       },
       child: Container(
         color: Colors.white,
@@ -144,8 +220,7 @@ class AddressManagerView extends GetView<AddressManagerController> {
                       ),
                       SizedBox(height: DoScreenAdapter.h(2)),
                       Text(
-                        element.address!,
-                        // "${controller.model.value.username}",
+                        addressDistrict,
                         maxLines: 2,
                         style: TextStyle(
                           fontSize: DoScreenAdapter.fs(14),
@@ -153,7 +228,7 @@ class AddressManagerView extends GetView<AddressManagerController> {
                       ),
                       SizedBox(height: DoScreenAdapter.h(2)),
                       Text(
-                        element.address!,
+                        addressDetail,
                         maxLines: 2,
                         style: TextStyle(
                           fontSize: DoScreenAdapter.fs(14),

@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:doxiaomimall/app/models/address_model.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../../components/app_components.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_network.dart';
 import '../../../services/app_screenAdapter.dart';
@@ -247,104 +247,111 @@ class CheckoutView extends GetView<CheckoutController> {
 
   ///收货地址
   Widget _deliveryAddressSection() {
-    return Obx(
-      () => controller.addressList.isEmpty
-          ? InkWell(
-              onTap: () {
-                Get.toNamed("/address-manager");
-              },
-              child: Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(DoScreenAdapter.w(10)),
-                  color: Colors.white,
+    return Obx(() {
+      if (controller.defaultAddressList.isEmpty) {
+        return InkWell(
+          onTap: () {
+            Get.toNamed("/address-create");
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(DoScreenAdapter.w(10)),
+              color: Colors.white,
+            ),
+            child: ListTile(
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: DoScreenAdapter.w(10), vertical: 0),
+                leading: Icon(
+                  Icons.location_on_outlined,
+                  size: DoScreenAdapter.fs(20),
                 ),
-                child: ListTile(
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: DoScreenAdapter.w(10), vertical: 0),
-                    leading: Icon(
-                      Icons.location_on_outlined,
-                      size: DoScreenAdapter.fs(20),
-                    ),
-                    title: Text("添加地址",
-                        style: TextStyle(fontSize: DoScreenAdapter.fs(14)))),
-              ),
-            )
-          : InkWell(
-              onTap: () {
-                Get.toNamed("/address-manager");
-              },
-              child: Container(
-                color: Colors.white,
-                padding: EdgeInsets.fromLTRB(
-                    DoScreenAdapter.w(10),
-                    DoScreenAdapter.h(10),
-                    DoScreenAdapter.w(10),
-                    DoScreenAdapter.h(0)),
-                child: Column(
+                title: Text("添加地址",
+                    style: TextStyle(fontSize: DoScreenAdapter.fs(14)))),
+          ),
+        );
+      } else {
+        AddressItemModel model = controller.defaultAddressList[0];
+        String fullAddress = model.address!;
+        List list = fullAddress.split(" ");
+        String addressDistrict = "${list[0]} ${list[1]} ${list[2]}";
+        list.removeRange(0, 3);
+        String addressDetail = list.join(" ");
+
+        return InkWell(
+          onTap: () {
+            showAddressBottomSheet();
+          },
+          child: Container(
+            color: Colors.white,
+            padding: EdgeInsets.fromLTRB(
+                DoScreenAdapter.w(10),
+                DoScreenAdapter.h(10),
+                DoScreenAdapter.w(10),
+                DoScreenAdapter.h(0)),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            addressDistrict,
+                            maxLines: 2,
+                            style: TextStyle(
+                              fontSize: DoScreenAdapter.fs(12),
+                            ),
+                          ),
+                          SizedBox(height: DoScreenAdapter.h(2)),
+                          Text(
+                            addressDetail,
+                            maxLines: 2,
+                            style: TextStyle(
+                                fontSize: DoScreenAdapter.fs(16),
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: DoScreenAdapter.h(2)),
+                          Row(
                             children: [
                               Text(
-                                controller.addressList[0].address!,
-                                // "${controller.model.value.username}",
-                                maxLines: 2,
+                                model.name!,
+                                style:
+                                    TextStyle(fontSize: DoScreenAdapter.fs(12)),
+                              ),
+                              SizedBox(width: DoScreenAdapter.w(5)),
+                              Text(
+                                model.phone!,
                                 style: TextStyle(
                                   fontSize: DoScreenAdapter.fs(12),
                                 ),
                               ),
-                              SizedBox(height: DoScreenAdapter.h(2)),
-                              Text(
-                                controller.addressList[0].address!,
-                                maxLines: 2,
-                                style: TextStyle(
-                                    fontSize: DoScreenAdapter.fs(16),
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(height: DoScreenAdapter.h(2)),
-                              Row(
-                                children: [
-                                  Text(
-                                    controller.addressList[0].name!,
-                                    style: TextStyle(
-                                        fontSize: DoScreenAdapter.fs(12)),
-                                  ),
-                                  SizedBox(width: DoScreenAdapter.w(20)),
-                                  Text(
-                                    controller.addressList[0].phone!,
-                                    style: TextStyle(
-                                      fontSize: DoScreenAdapter.fs(12),
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ],
                           ),
-                        ),
-                        SizedBox(width: DoScreenAdapter.w(10)),
-                        Row(
-                          children: [
-                            Icon(Icons.arrow_forward_ios_outlined,
-                                size: DoScreenAdapter.fs(12),
-                                color: DoColors.black128)
-                          ],
-                        ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: DoScreenAdapter.w(10)),
+                    Row(
+                      children: [
+                        Icon(Icons.arrow_forward_ios_outlined,
+                            size: DoScreenAdapter.fs(12),
+                            color: DoColors.black128)
                       ],
                     ),
-                    SizedBox(height: DoScreenAdapter.h(10)),
-                    const Divider(height: 0.5, color: DoColors.gray238)
                   ],
                 ),
-              ),
+                SizedBox(height: DoScreenAdapter.h(10)),
+                const Divider(height: 0.5, color: DoColors.gray238)
+              ],
             ),
-    );
+          ),
+        );
+      }
+    });
   }
 
   ///配送日期
@@ -463,6 +470,268 @@ class CheckoutView extends GetView<CheckoutController> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  ///地址选择弹框
+  void showAddressBottomSheet() {
+    Get.bottomSheet(
+      isScrollControlled: true, //设置完这个，上面设置的超过半屏的高度才会生效，否则默认最高半屏
+      //Get.bottomSheet中要使用响应式只能使用GetBuilder，而不能使用Obx了
+      GetBuilder<CheckoutController>(
+        init: controller,
+        builder: (controller) {
+          return Container(
+            width: DoScreenAdapter.screenW(),
+            height: DoScreenAdapter.h(500),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(DoScreenAdapter.w(10)),
+                topRight: Radius.circular(DoScreenAdapter.w(10)),
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    padding: EdgeInsets.all(DoScreenAdapter.w(10)),
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(width: 0.5, color: Colors.black12))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "选择地址",
+                          style: TextStyle(fontSize: DoScreenAdapter.fs(16)),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: DoScreenAdapter.h(40),
+                  bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
+                  child: ListView(
+                      padding: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(10),
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(10),
+                      ),
+                      children: [
+                        ...controller.allAddressList.map(
+                          (e) {
+                            String fullAddress = e.address!;
+                            List list = fullAddress.split(" ");
+                            String addressDistrict =
+                                "${list[0]} ${list[1]} ${list[2]}";
+                            list.removeRange(0, 3);
+                            String addressDetail = list.join(" ");
+
+                            return InkWell(
+                              onTap: () {
+                                Get.back();
+                                controller.modifyDefaultAddress(e.sId!);
+                              },
+                              child: Container(
+                                color: Colors.white,
+                                padding: EdgeInsets.fromLTRB(
+                                    DoScreenAdapter.w(0),
+                                    DoScreenAdapter.h(10),
+                                    DoScreenAdapter.w(0),
+                                    DoScreenAdapter.h(0)),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        commonRoundCheckBox(
+                                            e.defaultAddress == 1
+                                                ? true
+                                                : false, onTap: (value) {
+                                          Get.back();
+                                          controller
+                                              .modifyDefaultAddress(e.sId!);
+                                        }),
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                addressDistrict,
+                                                maxLines: 2,
+                                                style: TextStyle(
+                                                  fontSize:
+                                                      DoScreenAdapter.fs(12),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                  height: DoScreenAdapter.h(2)),
+                                              Text(
+                                                addressDetail,
+                                                maxLines: 2,
+                                                style: TextStyle(
+                                                    fontSize:
+                                                        DoScreenAdapter.fs(16),
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              SizedBox(
+                                                  height: DoScreenAdapter.h(2)),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    e.name!,
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            DoScreenAdapter.fs(
+                                                                12)),
+                                                  ),
+                                                  SizedBox(
+                                                      width:
+                                                          DoScreenAdapter.w(5)),
+                                                  Text(
+                                                    e.phone!,
+                                                    style: TextStyle(
+                                                      fontSize:
+                                                          DoScreenAdapter.fs(
+                                                              12),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(width: DoScreenAdapter.w(10)),
+                                        Row(
+                                          children: [
+                                            InkWell(
+                                                onTap: () {
+                                                  Get.back();
+                                                  Get.toNamed("/address-modify",
+                                                      arguments: {
+                                                        "sId": e.sId,
+                                                        "name": e.name,
+                                                        "phone": e.phone,
+                                                        "address": e.address,
+                                                      });
+                                                },
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    "编辑",
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            DoScreenAdapter.fs(
+                                                                14),
+                                                        color:
+                                                            DoColors.gray168),
+                                                  ),
+                                                ))
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: DoScreenAdapter.h(10)),
+                                    const Divider(
+                                        height: 0.5, color: DoColors.gray238)
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ).toList(),
+                      ]),
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    // color: Colors.purple,
+                    height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
+                    child: Container(
+                      //内层实际显示小的
+                      height: DoScreenAdapter.tabBarH(),
+                      margin: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(0),
+                        DoScreenAdapter.h(0),
+                        DoScreenAdapter.w(0),
+                        DoScreenAdapter.h(34) + DoScreenAdapter.h(0),
+                      ),
+                      decoration: BoxDecoration(
+                          // color: Colors.white,
+                          border: Border(
+                        //顶部边线
+                        top: BorderSide(
+                          width: DoScreenAdapter.h(0.5),
+                          color: Colors.black12,
+                        ),
+                      )),
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                          Get.toNamed("/address-create");
+                        },
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(
+                            DoScreenAdapter.w(10),
+                            DoScreenAdapter.h(10),
+                            DoScreenAdapter.w(10),
+                            DoScreenAdapter.h(10),
+                          ),
+                          decoration: BoxDecoration(
+                              color: DoColors.theme,
+                              borderRadius: BorderRadius.circular(20)),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "添加新地址",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: DoScreenAdapter.fs(13)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                ///这个关闭按钮要最后添加,若是先加，可能被其他Positioned的组件遮盖，点击事件无法响应
+                Positioned(
+                    right: DoScreenAdapter.w(5),
+                    top: DoScreenAdapter.h(5),
+                    child: InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: const SizedBox(
+                        // alignment: Alignment.center,
+                        // color: DoColors.theme,
+                        child: Icon(
+                          Icons.close,
+                          size: 20,
+                        ),
+                      ),
+                    )),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

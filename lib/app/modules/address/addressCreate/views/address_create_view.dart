@@ -450,7 +450,7 @@ class AddressCreateView extends GetView<AddressCreateController> {
                               trackColor: DoColors.gray238,
                               thumbColor: Colors.white,
                               onChanged: (value) {
-                                controller.changeDefaultAddress();
+                                controller.switchDefault();
                               },
                             ),
                           ),
@@ -483,14 +483,7 @@ class AddressCreateView extends GetView<AddressCreateController> {
               EasyLoading.showToast("请填写详细地址");
             } else {
               FocusScope.of(Get.context!).requestFocus(FocusNode());
-              EasyLoading.show(status: "保存中");
-              ResponseModel response = await controller.addressCreate();
-              if (response.success) {
-                Get.back();
-                EasyLoading.showSuccess(response.message);
-              } else {
-                EasyLoading.showError(response.message);
-              }
+              controller.createAddress();
             }
           },
           child: Container(
