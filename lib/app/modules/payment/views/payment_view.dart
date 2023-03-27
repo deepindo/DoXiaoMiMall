@@ -64,7 +64,7 @@ class PaymentView extends GetView<PaymentController> {
                       color: DoColors.theme),
                 ),
                 Text(
-                  "389494",
+                  controller.orderPrice,
                   // textAlign: TextAlign.start,
                   style: TextStyle(
                       fontSize: DoScreenAdapter.fs(30),
@@ -92,7 +92,7 @@ class PaymentView extends GetView<PaymentController> {
                         color: DoColors.gray186),
                   ),
                   Text(
-                    "00:14:16",
+                    "00:14:59", //倒计时
                     style: TextStyle(
                         fontSize: DoScreenAdapter.fs(12),
                         color: DoColors.gray186),
@@ -232,6 +232,16 @@ class PaymentView extends GetView<PaymentController> {
                 vertical: DoScreenAdapter.h(10)),
             child: InkWell(
               onTap: () {
+                ///发起某项支付，比如微信，也可以当前不支付
+                String payType;
+                for (var element in controller.payToolsList) {
+                  if (element["id"] ==
+                      controller.selectedPaymentToolIndex.value) {
+                    payType = element["title"];
+                    print(payType);
+                  }
+                }
+
                 Get.toNamed("/order-list");
               },
               child: Container(
@@ -258,7 +268,7 @@ class PaymentView extends GetView<PaymentController> {
                           color: Colors.white),
                     ),
                     Text(
-                      "389494",
+                      controller.orderPrice,
                       style: TextStyle(
                           fontSize: DoScreenAdapter.fs(14),
                           color: Colors.white),

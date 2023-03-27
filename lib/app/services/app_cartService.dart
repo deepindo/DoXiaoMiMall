@@ -189,6 +189,55 @@ class DoCartService {
     }
   }
 
+  ///生成订单后，更新本地购物车
+  static updateLocalCartListAfterSubmitOrder(List checkoutList) async {
+    List? cartList = await DoSharedPreferences.getData(CARTKEY);
+    if (cartList != null) {
+      var tempList = [];
+      for (var element in cartList) {
+        /*
+        for (var e in checkoutList) {
+          if (!(element["sId"] == e["sId"] &&
+              element["selectedGoodsAttributes"] ==
+                  e["selectedGoodsAttributes"])) {
+            tempList.add(element);
+          }
+        }
+        */
+        /// 上面的写法，像在一个嵌套循环里面做这个不太好操作，
+        /// 因为tempList.add(element);
+        /// 得是在内循环整体完成一轮后操作，而不是在内层每次都加
+
+        ///下面用两种方式来实现
+        ///1：在上面有问题基础上的改进
+        /*
+        bool isHaveSame = false;
+        for (var e in checkoutList) {
+          //有一次就设置为true，而不是
+          if (element["sId"] == e["sId"] &&
+              element["selectedGoodsAttributes"] ==
+                  e["selectedGoodsAttributes"]) {
+            isHaveSame = true;
+          }
+        }
+        if (!isHaveSame) {
+          tempList.add(element);
+        }
+        */
+
+        /// 判断是否有相同的数据
+        /// 2：通过any函数
+        var isHaveSameData = checkoutList.any((e) =>
+            element["sId"] == e["sId"] &&
+            element["selectedGoodsAttributes"] == e["selectedGoodsAttributes"]);
+        if (!isHaveSameData) {
+          tempList.add(element);
+        }
+      }
+      setLocalCartList(tempList);
+    }
+  }
+
   ///清空本地购物车记录
   static removeAllLocalCartList() async {
     await DoSharedPreferences.removeData(CARTKEY);
