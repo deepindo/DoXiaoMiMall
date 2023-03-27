@@ -81,7 +81,7 @@ class CheckoutView extends GetView<CheckoutController> {
                 Row(
                   children: [
                     Text(
-                      "共38件,合计:",
+                      "共${controller.checkedTotalCount}件,合计:",
                       style: TextStyle(
                           fontSize: DoScreenAdapter.fs(14),
                           color: DoColors.gray154),
@@ -94,7 +94,7 @@ class CheckoutView extends GetView<CheckoutController> {
                           color: DoColors.theme),
                     ),
                     Text(
-                      "389494",
+                      "${controller.checkedTotalPrice}",
                       style: TextStyle(
                           fontSize: DoScreenAdapter.fs(18),
                           fontWeight: FontWeight.bold,
@@ -105,8 +105,7 @@ class CheckoutView extends GetView<CheckoutController> {
                 InkWell(
                   onTap: () async {
                     if (await DoUserService.isLogin()) {
-                      // EasyLoading.showToast("选择支付方式付款");
-                      Get.toNamed("/payment");
+                      controller.submitOrder();
                     } else {
                       Get.toNamed("/verification-code-login");
                     }
@@ -397,7 +396,7 @@ class CheckoutView extends GetView<CheckoutController> {
             title: Text("商品总价",
                 style: TextStyle(
                     fontSize: DoScreenAdapter.fs(14), color: DoColors.black51)),
-            trailing: Text("￥3979",
+            trailing: Text("￥${controller.checkedTotalPrice}",
                 style: TextStyle(
                     fontSize: DoScreenAdapter.fs(12), color: DoColors.black51)),
           ),

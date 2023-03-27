@@ -121,7 +121,7 @@ class CartView extends GetView<CartController> {
                           InkWell(
                             onTap: () {
                               ///删除和与结算共用一套选中逻辑，要是分开各自记录，就特别麻烦了，相关的都得两套
-                              if (controller.checkedCount.value > 0) {
+                              if (controller.checkedTotalCount.value > 0) {
                                 controller.deleteGoods();
                                 EasyLoading.showToast("移入收藏夹并删除");
                               } else {
@@ -146,8 +146,8 @@ class CartView extends GetView<CartController> {
                                       width: DoScreenAdapter.w(1))),
                               alignment: Alignment.center,
                               child: Text(
-                                (controller.checkedCount.value > 0)
-                                    ? "移入收藏 (${controller.checkedCount.value})"
+                                (controller.checkedTotalCount.value > 0)
+                                    ? "移入收藏 (${controller.checkedTotalCount.value})"
                                     : "移入收藏",
                                 style: TextStyle(
                                     color: DoColors.gray154,
@@ -157,7 +157,7 @@ class CartView extends GetView<CartController> {
                           ),
                           InkWell(
                             onTap: () {
-                              if (controller.checkedCount.value > 0) {
+                              if (controller.checkedTotalCount.value > 0) {
                                 ///弹框，确定删除
                                 controller.deleteGoods();
                                 EasyLoading.showToast("删除成功");
@@ -183,8 +183,8 @@ class CartView extends GetView<CartController> {
                                       width: DoScreenAdapter.w(1))),
                               alignment: Alignment.center,
                               child: Text(
-                                (controller.checkedCount.value > 0)
-                                    ? "删除 (${controller.checkedCount.value})"
+                                (controller.checkedTotalCount.value > 0)
+                                    ? "删除 (${controller.checkedTotalCount.value})"
                                     : "删除",
                                 style: TextStyle(
                                     color: DoColors.gray154,
@@ -223,7 +223,7 @@ class CartView extends GetView<CartController> {
                                         color: DoColors.theme),
                                   ),
                                   Text(
-                                    "${controller.checkedMoney.value}",
+                                    "${controller.checkedTotalPrice.value}",
                                     style: TextStyle(
                                         fontSize: DoScreenAdapter.fs(16),
                                         fontWeight: FontWeight.bold,
@@ -270,9 +270,13 @@ class CartView extends GetView<CartController> {
                           InkWell(
                             onTap: () async {
                               if (await DoUserService.isLogin()) {
-                                if (controller.checkedCount.value > 0) {
+                                if (controller.checkedTotalCount.value > 0) {
                                   Get.toNamed("/checkout", arguments: {
-                                    "checkoutList": controller.getCheckedList()
+                                    "checkoutList": controller.getCheckedList(),
+                                    "checkedTotalCount":
+                                        controller.checkedTotalCount.value,
+                                    "checkedTotalPrice":
+                                        controller.checkedTotalPrice.value,
                                   });
                                 } else {
                                   EasyLoading.showToast("请勾选需要结算的商品");
@@ -296,8 +300,8 @@ class CartView extends GetView<CartController> {
                                       DoScreenAdapter.w(30))),
                               alignment: Alignment.center,
                               child: Text(
-                                (controller.checkedCount.value > 0)
-                                    ? "结算 (${controller.checkedCount.value})"
+                                (controller.checkedTotalCount.value > 0)
+                                    ? "结算 (${controller.checkedTotalCount.value})"
                                     : "结算",
                                 style: TextStyle(
                                     color: Colors.white,

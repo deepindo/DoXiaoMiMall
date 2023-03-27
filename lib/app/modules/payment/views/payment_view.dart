@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:roundcheckbox/roundcheckbox.dart';
 import '../../../components/app_components.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';

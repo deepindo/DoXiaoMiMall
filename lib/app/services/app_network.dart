@@ -29,23 +29,22 @@ const String sendLoginCodePath = "api/sendLoginCode";
 const String validateLoginCodePath = "api/validateLoginCode";
 
 ///--地址相关--
-///获取用户默认地址
+//获取用户默认地址
 const String defaultAddressPath = "api/oneAddressList";
-
-///修改默认收货地址
+//修改默认收货地址
 const String modifyDefaultAddressPath = "api/changeDefaultAddress";
-
-///获取用户全部地址
+//获取用户全部地址
 const String addressListPath = "api/addressList";
-
-///增加用户收货地址
+//增加用户收货地址
 const String createAddressPath = "api/addAddress";
-
-///修改收货地址
+//修改收货地址
 const String modifyAddressPath = "api/editAddress";
-
-///删除收货地址
+//删除收货地址
 const String deleteAddressPath = "api/deleteAddress";
+
+///--订单相关--
+///生成订单
+const String createOrderPath = "api/doOrder";
 
 ///
 ///

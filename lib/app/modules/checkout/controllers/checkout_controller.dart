@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../../models/address_model.dart';
@@ -9,6 +11,8 @@ import '../../../services/app_userService.dart';
 class CheckoutController extends GetxController {
   List checkoutList =
       Get.arguments != null ? Get.arguments["checkoutList"] : [];
+  int checkedTotalCount = Get.arguments["checkedTotalCount"];
+  double checkedTotalPrice = Get.arguments["checkedTotalPrice"];
   RxList<AddressItemModel> defaultAddressList = <AddressItemModel>[].obs;
   RxList<AddressItemModel> allAddressList = <AddressItemModel>[].obs;
 
@@ -85,6 +89,55 @@ class CheckoutController extends GetxController {
         EasyLoading.showError(data["请求失败"]);
       }
       update();
+    }
+  }
+
+  ///提交订单
+  void submitOrder() async {
+    if (defaultAddressList.isEmpty) {
+      EasyLoading.showToast("请先添加收货地址");
+    } else {
+      List list = await DoUserService.getUserInfo();
+      if (list.isNotEmpty) {
+        EasyLoading.show(status: "提交中...");
+        UserModel userModel = UserModel.fromJson(list[0]);
+        AddressItemModel addressItemModel = defaultAddressList[0];
+        Map jsonMap = {
+          "uid": userModel.sId,
+          "name": addressItemModel.name,
+          "phone": addressItemModel.phone,
+          "address": addressItemModel.address,
+          "all_price": checkedTotalPrice.toStringAsFixed(1),
+          "products": json.encode(checkoutList)
+        };
+        String sign = DoSignService.createAndGetSign(
+            {...jsonMap, "salt": userModel.salt});
+
+        var data = await DoNetwork()
+            .post(createOrderPath, data: {...jsonMap, "sign": sign});
+        // print(data);
+        if (data != null) {
+          if (data["success"]) {
+            String orderId = data["result"]["order_id"];
+            String orderPrice = data["result"]["all_price"];
+            Get.toNamed("/payment", arguments: {
+              "orderId": orderId,
+              "orderPrice": orderPrice,
+            });
+
+            ///删除购物车中选择的
+            ///
+            ///更新购物车数据
+            ///
+            EasyLoading.showSuccess(data["message"]);
+          } else {
+            EasyLoading.showError(data["message"]);
+          }
+        } else {
+          EasyLoading.showError(data["请求失败"]);
+        }
+        update();
+      }
     }
   }
 }

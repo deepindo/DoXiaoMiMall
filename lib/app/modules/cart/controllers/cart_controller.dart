@@ -14,8 +14,8 @@ class CartController extends GetxController {
   RxBool isEditing = false.obs;
   RxList cartList = [].obs;
   RxBool checkedAllState = true.obs;
-  RxInt checkedCount = 0.obs;
-  RxDouble checkedMoney = 0.0.obs;
+  RxInt checkedTotalCount = 0.obs;
+  RxDouble checkedTotalPrice = 0.0.obs;
 
   @override
   void onInit() {
@@ -37,7 +37,7 @@ class CartController extends GetxController {
   void onRefresh() {
     _requestGoodsData();
     getLocalCartList();
-    print("refreshController.loadComplete()");
+    // print("refreshController.loadComplete()");
     refreshController.refreshCompleted();
   }
 
@@ -131,19 +131,19 @@ class CartController extends GetxController {
   ///获取已经选中的清单
   List getCheckedList() {
     var tempList = [];
-    int tempNumber = 0;
-    double tempMoney = 0.0;
+    int tempCount = 0;
+    double tempPrice = 0.0;
     if (cartList.isNotEmpty) {
       for (var element in cartList) {
         if (element["checked"] == true) {
           tempList.add(element);
-          tempNumber += (element["buyNumber"] as int);
-          tempMoney += (element["buyNumber"]) * element["price"];
+          tempCount += (element["buyNumber"] as int);
+          tempPrice += (element["buyNumber"]) * element["price"];
         }
       }
     }
-    checkedCount.value = tempNumber;
-    checkedMoney.value = tempMoney;
+    checkedTotalCount.value = tempCount;
+    checkedTotalPrice.value = tempPrice;
     return tempList;
   }
 

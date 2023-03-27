@@ -88,11 +88,13 @@ class PaymentController extends GetxController {
     super.onClose();
   }
 
+  ///选择支付工具
   void changePaymentToolIndex(int selectedIndex) {
     selectedPaymentToolIndex.value = selectedIndex;
     update();
   }
 
+  ///选择信货产品
   void changeCreditProductIndex(int selectedIndex) {
     selectedCreditProductIndex.value = selectedIndex;
     update();
