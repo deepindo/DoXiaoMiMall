@@ -77,7 +77,7 @@ class CartView extends GetView<CartController> {
                   ],
                 )
               : ListView(children: [
-                  _emptyView(),
+                  commonEmptyView("购物车空空如也"),
                   _goodsListView(),
                 ]);
         });
@@ -342,43 +342,6 @@ class CartView extends GetView<CartController> {
             _goodsListView(),
           ],
         ),
-      ),
-    );
-  }
-
-  ///空数据时显示
-  Widget _emptyView() {
-    return SizedBox(
-      // color: Colors.cyan,
-      width: double.infinity,
-      height: DoScreenAdapter.h(250),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            "assets/images/emptyOrder.png",
-            width: DoScreenAdapter.w(100),
-            height: DoScreenAdapter.w(100),
-            // color: Colors.cyan,
-            fit: BoxFit.fill,
-          ),
-          SizedBox(height: DoScreenAdapter.h(10)),
-          Text(
-            "购物车空空如也",
-            style: TextStyle(
-                fontSize: DoScreenAdapter.fs(14), color: DoColors.gray154),
-          ),
-          SizedBox(height: DoScreenAdapter.h(10)),
-          OutlinedButton(
-              onPressed: () {
-                Get.offAllNamed("/tabs");
-              },
-              child: Text(
-                "随便看看",
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(14), color: DoColors.black128),
-              )),
-        ],
       ),
     );
   }

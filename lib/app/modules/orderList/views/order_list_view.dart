@@ -1,8 +1,7 @@
-import 'package:doxiaomimall/app/services/app_cartService.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
+import '../../../models/order_model.dart';
+import '../../../components/app_components.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_network.dart';
 import '../../../services/app_screenAdapter.dart';
@@ -56,18 +55,15 @@ class OrderListView extends GetView<OrderListController> {
 
   ///全部
   Widget _allOrderListView() {
-    return ListView(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      children: [
-        _orderItem(),
-        _orderItem(),
-        _orderItem(),
-        // Container(
-        //   height: DoScreenAdapter.h(100),
-        //   color: Colors.red,
-        // )
-      ],
+    return Obx(
+      () => controller.orderList.isNotEmpty
+          ? ListView(
+              shrinkWrap: true,
+              children: controller.orderList
+                  .map((element) => _orderItem(element))
+                  .toList(),
+            )
+          : commonEmptyView("暂无订单"),
     );
   }
 
@@ -105,113 +101,163 @@ class OrderListView extends GetView<OrderListController> {
   }
 
   ///订单子项
-  Widget _orderItem() {
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget _orderItem(OrderItemModel orderItemModel) {
+    return Column(
+      children: [
+        Container(
+          color: Colors.white,
+          padding: EdgeInsets.symmetric(
+              horizontal: DoScreenAdapter.w(10),
+              vertical: DoScreenAdapter.h(5)),
+          child: Column(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                      width: DoScreenAdapter.w(20),
-                      height: DoScreenAdapter.h(20),
-                      child: Image.asset("assets/images/logo.png")),
-                  Text("小米商城"),
+                  Row(
+                    children: [
+                      SizedBox(
+                          width: DoScreenAdapter.w(20),
+                          height: DoScreenAdapter.h(20),
+                          child: Image.asset("assets/images/logo.png")),
+                      SizedBox(width: DoScreenAdapter.w(5)),
+                      Text(
+                        "小米商城",
+                        style: TextStyle(fontSize: DoScreenAdapter.fs(14)),
+                      ),
+                    ],
+                  ),
+                  Text(orderItemModel.orderStatus == 0 ? "待付款" : "",
+                      style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(14),
+                          color: DoColors.theme))
                 ],
               ),
-              Text("待付款")
-            ],
-          ),
-          Divider(height: 0.5, color: DoColors.gray238),
-          ListView(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [Text("xxxx"), Text("xxxx")],
-          ),
-          Divider(height: 0.5, color: DoColors.gray238),
-          Row(
-            children: [
-              Text("2023-03-24 00:34"),
-              Text("共2件商品"),
-              Text("应付金额"),
-              Text("￥"),
-              Text("1799.00"),
-            ],
-          ),
-          Row(
-            children: [
-              Wrap(
+              SizedBox(height: DoScreenAdapter.w(5)),
+              const Divider(height: 1, color: DoColors.gray238),
+              ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: orderItemModel.orderItem!
+                    .map((e) => _orderGoodsItem(e))
+                    .toList(),
+              ),
+              const Divider(height: 1, color: DoColors.gray238),
+              SizedBox(height: DoScreenAdapter.w(10)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
-                      onPressed: () {},
-                      child: Text("取消订单"),
-                      style: ButtonStyle()),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text("修改地址"),
-                      style: ButtonStyle()),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text("立即付款"),
-                      style: ButtonStyle()),
+                  Text("${orderItemModel.addTime}",
+                      style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(12),
+                          color: DoColors.gray154)),
+                  Row(
+                    children: [
+                      Text("共${orderItemModel.orderItem!.length}件商品",
+                          style: TextStyle(fontSize: DoScreenAdapter.fs(12))),
+                      SizedBox(width: DoScreenAdapter.w(10)),
+                      Text("应付金额:",
+                          style: TextStyle(fontSize: DoScreenAdapter.fs(12))),
+                      Text("￥",
+                          style: TextStyle(fontSize: DoScreenAdapter.fs(10))),
+                      Text("${orderItemModel.allPrice}",
+                          style: TextStyle(fontSize: DoScreenAdapter.fs(18))),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: DoScreenAdapter.h(10)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(child: Container()),
+                  Wrap(
+                    spacing: 5,
+                    children: [
+                      OutlinedButton(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                              // maximumSize: MaterialStateProperty.all(
+                              //     Size.fromHeight(DoScreenAdapter.h(55))),
+                              padding:
+                                  MaterialStateProperty.all(EdgeInsets.zero),
+                              side: MaterialStateProperty.all(
+                                  const BorderSide(color: DoColors.gray238))),
+                          child: Text(
+                            "取消订单",
+                            style: TextStyle(
+                                fontSize: DoScreenAdapter.fs(12),
+                                color: DoColors.gray186),
+                          )),
+                      OutlinedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                            padding: MaterialStateProperty.all(EdgeInsets.zero),
+                            side: MaterialStateProperty.all(
+                                const BorderSide(color: DoColors.theme))),
+                        child: Text(
+                          "修改地址",
+                          style: TextStyle(
+                              fontSize: DoScreenAdapter.fs(12),
+                              color: DoColors.theme),
+                        ),
+                      ),
+                      OutlinedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                            padding: MaterialStateProperty.all(EdgeInsets.zero),
+                            side: MaterialStateProperty.all(
+                                const BorderSide(color: DoColors.theme))),
+                        child: Text(
+                          "立即付款",
+                          style: TextStyle(
+                              fontSize: DoScreenAdapter.fs(12),
+                              color: DoColors.theme),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ],
-          )
-        ],
-      ),
+          ),
+        ),
+        Container(height: DoScreenAdapter.h(5), color: DoColors.gray238),
+      ],
     );
   }
 
   ///商品项
-  Widget _orderGoodsItem(Map element) {
+  Widget _orderGoodsItem(OrderGoodsItemModel goodsItemModel) {
     return Container(
-      // margin: EdgeInsets.only(top: DoScreenAdapter.h(10)),
-      decoration: const BoxDecoration(
-        // borderRadius: BorderRadius.circular(DoScreenAdapter.w(10)),
-        color: Colors.white,
-      ),
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            // height: DoScreenAdapter.w(80),
-            padding: EdgeInsets.fromLTRB(
-              DoScreenAdapter.w(0), //与浮动区对齐，左不加
-              DoScreenAdapter.h(10),
-              DoScreenAdapter.w(10),
-              DoScreenAdapter.h(10),
-            ),
-            child: Row(children: [
-              _coverSection(element["pic"]),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _titleSection(element["title"]),
-                        _priceSection(element["price"]),
-                      ],
-                    ),
-                    SizedBox(height: DoScreenAdapter.h(10)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _attributesSection(element["selectedGoodsAttributes"]),
-                        _buyNumberSection(element["buyNumber"]),
-                      ],
-                    ),
-                  ],
-                ),
+      color: Colors.white,
+      padding: EdgeInsets.symmetric(vertical: DoScreenAdapter.h(10)),
+      child: Row(children: [
+        _coverSection(goodsItemModel.productImg),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(child: _titleSection(goodsItemModel.productTitle)),
+                  SizedBox(width: DoScreenAdapter.w(10)),
+                  _priceSection(goodsItemModel.productPrice),
+                ],
               ),
-            ]),
+              SizedBox(height: DoScreenAdapter.h(10)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _attributesSection(goodsItemModel.selectedAttr),
+                  _buyNumberSection(goodsItemModel.productCount),
+                ],
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 
@@ -220,24 +266,21 @@ class OrderListView extends GetView<OrderListController> {
     return Container(
         alignment: Alignment.center,
         margin: EdgeInsets.only(right: DoScreenAdapter.h(10)),
-        padding: EdgeInsets.all(DoScreenAdapter.w(5)),
-        width: DoScreenAdapter.w(100),
-        height: DoScreenAdapter.w(100),
+        width: DoScreenAdapter.w(60),
+        height: DoScreenAdapter.w(60),
         decoration: BoxDecoration(
             color: DoColors.gray249,
             borderRadius: BorderRadius.circular(DoScreenAdapter.w(10))),
         child: Image.network(
           DoNetwork.replacePictureURL(pic!),
-          // "https://www.itying.com/images/b_focus01.png",
           fit: BoxFit.fitHeight,
         ));
   }
 
   ///标题区
-  Widget _titleSection(String title) {
+  Widget _titleSection(String? title) {
     return Text(
-      title,
-      // "小米小米小米小米小米小米小米小米小米小小米小米小米小米小米小米小米小米小米小小米小米小米小米小米小米小米小米小米小",
+      title ?? "",
       maxLines: 2,
       softWrap: true,
       overflow: TextOverflow.ellipsis,
@@ -247,8 +290,8 @@ class OrderListView extends GetView<OrderListController> {
   }
 
   ///属性区
-  Widget _attributesSection(String attributes) {
-    return Text(attributes,
+  Widget _attributesSection(String? attributes) {
+    return Text(attributes ?? "",
         style: TextStyle(
           color: DoColors.gray154,
           fontSize: DoScreenAdapter.fs(12),
@@ -256,24 +299,19 @@ class OrderListView extends GetView<OrderListController> {
   }
 
   ///价格区
-  Widget _priceSection(int price) {
+  Widget _priceSection(int? price) {
     return Row(children: [
       Text("￥",
           style: TextStyle(
-              fontSize: DoScreenAdapter.fs(10),
-              fontWeight: FontWeight.bold,
-              color: DoColors.theme)),
+              fontSize: DoScreenAdapter.fs(10), color: DoColors.gray154)),
       Text("$price",
-          // "1199",
           style: TextStyle(
-              fontSize: DoScreenAdapter.fs(16),
-              fontWeight: FontWeight.bold,
-              color: DoColors.theme)),
+              fontSize: DoScreenAdapter.fs(12), color: DoColors.gray154)),
     ]);
   }
 
   ///购买数量区
-  Widget _buyNumberSection(int buyNumber) {
+  Widget _buyNumberSection(int? buyNumber) {
     return Text("x $buyNumber",
         style: TextStyle(
           color: DoColors.gray154,

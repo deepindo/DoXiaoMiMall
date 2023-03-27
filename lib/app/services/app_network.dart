@@ -45,6 +45,10 @@ const String deleteAddressPath = "api/deleteAddress";
 ///--订单相关--
 ///生成订单
 const String createOrderPath = "api/doOrder";
+//订单列表
+const String orderListPath = "api/orderList";
+//订单详情
+const String orderContentPath = "api/orderInfo";
 
 ///
 ///

@@ -1,6 +1,7 @@
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../components/app_components.dart';
 import '../../../../models/address_model.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
@@ -73,34 +74,7 @@ class AddressManagerView extends GetView<AddressManagerController> {
             //     children: controller.addressList
             //         .map((element) => _addressItem(element))
             //         .toList())
-            : _emptyView()));
-  }
-
-  ///空数据时显示
-  Widget _emptyView() {
-    return SizedBox(
-      // color: Colors.cyan,
-      width: double.infinity,
-      height: DoScreenAdapter.h(250),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            "assets/images/emptyOrder.png",
-            width: DoScreenAdapter.w(100),
-            height: DoScreenAdapter.w(100),
-            // color: Colors.cyan,
-            fit: BoxFit.fill,
-          ),
-          SizedBox(height: DoScreenAdapter.h(10)),
-          Text(
-            "您还没有添加地址",
-            style: TextStyle(
-                fontSize: DoScreenAdapter.fs(14), color: DoColors.gray154),
-          ),
-        ],
-      ),
-    );
+            : commonEmptyView("您还没有添加地址")));
   }
 
   Widget _floatingButton() {

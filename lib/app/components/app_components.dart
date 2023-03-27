@@ -5,6 +5,33 @@ import 'package:roundcheckbox/roundcheckbox.dart';
 import '../services/app_colors.dart';
 import '../services/app_screenAdapter.dart';
 
+///空数据时显示
+Widget commonEmptyView(String title) {
+  return SizedBox(
+    // color: Colors.cyan,
+    width: double.infinity,
+    height: DoScreenAdapter.h(250),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          "assets/images/emptyOrder.png",
+          width: DoScreenAdapter.w(100),
+          height: DoScreenAdapter.w(100),
+          // color: Colors.cyan,
+          fit: BoxFit.fill,
+        ),
+        SizedBox(height: DoScreenAdapter.h(10)),
+        Text(
+          title,
+          style: TextStyle(
+              fontSize: DoScreenAdapter.fs(14), color: DoColors.gray154),
+        ),
+      ],
+    ),
+  );
+}
+
 ///通用ListTile
 Widget commonListTile(String data, {void Function()? onTap}) {
   return Container(

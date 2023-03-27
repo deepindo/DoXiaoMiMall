@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../models/order_model.dart';
+import '../../../models/user_model.dart';
+import '../../../services/app_network.dart';
+import '../../../services/app_signService.dart';
+import '../../../services/app_userService.dart';
 
 class OrderListController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
+
+  ///tab标签列表
   RxList<Widget> tabBarList = const [
     Tab(text: "全部"),
     Tab(text: "待付款"),
@@ -11,22 +18,15 @@ class OrderListController extends GetxController
     Tab(text: "待评价")
   ].obs;
 
-  final List<Widget> tabControllerChildrenList = [
-    // ListView(
-    //   children: _initListData(),
-    // ),
-    const Text("333"),
-    const Text("444"),
-    const Text("55"),
-    const Text("6"),
-  ];
+  ///所有订单列表
+  RxList<OrderItemModel> orderList = <OrderItemModel>[].obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
 
     tabController = TabController(length: tabBarList.length, vsync: this);
+    requestAllOrderList();
   }
 
   @override
@@ -39,5 +39,19 @@ class OrderListController extends GetxController
     super.onClose();
   }
 
-  void increment() => count.value++;
+  ///请求所有订单列表
+  void requestAllOrderList() async {
+    List list = await DoUserService.getUserInfo();
+    if (list.isNotEmpty) {
+      UserModel model = UserModel.fromJson(list[0]);
+      Map jsonMap = {"uid": model.sId};
+      String sign =
+          DoSignService.createAndGetSign({...jsonMap, "salt": model.salt});
+      String path = "api/orderList?uid=${model.sId}&sign=$sign";
+      // print("----${path}");
+      var data = await DoNetwork().get(path);
+      orderList.value = OrderModel.fromJson(data).result!;
+      update();
+    }
+  }
 }
