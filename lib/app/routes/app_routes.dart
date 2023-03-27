@@ -35,6 +35,10 @@ abstract class Routes {
   static const ADDRESS_CREATE = _Paths.ADDRESS_CREATE;
   static const ADDRESS_MODIFY = _Paths.ADDRESS_MODIFY;
   static const PERSONAL_HOMEPAGE = _Paths.PERSONAL_HOMEPAGE;
+  static const PAYMENT = _Paths.PAYMENT;
+  static const ORDER_LIST = _Paths.ORDER_LIST;
+  static const ORDER_INFO = _Paths.ORDER_INFO;
+  static const ORDER_CONTENT = _Paths.ORDER_CONTENT;
 }
 
 abstract class _Paths {
@@ -71,4 +75,8 @@ abstract class _Paths {
   static const ADDRESS_CREATE = '/address-create';
   static const ADDRESS_MODIFY = '/address-modify';
   static const PERSONAL_HOMEPAGE = '/personal-homepage';
+  static const PAYMENT = '/payment';
+  static const ORDER_LIST = '/order-list';
+  static const ORDER_INFO = '/order-info';
+  static const ORDER_CONTENT = '/order-content';
 }

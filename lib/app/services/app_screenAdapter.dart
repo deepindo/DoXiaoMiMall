@@ -55,7 +55,11 @@ class DoScreenAdapter {
   static bottomH() {
     return ScreenUtil().bottomBarHeight != 0.0
         ? ScreenUtil().bottomBarHeight
-        : 34; //1.sh
+        : 34.0; //1.sh
+  }
+
+  static adapterBottomH() {
+    return tabBarH() + bottomH();
   }
 }
 

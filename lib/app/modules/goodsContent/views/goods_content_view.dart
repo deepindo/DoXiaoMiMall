@@ -217,7 +217,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
       bottom: 0,
       child: Container(
         //外层适应适配大的
-        height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.bottomH()),
+        height: DoScreenAdapter.adapterBottomH(),
         color: Colors.white,
         child: Container(
           //内层实际显示小的
@@ -226,7 +226,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
             DoScreenAdapter.w(0),
             DoScreenAdapter.h(0),
             DoScreenAdapter.w(0),
-            DoScreenAdapter.h(0) + DoScreenAdapter.bottomH(),
+            DoScreenAdapter.bottomH(),
           ),
           decoration: BoxDecoration(
               color: Colors.white,
@@ -563,7 +563,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                   left: 0,
                   right: 0,
                   top: DoScreenAdapter.h(70),
-                  bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
+                  bottom: DoScreenAdapter.adapterBottomH(),
                   child: ListView(
                       padding: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(10),
@@ -631,8 +631,8 @@ class GoodsContentView extends GetView<GoodsContentController> {
                   bottom: 0,
                   // height: DoScreenAdapter.h(80),
                   child: Container(
-                    // color: Colors.purple,
-                    height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
+                    color: Colors.white,
+                    height: DoScreenAdapter.adapterBottomH(),
                     child: Container(
                       //内层实际显示小的
                       height: DoScreenAdapter.tabBarH(),
@@ -640,7 +640,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                         DoScreenAdapter.w(0),
                         DoScreenAdapter.h(0),
                         DoScreenAdapter.w(0),
-                        DoScreenAdapter.h(34) + DoScreenAdapter.h(0),
+                        DoScreenAdapter.bottomH(),
                       ),
                       decoration: BoxDecoration(
                           // color: Colors.white,

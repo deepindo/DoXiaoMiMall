@@ -1,7 +1,7 @@
-import 'package:doxiaomimall/app/models/address_model.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../models/address_model.dart';
 import '../../../components/app_components.dart';
 import '../../../services/app_colors.dart';
 import '../../../services/app_network.dart';
@@ -14,6 +14,7 @@ class CheckoutView extends GetView<CheckoutController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: DoColors.gray249,
       appBar: AppBar(
         title: const Text('确认订单'),
         centerTitle: true,
@@ -64,71 +65,76 @@ class CheckoutView extends GetView<CheckoutController> {
         left: 0,
         right: 0,
         bottom: 0,
-        height: DoScreenAdapter.h(60),
+        height: DoScreenAdapter.adapterBottomH(),
         child: Container(
           decoration: const BoxDecoration(
               color: Colors.white,
               border:
                   Border(top: BorderSide(width: 0.5, color: DoColors.gray238))),
-          padding: EdgeInsets.all(DoScreenAdapter.w(10)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    "共38件,合计:",
-                    style: TextStyle(
-                        fontSize: DoScreenAdapter.fs(14),
-                        color: DoColors.gray154),
-                  ),
-                  Text(
-                    "￥",
-                    style: TextStyle(
-                        fontSize: DoScreenAdapter.fs(10),
-                        fontWeight: FontWeight.bold,
-                        color: DoColors.theme),
-                  ),
-                  Text(
-                    "389494",
-                    style: TextStyle(
-                        fontSize: DoScreenAdapter.fs(18),
-                        fontWeight: FontWeight.bold,
-                        color: DoColors.theme),
-                  )
-                ],
-              ),
-              InkWell(
-                onTap: () async {
-                  if (await DoUserService.isLogin()) {
-                    EasyLoading.showToast("选择支付方式付款");
-                  } else {
-                    Get.toNamed("/verification-code-login");
-                  }
-                },
-                child: Container(
-                  margin: EdgeInsets.only(right: DoScreenAdapter.w(10)),
-                  padding: EdgeInsets.fromLTRB(
-                      DoScreenAdapter.w(25),
-                      DoScreenAdapter.h(5),
-                      DoScreenAdapter.w(25),
-                      DoScreenAdapter.h(5)),
-                  height: DoScreenAdapter.h(30),
-                  decoration: BoxDecoration(
-                      color: DoColors.theme,
-                      borderRadius:
-                          BorderRadius.circular(DoScreenAdapter.w(30))),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "去付款",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: DoScreenAdapter.fs(16)),
+          padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
+          child: Container(
+            color: Colors.white,
+            margin: EdgeInsets.only(bottom: DoScreenAdapter.bottomH()),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "共38件,合计:",
+                      style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(14),
+                          color: DoColors.gray154),
+                    ),
+                    Text(
+                      "￥",
+                      style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(10),
+                          fontWeight: FontWeight.bold,
+                          color: DoColors.theme),
+                    ),
+                    Text(
+                      "389494",
+                      style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(18),
+                          fontWeight: FontWeight.bold,
+                          color: DoColors.theme),
+                    )
+                  ],
+                ),
+                InkWell(
+                  onTap: () async {
+                    if (await DoUserService.isLogin()) {
+                      // EasyLoading.showToast("选择支付方式付款");
+                      Get.toNamed("/payment");
+                    } else {
+                      Get.toNamed("/verification-code-login");
+                    }
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(right: DoScreenAdapter.w(10)),
+                    padding: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(25),
+                        DoScreenAdapter.h(5),
+                        DoScreenAdapter.w(25),
+                        DoScreenAdapter.h(5)),
+                    height: DoScreenAdapter.h(30),
+                    decoration: BoxDecoration(
+                        color: DoColors.theme,
+                        borderRadius:
+                            BorderRadius.circular(DoScreenAdapter.w(30))),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "去付款",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: DoScreenAdapter.fs(16)),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ));
   }
@@ -519,7 +525,7 @@ class CheckoutView extends GetView<CheckoutController> {
                   left: 0,
                   right: 0,
                   top: DoScreenAdapter.h(40),
-                  bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
+                  bottom: DoScreenAdapter.adapterBottomH(),
                   child: ListView(
                       padding: EdgeInsets.fromLTRB(
                         DoScreenAdapter.w(10),
@@ -666,7 +672,7 @@ class CheckoutView extends GetView<CheckoutController> {
                   bottom: 0,
                   child: Container(
                     // color: Colors.purple,
-                    height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.h(34)),
+                    height: DoScreenAdapter.adapterBottomH(),
                     child: Container(
                       //内层实际显示小的
                       height: DoScreenAdapter.tabBarH(),
@@ -674,7 +680,7 @@ class CheckoutView extends GetView<CheckoutController> {
                         DoScreenAdapter.w(0),
                         DoScreenAdapter.h(0),
                         DoScreenAdapter.w(0),
-                        DoScreenAdapter.h(34) + DoScreenAdapter.h(0),
+                        DoScreenAdapter.bottomH(),
                       ),
                       decoration: BoxDecoration(
                           // color: Colors.white,

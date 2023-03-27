@@ -223,7 +223,7 @@ class CartView extends GetView<CartController> {
                                         color: DoColors.theme),
                                   ),
                                   Text(
-                                    "19796",
+                                    "${controller.checkedMoney.value}",
                                     style: TextStyle(
                                         fontSize: DoScreenAdapter.fs(16),
                                         fontWeight: FontWeight.bold,

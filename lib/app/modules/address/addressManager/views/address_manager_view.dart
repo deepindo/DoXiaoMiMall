@@ -1,7 +1,7 @@
-import 'package:doxiaomimall/app/models/address_model.dart';
+import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
+import '../../../../models/address_model.dart';
 import '../../../../services/app_colors.dart';
 import '../../../../services/app_screenAdapter.dart';
 import '../controllers/address_manager_controller.dart';
@@ -31,7 +31,7 @@ class AddressManagerView extends GetView<AddressManagerController> {
         left: 0,
         right: 0,
         top: 0,
-        bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.bottomH()),
+        bottom: DoScreenAdapter.adapterBottomH(),
         child: Obx(() => controller.addressList.isNotEmpty
             ? ListView.builder(
                 itemCount: controller.addressList.length,
@@ -118,7 +118,7 @@ class AddressManagerView extends GetView<AddressManagerController> {
               border:
                   Border(top: BorderSide(width: 1, color: DoColors.gray238)),
             ),
-            height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.bottomH()),
+            height: DoScreenAdapter.adapterBottomH(),
             child: Container(
               // height: DoScreenAdapter.h(39),
               margin: EdgeInsets.fromLTRB(

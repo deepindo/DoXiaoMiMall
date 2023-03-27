@@ -15,6 +15,7 @@ class CartController extends GetxController {
   RxList cartList = [].obs;
   RxBool checkedAllState = true.obs;
   RxInt checkedCount = 0.obs;
+  RxDouble checkedMoney = 0.0.obs;
 
   @override
   void onInit() {
@@ -131,15 +132,18 @@ class CartController extends GetxController {
   List getCheckedList() {
     var tempList = [];
     int tempNumber = 0;
+    double tempMoney = 0.0;
     if (cartList.isNotEmpty) {
       for (var element in cartList) {
         if (element["checked"] == true) {
           tempList.add(element);
           tempNumber += (element["buyNumber"] as int);
+          tempMoney += (element["buyNumber"]) * element["price"];
         }
       }
     }
     checkedCount.value = tempNumber;
+    checkedMoney.value = tempMoney;
     return tempList;
   }
 

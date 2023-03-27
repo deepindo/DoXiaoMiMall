@@ -405,7 +405,7 @@ class AddressModifyView extends GetView {
               border:
                   Border(top: BorderSide(width: 1, color: DoColors.gray238)),
             ),
-            height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.bottomH()),
+            height: DoScreenAdapter.adapterBottomH(),
             child: Container(
               margin: EdgeInsets.fromLTRB(
                 DoScreenAdapter.w(20),

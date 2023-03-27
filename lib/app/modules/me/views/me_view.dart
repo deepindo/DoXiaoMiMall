@@ -448,10 +448,7 @@ class MeView extends GetView<MeController> {
                 ],
               ),
             ),
-            Divider(
-              height: DoScreenAdapter.h(1),
-              color: Colors.black12,
-            ),
+            Divider(height: DoScreenAdapter.h(1), color: Colors.black12),
             Container(
               height: DoScreenAdapter.h(50),
               margin: EdgeInsets.symmetric(vertical: DoScreenAdapter.w(5)),
@@ -459,73 +456,98 @@ class MeView extends GetView<MeController> {
                 children: [
                   Expanded(
                       flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Icon(Icons.payment_outlined),
-                          Text(
-                            "待付款",
-                            style: TextStyle(
-                                fontSize: DoScreenAdapter.fs(12),
-                                color: Colors.black45),
-                          ),
-                        ],
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/order-list");
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            const Icon(Icons.payment_outlined),
+                            Text(
+                              "待付款",
+                              style: TextStyle(
+                                  fontSize: DoScreenAdapter.fs(12),
+                                  color: Colors.black45),
+                            ),
+                          ],
+                        ),
                       )),
                   Expanded(
                       flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Icon(Icons.delivery_dining_outlined),
-                          Text(
-                            "待收货",
-                            style: TextStyle(
-                                fontSize: DoScreenAdapter.fs(12),
-                                color: Colors.black45),
-                          ),
-                        ],
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/order-list");
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            const Icon(Icons.delivery_dining_outlined),
+                            Text(
+                              "待收货",
+                              style: TextStyle(
+                                  fontSize: DoScreenAdapter.fs(12),
+                                  color: Colors.black45),
+                            ),
+                          ],
+                        ),
                       )),
                   Expanded(
                       flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Icon(Icons.comment_outlined),
-                          Text(
-                            "待评价",
-                            style: TextStyle(
-                                fontSize: DoScreenAdapter.fs(12),
-                                color: Colors.black45),
-                          ),
-                        ],
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/order-list");
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            const Icon(Icons.comment_outlined),
+                            Text(
+                              "待评价",
+                              style: TextStyle(
+                                  fontSize: DoScreenAdapter.fs(12),
+                                  color: Colors.black45),
+                            ),
+                          ],
+                        ),
                       )),
                   Expanded(
                       flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Icon(Icons.change_circle_outlined),
-                          Text(
-                            "退换/售后",
-                            style: TextStyle(
-                                fontSize: DoScreenAdapter.fs(12),
-                                color: Colors.black45),
-                          ),
-                        ],
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/order-list");
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            const Icon(Icons.change_circle_outlined),
+                            Text(
+                              "退换/售后",
+                              style: TextStyle(
+                                  fontSize: DoScreenAdapter.fs(12),
+                                  color: Colors.black45),
+                            ),
+                          ],
+                        ),
                       )),
                   Expanded(
                       flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Icon(Icons.list_alt_outlined),
-                          Text(
-                            "全部订单",
-                            style: TextStyle(
-                                fontSize: DoScreenAdapter.fs(12),
-                                color: Colors.black45),
-                          ),
-                        ],
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/order-list");
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            const Icon(Icons.list_alt_outlined),
+                            Text(
+                              "全部订单",
+                              style: TextStyle(
+                                  fontSize: DoScreenAdapter.fs(12),
+                                  color: Colors.black45),
+                            ),
+                          ],
+                        ),
                       )),
                 ],
               ),

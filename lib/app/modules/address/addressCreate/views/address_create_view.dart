@@ -33,7 +33,7 @@ class AddressCreateView extends GetView<AddressCreateController> {
         left: 0,
         right: 0,
         top: 0,
-        bottom: (DoScreenAdapter.tabBarH() + DoScreenAdapter.bottomH()),
+        bottom: DoScreenAdapter.adapterBottomH(),
         child: ListView(
             padding: EdgeInsets.only(top: DoScreenAdapter.h(5)),
             children: [
@@ -492,7 +492,7 @@ class AddressCreateView extends GetView<AddressCreateController> {
               border:
                   Border(top: BorderSide(width: 1, color: DoColors.gray238)),
             ),
-            height: (DoScreenAdapter.tabBarH() + DoScreenAdapter.bottomH()),
+            height: DoScreenAdapter.adapterBottomH(),
             child: Container(
               margin: EdgeInsets.fromLTRB(
                 DoScreenAdapter.w(20),

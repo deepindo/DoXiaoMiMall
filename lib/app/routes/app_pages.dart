@@ -41,6 +41,12 @@ import '../modules/messageNotification/bindings/message_notification_binding.dar
 import '../modules/messageNotification/views/message_notification_view.dart';
 import '../modules/officialService/bindings/official_service_binding.dart';
 import '../modules/officialService/views/official_service_view.dart';
+import '../modules/orderContent/bindings/order_content_binding.dart';
+import '../modules/orderContent/views/order_content_view.dart';
+import '../modules/orderList/bindings/order_list_binding.dart';
+import '../modules/orderList/views/order_list_view.dart';
+import '../modules/payment/bindings/payment_binding.dart';
+import '../modules/payment/views/payment_view.dart';
 import '../modules/personalHomepage/bindings/personal_homepage_binding.dart';
 import '../modules/personalHomepage/views/personal_homepage_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
@@ -229,6 +235,21 @@ class AppPages {
       name: _Paths.PERSONAL_HOMEPAGE,
       page: () => const PersonalHomepageView(),
       binding: PersonalHomepageBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAYMENT,
+      page: () => const PaymentView(),
+      binding: PaymentBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_LIST,
+      page: () => const OrderListView(),
+      binding: OrderListBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_CONTENT,
+      page: () => const OrderContentView(),
+      binding: OrderContentBinding(),
     ),
   ];
 }
