@@ -26,7 +26,11 @@ class OrderListView extends GetView<OrderListController> {
       elevation: 0,
       actions: [
         IconButton(onPressed: () {}, icon: Icon(Icons.search_outlined)),
-        IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart_outlined))
+        IconButton(
+            onPressed: () {
+              Get.toNamed("/order-content", arguments: {"sId": "test"});
+            },
+            icon: Icon(Icons.shopping_cart_outlined))
       ],
       bottom: TabBar(
         tabs: controller.tabBarList,

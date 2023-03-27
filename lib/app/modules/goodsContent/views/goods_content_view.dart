@@ -551,6 +551,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                             Text("${controller.model.value.title}",
                                 // "Redmi Note 12 Pro",
                                 maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     fontSize: DoScreenAdapter.fs(12))),
                           ],

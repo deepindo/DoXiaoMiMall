@@ -196,6 +196,7 @@ class AddressManagerView extends GetView<AddressManagerController> {
                       Text(
                         addressDistrict,
                         maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: DoScreenAdapter.fs(14),
                         ),
@@ -204,6 +205,7 @@ class AddressManagerView extends GetView<AddressManagerController> {
                       Text(
                         addressDetail,
                         maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: DoScreenAdapter.fs(14),
                         ),

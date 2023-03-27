@@ -306,6 +306,7 @@ class CheckoutView extends GetView<CheckoutController> {
                           Text(
                             addressDistrict,
                             maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: DoScreenAdapter.fs(12),
                             ),
@@ -314,6 +315,7 @@ class CheckoutView extends GetView<CheckoutController> {
                           Text(
                             addressDetail,
                             maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 fontSize: DoScreenAdapter.fs(16),
                                 fontWeight: FontWeight.bold),
@@ -577,6 +579,7 @@ class CheckoutView extends GetView<CheckoutController> {
                                               Text(
                                                 addressDistrict,
                                                 maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                   fontSize:
                                                       DoScreenAdapter.fs(12),
@@ -587,6 +590,7 @@ class CheckoutView extends GetView<CheckoutController> {
                                               Text(
                                                 addressDetail,
                                                 maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                     fontSize:
                                                         DoScreenAdapter.fs(16),

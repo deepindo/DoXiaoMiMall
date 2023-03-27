@@ -746,6 +746,7 @@ class GoodsContentInfoView extends GetView {
                             Text("${controller.model.value.title}",
                                 // "Redmi Note 12 Pro",
                                 maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     fontSize: DoScreenAdapter.fs(12))),
                           ],
@@ -1593,6 +1594,7 @@ class GoodsContentInfoView extends GetView {
   //                       SizedBox(height: DoScreenAdapter.h(10)),
   //                       Text("Redmi Note 12 Pro",
   //                           maxLines: 2,
+  //                           overflow: TextOverflow.ellipsis,
   //                           style: TextStyle(fontSize: DoScreenAdapter.fs(12))),
   //                     ],
   //                   ),
