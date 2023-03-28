@@ -15,27 +15,60 @@
 ### iOS
 
 <div align=center>
-<img src="./screenshot/iOS/011.PNG" width="220" alt="首页"/>
-<img src="./screenshot/iOS/012.PNG" width="220"/>
-<img src="./screenshot/iOS/021.PNG" width="220"/>
-<img src="./screenshot/iOS/03.PNG" width="220"/>
-<img src="./screenshot/iOS/04.PNG" width="220"/>
-<img src="./screenshot/iOS/05.PNG" width="220"/>
-<img src="./screenshot/iOS/06.PNG" width="220"/>
-<img src="./screenshot/iOS/07.PNG" width="220"/>
+<img src="./screenshot/iOS/011.PNG" width="200" alt="首页"/>
+<img src="./screenshot/iOS/012.PNG" width="200"/>
+<img src="./screenshot/iOS/021.PNG" width="200"/>
+<img src="./screenshot/iOS/03.PNG" width="200"/>
+<img src="./screenshot/iOS/04.PNG" width="200"/>
+<img src="./screenshot/iOS/05.PNG" width="200"/>
+<img src="./screenshot/iOS/06.PNG" width="200"/>
+<img src="./screenshot/iOS/07.PNG" width="200"/>
 </div>
 
 ### Android
 
 <div align=center>
-<img src="./screenshot/android/011.jpg" width="220" alt="首页"/>
-<img src="./screenshot/android/012.jpg" width="220"/>
-<img src="./screenshot/android/02.jpg" width="220"/>
-<img src="./screenshot/android/03.jpg" width="220"/>
-<img src="./screenshot/android/04.jpg" width="220"/>
-<img src="./screenshot/android/05.jpg" width="220"/>
-<img src="./screenshot/android/06.jpg" width="220"/>
-<img src="./screenshot/android/07.jpg" width="220"/>
+<img src="./screenshot/android/011.jpg" width="200" alt="首页"/>
+<img src="./screenshot/android/012.jpg" width="200"/>
+<img src="./screenshot/android/02.jpg" width="200"/>
+<img src="./screenshot/android/03.jpg" width="200"/>
+<img src="./screenshot/android/04.jpg" width="200"/>
+<img src="./screenshot/android/05.jpg" width="200"/>
+<img src="./screenshot/android/06.jpg" width="200"/>
+<img src="./screenshot/android/07.jpg" width="200"/>
+</div>
+
+### 各子页面(iOS为例)
+
+<div align=center>
+<img src="./screenshot/android/001.PNG" width="150"/>
+<img src="./screenshot/android/002.PNG" width="150"/>
+<img src="./screenshot/android/003.PNG" width="150"/>
+<img src="./screenshot/android/004.PNG" width="150"/>
+<img src="./screenshot/android/005.PNG" width="150"/>
+<img src="./screenshot/android/006.PNG" width="150"/>
+<img src="./screenshot/android/007.PNG" width="150"/>
+<img src="./screenshot/android/008.PNG" width="150"/>
+<img src="./screenshot/android/009.PNG" width="150"/>
+<img src="./screenshot/android/010.PNG" width="150"/>
+<img src="./screenshot/android/011.PNG" width="150"/>
+<img src="./screenshot/android/012.PNG" width="150"/>
+<img src="./screenshot/android/013.PNG" width="150"/>
+<img src="./screenshot/android/014.PNG" width="150"/>
+<img src="./screenshot/android/015.PNG" width="150"/>
+<img src="./screenshot/android/016.PNG" width="150"/>
+<img src="./screenshot/android/017.PNG" width="150"/>
+<img src="./screenshot/android/018.PNG" width="150"/>
+<img src="./screenshot/android/019.PNG" width="150"/>
+<img src="./screenshot/android/020.PNG" width="150"/>
+<img src="./screenshot/android/021.PNG" width="150"/>
+<img src="./screenshot/android/022.PNG" width="150"/>
+<img src="./screenshot/android/023.PNG" width="150"/>
+<img src="./screenshot/android/024.PNG" width="150"/>
+<img src="./screenshot/android/025.PNG" width="150"/>
+<img src="./screenshot/android/026.PNG" width="150"/>
+<img src="./screenshot/android/027.PNG" width="150"/>
+<img src="./screenshot/android/028.PNG" width="150"/>
 </div>
 
 ## Done
