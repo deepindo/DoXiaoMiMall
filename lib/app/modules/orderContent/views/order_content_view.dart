@@ -11,7 +11,6 @@ class OrderContentView extends GetView<OrderContentController> {
   const OrderContentView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    controller.requestOrderContent();
     return Scaffold(
       backgroundColor: DoColors.gray249,
       appBar: AppBar(
@@ -34,7 +33,6 @@ class OrderContentView extends GetView<OrderContentController> {
   Widget _body() {
     return Stack(
       children: [
-        // Text("${controller.sId}"),
         _contentListView(),
         _floatingView(),
       ],
@@ -48,26 +46,26 @@ class OrderContentView extends GetView<OrderContentController> {
       right: 0,
       top: 0,
       bottom: DoScreenAdapter.adapterBottomH(),
-      child:
-          // Obx(
-          //   () =>
-          // controller.orderList.isNotEmpty
-          // ?
-          ListView(
-        // padding: EdgeInsets.all(DoScreenAdapter.w(10)),
-        children: [
-          _deliveryInfoSection(),
-          SizedBox(height: DoScreenAdapter.h(5)),
-          // _goodsInfoSection(),
-          SizedBox(height: DoScreenAdapter.h(5)),
-          _paymentInfoSection(),
-          SizedBox(height: DoScreenAdapter.h(5)),
-          _orderInfoSection(),
-          _operateMenuSection(),
-        ],
-        // ),
-        // : const Center(child: SpinKitFadingCircle(color: Colors.white)),
-      ),
+      child: Obx(() {
+        if (controller.orderList.isNotEmpty) {
+          OrderItemModel model = controller.orderList[0];
+          return ListView(
+            children: [
+              _deliveryInfoSection(model),
+              SizedBox(height: DoScreenAdapter.h(5)),
+              _goodsInfoSection(model),
+              SizedBox(height: DoScreenAdapter.h(5)),
+              _paymentInfoSection(model),
+              SizedBox(height: DoScreenAdapter.h(5)),
+              _orderInfoSection(model),
+              _operateMenuSection(model),
+            ],
+          );
+        } else {
+          return const Center(
+              child: SpinKitFadingCircle(color: DoColors.theme));
+        }
+      }),
     );
   }
 
@@ -129,7 +127,7 @@ class OrderContentView extends GetView<OrderContentController> {
   }
 
   ///送货地址区
-  Widget _deliveryInfoSection() {
+  Widget _deliveryInfoSection(OrderItemModel orderItemModel) {
     return Container(
       padding: EdgeInsets.all(DoScreenAdapter.w(10)),
       color: Colors.white,
@@ -139,24 +137,28 @@ class OrderContentView extends GetView<OrderContentController> {
             children: [
               Icon(Icons.location_on_outlined, size: DoScreenAdapter.fs(16)),
               SizedBox(width: DoScreenAdapter.w(5)),
-              Text("xxxx", style: TextStyle(fontSize: DoScreenAdapter.fs(14))),
+              Text("${orderItemModel.name}",
+                  style: TextStyle(fontSize: DoScreenAdapter.fs(14))),
               SizedBox(width: DoScreenAdapter.w(10)),
-              Text("15528778969",
+              Text("${orderItemModel.phone}",
                   style: TextStyle(fontSize: DoScreenAdapter.fs(14))),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.only(
-                top: DoScreenAdapter.h(5), left: DoScreenAdapter.w(20)),
-            child: Expanded(
-              child: Text(
-                  "xxxx yyyyy zzzz aaaaa bbbbb ccccccccccc dddddd eeeeeeffffffffffffffffffffff",
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontSize: DoScreenAdapter.fs(12),
-                      color: DoColors.gray154)),
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: DoScreenAdapter.h(5), left: DoScreenAdapter.w(20)),
+                  child: Text("${orderItemModel.address}",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: DoScreenAdapter.fs(12),
+                          color: DoColors.gray154)),
+                ),
+              ),
+            ],
           )
         ],
       ),
@@ -181,7 +183,8 @@ class OrderContentView extends GetView<OrderContentController> {
   Widget _orderGoodsItem(OrderGoodsItemModel goodsItemModel) {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.symmetric(vertical: DoScreenAdapter.h(10)),
+      padding: EdgeInsets.symmetric(
+          horizontal: DoScreenAdapter.w(10), vertical: DoScreenAdapter.h(10)),
       child: Row(children: [
         _coverSection(goodsItemModel.productImg),
         Expanded(
@@ -271,15 +274,15 @@ class OrderContentView extends GetView<OrderContentController> {
 
   ///----------
   ///订单金额区
-  Widget _paymentInfoSection() {
+  Widget _paymentInfoSection(OrderItemModel orderItemModel) {
     return Container(
       padding: EdgeInsets.only(top: DoScreenAdapter.w(10)),
       color: Colors.white,
       child: Column(
         children: [
-          _commonSpaceBetweenTile("订单金额:", "xxxxx"),
-          _commonSpaceBetweenTile("免运费:", "xxxxx"),
-          _commonSpaceBetweenTile("支付优惠:", "xxxxx"),
+          _commonSpaceBetweenTile("订单金额:", "${orderItemModel.allPrice}"),
+          _commonSpaceBetweenTile("免运费:", ""),
+          _commonSpaceBetweenTile("支付优惠:", ""),
           const Divider(height: 1, color: DoColors.gray238),
           Padding(
             padding: EdgeInsets.symmetric(
@@ -292,7 +295,7 @@ class OrderContentView extends GetView<OrderContentController> {
                       style: TextStyle(
                           fontSize: DoScreenAdapter.fs(16),
                           color: DoColors.theme)),
-                  Text("￥248",
+                  Text("￥${orderItemModel.allPrice}",
                       style: TextStyle(
                           fontSize: DoScreenAdapter.fs(16),
                           color: DoColors.theme))
@@ -304,65 +307,72 @@ class OrderContentView extends GetView<OrderContentController> {
   }
 
   ///订单信息区
-  Widget _orderInfoSection() {
+  Widget _orderInfoSection(OrderItemModel orderItemModel) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(top: DoScreenAdapter.w(10)),
       child: Column(
         children: [
-          _commonSpaceBetweenTile("下单时间:", "xxxxx"),
-          _commonSpaceBetweenTile("付款时间:", "xxxxx"),
-          _commonSpaceBetweenTile("订单编号:", "xxxxx"),
-          _commonSpaceBetweenTile("发票类型:", "xxxxx"),
-          _commonSpaceBetweenTile("发票抬头:", "xxxxx")
+          _commonSpaceBetweenTile("下单时间:",
+              "${DateTime.fromMillisecondsSinceEpoch(orderItemModel.addTime!)}"),
+          _commonSpaceBetweenTile("付款时间:",
+              "${DateTime.fromMillisecondsSinceEpoch(orderItemModel.addTime!)}"),
+          _commonSpaceBetweenTile("订单编号:", "${orderItemModel.orderId}"),
+          _commonSpaceBetweenTile("发票类型:", ""),
+          _commonSpaceBetweenTile("发票抬头:", "")
         ],
       ),
     );
   }
 
   ///操作区
-  Widget _operateMenuSection() {
-    return Container(
-      color: Colors.white,
-      padding: EdgeInsets.symmetric(
-          horizontal: DoScreenAdapter.w(10), vertical: DoScreenAdapter.h(10)),
-      margin: EdgeInsets.only(bottom: DoScreenAdapter.bottomH()),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(child: Container()),
-          Wrap(
-            spacing: DoScreenAdapter.w(10),
-            children: [
-              Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: DoScreenAdapter.w(10),
-                      vertical: DoScreenAdapter.h(5)),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 0.5, color: DoColors.gray168),
-                      borderRadius:
-                          BorderRadius.circular(DoScreenAdapter.w(30))),
-                  child: Text(
-                    "查看发票",
-                    style: TextStyle(fontSize: DoScreenAdapter.fs(14)),
-                  )),
-              Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: DoScreenAdapter.w(10),
-                      vertical: DoScreenAdapter.h(5)),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 0.5, color: DoColors.gray168),
-                      borderRadius:
-                          BorderRadius.circular(DoScreenAdapter.w(30))),
-                  child: Text(
-                    "联系客服",
-                    style: TextStyle(fontSize: DoScreenAdapter.fs(14)),
-                  )),
-            ],
-          ),
-        ],
-      ),
-    );
+  Widget _operateMenuSection(OrderItemModel orderItemModel) {
+    return orderItemModel.payStatus != 0
+        ? Container(
+            color: Colors.white,
+            padding: EdgeInsets.symmetric(
+                horizontal: DoScreenAdapter.w(10),
+                vertical: DoScreenAdapter.h(10)),
+            margin: EdgeInsets.only(bottom: DoScreenAdapter.bottomH()),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: Container()),
+                Wrap(
+                  spacing: DoScreenAdapter.w(10),
+                  children: [
+                    Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: DoScreenAdapter.w(10),
+                            vertical: DoScreenAdapter.h(5)),
+                        decoration: BoxDecoration(
+                            border:
+                                Border.all(width: 0.5, color: DoColors.gray168),
+                            borderRadius:
+                                BorderRadius.circular(DoScreenAdapter.w(30))),
+                        child: Text(
+                          "查看发票",
+                          style: TextStyle(fontSize: DoScreenAdapter.fs(14)),
+                        )),
+                    Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: DoScreenAdapter.w(10),
+                            vertical: DoScreenAdapter.h(5)),
+                        decoration: BoxDecoration(
+                            border:
+                                Border.all(width: 0.5, color: DoColors.gray168),
+                            borderRadius:
+                                BorderRadius.circular(DoScreenAdapter.w(30))),
+                        child: Text(
+                          "联系客服",
+                          style: TextStyle(fontSize: DoScreenAdapter.fs(14)),
+                        )),
+                  ],
+                ),
+              ],
+            ),
+          )
+        : const SizedBox(width: 0);
   }
 
   ///通用左右标题

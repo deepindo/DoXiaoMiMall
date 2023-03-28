@@ -25,18 +25,21 @@ class OrderListView extends GetView<OrderListController> {
       backgroundColor: Colors.white,
       elevation: 0,
       actions: [
-        IconButton(onPressed: () {}, icon: Icon(Icons.search_outlined)),
         IconButton(
-            onPressed: () {
-              Get.toNamed("/order-content", arguments: {"sId": "test"});
-            },
-            icon: Icon(Icons.shopping_cart_outlined))
+            onPressed: () {},
+            icon: Icon(Icons.search_outlined, size: DoScreenAdapter.fs(20))),
+        IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.shopping_cart_outlined,
+                size: DoScreenAdapter.fs(20)))
       ],
       bottom: TabBar(
         tabs: controller.tabBarList,
+        indicatorColor: DoColors.theme,
+        indicatorSize: TabBarIndicatorSize.label,
+        indicatorWeight: 3,
         onTap: (value) {
-          //只是点击事件
-          // print("ontap${value}");
+          print("ontap${value}");
         },
         controller: controller.tabController,
         isScrollable: false,
@@ -110,7 +113,7 @@ class OrderListView extends GetView<OrderListController> {
       children: [
         InkWell(
           onTap: () {
-            print("跳转--${orderItemModel.sId}");
+            // print("跳转--${orderItemModel.sId}");
             Get.toNamed("/order-content", arguments: {
               "sId": orderItemModel.sId,
             });
@@ -138,7 +141,7 @@ class OrderListView extends GetView<OrderListController> {
                         ),
                       ],
                     ),
-                    Text(orderItemModel.orderStatus == 0 ? "待付款" : "",
+                    Text(orderItemModel.payStatus == 0 ? "待付款" : "",
                         style: TextStyle(
                             fontSize: DoScreenAdapter.fs(14),
                             color: DoColors.theme))
@@ -158,7 +161,8 @@ class OrderListView extends GetView<OrderListController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("${orderItemModel.addTime}",
+                    Text(
+                        "${DateTime.fromMillisecondsSinceEpoch(orderItemModel.addTime!)}",
                         style: TextStyle(
                             fontSize: DoScreenAdapter.fs(12),
                             color: DoColors.gray154)),
