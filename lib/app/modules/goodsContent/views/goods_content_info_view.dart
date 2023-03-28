@@ -147,11 +147,14 @@ class GoodsContentInfoView extends GetView {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("${controller.model.value.title}",
-                  // "Redmi Note 12 Pro",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: DoScreenAdapter.fs(16))),
+              Expanded(
+                child: Text("${controller.model.value.title}",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: DoScreenAdapter.fs(16))),
+              ),
               IconButton(
                   onPressed: () {},
                   icon: const Icon(
