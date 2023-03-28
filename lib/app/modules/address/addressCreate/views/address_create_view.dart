@@ -57,7 +57,7 @@ class AddressCreateView extends GetView<AddressCreateController> {
                               return value!.trim().isNotEmpty ? null : "姓名不能为空";
                             },
                             controller: controller.usernameController,
-                            keyboardType: TextInputType.name,
+                            // keyboardType: TextInputType.name,
                             cursorColor: DoColors.theme,
                             textAlignVertical: TextAlignVertical
                                 .center, //有suffixIcon图标的时候，只设置这一个就可以垂直方向居中
@@ -219,7 +219,7 @@ class AddressCreateView extends GetView<AddressCreateController> {
                                 // print("validator:$value");
                               },
                               controller: controller.addressDistrictController,
-                              keyboardType: TextInputType.text,
+                              // keyboardType: TextInputType.text,
                               cursorColor: DoColors.theme,
                               textAlignVertical: TextAlignVertical.center,
                               // enabled: false,
@@ -307,10 +307,10 @@ class AddressCreateView extends GetView<AddressCreateController> {
                                 // print("validator:$value");
                               },
                               controller: controller.addressDetailController,
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(11)
-                              ],
-                              keyboardType: TextInputType.text,
+                              // inputFormatters: [
+                              //   LengthLimitingTextInputFormatter(11)
+                              // ],
+                              // keyboardType: TextInputType.text,
                               cursorColor: DoColors.theme,
                               textAlignVertical: TextAlignVertical.center,
                               style: TextStyle(

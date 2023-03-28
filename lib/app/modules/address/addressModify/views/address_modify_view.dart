@@ -67,7 +67,7 @@ class AddressModifyView extends GetView {
                               return value!.trim().isNotEmpty ? null : "姓名不能为空";
                             },
                             controller: controller.usernameController,
-                            keyboardType: TextInputType.name,
+                            // keyboardType: TextInputType.name,
                             cursorColor: DoColors.theme,
                             textAlignVertical: TextAlignVertical
                                 .center, //有suffixIcon图标的时候，只设置这一个就可以垂直方向居中
@@ -177,7 +177,7 @@ class AddressModifyView extends GetView {
                                 // print("validator:$value");
                               },
                               controller: controller.addressDistrictController,
-                              keyboardType: TextInputType.text,
+                              // keyboardType: TextInputType.text,
                               cursorColor: DoColors.theme,
                               textAlignVertical: TextAlignVertical.center,
                               style: TextStyle(
@@ -221,10 +221,10 @@ class AddressModifyView extends GetView {
                                 // print("validator:$value");
                               },
                               controller: controller.addressDetailController,
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(11)
-                              ],
-                              keyboardType: TextInputType.text,
+                              // inputFormatters: [
+                              //   LengthLimitingTextInputFormatter(11)
+                              // ],
+                              // keyboardType: TextInputType.text,//加了就不能用如搜狗输入法了，只能用自带的
                               cursorColor: DoColors.theme,
                               textAlignVertical: TextAlignVertical.center,
                               style: TextStyle(

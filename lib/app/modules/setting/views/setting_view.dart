@@ -24,38 +24,48 @@ class SettingView extends GetView<SettingController> {
   }
 
   Widget _body() {
-    return ListView(
-      children: [
-        _profileSection(),
-        commonListTile("密保手机", onTap: () {}),
-        commonListTile("收货地址", onTap: () {
-          Get.toNamed("address-manager");
-        }),
-        Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
-        commonListTile("消息推送", onTap: () {}),
-        commonListTile("隐私设置", onTap: () {
-          // print("隐私设置");
-        }),
-        commonListTile("小米商城隐私政策", onTap: () {
-          // print("小米商城隐私政策");
-        }),
-        commonListTile("小米商城隐私政策-简要版", onTap: () {}),
-        Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
-        commonListTile("关于商城", onTap: () {
-          // print("关于商城");
-        }),
-        commonListTile("网络诊断", onTap: () {}),
-        commonListTile("个人信息收集与使用清单", onTap: () {}),
-        commonListTile("个人信息第三方共享清单", onTap: () {}),
-        commonListTile("协议规则", onTap: () {}),
-        commonListTile("资质证照", onTap: () {}),
-        commonListTile("小米商城用户协议", onTap: () {}),
-        commonListTile("小米账号用户协议", onTap: () {}),
-        commonListTile("小米账号隐私政策", onTap: () {}),
-        Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
-        _logouButton(),
-        // Container(height: DoScreenAdapter.h(60), color: DoColors.gray238)
-      ],
+    return Obx(
+      () => ListView(
+        children: [
+          controller.isLogin.value
+              ? Column(
+                  children: [
+                    _profileSection(),
+                    commonListTile("密保手机", onTap: () {}),
+                    commonListTile("收货地址", onTap: () {
+                      Get.toNamed("address-manager");
+                    }),
+                    Container(
+                        height: DoScreenAdapter.h(10), color: DoColors.gray238),
+                    commonListTile("消息推送", onTap: () {}),
+                    commonListTile("隐私设置", onTap: () {
+                      // print("隐私设置");
+                    })
+                  ],
+                )
+              : const SizedBox(width: 0),
+
+          commonListTile("小米商城隐私政策", onTap: () {
+            // print("小米商城隐私政策");
+          }),
+          commonListTile("小米商城隐私政策-简要版", onTap: () {}),
+          Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
+          commonListTile("关于商城", onTap: () {
+            // print("关于商城");
+          }),
+          commonListTile("网络诊断", onTap: () {}),
+          commonListTile("个人信息收集与使用清单", onTap: () {}),
+          commonListTile("个人信息第三方共享清单", onTap: () {}),
+          commonListTile("协议规则", onTap: () {}),
+          commonListTile("资质证照", onTap: () {}),
+          commonListTile("小米商城用户协议", onTap: () {}),
+          commonListTile("小米账号用户协议", onTap: () {}),
+          commonListTile("小米账号隐私政策", onTap: () {}),
+          Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
+          _logouButton(),
+          // Container(height: DoScreenAdapter.h(60), color: DoColors.gray238)
+        ],
+      ),
     );
   }
 
@@ -90,7 +100,7 @@ class SettingView extends GetView<SettingController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${controller.userModel.value.username}",
+                        controller.userModel.value.username ?? "",
                         style: TextStyle(
                             fontSize: DoScreenAdapter.fs(14),
                             fontWeight: FontWeight.bold),
@@ -103,7 +113,7 @@ class SettingView extends GetView<SettingController> {
                             borderRadius:
                                 BorderRadius.circular(DoScreenAdapter.w(10))),
                         child: Text(
-                          "小米ID${controller.userModel.value.sId}",
+                          "小米ID${controller.userModel.value.sId ?? ""}",
                           style: TextStyle(fontSize: DoScreenAdapter.fs(10)),
                         ),
                       ),

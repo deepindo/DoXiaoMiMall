@@ -38,8 +38,8 @@ class AddressModifyController extends GetxController {
 
   ///初始化上个页面传过来的值
   void prepareInitData() {
-    print("init-------测试参数${Get.arguments["sId"]}");
-    print("init-------测试参数${Get.arguments["name"]}");
+    // print("init-------测试参数${Get.arguments["sId"]}");
+    // print("init-------测试参数${Get.arguments["name"]}");
     usernameController.text = Get.arguments["name"];
     phoneController.text = Get.arguments["phone"];
     String fullAddress = Get.arguments["address"];
@@ -65,10 +65,10 @@ class AddressModifyController extends GetxController {
 
   ///修改地址
   void modifyAddress() async {
-    print("-------测试参数$test");
-    print("-------测试参数${Get.arguments["sId"]}");
-    print("-------测试参数${Get.arguments["name"]}");
-    return;
+    // print("-------测试参数$test");
+    // print("-------测试参数${Get.arguments["sId"]}");
+    // print("-------测试参数${Get.arguments["name"]}");
+    // return;
     List list = await DoUserService.getUserInfo();
     if (list.isNotEmpty) {
       EasyLoading.show();

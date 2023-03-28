@@ -31,11 +31,15 @@ class OrderContentView extends GetView<OrderContentController> {
 
   ///body部分
   Widget _body() {
-    return Stack(
-      children: [
-        _contentListView(),
-        _floatingView(),
-      ],
+    return Obx(
+      () => controller.orderList.isNotEmpty
+          ? Stack(
+              children: [
+                _contentListView(),
+                _floatingView(),
+              ],
+            )
+          : const Center(child: SpinKitFadingCircle(color: DoColors.theme)),
     );
   }
 
@@ -47,6 +51,7 @@ class OrderContentView extends GetView<OrderContentController> {
       top: 0,
       bottom: DoScreenAdapter.adapterBottomH(),
       child: Obx(() {
+        ///这个其实可以不要了
         if (controller.orderList.isNotEmpty) {
           OrderItemModel model = controller.orderList[0];
           return ListView(
@@ -169,7 +174,7 @@ class OrderContentView extends GetView<OrderContentController> {
   ///商品区：最好拆分成发货单
   Widget _goodsInfoSection(OrderItemModel orderItemModel) {
     return Container(
-      color: Colors.green,
+      color: Colors.white,
       child: ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),

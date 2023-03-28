@@ -300,7 +300,9 @@ class GoodsContentController extends GetxController {
               "buyNumber": buyNumber.value,
               "checked": true
             },
-          ]
+          ],
+          "checkedTotalCount": buyNumber.value,
+          "checkedTotalPrice": double.parse("${model.value.price}"), //直接转会报错
         },
       );
       // }

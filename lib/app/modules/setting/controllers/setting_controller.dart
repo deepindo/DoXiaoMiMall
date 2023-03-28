@@ -1,54 +1,45 @@
 import '../../../models/user_model.dart';
-import '../../../services/app_screenAdapter.dart';
 import 'package:get/get.dart';
-
 import '../../../services/app_userService.dart';
-// import '../../me/controllers/me_controller.dart';
 
 class SettingController extends GetxController {
   var userModel = UserModel().obs;
-  // MeController meController = Get.find();
+  RxBool isLogin = false.obs;
 
   @override
   void onInit() {
-    // print("onInit b-SettingController");
-    // print(DoScreenAdapter.statusH());
-    // print(DoScreenAdapter.bottomH());
     super.onInit();
-    // print("onInit a-SettingController");
-
-    initUserInfo();
+    getUserInfo();
   }
 
   @override
   void onReady() {
-    // print("onReady b-SettingController");
     super.onReady();
-    // print("onReady a-SettingController");
   }
 
   @override
   void onClose() {
-    // print("设置页面onClose执行么");
-    // meController.getUserInfo();
-    // print("onClose b-SettingController");
-    // print(DoScreenAdapter.statusH());
-    // print(DoScreenAdapter.bottomH());
     super.onClose();
-    // print("onClose a-SettingController");
   }
 
   @override
   void dispose() {
-    // print("before dispose SettingController");
     super.dispose();
-    // print("after dispose SettingController");
   }
 
-  void initUserInfo() async {
-    List list = await DoUserService.getUserInfo();
-    if (list.isNotEmpty) {
-      userModel.value = UserModel.fromJson(list[0]);
+  // void initUserInfo() async {
+  //   List list = await DoUserService.getUserInfo();
+  //   if (list.isNotEmpty) {
+  //     userModel.value = UserModel.fromJson(list[0]);
+  //   }
+  // }
+
+  void getUserInfo() async {
+    isLogin.value = await DoUserService.isLogin();
+    var data = await DoUserService.getUserInfo();
+    if (data != []) {
+      userModel.value = UserModel.fromJson(data[0]);
+      update();
     }
   }
 
