@@ -458,7 +458,8 @@ class MeView extends GetView<MeController> {
                       flex: 1,
                       child: InkWell(
                         onTap: () {
-                          Get.toNamed("/order-list");
+                          Get.toNamed("/order-list",
+                              arguments: {"initialIndex": 1});
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -477,7 +478,8 @@ class MeView extends GetView<MeController> {
                       flex: 1,
                       child: InkWell(
                         onTap: () {
-                          Get.toNamed("/order-list");
+                          Get.toNamed("/order-list",
+                              arguments: {"initialIndex": 2});
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -496,7 +498,8 @@ class MeView extends GetView<MeController> {
                       flex: 1,
                       child: InkWell(
                         onTap: () {
-                          Get.toNamed("/order-list");
+                          Get.toNamed("/order-list",
+                              arguments: {"initialIndex": 3});
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -515,7 +518,7 @@ class MeView extends GetView<MeController> {
                       flex: 1,
                       child: InkWell(
                         onTap: () {
-                          Get.toNamed("/order-list");
+                          Get.toNamed("/after-sale");
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,

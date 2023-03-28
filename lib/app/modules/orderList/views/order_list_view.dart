@@ -23,7 +23,7 @@ class OrderListView extends GetView<OrderListController> {
       title: const Text('商城订单'),
       centerTitle: true,
       backgroundColor: Colors.white,
-      elevation: 0,
+      elevation: 0.2,
       actions: [
         IconButton(
             onPressed: () {},
@@ -35,6 +35,20 @@ class OrderListView extends GetView<OrderListController> {
       ],
       bottom: TabBar(
         tabs: controller.tabBarList,
+        labelColor: DoColors.theme,
+        unselectedLabelColor: DoColors.black128,
+
+        ///以下两项里面设置颜色有问题
+        labelStyle: TextStyle(
+          fontSize: DoScreenAdapter.fs(14),
+          fontWeight: FontWeight.bold,
+          // color: DoColors.theme,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontSize: DoScreenAdapter.fs(14),
+          fontWeight: FontWeight.normal,
+          // color: DoColors.gray154,
+        ),
         indicatorColor: DoColors.theme,
         indicatorSize: TabBarIndicatorSize.label,
         indicatorWeight: 3,
@@ -60,13 +74,14 @@ class OrderListView extends GetView<OrderListController> {
     );
   }
 
+  ///--------------
   ///全部
   Widget _allOrderListView() {
     return Obx(
-      () => controller.orderList.isNotEmpty
+      () => controller.allOrderList.isNotEmpty
           ? ListView(
               shrinkWrap: true,
-              children: controller.orderList
+              children: controller.allOrderList
                   .map((element) => _orderItem(element))
                   .toList(),
             )
@@ -76,37 +91,47 @@ class OrderListView extends GetView<OrderListController> {
 
   ///待付款
   Widget _waitingPayOrderListView() {
-    return ListView(
-      children: [
-        Container(
-          color: Colors.orange,
-        )
-      ],
+    return Obx(
+      () => controller.paymentOrderList.isNotEmpty
+          ? ListView(
+              shrinkWrap: true,
+              children: controller.paymentOrderList
+                  .map((element) => _orderItem(element))
+                  .toList(),
+            )
+          : commonEmptyView("暂无订单"),
     );
   }
 
   ///待收货
   Widget _waitingReceiverOrderListView() {
-    return ListView(
-      children: [
-        Container(
-          color: Colors.green,
-        )
-      ],
+    return Obx(
+      () => controller.receiverOrderList.isNotEmpty
+          ? ListView(
+              shrinkWrap: true,
+              children: controller.receiverOrderList
+                  .map((element) => _orderItem(element))
+                  .toList(),
+            )
+          : commonEmptyView("暂无订单"),
     );
   }
 
   ///待评价
   Widget _waitingCommentOrderListView() {
-    return ListView(
-      children: [
-        Container(
-          color: Colors.cyan,
-        )
-      ],
+    return Obx(
+      () => controller.commentOrderList.isNotEmpty
+          ? ListView(
+              shrinkWrap: true,
+              children: controller.commentOrderList
+                  .map((element) => _orderItem(element))
+                  .toList(),
+            )
+          : commonEmptyView("暂无订单"),
     );
   }
 
+  ///--------------
   ///订单子项
   Widget _orderItem(OrderItemModel orderItemModel) {
     return Column(

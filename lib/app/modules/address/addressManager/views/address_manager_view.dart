@@ -15,7 +15,7 @@ class AddressManagerView extends GetView<AddressManagerController> {
       backgroundColor: DoColors.gray249,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 0,
+        elevation: 0.2,
         title: const Text('地址管理'),
         centerTitle: true,
       ),

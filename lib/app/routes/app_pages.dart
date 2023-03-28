@@ -6,6 +6,8 @@ import '../modules/address/addressManager/bindings/address_manager_binding.dart'
 import '../modules/address/addressManager/views/address_manager_view.dart';
 import '../modules/address/addressModify/bindings/address_modify_binding.dart';
 import '../modules/address/addressModify/views/address_modify_view.dart';
+import '../modules/afterSale/bindings/after_sale_binding.dart';
+import '../modules/afterSale/views/after_sale_view.dart';
 import '../modules/auth/accountHelp/bindings/account_help_binding.dart';
 import '../modules/auth/accountHelp/views/account_help_view.dart';
 import '../modules/auth/accountPasswordLogin/bindings/account_password_login_binding.dart';
@@ -250,6 +252,11 @@ class AppPages {
       name: _Paths.ORDER_CONTENT,
       page: () => const OrderContentView(),
       binding: OrderContentBinding(),
+    ),
+    GetPage(
+      name: _Paths.AFTER_SALE,
+      page: () => const AfterSaleView(),
+      binding: AfterSaleBinding(),
     ),
   ];
 }
