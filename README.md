@@ -41,34 +41,34 @@
 ### 各子页面(iOS为例)
 
 <div align=center>
-<img src="./screenshot/android/001.PNG" width="150"/>
-<img src="./screenshot/android/002.PNG" width="150"/>
-<img src="./screenshot/android/003.PNG" width="150"/>
-<img src="./screenshot/android/004.PNG" width="150"/>
-<img src="./screenshot/android/005.PNG" width="150"/>
-<img src="./screenshot/android/006.PNG" width="150"/>
-<img src="./screenshot/android/007.PNG" width="150"/>
-<img src="./screenshot/android/008.PNG" width="150"/>
-<img src="./screenshot/android/009.PNG" width="150"/>
-<img src="./screenshot/android/010.PNG" width="150"/>
-<img src="./screenshot/android/011.PNG" width="150"/>
-<img src="./screenshot/android/012.PNG" width="150"/>
-<img src="./screenshot/android/013.PNG" width="150"/>
-<img src="./screenshot/android/014.PNG" width="150"/>
-<img src="./screenshot/android/015.PNG" width="150"/>
-<img src="./screenshot/android/016.PNG" width="150"/>
-<img src="./screenshot/android/017.PNG" width="150"/>
-<img src="./screenshot/android/018.PNG" width="150"/>
-<img src="./screenshot/android/019.PNG" width="150"/>
-<img src="./screenshot/android/020.PNG" width="150"/>
-<img src="./screenshot/android/021.PNG" width="150"/>
-<img src="./screenshot/android/022.PNG" width="150"/>
-<img src="./screenshot/android/023.PNG" width="150"/>
-<img src="./screenshot/android/024.PNG" width="150"/>
-<img src="./screenshot/android/025.PNG" width="150"/>
-<img src="./screenshot/android/026.PNG" width="150"/>
-<img src="./screenshot/android/027.PNG" width="150"/>
-<img src="./screenshot/android/028.PNG" width="150"/>
+<img src="./screenshot/common/001.PNG" width="150"/>
+<img src="./screenshot/common/002.PNG" width="150"/>
+<img src="./screenshot/common/003.PNG" width="150"/>
+<img src="./screenshot/common/004.PNG" width="150"/>
+<img src="./screenshot/common/005.PNG" width="150"/>
+<img src="./screenshot/common/006.PNG" width="150"/>
+<img src="./screenshot/common/007.PNG" width="150"/>
+<img src="./screenshot/common/008.PNG" width="150"/>
+<img src="./screenshot/common/009.PNG" width="150"/>
+<img src="./screenshot/common/010.PNG" width="150"/>
+<img src="./screenshot/common/011.PNG" width="150"/>
+<img src="./screenshot/common/012.PNG" width="150"/>
+<img src="./screenshot/common/013.PNG" width="150"/>
+<img src="./screenshot/common/014.PNG" width="150"/>
+<img src="./screenshot/common/015.PNG" width="150"/>
+<img src="./screenshot/common/016.PNG" width="150"/>
+<img src="./screenshot/common/017.PNG" width="150"/>
+<img src="./screenshot/common/018.PNG" width="150"/>
+<img src="./screenshot/common/019.PNG" width="150"/>
+<img src="./screenshot/common/020.PNG" width="150"/>
+<img src="./screenshot/common/021.PNG" width="150"/>
+<img src="./screenshot/common/022.PNG" width="150"/>
+<img src="./screenshot/common/023.PNG" width="150"/>
+<img src="./screenshot/common/024.PNG" width="150"/>
+<img src="./screenshot/common/025.PNG" width="150"/>
+<img src="./screenshot/common/026.PNG" width="150"/>
+<img src="./screenshot/common/027.PNG" width="150"/>
+<img src="./screenshot/common/028.PNG" width="150"/>
 </div>
 
 ## Done
