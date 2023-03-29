@@ -59,10 +59,14 @@ import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 import '../modules/tabs/bindings/tabs_binding.dart';
 import '../modules/tabs/views/tabs_view.dart';
+import '../modules/theme/bindings/theme_binding.dart';
+import '../modules/theme/views/theme_view.dart';
 import '../modules/vipCode/bindings/vip_code_binding.dart';
 import '../modules/vipCode/views/vip_code_view.dart';
 import '../modules/vipMedal/bindings/vip_medal_binding.dart';
 import '../modules/vipMedal/views/vip_medal_view.dart';
+import '../modules/web/bindings/web_binding.dart';
+import '../modules/web/views/web_view.dart';
 
 part 'app_routes.dart';
 
@@ -257,6 +261,16 @@ class AppPages {
       name: _Paths.AFTER_SALE,
       page: () => const AfterSaleView(),
       binding: AfterSaleBinding(),
+    ),
+    GetPage(
+      name: _Paths.THEME,
+      page: () => const ThemeView(),
+      binding: ThemeBinding(),
+    ),
+    GetPage(
+      name: _Paths.WEB,
+      page: () => const WebView(),
+      binding: WebBinding(),
     ),
   ];
 }

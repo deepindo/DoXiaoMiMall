@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -28,6 +29,7 @@ class MeView extends GetView<MeController> {
             backgroundColor: const Color.fromRGBO(246, 246, 246, 1),
             appBar: _customAppBar(),
             body: _body(),
+            drawer: _leftDrawer(),
           );
         });
   }
@@ -52,7 +54,7 @@ class MeView extends GetView<MeController> {
       //     ),
       //   ],
       // ),
-      leadingWidth: DoScreenAdapter.w(100),
+      // leadingWidth: DoScreenAdapter.w(100),
       actions: [
         InkWell(
           onTap: () {
@@ -106,6 +108,162 @@ class MeView extends GetView<MeController> {
               )),
         ),
       ],
+    );
+  }
+
+  ///左侧抽屉
+  Widget _leftDrawer() {
+    return Drawer(
+      child: Column(
+        children: [
+          Obx(() => !controller.isLogin.value
+              ? InkWell(
+                  onTap: () {
+                    Get.toNamed("/verification-code-login");
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            DoColors.redBegin.withOpacity(0.5),
+                            DoColors.redEnd.withOpacity(0.8),
+                          ]),
+                    ),
+                    padding: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.statusH() + DoScreenAdapter.h(20),
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(20)),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: DoScreenAdapter.w(25),
+                          backgroundImage:
+                              const AssetImage("assets/images/avatar_man.png"),
+                        ),
+                        SizedBox(
+                          width: DoScreenAdapter.w(10),
+                        ),
+                        Text(
+                          "登录/注册".tr,
+                          style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          size: 10,
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              : InkWell(
+                  onTap: () {
+                    Get.toNamed("/personal-homepage");
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            DoColors.redBegin.withOpacity(0.5),
+                            DoColors.redEnd.withOpacity(0.8),
+                          ]),
+                    ),
+                    padding: EdgeInsets.fromLTRB(
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.statusH() + DoScreenAdapter.h(20),
+                        DoScreenAdapter.w(10),
+                        DoScreenAdapter.h(20)),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: DoScreenAdapter.w(25),
+                          backgroundImage:
+                              const AssetImage("assets/images/avatar_man.png"),
+                        ),
+                        SizedBox(
+                          width: DoScreenAdapter.w(10),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${controller.model.value.username}",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: DoScreenAdapter.fs(14),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: DoScreenAdapter.h(5)),
+                            Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(DoScreenAdapter.w(3)),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                          DoScreenAdapter.w(10))),
+                                  child: Text(
+                                    "小米ID${controller.model.value.sId}",
+                                    style: TextStyle(
+                                        color: DoColors.gray238,
+                                        fontSize: DoScreenAdapter.fs(10)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                )),
+          ListTile(
+            leading: const Icon(Icons.language),
+            title: Text("语言设置".tr),
+            onTap: () {
+              _changeLanguageDialog();
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.color_lens),
+            title: Text("主题设置".tr),
+            onTap: () {
+              // Get.back();
+              Get.toNamed("/theme");
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.dark_mode),
+            title: Text("深色模式".tr),
+            trailing: CupertinoSwitch(
+              value: controller.isEnableDarkMode.value,
+              activeColor: DoColors.theme,
+              trackColor: DoColors.gray238,
+              thumbColor: Colors.white,
+              onChanged: (value) {
+                controller.changeDarkMode(value);
+                // Get.back();
+              },
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.font_download_rounded),
+            title: Text("字体设置".tr),
+            onTap: () {
+              Get.back();
+              // Get.snackbar("提示", "期待吧");
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -863,5 +1021,83 @@ class MeView extends GetView<MeController> {
             )),
       ],
     );
+  }
+
+  //选择语言事件
+  void _changeLanguageDialog() async {
+    var result = await showDialog(
+        // barrierDismissible: false,
+        context: Get.context!,
+        builder: (context) {
+          return SimpleDialog(
+            title: Text("请选择语言".tr),
+            children: [
+              SimpleDialogOption(
+                onPressed: () {
+                  Get.back(result: "中文");
+                  Get.updateLocale(const Locale("zh", "CN"));
+                },
+                child: Text("中文".tr),
+              ),
+              const Divider(),
+              SimpleDialogOption(
+                onPressed: () {
+                  Get.back(result: "英语");
+                  Get.updateLocale(const Locale("en", "US"));
+                },
+                child: Text("英语".tr),
+              ),
+              const Divider(),
+              SimpleDialogOption(
+                onPressed: () {
+                  Get.back(result: "法语");
+                  Get.updateLocale(const Locale("fr", "FR"));
+                },
+                child: Text("法语".tr),
+              ),
+              // const Divider(),
+              // SimpleDialogOption(
+              //   onPressed: () {
+              //     Get.back(result: "朝鲜语");
+              //     Get.updateLocale(const Locale("ko", "KP"));
+              //   },
+              //   child: Text("朝鲜语".tr),
+              // ),
+              const Divider(),
+              SimpleDialogOption(
+                onPressed: () {
+                  Get.back(result: "韩语");
+                  Get.updateLocale(const Locale("ko", "KR"));
+                },
+                child: Text("韩语".tr),
+              ),
+              const Divider(),
+              SimpleDialogOption(
+                onPressed: () {
+                  Get.back(result: "日语");
+                  Get.updateLocale(const Locale("ja", "JP"));
+                },
+                child: Text("日语".tr),
+              ),
+              const Divider(),
+              SimpleDialogOption(
+                onPressed: () {
+                  Get.back(result: "德语");
+                  Get.updateLocale(const Locale("de", "DE"));
+                },
+                child: Text("德语".tr),
+              ),
+              const Divider(),
+              SimpleDialogOption(
+                onPressed: () {
+                  Get.back(result: "西班牙语");
+                  Get.updateLocale(const Locale("es", "ES"));
+                },
+                child: Text("西班牙语".tr),
+              ),
+            ],
+          );
+        });
+    print(result);
   }
 }

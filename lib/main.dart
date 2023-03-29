@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app/routes/app_pages.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'app/services/app_colors.dart';
+import 'app/services/app_language.dart';
 
 void main() {
   //flutter 修改状态栏的颜色
@@ -30,8 +31,28 @@ void main() {
             // initialBinding: ,
             debugShowCheckedModeBanner: false,
             theme: ThemeData(primarySwatch: Colors.grey),
+            // darkTheme: ,
+            themeMode: ThemeMode.system,
             defaultTransition: Transition.rightToLeft,
             builder: EasyLoading.init(),
+            translations: Messages(), // 你的翻译
+            locale: const Locale("zh", "CN"), // 将会按照此处指定的语言翻译
+            fallbackLocale:
+                const Locale("en", "US"), // 添加一个回调语言选项，以备上面指定的语言翻译不存在
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('zh'),
+              Locale('en'), // English
+              Locale('fr'), // French
+              Locale('ko'), // Korean-N&S
+              Locale('ja'), // Janpanese
+              Locale('de'), // German
+              Locale('es'), // Spanish
+            ],
           );
         }),
   );

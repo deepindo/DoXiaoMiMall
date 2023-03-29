@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../models/banner_model.dart';
 import '../../../models/category_model.dart';
@@ -34,6 +36,31 @@ class HomeController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void openScan() async {
+    var options = const ScanOptions(
+      // restrictFormat: selectedFormats,
+      // useCamera: _selectedCamera,
+      autoEnableFlash: false,
+      android: AndroidOptions(
+        aspectTolerance: 0.6,
+        useAutoFocus: false,
+      ),
+      strings: {
+        'cancel': "取消",
+        'flash_on': "打开闪光灯",
+        'flash_off': "关闭闪光灯",
+      },
+    );
+
+    var result = await BarcodeScanner.scan(options: options);
+    print(result.type); // The result type (barcode, cancelled, failed)
+    print(result.rawContent); // The barcode content
+    print(result.format); // The barcode format (as enum)
+    print(result.formatNote);
+
+    EasyLoading.showToast(result.rawContent);
   }
 
   ///滚动监听

@@ -2,9 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>NSLocationAlwaysUsageDescription</key>
+	<string>需要开启定位权限，总是用于获取当前所处位置</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>需要开启定位权限，当app打开时用于获取当前所处位置</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>需要开启日历权限，用于在对应日期提醒</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>需要开启蓝牙权限，用于发送，投递文件等</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>需要开启蓝牙权限，用于发送，投递文件等</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>需要开启相册权限，用于图片保存写入等</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>需要开启麦克风权限，用于录制视频等</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要开启相册权限，用于头像更换时选择图片等</string>
+	<key>NSCameraUsageDescription</key>
+	<string>需要开启摄像头权限，用于拍照或者录屏等</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>小米</key>
+	<key>杜小米</key>
 	<string>Doxiaomimall</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -13,7 +31,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>小米</string>
+	<string>杜小米</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

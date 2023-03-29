@@ -40,6 +40,8 @@ abstract class Routes {
   static const ORDER_INFO = _Paths.ORDER_INFO;
   static const ORDER_CONTENT = _Paths.ORDER_CONTENT;
   static const AFTER_SALE = _Paths.AFTER_SALE;
+  static const THEME = _Paths.THEME;
+  static const WEB = _Paths.WEB;
 }
 
 abstract class _Paths {
@@ -81,4 +83,6 @@ abstract class _Paths {
   static const ORDER_INFO = '/order-info';
   static const ORDER_CONTENT = '/order-content';
   static const AFTER_SALE = '/after-sale';
+  static const THEME = '/theme';
+  static const WEB = '/web';
 }

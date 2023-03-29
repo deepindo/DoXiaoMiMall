@@ -15,6 +15,7 @@ class MeController extends GetxController {
   RxList<GoodsItemModel> goodsList = <GoodsItemModel>[].obs;
   RxBool isLogin = false.obs;
   var model = UserModel().obs;
+  RxBool isEnableDarkMode = Get.isDarkMode.obs;
 
   ///服务列表
   List<Map> serviceList = [
@@ -143,4 +144,11 @@ class MeController extends GetxController {
   //   Get.offAllNamed("/tabs");
   //   update();
   // }
+
+  void changeDarkMode(value) {
+    isEnableDarkMode.value = value;
+    Get.changeTheme(
+        isEnableDarkMode.value ? ThemeData.dark() : ThemeData.light());
+    update();
+  }
 }

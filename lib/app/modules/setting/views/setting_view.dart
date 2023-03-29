@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -51,7 +52,9 @@ class SettingView extends GetView<SettingController> {
           commonListTile("小米商城隐私政策-简要版", onTap: () {}),
           Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
           commonListTile("关于商城", onTap: () {
-            // print("关于商城");
+            Get.toNamed("/web", arguments: {
+              "url": "https://book.flutterchina.club/chapter12/flutter_web.html"
+            });
           }),
           commonListTile("网络诊断", onTap: () {}),
           commonListTile("个人信息收集与使用清单", onTap: () {}),
@@ -136,15 +139,43 @@ class SettingView extends GetView<SettingController> {
 
   Widget _logouButton() {
     return TextButton(
-        onPressed: () {
-          DoUserService.removeUserInfo();
-          // Get.back();
-          Get.offAllNamed("/tabs");
-          EasyLoading.showSuccess("退出登录");
-        },
-        child: Text("退出账号",
-            style: TextStyle(
-                fontSize: DoScreenAdapter.fs(14), color: DoColors.black51)));
-    ;
+      onPressed: () {
+        _showLogoutAlertDialog();
+      },
+      child: Text("退出账号",
+          style: TextStyle(
+              fontSize: DoScreenAdapter.fs(14), color: DoColors.black51)),
+    );
+  }
+
+  void _showLogoutAlertDialog() async {
+    await showCupertinoDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text(
+            "温馨提示",
+          ),
+          content: const Text("确定要退出登录么？"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                DoUserService.removeUserInfo();
+                // Get.back();
+                Get.offAllNamed("/tabs");
+                EasyLoading.showSuccess("退出登录");
+              },
+              child: const Text("确定",
+                  style: TextStyle(fontSize: 14, color: DoColors.theme)),
+            ),
+            TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text("取消"))
+          ],
+        );
+      },
+    );
   }
 }

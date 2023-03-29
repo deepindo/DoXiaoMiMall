@@ -103,6 +103,7 @@ class HomeView extends GetView<HomeController> {
                     InkWell(
                       onTap: () {
                         print("scan");
+                        controller.openScan();
                       },
                       child: const Icon(
                         DoFontIcons.scan,
