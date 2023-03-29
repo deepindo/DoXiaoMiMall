@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app/routes/app_pages.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'app/services/app_colors.dart';
 import 'app/services/app_language.dart';
 
@@ -13,6 +14,9 @@ void main() {
   SystemUiOverlayStyle systemUiOverlayStyle =
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   runApp(
     ScreenUtilInit(
@@ -56,6 +60,8 @@ void main() {
           );
         }),
   );
+
+  FlutterNativeSplash.remove();
 
   configLoading();
 }

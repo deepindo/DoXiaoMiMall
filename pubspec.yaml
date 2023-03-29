@@ -83,6 +83,14 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
+flutter_native_splash:
+  image: assets/images/appicon.png #对应生成iOS中LaunchImage图片，包含1x2x3x
+  color: "#ffffff" #闪屏页背景色
+  android: true  #可以选择是否支持android或者iOS
+  android_disable_fullscreen: true #禁用android全屏启动
+  fill: false #如果图像可用在所有的屏幕上添加为true，目前只支持android
+
+
 # The following section is specific to Flutter packages.
 flutter:
 
