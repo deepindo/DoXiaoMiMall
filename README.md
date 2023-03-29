@@ -1,5 +1,8 @@
 # 小米商城app
 
+<div align=center>
+<img src="./screenshot/iOS/appicon.png" width="200"/>
+</div>
 一款用Flutter编写的小米商城app
 
 > 项目目前已经完成从商品列表->商品详情->购物车->结算->支付->生成订单这条主线功能以及有关联的附属功能;
