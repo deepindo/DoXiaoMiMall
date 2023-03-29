@@ -18,11 +18,18 @@ class MeView extends GetView<MeController> {
   const MeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(246, 246, 246, 1),
-      appBar: _customAppBar(),
-      body: _body(),
-    );
+    return GetBuilder(
+        init: controller,
+        initState: (state) {
+          controller.getUserInfo();
+        },
+        builder: (controller) {
+          return Scaffold(
+            backgroundColor: const Color.fromRGBO(246, 246, 246, 1),
+            appBar: _customAppBar(),
+            body: _body(),
+          );
+        });
   }
 
   ///自定义的appBar

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_html/flutter_html.dart';
-import '../../../services/app_screenAdapter.dart';
 import '../controllers/goods_content_controller.dart';
 
 class GoodsContentDetailsView extends GetView {
@@ -14,7 +13,7 @@ class GoodsContentDetailsView extends GetView {
   Widget build(BuildContext context) {
     return Container(
       key: controller.gk1,
-      // color: Colors.purple,
+      color: Colors.white,
       width: double.infinity,
       child: Column(
         children: [
@@ -39,7 +38,7 @@ class GoodsContentDetailsView extends GetView {
       } else {}
 
       return Html(
-        data: data,
+        data: data ?? "",
         style: {
           "body": Style(backgroundColor: Colors.white),
           "p": Style(fontSize: FontSize.large),

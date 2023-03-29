@@ -135,7 +135,7 @@ class DoNetwork {
     try {
       var response = await dio.get(apiPath);
       // print("||-------------------Begin-------------------||");
-      print("||----------get---->response:--$response ");
+      // print("||----------get---->response:--$response ");
       // print("||---->response.statusCode:--${response.statusCode}");
       // print("||---->response.statusMessage:--${response.statusMessage}");
       // print("response.headers:-----${response.headers}");
@@ -147,9 +147,9 @@ class DoNetwork {
         return response.data;
       } else {
         ///应该先判断code吧，然后根据情况返回data
-        print("||---->response.statusCode:--${response.statusCode}");
-        print("||---->response.statusMessage:--${response.statusMessage}");
-        print("||---->response.headers:--${response.headers}");
+        // print("||---->response.statusCode:--${response.statusCode}");
+        // print("||---->response.statusMessage:--${response.statusMessage}");
+        // print("||---->response.headers:--${response.headers}");
         // print("||---->response.requestOptions:--${response.requestOptions}");
         // print("||---->response.isRedirect:--${response.isRedirect}");
         // print("||---->response.extra:--${response.extra}");
@@ -176,7 +176,7 @@ class DoNetwork {
   Future post(String apiPath, {Object? data}) async {
     try {
       var response = await dio.post(apiPath, data: data);
-      print("||--------post---->response:--$response ");
+      // print("||--------post---->response:--$response ");
       // print("||---->response.statusCode:--${response.statusCode}");
       // print("||---->response.statusMessage:--${response.statusMessage}");
       // print("response.headers:-----${response.headers}");
@@ -187,9 +187,9 @@ class DoNetwork {
         return response.data;
       } else {
         ///应该先判断code吧，然后根据情况返回data
-        print("||---->response.statusCode:--${response.statusCode}");
-        print("||---->response.statusMessage:--${response.statusMessage}");
-        print("||---->response.headers:--${response.headers}");
+        // print("||---->response.statusCode:--${response.statusCode}");
+        // print("||---->response.statusMessage:--${response.statusMessage}");
+        // print("||---->response.headers:--${response.headers}");
         // print("||---->response.requestOptions:--${response.requestOptions}");
         // print("||---->response.isRedirect:--${response.isRedirect}");
         // print("||---->response.extra:--${response.extra}");

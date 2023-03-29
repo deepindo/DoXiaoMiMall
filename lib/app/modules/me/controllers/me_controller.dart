@@ -71,6 +71,7 @@ class MeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    print("*---*>:MeController onInit");
     _requestBannerData();
     _requestGoodsData();
     getUserInfo();
@@ -84,6 +85,13 @@ class MeController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    print("*---*>:MeController onClose");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print("*---*>:MeController dispose");
   }
 
   ///下拉刷新
@@ -113,11 +121,16 @@ class MeController extends GetxController {
 
   void getUserInfo() async {
     isLogin.value = await DoUserService.isLogin();
-    var data = await DoUserService.getUserInfo();
-    if (data != []) {
-      // userInfoList.value = data;
-      model.value = UserModel.fromJson(data[0]);
-      update();
+
+    ///首次运行app，在onInit中调用本函数，此时没有登录，不应该继续进行下面的，否则会报错
+    ///Unhandled Exception: RangeError (index): Invalid value: Valid value range is empty: 0
+    if (isLogin.value) {
+      var data = await DoUserService.getUserInfo();
+      if (data != []) {
+        // userInfoList.value = data;
+        model.value = UserModel.fromJson(data[0]);
+        update();
+      }
     }
   }
 

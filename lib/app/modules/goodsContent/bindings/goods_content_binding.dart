@@ -8,5 +8,11 @@ class GoodsContentBinding extends Bindings {
     Get.lazyPut<GoodsContentController>(
       () => GoodsContentController(),
     );
+
+    ///多例
+    // Get.create<GoodsContentController>(
+    //   () => GoodsContentController(),
+    //   permanent: false,
+    // );
   }
 }

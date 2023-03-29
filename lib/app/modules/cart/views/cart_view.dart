@@ -63,11 +63,30 @@ class CartView extends GetView<CartController> {
   Widget _body() {
     ///这里为了保证实时渲染，用GetBuilder替换Obx，底部浮动也需要控制，所以对整体添加的
     return GetBuilder<CartController>(
+        init: controller,
+
+        ///对于多例，使用Get.create方式创建时，
+        ///需要取消GetBuilder的全局模式
+        // global: false,
         initState: (state) {
+          print("*---*>:CartView GetBuilder -initState");
+          print(state);
+
           ///这里每次update都会执行
           controller.getLocalCartList();
         },
-        init: controller,
+        didChangeDependencies: (state) {
+          print("*---*>:CartView GetBuilder -didChangeDependencies");
+          print(state);
+        },
+        didUpdateWidget: (oldWidget, state) {
+          print("*---*>:CartView GetBuilder -didUpdateWidget");
+          print(state);
+        },
+        dispose: (state) {
+          print("*---*>:CartView GetBuilder -dispose");
+          print(state);
+        },
         builder: (controller) {
           return controller.cartList.isNotEmpty
               ? Stack(
@@ -373,11 +392,17 @@ class CartView extends GetView<CartController> {
                   const NeverScrollableScrollPhysics(), //禁止自身滚动，让外面的listView滚动
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {
+                  onTap: () async {
                     if (Get.arguments == null) {
                       Get.toNamed("/goods-content", arguments: {
                         "sid": controller.goodsList[index].sId,
                         "isCanJumpCart": false
+                      })!
+                          .then((value) {
+                        ///返回购物车后执行这个
+                        print("*---*>:CartView Get.toNamed -then");
+                        print(value);
+                        controller.onRefresh();
                       });
                     }
                   },
@@ -478,7 +503,13 @@ class CartView extends GetView<CartController> {
         ///要判断来源
         if (Get.arguments == null) {
           Get.toNamed("/goods-content",
-              arguments: {"sid": element["sId"], "isCanJumpCart": false});
+                  arguments: {"sid": element["sId"], "isCanJumpCart": false})!
+              .then((value) {
+            ///返回购物车后执行这个
+            print("*---*>:CartView Get.toNamed -then");
+            print(value);
+            controller.onRefresh();
+          });
         }
       },
       child: Container(

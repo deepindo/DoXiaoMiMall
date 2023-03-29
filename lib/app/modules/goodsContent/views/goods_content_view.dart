@@ -196,6 +196,10 @@ class GoodsContentView extends GetView<GoodsContentController> {
 
   ///_singleChildScrollView
   Widget _singleChildScrollView() {
+    // return GetBuilder(
+    //   init: controller,
+    //   global: false,
+    //   builder: (controller) {
     return SingleChildScrollView(
       controller: controller.scrollController,
       child: Column(
@@ -207,6 +211,8 @@ class GoodsContentView extends GetView<GoodsContentController> {
         ],
       ),
     );
+    //   },
+    // );
   }
 
   ///底部浮动操作区域-添加到购物车

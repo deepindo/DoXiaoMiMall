@@ -96,7 +96,7 @@ class AppPages {
     // ),
     GetPage(
       name: _Paths.CART,
-      page: () => CartView(),
+      page: () => const CartView(),
       // binding: CartBinding(),
     ),
     // GetPage(

@@ -24,6 +24,10 @@ void main() {
             title: "Application",
             initialRoute: AppPages.INITIAL,
             getPages: AppPages.routes,
+            onInit: () {
+              print("GetMaterialApp onInit");
+            },
+            // initialBinding: ,
             debugShowCheckedModeBanner: false,
             theme: ThemeData(primarySwatch: Colors.grey),
             defaultTransition: Transition.rightToLeft,

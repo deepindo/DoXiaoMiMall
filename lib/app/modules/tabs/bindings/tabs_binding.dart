@@ -22,17 +22,28 @@ class TabsBinding extends Bindings {
     Get.lazyPut<ServiceController>(
       () => ServiceController(),
     );
-    // Get.lazyPut<CartController>(
+
+    ///:购物车
+    Get.lazyPut<CartController>(
+      () => CartController(),
+      fenix: true,
+    );
+    // Get.put<CartController>(
+    //   CartController(),
+    // );
+    ///多例实现方式
+    // Get.create<CartController>(
     //   () => CartController(),
+    //   permanent: false,
     // );
-    Get.put<CartController>(
-      CartController(),
+
+    ///:我的
+    Get.lazyPut<MeController>(
+      () => MeController(),
+      fenix: true,
     );
-    // Get.lazyPut<MeController>(
-    //   () => MeController(),
+    // Get.put<MeController>(
+    //   MeController(),
     // );
-    Get.put<MeController>(
-      MeController(),
-    );
   }
 }
