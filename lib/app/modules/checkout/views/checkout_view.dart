@@ -255,7 +255,8 @@ class CheckoutView extends GetView<CheckoutController> {
       if (controller.defaultAddressList.isEmpty) {
         return InkWell(
           onTap: () {
-            Get.toNamed("/address-create");
+            Get.toNamed("/address-create")!
+                .then((value) => controller.requestAddressData());
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
@@ -630,15 +631,17 @@ class CheckoutView extends GetView<CheckoutController> {
                                             InkWell(
                                                 onTap: () {
                                                   Get.back();
-                                                  print(
-                                                      "------到底传入的什么${e.name}");
+                                                  // print(
+                                                  // "------到底传入的什么${e.name}");
                                                   Get.toNamed("/address-modify",
-                                                      arguments: {
+                                                          arguments: {
                                                         "sId": e.sId,
                                                         "name": e.name,
                                                         "phone": e.phone,
                                                         "address": e.address,
-                                                      });
+                                                      })!
+                                                      .then((value) => controller
+                                                          .requestAddressData());
                                                 },
                                                 child: Padding(
                                                   padding:
@@ -696,7 +699,8 @@ class CheckoutView extends GetView<CheckoutController> {
                       child: InkWell(
                         onTap: () {
                           Get.back();
-                          Get.toNamed("/address-create");
+                          Get.toNamed("/address-create")!
+                              .then((value) => controller.requestAddressData());
                         },
                         child: Container(
                           margin: EdgeInsets.fromLTRB(

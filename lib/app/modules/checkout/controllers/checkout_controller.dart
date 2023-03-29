@@ -20,8 +20,7 @@ class CheckoutController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    requestDefaultAddress();
-    requestAllAddressList();
+    requestAddressData();
   }
 
   @override
@@ -32,6 +31,12 @@ class CheckoutController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  ///两个接口一起调用
+  void requestAddressData() {
+    requestDefaultAddress();
+    requestAllAddressList();
   }
 
   ///请求默认收货地址
@@ -81,8 +86,7 @@ class CheckoutController extends GetxController {
       if (data != null) {
         if (data["success"]) {
           EasyLoading.showSuccess(data["message"]);
-          requestDefaultAddress();
-          requestAllAddressList();
+          requestAddressData();
         } else {
           EasyLoading.showError(data["message"]);
         }

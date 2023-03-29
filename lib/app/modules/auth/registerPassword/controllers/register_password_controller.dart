@@ -26,6 +26,15 @@ class RegisterPasswordController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    // passwordController.clear();
+    // confirmPasswordController.clear();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // passwordController.dispose();
+    // confirmPasswordController.dispose();
   }
 
   ///更新注册按钮状态

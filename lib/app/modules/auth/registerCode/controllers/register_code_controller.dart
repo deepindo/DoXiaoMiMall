@@ -26,6 +26,13 @@ class RegisterCodeController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    // codeController.clear();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // codeController.dispose();
   }
 
   ///倒计时

@@ -84,7 +84,8 @@ class AddressManagerView extends GetView<AddressManagerController> {
         bottom: 0,
         child: InkWell(
           onTap: () {
-            Get.toNamed("/address-create");
+            Get.toNamed("/address-create")!
+                .then((value) => controller.requestAddressList());
           },
           child: Container(
             decoration: const BoxDecoration(
@@ -143,7 +144,8 @@ class AddressManagerView extends GetView<AddressManagerController> {
           "name": element.name,
           "phone": element.phone,
           "address": element.address,
-        });
+        })!
+            .then((value) => controller.requestAddressList());
       },
       child: Container(
         color: Colors.white,

@@ -5,8 +5,8 @@ import '../../../../models/user_model.dart';
 import '../../../../services/app_network.dart';
 import '../../../../services/app_userService.dart';
 import '../../../../services/app_signService.dart';
-import '../../../checkout/controllers/checkout_controller.dart';
-import '../../addressManager/controllers/address_manager_controller.dart';
+// import '../../../checkout/controllers/checkout_controller.dart';
+// import '../../addressManager/controllers/address_manager_controller.dart';
 
 class AddressCreateController extends GetxController {
   // final AddressManagerController controller = Get.find();
@@ -21,6 +21,7 @@ class AddressCreateController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    print("*---*>:AddressCreateController onInit");
   }
 
   @override
@@ -31,11 +32,30 @@ class AddressCreateController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    print("AddressCreateController---onClose");
+    print("*---*>:AddressCreateController onClose");
     // controller.requestAddressList();
-    Get.find<CheckoutController>().requestDefaultAddress();
-    Get.find<CheckoutController>().requestAllAddressList();
-    Get.find<AddressManagerController>().requestAddressList();
+    // Get.find<CheckoutController>().requestDefaultAddress();
+    // Get.find<CheckoutController>().requestAllAddressList();
+    // Get.find<AddressManagerController>().requestAddressList();
+
+    ///不清空数据，会出现错乱
+    ///或者上次的数据会依然存在，那怕这只是一个创建页面
+    usernameController.clear();
+    phoneController.clear();
+    addressDistrictController.clear();
+    addressDetailController.clear();
+    pasteController.clear();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print("*---*>:AddressCreateController dispose");
+    usernameController.dispose();
+    phoneController.dispose();
+    addressDistrictController.dispose();
+    addressDetailController.dispose();
+    pasteController.dispose();
   }
 
   ///改变是否是默认switch

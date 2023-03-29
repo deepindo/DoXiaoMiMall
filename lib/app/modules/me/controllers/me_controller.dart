@@ -74,7 +74,7 @@ class MeController extends GetxController {
     print("*---*>:MeController onInit");
     _requestBannerData();
     _requestGoodsData();
-    getUserInfo();
+    // getUserInfo();
   }
 
   @override
@@ -120,6 +120,7 @@ class MeController extends GetxController {
   }
 
   void getUserInfo() async {
+    print("getUserInfo");
     isLogin.value = await DoUserService.isLogin();
 
     ///首次运行app，在onInit中调用本函数，此时没有登录，不应该继续进行下面的，否则会报错

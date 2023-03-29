@@ -5,7 +5,7 @@ import '../../../../models/user_model.dart';
 import '../../../../services/app_network.dart';
 import '../../../../services/app_signService.dart';
 import '../../../../services/app_userService.dart';
-import '../../addressManager/controllers/address_manager_controller.dart';
+// import '../../addressManager/controllers/address_manager_controller.dart';
 
 class AddressModifyController extends GetxController {
   TextEditingController usernameController = TextEditingController();
@@ -33,7 +33,26 @@ class AddressModifyController extends GetxController {
   void onClose() {
     super.onClose();
     print("AddressModifyController---onClose");
-    Get.find<AddressManagerController>().requestAddressList();
+    // Get.find<AddressManagerController>().requestAddressList();
+
+    ///不清空数据，会出现错乱
+    ///或者上次的数据会依然存在，那怕上次的编辑页面已经关闭了
+    usernameController.clear();
+    phoneController.clear();
+    addressDistrictController.clear();
+    addressDetailController.clear();
+    pasteController.clear();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print("*---*>:AddressCreateController dispose");
+    usernameController.dispose();
+    phoneController.dispose();
+    addressDistrictController.dispose();
+    addressDetailController.dispose();
+    pasteController.dispose();
   }
 
   ///初始化上个页面传过来的值

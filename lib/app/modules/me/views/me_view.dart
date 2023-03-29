@@ -81,7 +81,7 @@ class MeView extends GetView<MeController> {
         ),
         InkWell(
           onTap: () {
-            Get.toNamed("/setting");
+            Get.toNamed("/setting")!.then((value) => controller.getUserInfo());
           },
           child: Container(
               padding: EdgeInsets.only(
@@ -223,7 +223,12 @@ class MeView extends GetView<MeController> {
                 ///一键登录页面，UI有了
                 // Get.toNamed("/one-click-login");
                 ///验证码登录
-                Get.toNamed("/verification-code-login");
+                Get.toNamed("/verification-code-login")!.then((value) {
+                  ///这个then只是下一个子页面关闭时调用，比如我->手机号输入->验证码输入，
+                  ///这样的流程，在手机号输入后，就会执行下面的步骤，所以不行，此时还没有登录，还是得沿用之前的Get.find方法
+                  print("这个then只是下一个子页面关闭时调用");
+                  // controller.getUserInfo();
+                });
               },
               child: Row(
                 children: [
@@ -773,7 +778,8 @@ class MeView extends GetView<MeController> {
                     Get.toNamed("/goods-content", arguments: {
                       "sid": controller.goodsList[index].sId,
                       "isCanJumpCart": true,
-                    });
+                    })!
+                        .then((value) => controller.getUserInfo());
                   },
                   child: Container(
                     decoration: BoxDecoration(

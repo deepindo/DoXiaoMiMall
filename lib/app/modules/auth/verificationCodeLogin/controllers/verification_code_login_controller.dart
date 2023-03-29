@@ -22,6 +22,13 @@ class VerificationCodeLoginController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    // phoneController.clear();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // phoneController.dispose();
   }
 
   ///获取验证码
