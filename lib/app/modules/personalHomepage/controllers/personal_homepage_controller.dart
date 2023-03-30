@@ -9,7 +9,7 @@ class PersonalHomepageController extends GetxController {
   RxString avatarPath = "".obs;
 
   final ImagePicker picker = ImagePicker();
-  XFile? xFile;
+  // XFile? xFile;
 
   @override
   void onInit() {
