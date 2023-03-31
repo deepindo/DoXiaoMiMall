@@ -51,13 +51,13 @@ dependencies:
   city_pickers: ^1.2.1
   crypto: ^3.0.2
   flutter_swipe_action_cell: ^3.1.0
+  webview_flutter: ^4.0.5
+  flutter_native_splash: ^2.2.19
   # device_info_plus: ^8.1.0
   # connectivity_plus: ^3.0.3
   # url_launcher: ^6.1.10
   # path_provider: ^2.0.13
   # photo_view: ^0.14.0
-  webview_flutter: ^4.0.5
-  flutter_native_splash: ^2.2.19
 
   #--------第三方功能相关--------
   # camera: ^0.10.3+2 #暂时没用上

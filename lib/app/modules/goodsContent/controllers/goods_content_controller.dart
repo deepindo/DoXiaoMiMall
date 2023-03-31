@@ -148,7 +148,6 @@ class GoodsContentController extends GetxController {
     // var data = await DoNetwork().get("api/pcontent?id=$sid");
     //上下两种写法有没有什么区别
     var data = await DoNetwork().get("api/pcontent?id=${Get.arguments["sid"]}");
-
     model.value = GoodsContentModel.fromJson(data).result!;
 
     /*

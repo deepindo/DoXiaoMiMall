@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_html/flutter_html.dart';
+import '../../../services/app_screenAdapter.dart';
 import '../controllers/goods_content_controller.dart';
 
 class GoodsContentDetailsView extends GetView {
@@ -38,10 +39,22 @@ class GoodsContentDetailsView extends GetView {
       } else {}
 
       return Html(
+        shrinkWrap: true,
         data: data ?? "",
         style: {
           "body": Style(backgroundColor: Colors.white),
-          "p": Style(fontSize: FontSize.large),
+
+          ///段落标签，默认不处理，在安卓手机上会显示一块空白，Display.inline显示成一条线，基本看不见
+          "p": Style(
+              backgroundColor: Colors.white,
+              display: Display.inline,
+              fontSize: FontSize(DoScreenAdapter.fs(12))),
+          "span": Style(
+              backgroundColor: Colors.white,
+              fontSize: FontSize(DoScreenAdapter.fs(12))),
+
+          ///分行标签，默认不处理，在安卓手机上会显示大块空白，Display.none
+          "br": Style(backgroundColor: Colors.white, display: Display.none),
         },
       );
     });
