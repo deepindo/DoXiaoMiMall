@@ -5,6 +5,7 @@ import '../../../services/app_sharedPreferences.dart';
 String FIRSTLAUNCHKEY = "FirstLaunch";
 
 class SplashController extends GetxController {
+  late Timer timer;
   RxBool isShowGuide = false.obs;
   RxInt seconds = 5.obs;
   RxList guideImgList = [
@@ -42,7 +43,7 @@ class SplashController extends GetxController {
 
   ///初始化定时器
   void _initTimer() {
-    Timer.periodic(const Duration(milliseconds: 1000), (timer) {
+    timer = Timer.periodic(const Duration(milliseconds: 1000), (timer) {
       seconds.value--;
 
       if (seconds.value <= 0) {
@@ -55,8 +56,6 @@ class SplashController extends GetxController {
 
   void setLaunchedFlag(String launched) async {
     await setFirstLaunch(launched);
-    // isShowGuide.value = true;
-    // update();
   }
 
   ///跳转到主页

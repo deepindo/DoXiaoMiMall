@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
+import '../../../services/app_colors.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../controllers/splash_controller.dart';
 
@@ -21,32 +22,56 @@ class SplashView extends GetView<SplashController> {
 
   ///广告页
   Widget _advertisingPage() {
-    return InkWell(
-      onTap: () {
-        Get.toNamed("/web", arguments: {
-          "url": "https://book.flutterchina.club/chapter12/flutter_web.html"
-        });
-      },
-      child: Stack(
-        children: [
-          Image.asset(
-            'assets/images/launch_02.png',
-            fit: BoxFit.cover,
-            width: DoScreenAdapter.screenW(),
-            height: DoScreenAdapter.screenH(),
+    return Stack(
+      children: [
+        //后续这个走接口配置
+        Image.asset(
+          'assets/images/launch_02.png',
+          fit: BoxFit.cover,
+          width: DoScreenAdapter.screenW(),
+          height: DoScreenAdapter.screenH(),
+        ),
+        Positioned(
+          top: DoScreenAdapter.navH() + DoScreenAdapter.h(10),
+          right: DoScreenAdapter.w(20),
+          child: InkWell(
+            onTap: () {
+              controller.jumpToMain();
+            },
+            child: _skipButton(),
           ),
-          Positioned(
-            top: DoScreenAdapter.navH() + DoScreenAdapter.h(10),
-            right: DoScreenAdapter.w(20),
+        ),
+        Positioned(
+            left: (DoScreenAdapter.screenW() - DoScreenAdapter.w(170)) * 0.5,
+            right: (DoScreenAdapter.screenW() - DoScreenAdapter.w(170)) * 0.5,
+            bottom: DoScreenAdapter.adapterBottomH() + DoScreenAdapter.h(30),
+            height: DoScreenAdapter.h(35),
             child: InkWell(
               onTap: () {
-                controller.jumpToMain();
+                ///取消定时器，不然到时间会自动执行跳转
+                controller.timer.cancel();
+                //后续这个走接口配置
+                Get.toNamed("/web", arguments: {
+                  "url":
+                      "https://book.flutterchina.club/chapter12/flutter_web.html"
+                })!
+                    .then((value) => controller.jumpToMain());
               },
-              child: _skipButton(),
-            ),
-          ),
-        ],
-      ),
+              child: Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(DoScreenAdapter.w(35))),
+                child: Text(
+                  "查看详情",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: DoScreenAdapter.fs(14),
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            )),
+      ],
     );
   }
 
@@ -54,7 +79,7 @@ class SplashView extends GetView<SplashController> {
   Widget _skipButton() {
     return Container(
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.6),
+          color: Colors.black.withOpacity(0.2),
           borderRadius: BorderRadius.circular(DoScreenAdapter.w(25)),
         ),
         width: DoScreenAdapter.w(50),
@@ -85,8 +110,7 @@ class SplashView extends GetView<SplashController> {
 
   ///引导页
   Widget _guidePage() {
-    return Container(
-      color: Colors.white,
+    return SizedBox(
       width: DoScreenAdapter.screenW(),
       height: DoScreenAdapter.screenH(),
       child: Obx(
@@ -94,18 +118,8 @@ class SplashView extends GetView<SplashController> {
           autoplay: false,
           loop: false,
           itemCount: controller.guideImgList.length,
-          onIndexChanged: (value) {
-            // if (value == controller.guideImgList.length - 1) {
-            //   controller.setLaunchedFlag("launched");
-            //   controller.jumpToMain();
-            // }
-          },
-          onTap: (index) {
-            if (index == controller.guideImgList.length - 1) {
-              controller.setLaunchedFlag("launched");
-              controller.jumpToMain();
-            }
-          },
+          onIndexChanged: (value) {},
+          onTap: (index) {},
           // pagination: const SwiperPagination(builder: SwiperPagination.rect),
           pagination: SwiperPagination(
               margin: const EdgeInsets.all(0.0),
@@ -120,7 +134,7 @@ class SplashView extends GetView<SplashController> {
                         child: Align(
                           alignment: Alignment.center,
                           child: const RectSwiperPaginationBuilder(
-                            color: Colors.black12,
+                            color: DoColors.gray154,
                             activeColor: Colors.white,
                           ).build(context, config),
                         ),
@@ -130,9 +144,47 @@ class SplashView extends GetView<SplashController> {
                 );
               })),
           itemBuilder: (context, index) {
-            return Image.asset(
-              controller.guideImgList[index],
-              fit: BoxFit.fill,
+            return Stack(
+              children: [
+                Image.asset(
+                  controller.guideImgList[index],
+                  fit: BoxFit.fill,
+                ),
+                index == controller.guideImgList.length - 1
+                    ? Positioned(
+                        left: (DoScreenAdapter.screenW() -
+                                DoScreenAdapter.w(170)) *
+                            0.5,
+                        right: (DoScreenAdapter.screenW() -
+                                DoScreenAdapter.w(170)) *
+                            0.5,
+                        bottom: DoScreenAdapter.adapterBottomH(),
+                        height: DoScreenAdapter.h(35),
+                        child: InkWell(
+                          onTap: () {
+                            controller.setLaunchedFlag("launched");
+                            controller.jumpToMain();
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white),
+                                borderRadius: BorderRadius.circular(
+                                    DoScreenAdapter.w(35))),
+                            child: Text(
+                              "进入app",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: DoScreenAdapter.fs(14),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ))
+                    : const Positioned(
+                        left: 0,
+                        bottom: 0,
+                        child: SizedBox(width: 0, height: 0)),
+              ],
             );
           },
         ),
