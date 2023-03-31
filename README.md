@@ -46,9 +46,10 @@
 ### 各子页面(iOS为例)
 
 <div align=center>
-<img src="./screenshot/common/036.PNG" width="150"/>
-<img src="./screenshot/common/037.PNG" width="150"/>
-<img src="./screenshot/common/038.PNG" width="150"/>
+<img src="./screenshot/common/039.PNG" width="150"/>
+<img src="./screenshot/common/040.PNG" width="150"/>
+<img src="./screenshot/common/041.PNG" width="150"/>
+<img src="./screenshot/common/042.PNG" width="150"/>
 <img src="./screenshot/common/001.PNG" width="150"/>
 <img src="./screenshot/common/002.PNG" width="150"/>
 <img src="./screenshot/common/003.PNG" width="150"/>
@@ -77,6 +78,9 @@
 <img src="./screenshot/common/026.PNG" width="150"/>
 <img src="./screenshot/common/027.PNG" width="150"/>
 <img src="./screenshot/common/028.PNG" width="150"/>
+<img src="./screenshot/common/036.PNG" width="150"/>
+<img src="./screenshot/common/037.PNG" width="150"/>
+<img src="./screenshot/common/038.PNG" width="150"/>
 </div>
 
 ## Done
