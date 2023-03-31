@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 下面运行报错 -->
+    <!-- <item>
+        <color android:color="@android:color/red"/>
+    </item> -->
     <item>
         <bitmap android:gravity="fill" android:src="@drawable/background"/>
     </item>
-    <item>
-        <bitmap android:gravity="center" android:src="@drawable/splash"/>
+    <item android:bottom="100dp">
+        <bitmap android:gravity="bottom" android:src="@drawable/splash"/>
     </item>
+    <item android:bottom="30dp">
+        <bitmap android:gravity="bottom" android:src="@drawable/slogan"/>
+    </item>
+    <!-- <item android:top="200dp">
+        <text android:gravity="center" 
+        android:height="32dp" 
+        android:width="32dp" 
+        android:viewportHeight="200" 
+        android:viewportWidth="200"/> -->
+        <!-- android:elevation="5dp"  -->
+        <!-- android:src="@drawable/text" -->
+        <!-- android:fillColor="@android:color/red" -->
+        <!-- android:hint="测试" -->
+    <!-- </item> -->
 </layer-list>
