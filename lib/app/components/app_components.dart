@@ -35,6 +35,7 @@ Widget commonEmptyView(String title) {
 ///通用ListTile
 Widget commonListTile(String data, {void Function()? onTap}) {
   return Container(
+    color: Colors.white,
     // height: DoScreenAdapter.h(40), //用于改变ListTile的高
     // alignment: Alignment.centerLeft,
     child: ListTile(

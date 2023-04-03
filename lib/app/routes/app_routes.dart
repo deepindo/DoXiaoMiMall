@@ -43,6 +43,7 @@ abstract class Routes {
   static const AFTER_SALE = _Paths.AFTER_SALE;
   static const THEME = _Paths.THEME;
   static const WEB = _Paths.WEB;
+  static const ABOUT = _Paths.ABOUT;
 }
 
 abstract class _Paths {
@@ -87,4 +88,5 @@ abstract class _Paths {
   static const AFTER_SALE = '/after-sale';
   static const THEME = '/theme';
   static const WEB = '/web';
+  static const ABOUT = '/about';
 }

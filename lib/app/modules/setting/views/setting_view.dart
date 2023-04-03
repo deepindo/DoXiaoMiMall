@@ -47,14 +47,14 @@ class SettingView extends GetView<SettingController> {
               : const SizedBox(width: 0),
 
           commonListTile("小米商城隐私政策", onTap: () {
-            // print("小米商城隐私政策");
+            Get.toNamed("/web", arguments: {
+              "url": "https://book.flutterchina.club/chapter12/flutter_web.html"
+            });
           }),
           commonListTile("小米商城隐私政策-简要版", onTap: () {}),
           Container(height: DoScreenAdapter.h(10), color: DoColors.gray238),
           commonListTile("关于商城", onTap: () {
-            Get.toNamed("/web", arguments: {
-              "url": "https://book.flutterchina.club/chapter12/flutter_web.html"
-            });
+            Get.toNamed("/about");
           }),
           commonListTile("网络诊断", onTap: () {}),
           commonListTile("个人信息收集与使用清单", onTap: () {}),
@@ -79,6 +79,7 @@ class SettingView extends GetView<SettingController> {
           Get.toNamed("/profile");
         },
         child: Container(
+          color: Colors.white,
           height: DoScreenAdapter.h(50),
           padding: EdgeInsets.symmetric(horizontal: DoScreenAdapter.w(10)),
           child: Row(

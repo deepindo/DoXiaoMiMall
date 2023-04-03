@@ -195,7 +195,7 @@ class GoodsListView extends GetView<GoodsListController> {
                   left: 0,
                   right: 0,
                   // top: 0,
-                  top: DoScreenAdapter.statusH(), //Drawer默认有顶部状态栏高左右的间距么？
+                  top: DoScreenAdapter.statusH(),
                   bottom: DoScreenAdapter.adapterBottomH(),
                   child: ListView.builder(
                       padding: EdgeInsets.symmetric(
@@ -222,7 +222,8 @@ class GoodsListView extends GetView<GoodsListController> {
                                   children: [
                                     Text("${listItem["title"]}",
                                         style: TextStyle(
-                                            fontSize: DoScreenAdapter.fs(12))),
+                                            fontSize: DoScreenAdapter.fs(12),
+                                            fontWeight: FontWeight.bold)),
                                     gridItemList.length > 3
                                         ? IconButton(
                                             onPressed: () {
@@ -274,7 +275,7 @@ class GoodsListView extends GetView<GoodsListController> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: DoScreenAdapter.w(2)),
                                         decoration: BoxDecoration(
-                                            color: DoColors.gray238,
+                                            color: DoColors.gray249,
                                             borderRadius: BorderRadius.circular(
                                                 DoScreenAdapter.w(5))),
                                         alignment: Alignment.center,

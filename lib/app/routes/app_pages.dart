@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/about/bindings/about_binding.dart';
+import '../modules/about/views/about_view.dart';
 import '../modules/address/addressCreate/bindings/address_create_binding.dart';
 import '../modules/address/addressCreate/views/address_create_view.dart';
 import '../modules/address/addressManager/bindings/address_manager_binding.dart';
@@ -278,6 +280,11 @@ class AppPages {
       name: _Paths.WEB,
       page: () => const WebView(),
       binding: WebBinding(),
+    ),
+    GetPage(
+      name: _Paths.ABOUT,
+      page: () => const AboutView(),
+      binding: AboutBinding(),
     ),
   ];
 }
