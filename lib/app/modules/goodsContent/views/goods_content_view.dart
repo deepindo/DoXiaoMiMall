@@ -348,7 +348,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                     },
                     child: Container(
                       margin: EdgeInsets.fromLTRB(
-                        DoScreenAdapter.w(8),
+                        DoScreenAdapter.w(10),
                         DoScreenAdapter.h(10),
                         DoScreenAdapter.w(0),
                         DoScreenAdapter.h(10),
@@ -669,7 +669,7 @@ class GoodsContentView extends GetView<GoodsContentController> {
                                       },
                                       child: Container(
                                         margin: EdgeInsets.fromLTRB(
-                                          DoScreenAdapter.w(8),
+                                          DoScreenAdapter.w(10),
                                           DoScreenAdapter.h(10),
                                           DoScreenAdapter.w(0),
                                           DoScreenAdapter.h(10),

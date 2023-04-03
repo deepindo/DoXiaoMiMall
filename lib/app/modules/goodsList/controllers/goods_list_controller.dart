@@ -41,13 +41,99 @@ class GoodsListController extends GetxController {
   RxInt currentHeaderSort = 0.obs;
   String sortFields = "";
 
+  ///drawer中过滤字段
+  List<Map> filterWordsList = [
+    {
+      "title": "服务与折扣",
+      "unfold": false,
+      "list": [
+        {"uniId": "s0", "title": "促销"},
+        {"uniId": "s1", "title": "分期"},
+        {"uniId": "s2", "title": "仅看有货"}
+      ]
+    },
+    {
+      "title": "分类",
+      "unfold": false,
+      "list": [
+        {"uniId": "s0", "title": "红米笔记本"},
+        {"uniId": "s1", "title": "电池更换服务"},
+        {"uniId": "s2", "title": "小米笔记本"},
+        {"uniId": "s3", "title": "显示器"},
+        {"uniId": "s4", "title": "贴纸"},
+        {"uniId": "s5", "title": "笔记本主板维修服务"},
+        {"uniId": "s6", "title": "笔记本清洁保养服务"},
+        {"uniId": "s7", "title": "电脑包"},
+      ]
+    },
+    {
+      "title": "屏幕尺寸",
+      "unfold": false,
+      "list": [
+        {"uniId": "s0", "title": "较大屏幕"},
+        {"uniId": "s1", "title": "中等屏幕"},
+        {"uniId": "s2", "title": "23.8英寸"},
+        {"uniId": "s3", "title": "21.45英寸"},
+        {"uniId": "s4", "title": "27英寸"},
+      ]
+    },
+    {
+      "title": "显卡类型",
+      "unfold": false,
+      "list": [
+        {"uniId": "s0", "title": "集显"},
+        {"uniId": "s1", "title": "NVIDIA GeForce"},
+        {"uniId": "s2", "title": "RTX2050"},
+        {"uniId": "s3", "title": "RTX3050"},
+        {"uniId": "s4", "title": "RTX3060"},
+        {"uniId": "s5", "title": "RTX3050 Ti"},
+        {"uniId": "s6", "title": "MX550"},
+        {"uniId": "s7", "title": "AMD Radeon G"},
+        {"uniId": "s8", "title": "Intel Iris Gra"}
+      ]
+    },
+    {
+      "title": "内存容量",
+      "unfold": false,
+      "list": [
+        {"uniId": "s0", "title": "超大内存"},
+      ]
+    },
+    {
+      "title": "屏幕分辨率",
+      "unfold": false,
+      "list": [
+        {"uniId": "s0", "title": "3200x2000"},
+        {"uniId": "s1", "title": "2560x1600"},
+        {"uniId": "s2", "title": "2800x1800"},
+        {"uniId": "s3", "title": "3840x2400"},
+        {"uniId": "s4", "title": "3456x2160"}
+      ]
+    },
+    {
+      "title": "固态硬盘",
+      "unfold": false,
+      "list": [
+        {"uniId": "s0", "title": "512GB"},
+        {"uniId": "s1", "title": "512GB PCIe SSD"}
+      ]
+    },
+    {
+      "title": "电池容量",
+      "unfold": false,
+      "list": [
+        {"uniId": "s0", "title": "56Wh"},
+        {"uniId": "s1", "title": "72Wh"},
+        {"uniId": "s2", "title": "55.02Wh"},
+        {"uniId": "s3", "title": "70Wh"},
+        {"uniId": "s4", "title": "80Wh"},
+      ]
+    },
+  ];
+
   @override
   void onInit() {
     super.onInit();
-
-    _addScrollControllerListener();
-    // _requestGoodsListData();
-    // onRefresh();
     requestData();
   }
 
@@ -63,8 +149,6 @@ class GoodsListController extends GetxController {
 
   ///下拉刷新
   void onRefresh() {
-    // print("onRefresh");
-
     ///重置
     page = 1;
     // isHaveData.value = true;
@@ -96,11 +180,19 @@ class GoodsListController extends GetxController {
     // }
   }
 
+  ///点击条件筛选展开按钮
+  void unfoldFilter(int index) {
+    filterWordsList[index]["unfold"] = !filterWordsList[index]["unfold"];
+    update();
+  }
+
+  ///打开价格排序
   void openSortPrice() {
     isOpenSortPrice.value = true;
     update();
   }
 
+  ///关闭价格排序
   void closeSortPrice() {
     isOpenSortPrice.value = false;
     update();
@@ -137,55 +229,6 @@ class GoodsListController extends GetxController {
     update();
   }
 
-  void _addScrollControllerListener() {
-    scrollController.addListener(() {
-      ///滚动距离接近
-      // if (scrollController.position.pixels >
-      //     scrollController.position.maxScrollExtent - 30) {
-      //   ///加载下一页
-      //   _requestGoodsListData();
-      // }
-    });
-  }
-
-/*
-  ///请求商品列表数据
-  void _requestGoodsListData() async {
-    if (flag && isHaveData.value) {
-      flag = false;
-      print("_requestGoodsListData");
-
-      ///cid与search字段没有做兼容，不能完整拼在一起，得分开传
-      /// String fullPath = "api/plist?pageSize=${pageSize}&page=${page}&cid=${cid}&search=${searchWords}";
-      if (cid != null) {
-        fullPath =
-            "api/plist?pageSize=$pageSize&page=$page&cid=$cid&sort=$sortFields";
-      }
-
-      if (searchWords != null) {
-        fullPath =
-            "api/plist?pageSize=$pageSize&page=$page&search=$searchWords&sort=$sortFields";
-      }
-
-      print("fullPath---$fullPath");
-
-      var data = await DoNetwork().get(fullPath);
-      // goodsList.value = GoodsModel.fromJson(data).result!;
-      ///采用分页加载
-      goodsList.addAll(GoodsModel.fromJson(data).result!);
-
-      update();
-
-      flag = true;
-      page++;
-
-      ///当前这次请求的数据小于一页的数据，则证明没有数据了
-      if (GoodsModel.fromJson(data).result!.length < pageSize) {
-        isHaveData.value = false;
-      }
-    }
-  }
-*/
   ///请求数据的方法
   void requestData() async {
     if (cid != null) {
@@ -197,7 +240,7 @@ class GoodsListController extends GetxController {
       fullPath =
           "api/plist?pageSize=$pageSize&page=$page&search=$searchWords&sort=$sortFields";
     }
-    print("fullPath---$fullPath");
+    // print("fullPath---$fullPath");
 
     var data = await DoNetwork().get(fullPath);
     goodsList.addAll(GoodsModel.fromJson(data).result!);
