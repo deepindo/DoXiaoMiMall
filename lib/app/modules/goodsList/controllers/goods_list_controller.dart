@@ -9,6 +9,9 @@ class GoodsListController extends GetxController {
   RefreshController refreshController =
       RefreshController(initialRefresh: false);
 
+  ///是否开始价格排序
+  RxBool isOpenSortPrice = false.obs;
+
   ///分页相关
   int page = 1;
   int pageSize = 10;
@@ -93,21 +96,30 @@ class GoodsListController extends GetxController {
     // }
   }
 
+  void openSortPrice() {
+    isOpenSortPrice.value = true;
+    update();
+  }
+
+  void closeSortPrice() {
+    isOpenSortPrice.value = false;
+    update();
+  }
+
   ///点击header不同文字
   void changeHeaderId(int id) {
     selectHeaderId.value = id;
-    if (id == 4) {
-      scaffoldGlobalKey.currentState!.openEndDrawer();
-    } else if (id == 3) {
-      ///暂不处理，没有接口
-    } else {
-      ///根据点击的拼接排序字段
-      sortFields =
-          "${headerMapList[id]["fields"]}_${headerMapList[id]["sort"]}";
+    // if (id == 4) {
+    //   scaffoldGlobalKey.currentState!.openEndDrawer();
+    // } else if (id == 3) {
+    //   ///暂不处理，没有接口
+    // } else {
+    ///根据点击的拼接排序字段
+    sortFields = "${headerMapList[id]["fields"]}_${headerMapList[id]["sort"]}";
 
-      ///通过乘以-1，来切换排序字段也是可以的
-      headerMapList[id]["sort"] = headerMapList[id]["sort"] * -1;
-      currentHeaderSort.value = headerMapList[id]["sort"];
+    ///通过乘以-1，来切换排序字段也是可以的
+    headerMapList[id]["sort"] = headerMapList[id]["sort"] * -1;
+    currentHeaderSort.value = headerMapList[id]["sort"];
 
 /*
       ///各变量重置
@@ -119,9 +131,9 @@ class GoodsListController extends GetxController {
       /// 重新请求
       _requestGoodsListData();
       */
-      //直接执行
-      onRefresh();
-    }
+    //直接执行
+    onRefresh();
+    // }
     update();
   }
 

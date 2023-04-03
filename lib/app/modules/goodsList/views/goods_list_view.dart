@@ -13,7 +13,8 @@ class GoodsListView extends GetView<GoodsListController> {
     return Scaffold(
       key: controller.scaffoldGlobalKey,
       appBar: _customAppBar(),
-      endDrawer: const Drawer(),
+      endDrawer: _filterDrawer(),
+      // endDrawer: _filterDrawerController(),
       body: Obx(() =>
           // controller.goodsList.isNotEmpty
           //     ?
@@ -105,7 +106,18 @@ class GoodsListView extends GetView<GoodsListController> {
                   flex: 1,
                   child: InkWell(
                     onTap: () {
-                      controller.changeHeaderId(element["id"]);
+                      if (element["id"] == 0 || element["id"] == 1) {
+                        controller.closeSortPrice();
+                        controller.changeHeaderId(element["id"]);
+                      } else if (element["id"] == 2) {
+                        controller.openSortPrice();
+                        controller.changeHeaderId(element["id"]);
+                      } else if (element["id"] == 4) {
+                        controller.scaffoldGlobalKey.currentState!
+                            .openEndDrawer();
+                      } else {
+                        Get.snackbar("提示", "暂无此条件");
+                      }
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center, //这是内部文字与图标的
@@ -113,7 +125,6 @@ class GoodsListView extends GetView<GoodsListController> {
                       children: [
                         Text(
                           "${element["title"]}",
-                          // textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 14,
                               color: controller.selectHeaderId.value ==
@@ -121,101 +132,134 @@ class GoodsListView extends GetView<GoodsListController> {
                                   ? DoColors.theme
                                   : Colors.black54),
                         ),
-                        _showIcon(element["id"]),
+                        _trailingWidget(element["id"]),
                       ],
                     ),
                   ));
             }).toList(),
-            // [
-            //   Expanded(
-            //       flex: 1,
-            //       child: InkWell(
-            //         onTap: () {
-            //           // print("object");
-            //         },
-            //         child: const Text(
-            //           "综合",
-            //           textAlign: TextAlign.center,
-            //           style: TextStyle(fontSize: 14, color: DoColors.theme),
-            //         ),
-            //       )),
-            //   Expanded(
-            //       flex: 1,
-            //       child: InkWell(
-            //         onTap: () {},
-            //         child: const Text(
-            //           "销量",
-            //           textAlign: TextAlign.center,
-            //           style: TextStyle(
-            //             fontSize: 14,
-            //           ),
-            //         ),
-            //       )),
-            //   Expanded(
-            //       flex: 1,
-            //       child: InkWell(
-            //         onTap: () {},
-            //         child: Row(
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           children: const [
-            //             Text(
-            //               "价格",
-            //               textAlign: TextAlign.center,
-            //               style: TextStyle(
-            //                 fontSize: 14,
-            //               ),
-            //             ),
-            //             Icon(Icons.arrow_drop_down_outlined),
-            //           ],
-            //         ),
-            //       )),
-            //   Expanded(
-            //       flex: 1,
-            //       child: InkWell(
-            //         onTap: () {},
-            //         child: const Text(
-            //           "新品优先",
-            //           textAlign: TextAlign.center,
-            //           style: TextStyle(
-            //             fontSize: 14,
-            //           ),
-            //         ),
-            //       )),
-            //   Expanded(
-            //       flex: 1,
-            //       child: InkWell(
-            //         onTap: () {
-            //           ///打开scaffold上面的endDrawer
-            //           controller.scaffoldGlobalKey.currentState!.openEndDrawer();
-            //         },
-            //         child: const Text(
-            //           "筛选",
-            //           textAlign: TextAlign.center,
-            //           style: TextStyle(
-            //             fontSize: 14,
-            //           ),
-            //         ),
-            //       )),
-            // ],
           ),
         ),
       ),
     );
   }
 
-  Widget _showIcon(int id) {
-    if (id == 1 ||
-        id == 2 ||
-        controller.currentHeaderSort.value == 1 ||
-        controller.currentHeaderSort.value == -1) {
-      return controller.headerMapList[id]["sort"] == -1
-          ? const Icon(Icons.arrow_drop_up)
-          : const Icon(Icons.arrow_drop_down);
+  ///价格指示图标
+  Widget _trailingWidget(int id) {
+    if (id == 2) {
+      if (controller.isOpenSortPrice.value) {
+        // return controller.headerMapList[id]["sort"] == -1
+        //     ? const Icon(Icons.arrow_drop_up, color: DoColors.theme)
+        //     : const Icon(Icons.arrow_drop_down, color: DoColors.theme);
+        return controller.headerMapList[id]["sort"] == -1
+            ? Padding(
+                padding: EdgeInsets.all(DoScreenAdapter.w(5)),
+                child: Image.asset("assets/icons/arrow_up_down_up.png",
+                    width: DoScreenAdapter.w(10),
+                    height: DoScreenAdapter.w(10)))
+            : Padding(
+                padding: EdgeInsets.all(DoScreenAdapter.w(5)),
+                child: Image.asset("assets/icons/arrow_up_down_down.png",
+                    width: DoScreenAdapter.w(10),
+                    height: DoScreenAdapter.w(10)));
+      } else {
+        // return const Icon(Icons.double_arrow_sharp);
+        return Padding(
+          padding: EdgeInsets.all(DoScreenAdapter.w(5)),
+          child: Image.asset("assets/icons/arrow_up_down_none.png",
+              width: DoScreenAdapter.w(10), height: DoScreenAdapter.w(10)),
+        );
+      }
     } else {
       return const SizedBox(
         width: 0,
       );
     }
+    // if (id == 1 ||
+    //     id == 2 ||
+    //     controller.currentHeaderSort.value == 1 ||
+    //     controller.currentHeaderSort.value == -1) {
+    //   return controller.headerMapList[id]["sort"] == -1
+    //       ? const Icon(Icons.arrow_drop_up)
+    //       : const Icon(Icons.arrow_drop_down);
+    // } else {
+    //   return const SizedBox(
+    //     width: 0,
+    //   );
+    // }
+  }
+
+  // Widget _filterDrawerController() {
+  //   return DrawerController(
+  //     alignment: DrawerAlignment.start,
+  //     child: _filterDrawer(),
+  //   );
+  // }
+
+  Widget _filterDrawer() {
+    double w =
+        (DoScreenAdapter.screenW() * 0.8 - DoScreenAdapter.w(10) * 4) / 3;
+    double h = DoScreenAdapter.h(20);
+    return Drawer(
+      width: DoScreenAdapter.screenW() * 0.8,
+      child: Stack(
+        children: [
+          Positioned(
+              left: 0,
+              right: 0,
+              top: 0,
+              // top: DoScreenAdapter.statusH(),
+              bottom: DoScreenAdapter.adapterBottomH(),
+              child: ListView(
+                children: [
+                  Text("data"),
+                  GridView.builder(
+                    itemCount: 10,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    // scrollDirection: Axis.vertical,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: DoScreenAdapter.w(10),
+                        crossAxisSpacing: DoScreenAdapter.w(10),
+                        childAspectRatio: w / h),
+                    itemBuilder: (context, index) {
+                      return Container(
+                        alignment: Alignment.center,
+                        child: Text("促销"),
+                      );
+                    },
+                  ),
+                ],
+              )),
+          Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: DoScreenAdapter.adapterBottomH(),
+              child: Container(
+                child: Container(
+                  color: Colors.cyan,
+                  margin: EdgeInsets.only(bottom: DoScreenAdapter.bottomH()),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        child: Text("重置"),
+                      ),
+                      Container(
+                        child: Text("确定"),
+                      ),
+                    ],
+                  ),
+                ),
+                color: DoColors.theme,
+                // height: DoScreenAdapter.h(20),
+                // width: DoScreenAdapter.w(100),
+              ))
+        ],
+      ),
+      // alignment: DrawerAlignment.start,
+    );
   }
 
   /// 列表页

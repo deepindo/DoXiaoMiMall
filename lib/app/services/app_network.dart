@@ -7,6 +7,7 @@ const String bannerPath = "api/focus/";
 const String bestBannerPath = "api/focus?position=2";
 const String bestCategoryPath = "api/bestCate/";
 const String goodsPath = "api/plist/?is_best=1";
+// const String goodsPath = "api/plist/"; //这个只能搜索到几条数据，有电视机
 const String hotGoodsPath = "api/plist?is_hot=1&pageSize=3";
 
 ///--分类--
