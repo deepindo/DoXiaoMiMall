@@ -33,9 +33,12 @@ class AboutView extends GetView<AboutController> {
                 height: DoScreenAdapter.w(50),
                 child: Image.asset("assets/images/logo.png")),
             SizedBox(height: DoScreenAdapter.h(5)),
-            Text(controller.versionNumber,
-                style: TextStyle(
-                    fontSize: DoScreenAdapter.fs(14), color: DoColors.gray168)),
+            Obx(
+              () => Text("${controller.versionNumber.value}",
+                  style: TextStyle(
+                      fontSize: DoScreenAdapter.fs(14),
+                      color: DoColors.gray168)),
+            ),
             SizedBox(height: DoScreenAdapter.h(20)),
           ],
         ),

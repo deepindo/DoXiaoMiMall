@@ -36,6 +36,7 @@ class SplashView extends GetView<SplashController> {
           right: DoScreenAdapter.w(20),
           child: InkWell(
             onTap: () {
+              controller.timer.cancel();
               controller.jumpToMain();
             },
             child: _skipButton(),

@@ -106,6 +106,7 @@ class HomeController extends GetxController {
     _requestBestBannerData();
     _requestHotGoodsData();
     _requestGoodsData();
+    update();
   }
 
   ///请求顶部banner数据
@@ -113,7 +114,7 @@ class HomeController extends GetxController {
     // print("_requestBannerData");
     var data = await DoNetwork().get(bannerPath);
     bannerList.value = BannerModel.fromJson(data).result!;
-    update();
+    // update();
   }
 
   ///请求热销分类数据
@@ -121,7 +122,7 @@ class HomeController extends GetxController {
     // print("_requestCategoryData");
     var data = await DoNetwork().get(bestCategoryPath);
     categoryList.value = CategoryModel.fromJson(data).result!;
-    update();
+    // update();
   }
 
   ///请求热销banner数据
@@ -129,7 +130,7 @@ class HomeController extends GetxController {
     // print("_requestBestBannerData");
     var data = await DoNetwork().get(bestBannerPath);
     bestBannerList.value = BannerModel.fromJson(data).result!;
-    update();
+    // update();
   }
 
   ///请求热销商品数据
@@ -137,7 +138,7 @@ class HomeController extends GetxController {
     // print("_requestHotGoodsData");
     var data = await DoNetwork().get(hotGoodsPath);
     hotGoodsList.value = GoodsModel.fromJson(data).result!;
-    update();
+    // update();
   }
 
   ///请求瀑布流商品数据
@@ -145,6 +146,6 @@ class HomeController extends GetxController {
     // print("_requestGoodsData");
     var data = await DoNetwork().get(goodsPath);
     goodsList.value = GoodsModel.fromJson(data).result!;
-    update();
+    // update();
   }
 }

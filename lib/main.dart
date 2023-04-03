@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'app/services/app_colors.dart';
 import 'app/services/app_language.dart';
 import 'app/routes/app_pages.dart';
@@ -20,7 +19,7 @@ void main() {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // Be sure to add this line if `PackageInfo.fromPlatform()` is called before runApp()
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
 
   runApp(
     ScreenUtilInit(
