@@ -18,7 +18,7 @@ class OrderListView extends GetView<OrderListController> {
   }
 
   ///自定义appBar
-  PreferredSizeWidget _customAppBar() {
+  AppBar _customAppBar() {
     return AppBar(
       title: const Text('商城订单'),
       centerTitle: true,
