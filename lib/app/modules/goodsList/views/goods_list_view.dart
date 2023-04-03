@@ -183,179 +183,188 @@ class GoodsListView extends GetView<GoodsListController> {
     double w =
         (DoScreenAdapter.screenW() * 0.8 - DoScreenAdapter.w(10) * 4) / 3;
     double h = DoScreenAdapter.h(20);
-    return Drawer(
-      backgroundColor: Colors.white,
-      width: DoScreenAdapter.screenW() * 0.8,
-      child: Stack(
-        children: [
-          Positioned(
-            left: 0,
-            right: 0,
-            // top: 0,
-            top: DoScreenAdapter.statusH(), //Drawer默认有顶部状态栏高左右的间距么？
-            bottom: DoScreenAdapter.adapterBottomH(),
-            child: ListView.builder(
-                padding: EdgeInsets.symmetric(
-                  horizontal: DoScreenAdapter.w(10),
-                  vertical: DoScreenAdapter.h(5),
-                ),
-                shrinkWrap: true,
-                itemCount: controller.filterWordsList.length,
-                itemBuilder: (context, index) {
-                  ///取值
-                  Map listItem = controller.filterWordsList[index];
-                  bool unfold = listItem["unfold"];
-                  List gridItemList = listItem["list"];
+    return GetBuilder<GoodsListController>(
+        init: controller,
+        builder: (controller) {
+          return Drawer(
+            backgroundColor: Colors.white,
+            width: DoScreenAdapter.screenW() * 0.8,
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  // top: 0,
+                  top: DoScreenAdapter.statusH(), //Drawer默认有顶部状态栏高左右的间距么？
+                  bottom: DoScreenAdapter.adapterBottomH(),
+                  child: ListView.builder(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: DoScreenAdapter.w(10),
+                        vertical: DoScreenAdapter.h(5),
+                      ),
+                      shrinkWrap: true,
+                      itemCount: controller.filterWordsList.length,
+                      itemBuilder: (context, index) {
+                        ///取值
+                        Map listItem = controller.filterWordsList[index];
+                        bool unfold = listItem["unfold"];
+                        List gridItemList = listItem["list"];
 
-                  return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          color: Colors.white,
-                          height: DoScreenAdapter.h(30),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("${listItem["title"]}",
-                                  style: TextStyle(
-                                      fontSize: DoScreenAdapter.fs(12))),
-                              gridItemList.length > 3
-                                  ? IconButton(
-                                      onPressed: () {
-                                        controller.unfoldFilter(index);
-                                      },
-                                      icon: Icon(
-                                        unfold
-                                            ? Icons.keyboard_arrow_up_outlined
-                                            : Icons
-                                                .keyboard_arrow_down_outlined,
-                                        color: DoColors.gray168,
-                                        size: 18,
-                                      ))
-                                  : const SizedBox(
-                                      width: 0,
-                                      height: 0,
-                                    ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          color: Colors.white,
-                          child: GridView.builder(
-                              itemCount: unfold
-                                  ? gridItemList.length
-                                  : (gridItemList.length > 3
-                                      ? 3
-                                      : gridItemList.length),
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              // padding: EdgeInsets.zero, //这个不设置，top默认有大间距
-                              padding: EdgeInsets.only(
-                                  bottom: DoScreenAdapter.h(10)),
-                              scrollDirection: Axis.vertical,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                mainAxisSpacing: DoScreenAdapter.w(10),
-                                crossAxisSpacing: DoScreenAdapter.w(10),
-                                childAspectRatio: w / h,
+                              Container(
+                                color: Colors.white,
+                                height: DoScreenAdapter.h(30),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("${listItem["title"]}",
+                                        style: TextStyle(
+                                            fontSize: DoScreenAdapter.fs(12))),
+                                    gridItemList.length > 3
+                                        ? IconButton(
+                                            onPressed: () {
+                                              controller.unfoldFilter(index);
+                                            },
+                                            icon: Icon(
+                                              unfold
+                                                  ? Icons
+                                                      .keyboard_arrow_up_outlined
+                                                  : Icons
+                                                      .keyboard_arrow_down_outlined,
+                                              color: DoColors.gray168,
+                                              size: 18,
+                                            ))
+                                        : const SizedBox(
+                                            width: 0,
+                                            height: 0,
+                                          ),
+                                  ],
+                                ),
                               ),
-                              itemBuilder: (context, i) {
-                                ///取值
-                                Map gridItem = gridItemList[i];
+                              Container(
+                                color: Colors.white,
+                                child: GridView.builder(
+                                    itemCount: unfold
+                                        ? gridItemList.length
+                                        : (gridItemList.length > 3
+                                            ? 3
+                                            : gridItemList.length),
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    // padding: EdgeInsets.zero, //这个不设置，top默认有大间距
+                                    padding: EdgeInsets.only(
+                                        bottom: DoScreenAdapter.h(10)),
+                                    scrollDirection: Axis.vertical,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      mainAxisSpacing: DoScreenAdapter.w(10),
+                                      crossAxisSpacing: DoScreenAdapter.w(10),
+                                      childAspectRatio: w / h,
+                                    ),
+                                    itemBuilder: (context, i) {
+                                      ///取值
+                                      Map gridItem = gridItemList[i];
 
-                                return Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: DoScreenAdapter.w(2)),
+                                      return Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: DoScreenAdapter.w(2)),
+                                        decoration: BoxDecoration(
+                                            color: DoColors.gray238,
+                                            borderRadius: BorderRadius.circular(
+                                                DoScreenAdapter.w(5))),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${gridItem["title"]}",
+                                          softWrap: true,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontSize: DoScreenAdapter.fs(12)),
+                                        ),
+                                      );
+                                    }),
+                              )
+                            ]);
+                      }),
+                ),
+                Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    height: DoScreenAdapter.adapterBottomH(),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          border: Border(
+                              top: BorderSide(
+                                  width: 0.5, color: DoColors.gray238))),
+                      child: Container(
+                        color: Colors.white,
+                        margin:
+                            EdgeInsets.only(bottom: DoScreenAdapter.bottomH()),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: DoScreenAdapter.w(10),
+                            vertical: DoScreenAdapter.h(10)),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: InkWell(
+                                onTap: () {
+                                  Get.snackbar("提示", "重置");
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                       color: DoColors.gray238,
                                       borderRadius: BorderRadius.circular(
-                                          DoScreenAdapter.w(5))),
+                                          DoScreenAdapter.w(30))),
+                                  child: Text("重置",
+                                      style: TextStyle(
+                                          color: DoColors.black128,
+                                          fontSize: DoScreenAdapter.fs(13))),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: DoScreenAdapter.w(10)),
+                            Expanded(
+                              flex: 1,
+                              child: InkWell(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: Container(
                                   alignment: Alignment.center,
-                                  child: Text(
-                                    "${gridItem["title"]}",
-                                    softWrap: true,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: DoScreenAdapter.fs(12)),
-                                  ),
-                                );
-                              }),
-                        )
-                      ]);
-                }),
-          ),
-          Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              height: DoScreenAdapter.adapterBottomH(),
-              child: Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                        top: BorderSide(width: 0.5, color: DoColors.gray238))),
-                child: Container(
-                  color: Colors.white,
-                  margin: EdgeInsets.only(bottom: DoScreenAdapter.bottomH()),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: DoScreenAdapter.w(10),
-                      vertical: DoScreenAdapter.h(10)),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: InkWell(
-                          onTap: () {
-                            Get.snackbar("提示", "重置");
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: DoColors.gray238,
-                                borderRadius: BorderRadius.circular(
-                                    DoScreenAdapter.w(30))),
-                            child: Text("重置",
-                                style: TextStyle(
-                                    color: DoColors.black128,
-                                    fontSize: DoScreenAdapter.fs(13))),
-                          ),
+                                  decoration: BoxDecoration(
+                                      gradient: const LinearGradient(
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          colors: [
+                                            DoColors.redBegin,
+                                            DoColors.redEnd
+                                          ]),
+                                      borderRadius: BorderRadius.circular(
+                                          DoScreenAdapter.w(30))),
+                                  child: Text("确定",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: DoScreenAdapter.fs(13))),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(width: DoScreenAdapter.w(10)),
-                      Expanded(
-                        flex: 1,
-                        child: InkWell(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
-                                    colors: [
-                                      DoColors.redBegin,
-                                      DoColors.redEnd
-                                    ]),
-                                borderRadius: BorderRadius.circular(
-                                    DoScreenAdapter.w(30))),
-                            child: Text("确定",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: DoScreenAdapter.fs(13))),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ))
-        ],
-      ),
-    );
+                    ))
+              ],
+            ),
+          );
+        });
   }
 
   /// 列表页
