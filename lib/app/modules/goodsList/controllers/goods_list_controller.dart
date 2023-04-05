@@ -11,6 +11,8 @@ class GoodsListController extends GetxController {
 
   ///是否开始价格排序
   RxBool isOpenSortPrice = false.obs;
+  RxBool isShowTopSheet = false.obs;
+  RxBool isShowCover = false.obs;
 
   ///分页相关
   int page = 1;
@@ -34,7 +36,7 @@ class GoodsListController extends GetxController {
     {"id": 0, "title": "综合", "fields": "all", "sort": -1},
     {"id": 1, "title": "销量", "fields": "salecount", "sort": -1},
     {"id": 2, "title": "价格", "fields": "price", "sort": -1},
-    {"id": 3, "title": "新品优先"},
+    {"id": 3, "title": "显卡类型"}, //新品优先
     {"id": 4, "title": "筛选"},
   ];
   RxInt selectHeaderId = 0.obs;
@@ -195,6 +197,16 @@ class GoodsListController extends GetxController {
   ///关闭价格排序
   void closeSortPrice() {
     isOpenSortPrice.value = false;
+    update();
+  }
+
+  void showTopSheet() {
+    isShowTopSheet.value = !isShowTopSheet.value;
+    update();
+  }
+
+  void showTopSheetCover() {
+    isShowCover.value = !isShowCover.value;
     update();
   }
 
