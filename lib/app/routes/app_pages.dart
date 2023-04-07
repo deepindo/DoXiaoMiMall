@@ -71,12 +71,11 @@ import '../modules/vipMedal/bindings/vip_medal_binding.dart';
 import '../modules/vipMedal/views/vip_medal_view.dart';
 import '../modules/web/bindings/web_binding.dart';
 import '../modules/web/views/web_view.dart';
-
+import 'app_middleWare.dart';
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
-
   static const INITIAL = Routes.SPLASH;
 
   static final routes = [
@@ -91,6 +90,7 @@ class AppPages {
       binding: TabsBinding(),
       transition: Transition.fadeIn, //比如从空的购物车直接跳过来，不能使用rightToLeft
       transitionDuration: const Duration(milliseconds: 100),
+      // middlewares: [DoMiddlewares()], //中间件-对于强登录型app需要设置
     ),
     // GetPage(
     //   name: _Paths.HOME,
