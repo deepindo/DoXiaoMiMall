@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_html/flutter_html.dart';
+// import 'package:sticky_headers/sticky_headers.dart';
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import '../../../services/app_screenAdapter.dart';
 import '../controllers/goods_content_controller.dart';
 
@@ -16,12 +18,9 @@ class GoodsContentDetailsView extends GetView {
       key: controller.gk1,
       color: Colors.white,
       width: double.infinity,
-      child: Column(
-        children: [
-          subHeader(),
-          _htmlWidget(),
-        ],
-      ),
+      // child: StickyHeader(header: subHeader(), content: _htmlWidget()),
+      // child: SliverStickyHeader(header: subHeader(), sliver: _htmlWidget()),
+      child: Column(children: [subHeader(), _htmlWidget()]),
     );
   }
 
