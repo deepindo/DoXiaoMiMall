@@ -6,7 +6,7 @@ class DoMiddlewares extends GetMiddleware {
   RxBool isLogined = false.obs;
   void judgeIsLogined() async {
     isLogined.value = await DoUserService.isLogin();
-    print(isLogined.value);
+    // print(isLogined.value);
   }
 
   @override
