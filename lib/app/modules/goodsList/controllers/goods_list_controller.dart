@@ -12,7 +12,7 @@ class GoodsListController extends GetxController {
   ///是否开始价格排序
   RxBool isOpenSortPrice = false.obs;
   RxBool isShowTopSheet = false.obs;
-  RxBool isShowCover = false.obs;
+  // RxBool isShowCover = false.obs;
 
   ///分页相关
   int page = 1;
@@ -200,15 +200,20 @@ class GoodsListController extends GetxController {
     update();
   }
 
-  void showTopSheet() {
+  void switchTopSheet() {
     isShowTopSheet.value = !isShowTopSheet.value;
     update();
   }
 
-  void showTopSheetCover() {
-    isShowCover.value = !isShowCover.value;
+  void hiddenTopSheet() {
+    isShowTopSheet.value = false;
     update();
   }
+
+  // void showTopSheetCover() {
+  //   isShowCover.value = !isShowCover.value;
+  //   update();
+  // }
 
   ///点击header不同文字
   void changeHeaderId(int id) {

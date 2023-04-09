@@ -142,8 +142,13 @@ class GoodsListView extends GetView<GoodsListController> {
     );
   }
 
+  ///展示下弹框
   void _showDropdownMenu() {
-    // controller.showTopSheet();
+    ///方法一:
+    controller.switchTopSheet();
+    return;
+
+    ///方法二:
     // RenderBox renderBox = _globalKey1.currentContext.findRenderObject();
     // Rect box = renderBox.localToGlobal(Offset.zero) & renderBox.size;
     double topH = DoScreenAdapter.statusH() +
@@ -161,64 +166,7 @@ class GoodsListView extends GetView<GoodsListController> {
             contentView: _dropdownView()));
   }
 
-  Widget _dropdownDialog() {
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.topCenter,
-            color: Colors.white.withOpacity(0),
-            height: DoScreenAdapter.statusH() +
-                DoScreenAdapter.navH() +
-                DoScreenAdapter.h(40),
-          ),
-          _dropdownView()
-        ],
-      ),
-    );
-  }
-
-  // Widget _dropdownView() {
-  //   return Container(
-  //     color: Colors.white,
-  //     alignment: Alignment.topCenter,
-  //     height: DoScreenAdapter.h(180),
-  //     child: ListView.builder(
-  //       padding: EdgeInsets.zero,
-  //       shrinkWrap: true,
-  //       itemCount: 20,
-  //       itemBuilder: (context, index) {
-  //         return InkWell(
-  //           onTap: () {
-  //             Get.back();
-  //           },
-  //           child: Column(
-  //             children: [
-  //               Container(
-  //                 height: DoScreenAdapter.h(30),
-  //                 padding: EdgeInsets.symmetric(
-  //                     horizontal: DoScreenAdapter.h(10),
-  //                     vertical: DoScreenAdapter.w(0)),
-  //                 child: Row(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                   children: [
-  //                     Text("集显$index",
-  //                         style: TextStyle(fontSize: DoScreenAdapter.fs(14))),
-  //                     Icon(Icons.check_outlined,
-  //                         size: DoScreenAdapter.fs(14), color: DoColors.gray238)
-  //                   ],
-  //                 ),
-  //               ),
-  //               Container(
-  //                   color: DoColors.gray238, height: DoScreenAdapter.h(0.5))
-  //             ],
-  //           ),
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
-
+  ///弹出框列表视图
   Widget _dropdownView() {
     return Container(
       color: DoColors.gray249,
@@ -227,52 +175,50 @@ class GoodsListView extends GetView<GoodsListController> {
       child: Stack(
         children: [
           Positioned(
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: DoScreenAdapter.h(40),
-            child: Container(
-              alignment: Alignment.topCenter,
-              height: DoScreenAdapter.h(140),
-              padding: EdgeInsets.zero,
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                itemCount: 20,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Column(
-                      children: [
-                        Container(
-                          height: DoScreenAdapter.h(30),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: DoScreenAdapter.h(10),
-                              vertical: DoScreenAdapter.w(0)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: DoScreenAdapter.h(40),
+              child: Container(
+                  alignment: Alignment.topCenter,
+                  height: DoScreenAdapter.h(140),
+                  padding: EdgeInsets.zero,
+                  child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      itemCount: 20,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: Column(
                             children: [
-                              Text("集显$index",
-                                  style: TextStyle(
-                                      fontSize: DoScreenAdapter.fs(14))),
-                              Icon(Icons.check_outlined,
-                                  size: DoScreenAdapter.fs(14),
-                                  color: DoColors.gray238)
+                              Container(
+                                height: DoScreenAdapter.h(30),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: DoScreenAdapter.h(10),
+                                    vertical: DoScreenAdapter.w(0)),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("集显$index",
+                                        style: TextStyle(
+                                            fontSize: DoScreenAdapter.fs(14))),
+                                    Icon(Icons.check_outlined,
+                                        size: DoScreenAdapter.fs(14),
+                                        color: DoColors.gray238)
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                  color: DoColors.gray238,
+                                  height: DoScreenAdapter.h(0.5))
                             ],
                           ),
-                        ),
-                        Container(
-                            color: DoColors.gray238,
-                            height: DoScreenAdapter.h(0.5))
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
+                        );
+                      }))),
           Positioned(
             left: 0,
             right: 0,
@@ -330,140 +276,62 @@ class GoodsListView extends GetView<GoodsListController> {
     );
   }
 
+  ///方法二：
   ///顶部弹出框
   Widget _topSheet() {
+    double popupH = DoScreenAdapter.screenH() -
+        DoScreenAdapter.statusH() -
+        DoScreenAdapter.navH();
+    double hideY = -popupH;
+    double showY = DoScreenAdapter.h(40);
+
     return Positioned(
-      left: 0,
-      right: 0,
-      top: 0,
-      height: DoScreenAdapter.screenH(),
-      child: AnimatedContainer(
-        onEnd: () {
-          controller.showTopSheetCover();
-        },
-        // color: Colors.black.withOpacity(0.2),
-        alignment: Alignment.topCenter,
-        height: DoScreenAdapter.screenH(),
-        duration: const Duration(seconds: 1, milliseconds: 100),
-        transform: controller.isShowTopSheet.value
-            ? Matrix4.translationValues(0, DoScreenAdapter.h(40), 0)
-            : Matrix4.translationValues(0, -DoScreenAdapter.screenH(), 0),
-        child: Column(
+        left: 0,
+        right: 0,
+        top: 0,
+        height: popupH,
+        child: Stack(
           children: [
-            Container(
-              color: DoColors.gray249,
-              alignment: Alignment.topCenter,
-              height: DoScreenAdapter.h(180),
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: DoScreenAdapter.h(40),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 20,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            Container(
-                              height: DoScreenAdapter.h(30),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: DoScreenAdapter.h(10),
-                                  vertical: DoScreenAdapter.w(0)),
-                              // color: DoColors.gray249,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("集显$index",
-                                      style: TextStyle(
-                                          fontSize: DoScreenAdapter.fs(14))),
-                                  Icon(Icons.check_outlined,
-                                      size: DoScreenAdapter.fs(14),
-                                      color: DoColors.gray238)
-                                ],
-                              ),
-                            ),
-                            Container(
-                                color: DoColors.gray238,
-                                height: DoScreenAdapter.h(0.5))
-                          ],
-                        );
+            Positioned(
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                child: AnimatedOpacity(
+                  opacity: controller.isShowTopSheet.value ? 0.5 : 0,
+                  duration: const Duration(milliseconds: 600),
+                  child: IgnorePointer(
+                    //忽略点击事件，不影响下层的点击事件
+                    //AbsorbPointer消费掉点击事件，下层也收不到，不会做出相应
+                    ignoring: controller.isShowTopSheet.value ? false : true,
+                    child: InkWell(
+                      onLongPress: () {
+                        controller.hiddenTopSheet();
                       },
-                    ),
-                  ),
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                      // color: DoColors.gray249,
-                      height: DoScreenAdapter.h(40),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: DoScreenAdapter.w(10),
-                          vertical: DoScreenAdapter.h(5)),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(
-                                      DoScreenAdapter.w(20))),
-                              child: Text("重置",
-                                  style: TextStyle(
-                                      // color: Colors.white,
-                                      fontSize: DoScreenAdapter.fs(14))),
-                            ),
-                          ),
-                          SizedBox(width: DoScreenAdapter.w(10)),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: DoColors.theme,
-                                  borderRadius: BorderRadius.circular(
-                                      DoScreenAdapter.w(20))),
-                              child: Text("确定",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: DoScreenAdapter.fs(14))),
-                            ),
-                          )
-                        ],
+                      onTap: () {
+                        controller.hiddenTopSheet();
+                      },
+                      child: Container(
+                        color: Colors.black,
                       ),
                     ),
-                  )
-                ],
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                controller.showTopSheet();
-                controller.showTopSheetCover();
-              },
-              child: AnimatedOpacity(
-                onEnd: () {
-                  // controller.showTopSheetCover();
-                },
-                curve: Curves.bounceInOut,
-                opacity: controller.isShowCover.value ? 0.3 : 0,
-                duration: const Duration(milliseconds: 100),
-                child: Container(
-                  height: DoScreenAdapter.screenH() - DoScreenAdapter.h(180),
-                  color: Colors.black.withOpacity(0.3),
-                ),
-              ),
+                  ),
+                )),
+            Positioned(
+              left: 0,
+              right: 0,
+              top: 0,
+              child: AnimatedContainer(
+                  alignment: Alignment.topCenter,
+                  height: popupH,
+                  duration: const Duration(milliseconds: 500),
+                  transform: controller.isShowTopSheet.value
+                      ? Matrix4.translationValues(0, showY, 0)
+                      : Matrix4.translationValues(0, hideY, 0),
+                  child: _dropdownView()),
             ),
           ],
-        ),
-      ),
-    );
+        ));
   }
 
   ///价格指示图标
