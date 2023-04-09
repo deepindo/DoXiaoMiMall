@@ -36,7 +36,7 @@ class GoodsListController extends GetxController {
     {"id": 0, "title": "综合", "fields": "all", "sort": -1},
     {"id": 1, "title": "销量", "fields": "salecount", "sort": -1},
     {"id": 2, "title": "价格", "fields": "price", "sort": -1},
-    {"id": 3, "title": "显卡类型"}, //新品优先
+    {"id": 3, "title": "新品优先"}, //新品优先
     {"id": 4, "title": "筛选"},
   ];
   RxInt selectHeaderId = 0.obs;

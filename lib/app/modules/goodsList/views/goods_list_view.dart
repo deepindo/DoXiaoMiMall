@@ -21,7 +21,7 @@ class GoodsListView extends GetView<GoodsListController> {
           Stack(
             children: [
               _listView(),
-              _topSheet(),
+              _dropdownPositioned(),
               _listHeader(),
             ],
             // children: [const Center(child: Text("没有更多数据了")), _listHeader()],
@@ -280,7 +280,7 @@ class GoodsListView extends GetView<GoodsListController> {
 
   ///方法二：
   ///顶部弹出框
-  Widget _topSheet() {
+  Widget _dropdownPositioned() {
     double popupH = DoScreenAdapter.screenH() -
         DoScreenAdapter.statusH() -
         DoScreenAdapter.navH();
@@ -306,7 +306,10 @@ class GoodsListView extends GetView<GoodsListController> {
                     //忽略点击事件，不影响下层的点击事件
                     //AbsorbPointer消费掉点击事件，下层也收不到，不会做出相应
                     ignoring: controller.isShowTopSheet.value ? false : true,
-                    child: InkWell(
+                    child: GestureDetector(
+                      onVerticalDragStart: (details) {
+                        controller.hiddenTopSheet();
+                      },
                       onLongPress: () {
                         controller.hiddenTopSheet();
                       },

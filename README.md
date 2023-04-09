@@ -46,6 +46,8 @@
 ### 各子页面(iOS为例)
 
 <div align=center>
+<img src="./screenshot/common/044.PNG" width="150"/>
+<img src="./screenshot/common/043.PNG" width="150"/>
 <img src="./screenshot/common/039.PNG" width="150"/>
 <img src="./screenshot/common/040.PNG" width="150"/>
 <img src="./screenshot/common/041.PNG" width="150"/>
@@ -115,7 +117,8 @@
 - [x] app引导页
 - [x] 闪屏活动页功能(可配置)
 - [x] 版本信息获取与展示
-
+- [x] Badge
+- [x] 过滤筛选向下弹框
 
 ### 目录结构
 
@@ -196,17 +199,16 @@
   flutter_native_splash: ^2.2.19
   image_picker: ^0.8.6+4
   barcode_scan2: ^4.2.3
+  badges: ^3.0.3
 ```
 
 ## ToDo
 
 ### Improve
-- [x] 商品列表：过滤按钮展示从上往下弹出的弹框;
 - [x] 商品详情页：详情及推荐头部切换(包含点击与滑动)时，二级头部(商品介绍与规格参数)展示有细微误差,其中包含了二级头部内容长度不同时的问题待修正;
 - [x] 商品详情页中点击购物车，在购物车推荐列表再点击商品进入购物车，如此循环嵌套，其中涉及的商品详情页及购物车整体结构还需要完善;
 
 ### Features
-- [x] Badge
 - [x] 集成地图定位
 - [x] 视频录制及播放功能
 - [x] 集成埋点统计
