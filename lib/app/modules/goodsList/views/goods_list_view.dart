@@ -190,7 +190,8 @@ class GoodsListView extends GetView<GoodsListController> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                            Get.back();
+                            controller.hiddenTopSheet(); //对于第一种方法用这个
+                            // Get.back();//对于第二种方法用这个
                           },
                           child: Column(
                             children: [
@@ -252,7 +253,8 @@ class GoodsListView extends GetView<GoodsListController> {
                     flex: 1,
                     child: InkWell(
                       onTap: () {
-                        Get.back();
+                        controller.hiddenTopSheet(); //对于第一种方法用这个
+                        // Get.back();//对于第二种方法用这个
                       },
                       child: Container(
                         alignment: Alignment.center,
